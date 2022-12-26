@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knowledge Barter</title>
+    <link rel="stylesheet" href="	https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/aa20ca73f1.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <!-- Nav bar -->
+    <section id="nav-bar">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <img src="./images/logo.png" alt="" width="60" height="35">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active text-light" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="#">Lessons</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="#">Courses</a>
+                        </li>
+                        <li class="nav-item">
+                            <form class="d-flex" role="search">
+                                <input class="form-control me-2 text-light" type="search" placeholder="Search"
+                                    aria-label="Search">
+                                <button class="btn btn-outline-warning" type="submit">Search</button>
+                            </form>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav me-auto-reverse mb-2 mb-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-light" href="#" style=" font-weight: 600;
+              font-size: large; padding-right: 20px; " id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Create
+                            </a>
+                            <ul class="dropdown-menu text-light" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#">Lesson</a></li>
+                                <li><a class="dropdown-item" href="#">Course</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-light" href="#" style=" font-weight: 600;
+              font-size: large; padding-right: 20px;" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                KBPoints: 100
+                            </a>
+                            <ul class="dropdown-menu text-light" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#">Buy</a></li>
+                                <li><a class="dropdown-item" href="#">Info</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-light" href="#" style=" font-weight: 600;
+              font-size: large; padding-right: 80px; " id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Profile
+                            </a>
+                            <ul class="dropdown-menu text-light" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#">Information</a></li>
+                                <li><a class="dropdown-item" href="#">Your Lessons</a></li>
+                                <li><a class="dropdown-item" href="#">Your Courses</a></li>
+                                <li><a class="dropdown-item" href="#">Bought Lessons</a></li>
+                                <li><a class="dropdown-item" href="#">Bought Courses</a></li>
+                                <li><a class="dropdown-item" href="#">Liked</a></li>
+                                <li><a class="dropdown-item" href="#">Logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </section>
+    <!-- Wave background -->
+    <div class="backgound-layer-details">
+        <!-- Login Form -->
+        <div class="container">
+            <div class="row pt-5">
+                <div class="col-10">
+                    <h1>Course title here</h1>
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe class="embed-responsive-item" style="height: 600px; width: 1000px;"
+                            src="https://www.youtube.com/embed/PjGkVCAo8Fw" allowfullscreen></iframe>
+                    </div>
+                    <div class="card card-display my-3" style="width: 1000px">
+                        <div class="mx-3">
+                            <h1>Title here</h1>
+                            <i class="fa-solid fa-thumbs-up fa-2xl"></i>
+                            <span class="fw-bold">: 300</span>
+                            <i class="fa-solid fa-eye fa-2xl"></i>
+                            <span class="fw-bold">: 1200</span>
+                            <button class="btn btn-outline-warning btn fw-bold"
+                                style="background-color: #636EA7;"
+                                type="submit" >Like</button>
+                            <h5>Super ultra description here.......yoooaooaoaoa</h5>
+                        </div>
+                        <div class="text-center" >
+                            <h2>Information</h2>
+                            <h5>Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore repellat a debitis tempore maiores molestias perferendis praesentium tenetur enim odio, nostrum iste facere, modi numquam officia cumque aspernatur illum molestiae.</h5>
+                        </div>
+                        <h2 class="text-center">Comments</h2>
+                        <!-- Comment form -->
+                        <form action="#">
+                            <div class="form-outline w-100 mx-5">
+                                <textarea class="form-control" id="textAreaExample" rows="3"
+                                  style="background: #fff; height: 150px; width: 900px" placeholder="Comment"></textarea>
+                            </div>
+                            <div class="mt-2 pt-1 mx-5">
+                                <button type="submit" class="btn btn-primary btn-sm">Post comment</button>
+                            </div></form>
+                        <!-- Comment -->
+                        <div class="card card-display-details mx-5 my-2" style="height: 150px; width: 900px">
+                            <div class="row">
+                                <div class="col-1">
+                                    <img class="img-fluid rounded-circle profile-comment m-3"
+                                        src="https://avatars.githubusercontent.com/u/74610360?v=4" alt="Lesson Pic">
+                                </div>
+                                <div class="col-11">
+                                    <p class="mt-4">Radin Tiholov</p>
+                                </div>
+                            </div>
+                            <div class="row mx-3">
+                                <h5>this lesson sucsss just don't watch it.</h5>
+                            </div>
+                        </div>
+                        <!-- Comment -->
+                        <div class="card card-display-details mx-5 my-2" style="height: 150px; width: 900px">
+                            <div class="row">
+                                <div class="col-1">
+                                    <img class="img-fluid rounded-circle profile-comment m-3"
+                                        src="https://avatars.githubusercontent.com/u/74610360?v=4" alt="Lesson Pic">
+                                </div>
+                                <div class="col-11">
+                                    <p class="mt-4">Radin Tiholov 2</p>
+                                </div>
+                            </div>
+                            <div class="row mx-3">
+                                <h5>this lesson sucsss just don't watcasdasdasdasdasasdasasdasddasdasdasdasdasdasddddddh
+                                    it.</h5>
+                            </div>
+                        </div>
+                        <!-- Comment -->
+                        <div class="card card-display-details mx-5 my-2" style="height: 150px; width: 900px">
+                            <div class="row">
+                                <div class="col-1">
+                                    <img class="img-fluid rounded-circle profile-comment m-3"
+                                        src="https://avatars.githubusercontent.com/u/74610360?v=4" alt="Lesson Pic">
+                                </div>
+                                <div class="col-11">
+                                    <p class="mt-4">Radin Tiholov 2</p>
+                                </div>
+                            </div>
+                            <div class="row mx-3">
+                                <h5>this lesson sucsss just don't watcasdasdasdasdasasdasasdasddasdasdasdasdasdasddddddh
+                                    it.</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <!-- Card -->
+                    <div class="row mb-2">
+                        <div class="card card-display-details" style="width: 15rem;">
+                            <img src="https://picsum.photos/1500/700" class="card-img mt-2" style="height: 7rem;"
+                                alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">C# free course</h5>
+                                <a href="#" class="btn" style="background-color: #f0ad4e; color: #fff;">Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card -->
+                    <div class="row mb-2">
+                        <div class="card card-display-details" style="width: 15rem;">
+                            <img src="https://picsum.photos/1500/700" class="card-img mt-2" style="height: 7rem;"
+                                alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">C# free course</h5>
+                                <a href="#" class="btn" style="background-color: #f0ad4e; color: #fff;">Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card -->
+                    <div class="row mb-2">
+                        <div class="card card-display-details" style="width: 15rem;">
+                            <img src="https://picsum.photos/1500/700" class="card-img mt-2" style="height: 7rem;"
+                                alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">C# free course</h5>
+                                <a href="#" class="btn" style="background-color: #f0ad4e; color: #fff;">Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card -->
+                    <div class="row mb-2">
+                        <div class="card card-display-details" style="width: 15rem;">
+                            <img src="https://picsum.photos/1500/700" class="card-img mt-2" style="height: 7rem;"
+                                alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">C# free course</h5>
+                                <a href="#" class="btn" style="background-color: #f0ad4e; color: #fff;">Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+    <footer class=" text-center text-white" style="background-color:#636ea7;">
+        <!-- Grid container -->
+        <div class="container p-4">
+            <!-- Section: Text -->
+            <section class="mb-4">
+                <p>
+                    Knowledge Barter App
+                </p>
+            </section>
+            <!-- Section: Text -->
+        </div>
+        <!-- Grid container -->
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+            © 2022 Copyright:
+            <a class="text-white" href="https://github.com/RadinTiholov">Radin Tiholov</a>
+        </div>
+        <!-- Copyright -->
+
+    </footer>
+</body>
+
+</html>

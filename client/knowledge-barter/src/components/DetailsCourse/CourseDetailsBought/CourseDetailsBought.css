@@ -1,0 +1,14 @@
+.card-display-details{
+    background-color: #636EA7;
+}
+.profile-comment{
+    height: 50px;
+    width: 50px;
+}
+.backgound-layer-details{
+    aspect-ratio: 16/4;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}

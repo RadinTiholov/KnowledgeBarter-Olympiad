@@ -1,0 +1,14 @@
+#nav-bar{
+    background-color: #636EA7;
+}
+.navbar-nav li{
+    padding-left: 20px;
+}
+.navbar-nav li a{
+    font-weight: 600;
+    font-size: large;
+}
+.fa-bars{
+    columns: #fff;
+    font-size: 30px !important;
+}

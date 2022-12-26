@@ -1,0 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+
+html *
+{
+    font-family: 'Open Sans', sans-serif;
+}
+p{
+    font-size: 20px;
+    font-weight: 600;
+}
+.wave-image{
+    width: 100%;
+}

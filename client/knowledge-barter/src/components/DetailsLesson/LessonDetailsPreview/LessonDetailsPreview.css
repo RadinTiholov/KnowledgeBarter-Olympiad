@@ -1,0 +1,7 @@
+.backgound-layer-details{
+    aspect-ratio: 16/4;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}

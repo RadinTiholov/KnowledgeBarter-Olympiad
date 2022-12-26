@@ -1,0 +1,7 @@
+.backgound-layer-not-found{
+    aspect-ratio: 16/3;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }

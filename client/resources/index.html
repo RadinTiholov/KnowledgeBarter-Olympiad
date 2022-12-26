@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Knowledge Barter</title>
+  <link rel="stylesheet" href="	https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://kit.fontawesome.com/aa20ca73f1.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+  <!-- Nav bar -->
+  <section id="nav-bar">
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img src="./images/logo.png" alt="" width="60" height="35">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="fa fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active text-light" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light" href="#">Lessons</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light" href="#">Courses</a>
+            </li>
+            <li class="nav-item">
+              <form class="d-flex" role="search">
+                <input class="form-control me-2 text-light" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-warning" type="submit">Search</button>
+              </form>
+            </li>
+          </ul>
+          <ul class="navbar-nav me-auto-reverse mb-2 mb-lg-0">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-light" href="#" style=" font-weight: 600;
+              font-size: large; padding-right: 20px; " id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Create
+              </a>
+              <ul class="dropdown-menu text-light" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="#">Lesson</a></li>
+                <li><a class="dropdown-item" href="#">Course</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-light" href="#" style=" font-weight: 600;
+              font-size: large; padding-right: 20px;" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                KBPoints: 100
+              </a>
+              <ul class="dropdown-menu text-light" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="#">Buy</a></li>
+                <li><a class="dropdown-item" href="#">Info</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-light" href="#" style=" font-weight: 600;
+              font-size: large; padding-right: 80px; " id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Profile
+              </a>
+              <ul class="dropdown-menu text-light" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="#">Information</a></li>
+                <li><a class="dropdown-item" href="#">Your Lessons</a></li>
+                <li><a class="dropdown-item" href="#">Your Courses</a></li>
+                <li><a class="dropdown-item" href="#">Bought Lessons</a></li>
+                <li><a class="dropdown-item" href="#">Bought Courses</a></li>
+                <li><a class="dropdown-item" href="#">Liked</a></li>
+                <li><a class="dropdown-item" href="#">Logout</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </section>
+  <!-- Banner -->
+  <section id="banner">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h1 class="promo-title ">Knowledge</h1>
+          <h1 style="margin-left: 250px; font-size: 70px;
+          font-weight: 600;">Barter</h1>
+          <p>Learn new things by sharing things you know.</p>
+          <p style="margin-left: 250px;">Barter your knowledge.</p>
+          <form class="d-flex" role="search">
+            <input class="form-control me-1 text-light" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-warning" style="background-color: #636EA7;" type="submit">Search</button>
+          </form>
+        </div>
+        <div class="col-md-6 text-center">
+          <img id="knowledge-image" class="image-fluid" src="./images/knowledgeIcon.png" alt="icon">
+        </div>
+      </div>
+    </div>
+    <img class="wave-image" src="./images/wave1.png" alt="wave">
+  </section>
+  <!-- Highes rated lessons -->
+  <section id="lessons-display">
+    <div class="container">
+      <div class="row">
+        <div class="col text-xl-center">
+          <h1 class="fw-bold mb-3">Highest rated lessons</h1>
+        </div>
+      </div>
+      <div class="row gy-5">
+        <div class="col">
+          <div class="card card-display" style="width: 15rem;">
+            <img src="https://picsum.photos/100/300" class="card-img" style="height: 15rem;" alt="...">
+            <div class="card-body">
+              <h5 class="card-title fw-bold">C# free course</h5>
+              <a href="#" class="btn" style="background-color: #636EA7; color: #fff;">Details</a>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card card-display" style="width: 15rem;">
+            <img src="https://picsum.photos/200/300" class="card-img" style="height: 15rem;" alt="...">
+            <div class="card-body">
+              <h5 class="card-title fw-bold">Java free course</h5>
+              <a href="#" class="btn" style="background-color: #636EA7; color: #fff;">Details</a>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card card-display" style="width: 15rem;">
+            <img src="https://picsum.photos/900/300" class="card-img" style="height: 15rem;" alt="...">
+            <div class="card-body">
+              <h5 class="card-title fw-bold">Python free course</h5>
+              <a href="#" class="btn" style="background-color: #636EA7; color: #fff;">Details</a>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card card-display" style="width: 15rem;">
+            <img src="https://picsum.photos/900/300" class="card-img" style="height: 15rem;" alt="...">
+            <div class="card-body">
+              <h5 class="card-title fw-bold">Fitness free course</h5>
+              <a href="#" class="btn" style="background-color: #636EA7; color: #fff;">Details</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Most popular courses -->
+  <section id="lessons-display">
+    <div class="container">
+      <div class="row">
+        <div class="col text-xl-center">
+          <h1 class="fw-bold mt-5 mb-4">Most popular courses</h1>
+        </div>
+      </div>
+      <div class="row gy-5">
+        <div class="col">
+          <div class="card card-display" style="width: 15rem;">
+            <img src="https://picsum.photos/100/300" class="card-img" style="height: 15rem;" alt="...">
+            <div class="card-body">
+              <h5 class="card-title fw-bold">C# free course</h5>
+              <a href="#" class="btn" style="background-color: #636EA7; color: #fff;">Details</a>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card card-display" style="width: 15rem;">
+            <img src="https://picsum.photos/200/300" class="card-img" style="height: 15rem;" alt="...">
+            <div class="card-body">
+              <h5 class="card-title fw-bold">Java free course</h5>
+              <a href="#" class="btn" style="background-color: #636EA7; color: #fff;">Details</a>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card card-display" style="width: 15rem;">
+            <img src="https://picsum.photos/900/300" class="card-img" style="height: 15rem;" alt="...">
+            <div class="card-body">
+              <h5 class="card-title fw-bold">Python free course</h5>
+              <a href="#" class="btn" style="background-color: #636EA7; color: #fff;">Details</a>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card card-display" style="width: 15rem;">
+            <img src="https://picsum.photos/900/300" class="card-img" style="height: 15rem;" alt="...">
+            <div class="card-body">
+              <h5 class="card-title fw-bold">Fitness free course</h5>
+              <a href="#" class="btn" style="background-color: #636EA7; color: #fff;">Details</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Coins -->
+  <section id="points-banner">
+    <img class="wave-image" src="./images/wave2.png" alt="wave">
+    <h1 class="fw-bold text-xl-center">KBPoints</h1>
+    <div class="row" style="margin: auto">
+      <div class="col-6 text-center">
+        <img id="knowledge-image" class="image-fluid" src="./images/coin-image.webp" alt="icon">
+      </div>
+      <div class="col-6 ">
+        <p style="font-size: 200%; margin-top: 150px;">With KBP you can unlock lessons and courses.</p>
+        <p style="font-size: 200%;">You can earn some by creating lessons or courses</p>
+        <p></p>
+      </div>
+    </div>
+  </section>
+  <!-- Footer -->
+  <footer class=" text-center text-white" style="background-color:#636ea7;">
+    <!-- Grid container -->
+    <div class="container p-4">
+      <!-- Section: Text -->
+      <section class="mb-4">
+        <p>
+          Knowledge Barter App
+        </p>
+      </section>
+      <!-- Section: Text -->
+    </div>
+    <!-- Grid container -->
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+      © 2022 Copyright:
+      <a class="text-white" href="https://github.com/RadinTiholov">Radin Tiholov</a>
+    </div>
+    <!-- Copyright -->
+  </footer>
+</body>
+</html>

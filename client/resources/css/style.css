@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+
+html *
+{
+    font-family: 'Open Sans', sans-serif;
+}
+p{
+    font-size: 20px;
+    font-weight: 600;
+}
+.card-display{
+    background-color: #f0ad4e;
+}
+.navbar-nav li{
+    padding-left: 20px;
+}
+.navbar-nav li a{
+    font-weight: 600;
+    font-size: large;
+}
+.fa-bars{
+    columns: #fff;
+    font-size: 30px !important;
+}
+.wave-image{
+    width: 100%;
+}
+.promo-title{
+    font-size: 70px;
+    font-weight: 600;
+    margin-top: 10px;
+}
+#banner{
+    background-color: #f0ad4e;
+    padding-top: 5%;
+}
+#points-banner{
+    background-color: #f0ad4e;
+}
+#nav-bar{
+    background-color: #636EA7;
+}
+#lessons-display{
+    background-color: #636EA7;
+}
+#knowledge-image{
+    margin-bottom: 30px;
+}
+
+/* Login Form */
+
+.backgound-layer-login{
+    background-image: url('../images/waves-login.svg');
+    aspect-ratio: 16/4;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+/* 
+Register Form */
+.backgound-layer-register{
+    background-image: url('../images/waves-register.svg');
+    aspect-ratio: 16/4;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+/* Details */
+.backgound-layer-details{
+    background-image: url('../images/waves-details.svg');
+    aspect-ratio: 16/4;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+/*Profile*/
+.backgound-layer-profile{
+    background-image: url('../images/waves-profile.svg');
+    aspect-ratio: 16/4;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+/*Lessons*/
+.backgound-layer-lessons{
+    background-image: url('../images/waves-lessons.svg');
+    aspect-ratio: 16/9;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+/*Details lesson bought*/
+.card-display-details{
+    background-color: #636EA7;
+}
+.profile-comment{
+    height: 50px;
+    width: 50px;
+}
