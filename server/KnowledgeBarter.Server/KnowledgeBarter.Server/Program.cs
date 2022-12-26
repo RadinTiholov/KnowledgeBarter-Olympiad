@@ -1,6 +1,7 @@
 using KnowledgeBarter.Server;
 using KnowledgeBarter.Server.Data;
 using KnowledgeBarter.Server.Data.Models;
+using KnowledgeBarter.Server.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -79,5 +80,7 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.ApplyMigration();
 
 app.Run();
