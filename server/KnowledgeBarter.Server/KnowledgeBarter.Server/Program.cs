@@ -4,59 +4,28 @@ using KnowledgeBarter.Server.Data.Common.Repositories;
 using KnowledgeBarter.Server.Data.Models;
 using KnowledgeBarter.Server.Data.Repositories;
 using KnowledgeBarter.Server.Infrastructure;
+using KnowledgeBarter.Server.Infrastructure.Extensions;
 using KnowledgeBarter.Server.Services;
 using KnowledgeBarter.Server.Services.Contracts;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
+var appSettings = builder.Services.GetApplicationSettings(builder.Configuration);
+
 builder.Services.AddDbContext<KnowledgeBarterDbContext>(options =>
-    options.UseSqlServer(connectionString));
-
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
-{
-    options.Password.RequiredLength = 6;
-    options.Password.RequireDigit = false;
-    options.Password.RequireLowercase = false;
-    options.Password.RequireNonAlphanumeric = false;
-    options.Password.RequireUppercase = false;
-})
-    .AddEntityFrameworkStores<KnowledgeBarterDbContext>();
-
-var applicationSettingsConfiguration = builder.Configuration.GetSection("ApplicationSettings");
-builder.Services.Configure<ApplicationSettings>(applicationSettingsConfiguration);
-
-var appSettings = applicationSettingsConfiguration.Get<ApplicationSettings>();
-var key = Encoding.ASCII.GetBytes(appSettings.Secret);
-
-builder.Services.
-    AddAuthentication(x =>
-    {
-        x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-        x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    })
-    .AddJwtBearer(x =>
-    {
-        x.RequireHttpsMetadata = false;
-        x.SaveToken = true;
-        x.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(key),
-            ValidateIssuer = false,
-            ValidateAudience = false,
-        };
-    });
-
-builder.Services.AddControllers();
+    options.UseSqlServer(connectionString))
+    .AddDatabaseDeveloperPageExceptionFilter()
+    .AddIdentity()
+    .AddJwtAuthentication(appSettings)
+    .AddControllers();
 
 // Data repositories
 builder.Services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
