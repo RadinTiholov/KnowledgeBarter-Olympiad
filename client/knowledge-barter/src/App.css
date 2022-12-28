@@ -11,3 +11,18 @@ p{
 .wave-image{
     width: 100%;
 }
+
+.row-cols-5>* {
+    width: 240px;    
+    margin: auto;
+}
+
+div.card.card-display.border-0 {
+    width: 100%;    
+}
+
+div.row.row-cols-5 {
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}

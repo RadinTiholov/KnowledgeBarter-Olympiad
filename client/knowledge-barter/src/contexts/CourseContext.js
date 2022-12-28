@@ -24,7 +24,7 @@ export const CourseProvider = ({children}) => {
         return courses.find(x => x._id === id) || {};
     };
     return (
-        <CourseContext.Provider value={{courses, create, update, delCourse,select}}>
+        <CourseContext.Provider value={{courses, create, update, delCourse, select}}>
             {children}
         </CourseContext.Provider>  
     );

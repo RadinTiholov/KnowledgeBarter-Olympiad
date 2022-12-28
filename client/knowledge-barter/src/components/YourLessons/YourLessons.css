@@ -1,7 +1,21 @@
-.backgound-layer-lessons{
+.backgound-layer-lessons {
     aspect-ratio: 16/9;
     width: 100%;
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+}
+
+@media screen and (max-width: 1400px) {
+    div.row.row-cols-5 {
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .row-cols-5>* {
+        width: 300px;
+    }
 }
