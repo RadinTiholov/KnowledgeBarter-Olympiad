@@ -1,5 +1,9 @@
 ﻿using KnowledgeBarter.Server.Data;
+using KnowledgeBarter.Server.Data.Common.Repositories;
 using KnowledgeBarter.Server.Data.Models;
+using KnowledgeBarter.Server.Data.Repositories;
+using KnowledgeBarter.Server.Services.Contracts;
+using KnowledgeBarter.Server.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
@@ -20,6 +24,23 @@ namespace KnowledgeBarter.Server.Infrastructure.Extensions
                 options.Password.RequireUppercase = false;
             })
             .AddEntityFrameworkStores<KnowledgeBarterDbContext>();
+
+            return services;
+        }
+        public static IServiceCollection AddRepositories(this IServiceCollection services)
+        {
+            services.
+                AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
+            services.
+                AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
+
+            return services;
+        }
+
+        public static IServiceCollection AddApplicationServices(this IServiceCollection services)
+        {
+            services.AddTransient<IIdentityService, IdentityService>();
+            services.AddTransient<IImageService, ImageService>();
 
             return services;
         }

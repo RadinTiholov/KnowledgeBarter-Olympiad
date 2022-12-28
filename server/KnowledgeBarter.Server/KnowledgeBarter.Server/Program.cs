@@ -1,18 +1,7 @@
-using KnowledgeBarter.Server;
 using KnowledgeBarter.Server.Data;
-using KnowledgeBarter.Server.Data.Common.Repositories;
-using KnowledgeBarter.Server.Data.Models;
-using KnowledgeBarter.Server.Data.Repositories;
 using KnowledgeBarter.Server.Infrastructure;
 using KnowledgeBarter.Server.Infrastructure.Extensions;
-using KnowledgeBarter.Server.Services;
-using KnowledgeBarter.Server.Services.Contracts;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using System.Runtime.CompilerServices;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,15 +14,9 @@ builder.Services.AddDbContext<KnowledgeBarterDbContext>(options =>
     .AddDatabaseDeveloperPageExceptionFilter()
     .AddIdentity()
     .AddJwtAuthentication(appSettings)
+    .AddRepositories()
+    .AddApplicationServices()
     .AddControllers();
-
-// Data repositories
-builder.Services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
-builder.Services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
-
-// Application Services
-builder.Services.AddTransient<IIdentityService, IdentityService>();
-builder.Services.AddTransient<IImageService, ImageService>();
 
 var app = builder.Build();
 
