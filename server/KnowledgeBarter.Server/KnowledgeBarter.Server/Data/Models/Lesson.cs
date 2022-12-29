@@ -3,8 +3,6 @@
     using KnowledgeBarter.Server.Data.Common.Models;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using System.Runtime.CompilerServices;
-    using System.Xml.Linq;
     using static KnowledgeBarter.Server.Data.Common.DataValidation.Lesson;
 
     public class Lesson : BaseDeletableModel<int>
@@ -15,6 +13,8 @@
             this.Tags = new HashSet<Tag>();
             this.Comments = new HashSet<Comment>();
             this.Courses = new HashSet<Course>();
+            this.UsersWhoBought = new HashSet<ApplicationUser>();
+            this.UsersWhoLiked = new HashSet<ApplicationUser>();
         }
         [Required]
         [MaxLength(TitleMaxLength)]
@@ -59,5 +59,9 @@
         public virtual ICollection<Comment> Comments { get; set; }
 
         public virtual ICollection<Course> Courses { get; set; }
+
+        public virtual ICollection<ApplicationUser> UsersWhoBought { get; set; }
+
+        public virtual ICollection<ApplicationUser> UsersWhoLiked { get; set; }
     }
 }

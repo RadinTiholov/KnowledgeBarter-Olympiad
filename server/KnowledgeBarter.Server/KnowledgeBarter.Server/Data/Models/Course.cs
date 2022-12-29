@@ -11,6 +11,8 @@ namespace KnowledgeBarter.Server.Data.Models
         {
             this.Lessons = new HashSet<Lesson>();
             this.Likes = new HashSet<Like>();
+            this.UsersWhoBought = new HashSet<ApplicationUser>();
+            this.UsersWhoLiked = new HashSet<ApplicationUser>();
         }
 
         [Required]
@@ -39,5 +41,9 @@ namespace KnowledgeBarter.Server.Data.Models
         public virtual ICollection<Lesson> Lessons { get; set; }
 
         public virtual ICollection<Like> Likes { get; set; }
+
+        public virtual ICollection<ApplicationUser> UsersWhoBought { get; set; }
+
+        public virtual ICollection<ApplicationUser> UsersWhoLiked { get; set; }
     }
 }
