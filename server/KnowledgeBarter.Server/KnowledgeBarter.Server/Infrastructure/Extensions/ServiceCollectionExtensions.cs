@@ -42,6 +42,7 @@ namespace KnowledgeBarter.Server.Infrastructure.Extensions
         {
             services.AddTransient<IIdentityService, IdentityService>();
             services.AddTransient<IImageService, ImageService>();
+            services.AddTransient<ILessonService, LessonService>();
 
             return services;
         }
