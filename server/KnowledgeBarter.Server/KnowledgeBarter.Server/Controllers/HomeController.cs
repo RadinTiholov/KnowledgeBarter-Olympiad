@@ -6,6 +6,7 @@
     public class HomeController : ApiController
     {
         [Authorize]
+        [HttpGet]
         public async Task<IActionResult> Get()
         {
             return this.Ok("Works");

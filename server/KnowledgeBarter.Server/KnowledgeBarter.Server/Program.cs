@@ -16,6 +16,7 @@ builder.Services.AddDbContext<KnowledgeBarterDbContext>(options =>
     .AddJwtAuthentication(appSettings)
     .AddRepositories()
     .AddApplicationServices()
+    .AddSwagger()
     .AddControllers();
 
 var app = builder.Build();
@@ -31,6 +32,13 @@ else
     app.UseHsts();
 }
 
+app
+    .UseSwagger()
+    .UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "KnowledgeBarter Api");
+        c.RoutePrefix = String.Empty;
+    });
 app.UseRouting();
 
 app.UseCors(options => options

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.OpenApi.Models;
 
 namespace KnowledgeBarter.Server.Infrastructure.Extensions
 {
@@ -41,6 +42,16 @@ namespace KnowledgeBarter.Server.Infrastructure.Extensions
         {
             services.AddTransient<IIdentityService, IdentityService>();
             services.AddTransient<IImageService, ImageService>();
+
+            return services;
+        }
+
+        public static IServiceCollection AddSwagger(this IServiceCollection services)
+        {
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo() { Title = "KnowledgeBarter Api", Version = "v1" });
+            });
 
             return services;
         }
