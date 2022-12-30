@@ -23,5 +23,14 @@ namespace KnowledgeBarter.Server.Controllers
 
             return all;
         }
+
+        [HttpGet]
+        [Route(nameof(Popular))]
+        public async Task<IEnumerable<LessonInListResponseModel>> Popular()
+        {
+            var popular = await this.lessonService.PopularAsync();
+
+            return popular;
+        }
     }
 }

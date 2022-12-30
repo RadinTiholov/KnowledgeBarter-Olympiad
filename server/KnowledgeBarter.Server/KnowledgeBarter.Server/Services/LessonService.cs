@@ -27,5 +27,21 @@ namespace KnowledgeBarter.Server.Services
                 })
                 .ToListAsync();
         }
+
+        public async Task<IEnumerable<LessonInListResponseModel>> PopularAsync()
+        {
+            return await this.lessonRepository
+                .AllAsNoTracking()
+                .OrderByDescending(x => x.Views)
+                .Take(4)
+                .Select(x => new LessonInListResponseModel()
+                {
+                    Id = x.Id,
+                    Title = x.Title,
+                    Description = x.Description,
+                    Article = x.Article,
+                })
+                .ToListAsync();
+        }
     }
 }
