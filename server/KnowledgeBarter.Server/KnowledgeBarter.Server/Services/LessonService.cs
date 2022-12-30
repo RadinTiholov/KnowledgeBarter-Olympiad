@@ -28,6 +28,26 @@ namespace KnowledgeBarter.Server.Services
                 .ToListAsync();
         }
 
+        public async Task<LessonDetailsResponseModel> GetOneAsync(int id)
+        {
+            var lesson = await this.lessonRepository
+                .AllAsNoTracking()
+                .Where(x => x.Id == id)
+                .Select(x => new LessonDetailsResponseModel()
+                {
+                    Id = x.Id,
+
+                })
+                .FirstOrDefaultAsync();
+
+            if (lesson == null)
+            {
+                throw new ArgumentException();
+            }
+
+            return lesson;
+        }
+
         public async Task<IEnumerable<LessonInListResponseModel>> PopularAsync()
         {
             return await this.lessonRepository

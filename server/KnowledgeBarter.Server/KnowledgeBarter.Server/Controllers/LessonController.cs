@@ -32,5 +32,21 @@ namespace KnowledgeBarter.Server.Controllers
 
             return popular;
         }
+
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<ActionResult<LessonDetailsResponseModel>> Details(int id)
+        {
+            try
+            {
+                var lesson = await this.lessonService.GetOneAsync(id);
+
+                return lesson;
+            }
+            catch (ArgumentException)
+            {
+                return BadRequest();
+            }
+        }
     }
 }
