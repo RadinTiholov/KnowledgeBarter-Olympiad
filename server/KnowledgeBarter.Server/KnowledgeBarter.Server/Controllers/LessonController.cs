@@ -3,6 +3,8 @@ using KnowledgeBarter.Server.Services.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
+using static KnowledgeBarter.Server.Infrastructure.WebConstants;
+
 namespace KnowledgeBarter.Server.Controllers
 {
     [Authorize]
@@ -34,7 +36,7 @@ namespace KnowledgeBarter.Server.Controllers
         }
 
         [HttpGet]
-        [Route("{id}")]
+        [Route(IdRoute)]
         public async Task<ActionResult<LessonDetailsResponseModel>> Details(int id)
         {
             try

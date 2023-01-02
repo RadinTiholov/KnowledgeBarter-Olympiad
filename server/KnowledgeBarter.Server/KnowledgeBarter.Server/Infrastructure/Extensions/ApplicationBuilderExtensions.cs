@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Runtime.CompilerServices;
 
-namespace KnowledgeBarter.Server.Infrastructure
+namespace KnowledgeBarter.Server.Infrastructure.Extensions
 {
     public static class ApplicationBuilderExtensions
     {

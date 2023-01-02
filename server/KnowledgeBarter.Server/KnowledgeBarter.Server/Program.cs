@@ -1,5 +1,4 @@
 using KnowledgeBarter.Server.Data;
-using KnowledgeBarter.Server.Infrastructure;
 using KnowledgeBarter.Server.Infrastructure.Extensions;
 using Microsoft.EntityFrameworkCore;
 
