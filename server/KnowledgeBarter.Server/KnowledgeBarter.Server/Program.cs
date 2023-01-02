@@ -1,6 +1,9 @@
 using KnowledgeBarter.Server.Data;
 using KnowledgeBarter.Server.Infrastructure.Extensions;
+using KnowledgeBarter.Server.Models;
+using KnowledgeBarter.Server.Services.Mapping;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +20,9 @@ builder.Services.AddDbContext<KnowledgeBarterDbContext>(options =>
     .AddApplicationServices()
     .AddSwagger()
     .AddControllers();
+
+// Register automapper
+AutoMapperConfig.RegisterMappings(typeof(AutoMapperModel).GetTypeInfo().Assembly);
 
 var app = builder.Build();
 

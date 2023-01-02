@@ -50,7 +50,7 @@
         [Required]
         public int Price { get; set; }
 
-        public string Resources { get; set; } = null!;
+        public string? Resources { get; set; }
 
         public virtual ICollection<Like> Likes { get; set; }
 

@@ -1,6 +1,10 @@
 ﻿namespace KnowledgeBarter.Server.Models.Lesson
 {
-    public class LessonDetailsResponseModel
+    using AutoMapper;
+    using KnowledgeBarter.Server.Services.Mapping;
+    using KnowledgeBarter.Server.Data.Models;
+
+    public class LessonDetailsResponseModel : IMapFrom<Lesson>
     {
         public int Id { get; set; }
 

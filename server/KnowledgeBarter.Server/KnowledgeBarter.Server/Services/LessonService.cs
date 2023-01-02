@@ -2,6 +2,7 @@
 using KnowledgeBarter.Server.Data.Models;
 using KnowledgeBarter.Server.Models.Lesson;
 using KnowledgeBarter.Server.Services.Contracts;
+using KnowledgeBarter.Server.Services.Mapping;
 using Microsoft.EntityFrameworkCore;
 
 namespace KnowledgeBarter.Server.Services
@@ -33,11 +34,7 @@ namespace KnowledgeBarter.Server.Services
             var lesson = await this.lessonRepository
                 .AllAsNoTracking()
                 .Where(x => x.Id == id)
-                .Select(x => new LessonDetailsResponseModel()
-                {
-                    Id = x.Id,
-
-                })
+                .To<LessonDetailsResponseModel>()
                 .FirstOrDefaultAsync();
 
             if (lesson == null)
