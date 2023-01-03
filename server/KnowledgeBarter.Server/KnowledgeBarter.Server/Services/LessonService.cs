@@ -1,5 +1,6 @@
 ﻿using KnowledgeBarter.Server.Data.Common.Repositories;
 using KnowledgeBarter.Server.Data.Models;
+using KnowledgeBarter.Server.Models.Comments;
 using KnowledgeBarter.Server.Models.Lesson;
 using KnowledgeBarter.Server.Services.Contracts;
 using KnowledgeBarter.Server.Services.Mapping;
@@ -10,10 +11,14 @@ namespace KnowledgeBarter.Server.Services
     public class LessonService : ILessonService
     {
         private readonly IDeletableEntityRepository<Lesson> lessonRepository;
+        private readonly IImageService imageService;
+        private readonly ITagService tagService;
 
-        public LessonService(IDeletableEntityRepository<Lesson> lessonRepository)
+        public LessonService(IDeletableEntityRepository<Lesson> lessonRepository, IImageService imageService, ITagService tagService)
         {
             this.lessonRepository = lessonRepository;
+            this.imageService = imageService;
+            this.tagService = tagService;
         }
         public async Task<IEnumerable<LessonInListResponseModel>> AllAsync()
         {
@@ -27,6 +32,38 @@ namespace KnowledgeBarter.Server.Services
                     Article = x.Article,
                 })
                 .ToListAsync();
+        }
+
+        public async Task<CreateLessonResponseModel> CreateAsync(CreateLesssonRequestModel model, string ownerId)
+        {
+            var image = await this.imageService.CreateAsync(model.Image);
+            var lesson = new Lesson()
+            {
+                Title = model.Title,
+                Description = model.Description,
+                Article = model.Article,
+                Video = model.Video,
+                ImageId = image.Id,
+                Resources = model.Resources,
+                Views = 0,
+                Price = 0,
+                OwnerId = ownerId,
+            };
+
+            await this.lessonRepository.AddAsync(lesson);
+            await this.lessonRepository.SaveChangesAsync();
+
+            var tags = await this.tagService.CreateManyAsync(model.Tags, lesson.Id);
+            lesson.Tags = (ICollection<Tag>)tags;
+
+            this.lessonRepository.Update(lesson);
+            await this.lessonRepository.SaveChangesAsync();
+
+            return await this.lessonRepository
+                .All()
+                .Where(x => x.Id == lesson.Id)
+                .To<CreateLessonResponseModel>()
+                .FirstOrDefaultAsync();
         }
 
         public async Task<LessonDetailsResponseModel> GetOneAsync(int id)

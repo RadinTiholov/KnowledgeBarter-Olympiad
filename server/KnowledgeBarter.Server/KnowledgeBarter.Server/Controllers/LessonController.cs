@@ -1,4 +1,5 @@
-﻿using KnowledgeBarter.Server.Models.Lesson;
+﻿using KnowledgeBarter.Server.Infrastructure.Extensions;
+using KnowledgeBarter.Server.Models.Lesson;
 using KnowledgeBarter.Server.Services.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -49,6 +50,22 @@ namespace KnowledgeBarter.Server.Controllers
             {
                 return BadRequest();
             }
+        }
+
+        [HttpPost]
+        [Route(nameof(Create))]
+        public async Task<ActionResult<CreateLessonResponseModel>> Create(CreateLesssonRequestModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var userId = this.User.Id();
+
+            var response = await this.lessonService.CreateAsync(model, userId);
+
+            return response;
         }
     }
 }

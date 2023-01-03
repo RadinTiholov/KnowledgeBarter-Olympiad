@@ -43,6 +43,7 @@ namespace KnowledgeBarter.Server.Infrastructure.Extensions
             services.AddTransient<IIdentityService, IdentityService>();
             services.AddTransient<IImageService, ImageService>();
             services.AddTransient<ILessonService, LessonService>();
+            services.AddTransient<ITagService, TagService>();
 
             return services;
         }
