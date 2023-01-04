@@ -85,6 +85,13 @@ namespace KnowledgeBarter.Server.Services
                 throw new ArgumentException();
             }
 
+            //Increase views
+            var lessonForUpdate = await this.GetLessonAsync(lesson.Id);
+            lessonForUpdate.Views++;
+
+            this.lessonRepository.Update(lessonForUpdate);
+            await this.lessonRepository.SaveChangesAsync();
+
             return lesson;
         }
 
@@ -102,6 +109,14 @@ namespace KnowledgeBarter.Server.Services
                     Article = x.Article,
                 })
                 .ToListAsync();
+        }
+
+        private async Task<Lesson> GetLessonAsync(int lessonId)
+        {
+            return await this.lessonRepository
+                .AllAsNoTracking()
+                .Where(x => x.Id == lessonId)
+                .FirstAsync();
         }
     }
 }
