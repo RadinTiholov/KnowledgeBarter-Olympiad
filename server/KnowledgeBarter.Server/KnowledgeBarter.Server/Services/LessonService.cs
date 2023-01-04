@@ -13,12 +13,14 @@ namespace KnowledgeBarter.Server.Services
         private readonly IDeletableEntityRepository<Lesson> lessonRepository;
         private readonly IImageService imageService;
         private readonly ITagService tagService;
+        private readonly IIdentityService identityService;
 
-        public LessonService(IDeletableEntityRepository<Lesson> lessonRepository, IImageService imageService, ITagService tagService)
+        public LessonService(IDeletableEntityRepository<Lesson> lessonRepository, IImageService imageService, ITagService tagService, IIdentityService identityService)
         {
             this.lessonRepository = lessonRepository;
             this.imageService = imageService;
             this.tagService = tagService;
+            this.identityService = identityService;
         }
         public async Task<IEnumerable<LessonInListResponseModel>> AllAsync()
         {
@@ -37,6 +39,7 @@ namespace KnowledgeBarter.Server.Services
         public async Task<CreateLessonResponseModel> CreateAsync(CreateLesssonRequestModel model, string ownerId)
         {
             var image = await this.imageService.CreateAsync(model.Image);
+
             var lesson = new Lesson()
             {
                 Title = model.Title,
@@ -59,11 +62,14 @@ namespace KnowledgeBarter.Server.Services
             this.lessonRepository.Update(lesson);
             await this.lessonRepository.SaveChangesAsync();
 
+            //Add 100 KB points to the user as a reward
+            await this.identityService.UpdatePoints(ownerId, 100);
+
             return await this.lessonRepository
                 .All()
                 .Where(x => x.Id == lesson.Id)
                 .To<CreateLessonResponseModel>()
-                .FirstOrDefaultAsync();
+                .FirstAsync();
         }
 
         public async Task<LessonDetailsResponseModel> GetOneAsync(int id)

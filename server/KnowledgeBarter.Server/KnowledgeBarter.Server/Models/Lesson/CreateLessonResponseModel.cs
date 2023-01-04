@@ -2,8 +2,8 @@
 {
     using KnowledgeBarter.Server.Models.Comments;
     using KnowledgeBarter.Server.Services.Mapping;
-    using KnowledgeBarter.Server.Data.Models;
     using AutoMapper;
+    using KnowledgeBarter.Server.Data.Models;
 
     public class CreateLessonResponseModel : IMapFrom<Lesson>, IHaveCustomMappings
     {
@@ -37,15 +37,15 @@
         {
             configuration.CreateMap<Lesson, CreateLessonResponseModel>()
                 .ForMember(x => x.Thumbnail, opt =>
-                opt.MapFrom(i => i.Image.Url))
+                    opt.MapFrom(i => i.Image.Url))
                 .ForMember(x => x.Owner, opt =>
-                opt.MapFrom(i => i.OwnerId))
+                    opt.MapFrom(i => i.OwnerId))
                 .ForMember(x => x.Likes, opt =>
-                opt.MapFrom(i => i.Likes.Count()))
+                    opt.MapFrom(i => i.Likes.Count()))
                 .ForMember(x => x.Tags, opt =>
-                opt.MapFrom(i => i.Tags.Select(x => x.Text).ToArray()))
+                    opt.MapFrom(i => i.Tags.Select(x => x.Text).ToArray()))
                 .ForMember(x => x.Comments, opt =>
-                opt.MapFrom(i => i.Comments.Select(x => new CommentInListResponseModel() { Id = x.Id, Text = x.Text, Lesson = x.LessonId, Owner = x.OwnerId })));
+                    opt.MapFrom(i => i.Comments.Select(x => new CommentInListResponseModel() { Id = x.Id, Text = x.Text, Lesson = x.LessonId, Owner = x.OwnerId })));
         }
     }
 }
