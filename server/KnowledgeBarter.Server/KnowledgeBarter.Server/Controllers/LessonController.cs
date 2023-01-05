@@ -62,10 +62,16 @@ namespace KnowledgeBarter.Server.Controllers
             }
 
             var userId = this.User.Id();
+            try
+            {
+                var response = await this.lessonService.CreateAsync(model, userId);
 
-            var response = await this.lessonService.CreateAsync(model, userId);
-
-            return response;
+                return response;
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
         }
 
         [HttpDelete]
@@ -79,6 +85,24 @@ namespace KnowledgeBarter.Server.Controllers
                 await this.lessonService.DeleteAsync(id, userId);
 
                 return Ok();
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpPut]
+        [Route(IdRoute)]
+        public async Task<ActionResult<EditLessonResponseModel>> Edit(int id, EditLessonRequestModel model)
+        {
+            var userId = this.User.Id();
+
+            try
+            {
+                var response = await this.lessonService.EditAsync(model, id, userId);
+
+                return response;
             }
             catch (Exception)
             {

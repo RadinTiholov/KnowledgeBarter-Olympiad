@@ -1,6 +1,7 @@
 ﻿using KnowledgeBarter.Server.Data.Common.Repositories;
 using KnowledgeBarter.Server.Data.Models;
 using KnowledgeBarter.Server.Services.Contracts;
+using Microsoft.EntityFrameworkCore;
 
 namespace KnowledgeBarter.Server.Services
 {
@@ -15,13 +16,22 @@ namespace KnowledgeBarter.Server.Services
 
         public async Task<IEnumerable<Tag>> CreateManyAsync(string[] tags, int lessonId)
         {
+            var allTags = await this.tagRepository.All().ToListAsync();
+
             var createdTags = new List<Tag>();
             foreach (var tagText in tags)
             {
                 var tag = new Tag() { Text = tagText, LessonId = lessonId };
-                await tagRepository.AddAsync(tag);
-                await tagRepository.SaveChangesAsync();
-                createdTags.Add(tag);
+                if (allTags.Any(x => x.LessonId == lessonId && x.Text == tagText))
+                {
+                    createdTags.Add(tag);
+                }
+                else
+                {
+                    await tagRepository.AddAsync(tag);
+                    await tagRepository.SaveChangesAsync();
+                    createdTags.Add(tag);
+                }
             }
 
             return createdTags;

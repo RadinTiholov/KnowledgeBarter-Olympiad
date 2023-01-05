@@ -36,7 +36,7 @@ namespace KnowledgeBarter.Server.Services
                 .ToListAsync();
         }
 
-        public async Task<CreateLessonResponseModel> CreateAsync(CreateLesssonRequestModel model, string ownerId)
+        public async Task<CreateLessonResponseModel> CreateAsync(CreateLesssonRequestModel model, string userId)
         {
             var image = await this.imageService.CreateAsync(model.Image);
 
@@ -50,7 +50,7 @@ namespace KnowledgeBarter.Server.Services
                 Resources = model.Resources,
                 Views = 0,
                 Price = 0,
-                OwnerId = ownerId,
+                OwnerId = userId,
             };
 
             await this.lessonRepository.AddAsync(lesson);
@@ -63,12 +63,42 @@ namespace KnowledgeBarter.Server.Services
             await this.lessonRepository.SaveChangesAsync();
 
             //Add 100 KB points to the user as a reward
-            await this.identityService.UpdatePoints(ownerId, 100);
+            await this.identityService.UpdatePoints(userId, 100);
 
             return await this.lessonRepository
                 .All()
                 .Where(x => x.Id == lesson.Id)
                 .To<CreateLessonResponseModel>()
+                .FirstAsync();
+        }
+        public async Task<EditLessonResponseModel> EditAsync(EditLessonRequestModel model, int lessonId, string userId)
+        {
+            var lesson = await this.GetLessonAsync(lessonId);
+            var user = await this.identityService.GetUserAsync(userId);
+
+            if (lesson == null || user == null || lesson.OwnerId != userId)
+            {
+                throw new ArgumentException();
+            }
+
+            var image = await this.imageService.CreateAsync(model.Image);
+            var tags = await this.tagService.CreateManyAsync(model.Tags, lessonId);
+
+            lesson.Title = model.Title;
+            lesson.Description = model.Description;
+            lesson.Article = model.Article;
+            lesson.Image = image;
+            lesson.Video = model.Video;
+            lesson.Resources = model.Resources;
+            lesson.Tags = (ICollection<Tag>)tags;
+
+            this.lessonRepository.Update(lesson);
+            await this.lessonRepository.SaveChangesAsync();
+
+            return await this.lessonRepository
+                .All()
+                .Where(x => x.Id == lesson.Id)
+                .To<EditLessonResponseModel>()
                 .FirstAsync();
         }
 
@@ -77,7 +107,7 @@ namespace KnowledgeBarter.Server.Services
             var user = await this.identityService.GetUserAsync(userId);
             var lesson = await this.GetLessonAsync(id);
 
-            if (user == null || lesson == null)
+            if (user == null || lesson == null || lesson.OwnerId != userId)
             {
                 throw new ArgumentException();
             }
@@ -86,6 +116,7 @@ namespace KnowledgeBarter.Server.Services
             await this.lessonRepository.SaveChangesAsync();
 
         }
+
 
         public async Task<LessonDetailsResponseModel> GetOneAsync(int id)
         {

@@ -1,6 +1,7 @@
 ﻿using KnowledgeBarter.Server.Data.Common.Repositories;
 using KnowledgeBarter.Server.Data.Models;
 using KnowledgeBarter.Server.Services.Contracts;
+using Microsoft.EntityFrameworkCore;
 
 namespace KnowledgeBarter.Server.Services
 {
@@ -15,7 +16,17 @@ namespace KnowledgeBarter.Server.Services
 
         public async Task<Image> CreateAsync(string url)
         {
-            var image = new Image()
+            var image = await this.imageRepository
+                .All()
+                .Where(x => x.Url == url)
+                .FirstOrDefaultAsync();
+
+            if (image != null)
+            {
+                return image;
+            }
+
+            image = new Image()
             {
                 Url = url,
             };
