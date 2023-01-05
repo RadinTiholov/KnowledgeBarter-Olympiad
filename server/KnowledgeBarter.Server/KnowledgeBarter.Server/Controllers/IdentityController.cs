@@ -29,6 +29,11 @@ namespace KnowledgeBarter.Server.Controllers
             this.imageService = imageService;
         }
 
+        /// <summary>
+        /// Registers a new user with the given email, username, password, and image url.
+        /// </summary>
+        /// <param name="model">Input model for registration</param>
+        /// <returns>An HTTP status code indicating the result of the registration request.</returns>
         [HttpPost]
         [Route(nameof(Register))]
         public async Task<ActionResult> Register(RegisterInputModel model)
@@ -52,6 +57,11 @@ namespace KnowledgeBarter.Server.Controllers
             return BadRequest(result.Errors);
         }
 
+        /// <summary>
+        /// Attempts to log in a user with the given username and password.
+        /// </summary>
+        /// <param name="model">Input model for login</param>
+        /// <returns>An HTTP status code and a JWT token indicating the result of the login attempt.</returns>
         [HttpPost]
         [Route(nameof(Login))]
         public async Task<ActionResult<LoginResponseModel>> Login(LoginInputModel model)
