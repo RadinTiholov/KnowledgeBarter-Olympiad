@@ -67,5 +67,23 @@ namespace KnowledgeBarter.Server.Controllers
 
             return response;
         }
+
+        [HttpDelete]
+        [Route(IdRoute)]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var userId = this.User.Id();
+
+            try
+            {
+                await this.lessonService.DeleteAsync(id, userId);
+
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
     }
 }

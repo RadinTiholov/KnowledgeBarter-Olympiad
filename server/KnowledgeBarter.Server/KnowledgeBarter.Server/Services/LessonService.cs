@@ -1,10 +1,10 @@
 ﻿using KnowledgeBarter.Server.Data.Common.Repositories;
 using KnowledgeBarter.Server.Data.Models;
-using KnowledgeBarter.Server.Models.Comments;
 using KnowledgeBarter.Server.Models.Lesson;
 using KnowledgeBarter.Server.Services.Contracts;
 using KnowledgeBarter.Server.Services.Mapping;
 using Microsoft.EntityFrameworkCore;
+using System.Runtime.InteropServices;
 
 namespace KnowledgeBarter.Server.Services
 {
@@ -70,6 +70,21 @@ namespace KnowledgeBarter.Server.Services
                 .Where(x => x.Id == lesson.Id)
                 .To<CreateLessonResponseModel>()
                 .FirstAsync();
+        }
+
+        public async Task DeleteAsync(int id, string userId)
+        {
+            var user = await this.identityService.GetUserAsync(userId);
+            var lesson = await this.GetLessonAsync(id);
+
+            if (user == null || lesson == null)
+            {
+                throw new ArgumentException();
+            }
+
+            this.lessonRepository.Delete(lesson);
+            await this.lessonRepository.SaveChangesAsync();
+
         }
 
         public async Task<LessonDetailsResponseModel> GetOneAsync(int id)

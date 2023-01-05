@@ -11,5 +11,7 @@ namespace KnowledgeBarter.Server.Services.Contracts
         Task<LessonDetailsResponseModel> GetOneAsync(int id);
 
         Task<CreateLessonResponseModel> CreateAsync(CreateLesssonRequestModel model, string ownerId);
+
+        Task DeleteAsync(int id, string userId);
     }
 }

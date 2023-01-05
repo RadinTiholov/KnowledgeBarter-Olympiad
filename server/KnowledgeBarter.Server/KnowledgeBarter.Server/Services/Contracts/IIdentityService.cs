@@ -6,6 +6,8 @@ namespace KnowledgeBarter.Server.Services.Contracts
     {
         string GenerateJwtToken(string userId, string username, string secret);
 
+        Task<ApplicationUser> GetUserAsync(string userId);
+
         Task UpdatePoints(string userId, int points);
     }
 }

@@ -41,7 +41,7 @@ namespace KnowledgeBarter.Server.Services
         }
         public async Task UpdatePoints(string userId, int points)
         {
-            var user = await this.GetUser(userId);
+            var user = await this.GetUserAsync(userId);
 
             user.KBPoints += points;
 
@@ -49,12 +49,12 @@ namespace KnowledgeBarter.Server.Services
             await this.applicationUserRepository.SaveChangesAsync();
         }
 
-        private async Task<ApplicationUser> GetUser(string userId)
+        public async Task<ApplicationUser> GetUserAsync(string userId)
         {
             return await this.applicationUserRepository
                 .All()
                 .Where(x => x.Id == userId)
-                .FirstAsync();
+                .FirstOrDefaultAsync();
         }
     }
 }
