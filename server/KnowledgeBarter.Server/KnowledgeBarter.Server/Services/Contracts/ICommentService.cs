@@ -1,10 +1,11 @@
-﻿using KnowledgeBarter.Server.Models.Lesson;
+﻿using KnowledgeBarter.Server.Models.Comments;
+using KnowledgeBarter.Server.Models.Lesson;
 
 namespace KnowledgeBarter.Server.Services.Contracts
 {
     public interface ICommentService
     {
-        Task<IEnumerable<T>> AllAsync<T>();
+        Task<IEnumerable<CommentInListResponseModel>> AllAsync();
 
 
     }
