@@ -5,5 +5,7 @@
         public const string NotFoundMessage = "Not Found!";
 
         public const string Unauthorized = "Unauthorized!";
+
+        public const string NotEnoughMoney = "You don't have enought money!";
     }
 }

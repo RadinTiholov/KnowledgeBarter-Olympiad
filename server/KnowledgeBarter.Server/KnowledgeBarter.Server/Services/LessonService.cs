@@ -4,6 +4,7 @@ using KnowledgeBarter.Server.Models.Lesson;
 using KnowledgeBarter.Server.Services.Contracts;
 using KnowledgeBarter.Server.Services.Mapping;
 using Microsoft.EntityFrameworkCore;
+using System.Runtime.InteropServices;
 using static KnowledgeBarter.Server.Services.ServiceConstants;
 
 namespace KnowledgeBarter.Server.Services
@@ -168,7 +169,7 @@ namespace KnowledgeBarter.Server.Services
         private async Task<Lesson> GetLessonAsync(int lessonId)
         {
             return await this.lessonRepository
-                .AllAsNoTracking()
+                .All()
                 .Where(x => x.Id == lessonId)
                 .FirstOrDefaultAsync();
         }
@@ -195,6 +196,33 @@ namespace KnowledgeBarter.Server.Services
             {
                 throw new ArgumentException(Unauthorized);
             }
+        }
+
+        public async Task BuyAsync(int lessonId, string userId)
+        {
+            var user = await this.identityService.GetUserAsync(userId);
+            var lesson = await this.GetLessonAsync(lessonId);
+
+            if (user == null || lesson == null)
+            {
+                throw new ArgumentException(NotFoundMessage);
+            }
+
+            if (lesson.OwnerId == userId || user.BoughtLessons.Any(x => x.Id == lessonId))
+            {
+                throw new ArgumentException(Unauthorized);
+            }
+
+            if (user.KBPoints < lesson.Price)
+            {
+                throw new ArgumentException(NotEnoughMoney);
+            }
+
+            await this.identityService.SubtractPointsAsync(userId, lesson.Price);
+
+            user.BoughtLessons.Add(lesson);
+            this.applicationUserRepository.Update(user);
+            await this.applicationUserRepository.SaveChangesAsync();
         }
     }
 }

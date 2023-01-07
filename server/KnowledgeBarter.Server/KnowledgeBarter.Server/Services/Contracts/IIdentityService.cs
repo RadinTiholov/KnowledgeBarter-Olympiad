@@ -9,5 +9,7 @@ namespace KnowledgeBarter.Server.Services.Contracts
         Task<ApplicationUser> GetUserAsync(string userId);
 
         Task UpdatePoints(string userId, int points);
+
+        Task SubtractPointsAsync(string userId, int points);
     }
 }

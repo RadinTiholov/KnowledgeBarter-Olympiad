@@ -62,5 +62,15 @@ namespace KnowledgeBarter.Server.Services
                 .Include(x => x.OwnCourses)
                 .FirstOrDefaultAsync();
         }
+
+        public async Task SubtractPointsAsync(string userId, int points)
+        {
+            var user = await this.GetUserAsync(userId);
+
+            user.KBPoints = user.KBPoints - points;
+
+            this.applicationUserRepository.Update(user);
+            await this.applicationUserRepository.SaveChangesAsync();
+        }
     }
 }

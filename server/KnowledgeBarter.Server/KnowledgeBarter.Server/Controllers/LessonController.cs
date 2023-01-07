@@ -161,5 +161,23 @@ namespace KnowledgeBarter.Server.Controllers
                 return BadRequest(ae.Message);
             }
         }
+
+        [HttpGet]
+        [Route(BuyRoute)]
+        public async Task<ActionResult> Buy(int id)
+        {
+            var userId = this.User.Id();
+
+            try
+            {
+                await this.lessonService.BuyAsync(id, userId);
+
+                return Ok();
+            }
+            catch (ArgumentException ae)
+            {
+                return BadRequest(ae.Message);
+            }
+        }
     }
 }
