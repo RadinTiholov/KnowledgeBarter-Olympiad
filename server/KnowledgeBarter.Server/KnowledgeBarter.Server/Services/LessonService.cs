@@ -4,23 +4,27 @@ using KnowledgeBarter.Server.Models.Lesson;
 using KnowledgeBarter.Server.Services.Contracts;
 using KnowledgeBarter.Server.Services.Mapping;
 using Microsoft.EntityFrameworkCore;
-using System.Runtime.InteropServices;
+using static KnowledgeBarter.Server.Services.ServiceConstants;
 
 namespace KnowledgeBarter.Server.Services
 {
     public class LessonService : ILessonService
     {
         private readonly IDeletableEntityRepository<Lesson> lessonRepository;
+        private readonly IRepository<ApplicationUser> applicationUserRepository;
         private readonly IImageService imageService;
         private readonly ITagService tagService;
         private readonly IIdentityService identityService;
+        private readonly ILikeService likeService;
 
-        public LessonService(IDeletableEntityRepository<Lesson> lessonRepository, IImageService imageService, ITagService tagService, IIdentityService identityService)
+        public LessonService(IDeletableEntityRepository<Lesson> lessonRepository, IRepository<ApplicationUser> applicationUserRepository, IImageService imageService, ITagService tagService, IIdentityService identityService, ILikeService likeService)
         {
             this.lessonRepository = lessonRepository;
+            this.applicationUserRepository = applicationUserRepository;
             this.imageService = imageService;
             this.tagService = tagService;
             this.identityService = identityService;
+            this.likeService = likeService;
         }
         public async Task<IEnumerable<LessonInListResponseModel>> AllAsync()
         {
@@ -163,6 +167,30 @@ namespace KnowledgeBarter.Server.Services
                 .AllAsNoTracking()
                 .Where(x => x.Id == lessonId)
                 .FirstAsync();
+        }
+
+        public async Task LikeAsync(int lessonId, string userId)
+        {
+            var user = await this.identityService.GetUserAsync(userId);
+            var lesson = await this.GetLessonAsync(lessonId);
+
+            if (user == null || lesson == null)
+            {
+                throw new ArgumentException(NotFoundMessage);
+            }
+
+            if (lesson.OwnerId != userId && !user.LikedLessons.Any(x => x.Id == lessonId))
+            {
+                var like = await this.likeService.LikeLessonAsync(lessonId, userId);
+
+                user.LikedLessons.Add(lesson);
+                this.applicationUserRepository.Update(user);
+                await this.applicationUserRepository.SaveChangesAsync();
+            }
+            else
+            {
+                throw new ArgumentException(Unauthorized);
+            }
         }
     }
 }

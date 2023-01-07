@@ -138,5 +138,23 @@ namespace KnowledgeBarter.Server.Controllers
                 return BadRequest();
             }
         }
+
+        [HttpGet]
+        [Route(LikeRoute)]
+        public async Task<ActionResult> Like(int id)
+        {
+            var userId = this.User.Id();
+
+            try
+            {
+                await this.lessonService.LikeAsync(id, userId);
+
+                return Ok();
+            }
+            catch (ArgumentException ae)
+            {
+                return BadRequest(ae.Message);
+            }
+        }
     }
 }

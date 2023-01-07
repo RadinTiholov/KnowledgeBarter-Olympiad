@@ -54,6 +54,12 @@ namespace KnowledgeBarter.Server.Services
             return await this.applicationUserRepository
                 .All()
                 .Where(x => x.Id == userId)
+                .Include(x => x.LikedLessons)
+                .Include(x => x.LikedCourses)
+                .Include(x => x.BoughtLessons)
+                .Include(x => x.BoughtCourses)
+                .Include(x => x.OwnLessons)
+                .Include(x => x.OwnCourses)
                 .FirstOrDefaultAsync();
         }
     }

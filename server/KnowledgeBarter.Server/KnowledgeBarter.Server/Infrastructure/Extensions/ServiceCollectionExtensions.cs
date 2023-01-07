@@ -44,6 +44,8 @@ namespace KnowledgeBarter.Server.Infrastructure.Extensions
             services.AddTransient<IImageService, ImageService>();
             services.AddTransient<ILessonService, LessonService>();
             services.AddTransient<ITagService, TagService>();
+            services.AddTransient<ICommentService, CommentService>();
+            services.AddTransient<ILikeService, LikeService>();
 
             return services;
         }
