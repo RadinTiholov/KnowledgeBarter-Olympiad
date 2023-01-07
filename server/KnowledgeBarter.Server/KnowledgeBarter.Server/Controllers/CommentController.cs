@@ -1,5 +1,4 @@
 ﻿using KnowledgeBarter.Server.Models.Comments;
-using KnowledgeBarter.Server.Models.Lesson;
 using KnowledgeBarter.Server.Services.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

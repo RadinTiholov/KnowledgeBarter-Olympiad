@@ -18,6 +18,10 @@ namespace KnowledgeBarter.Server.Controllers
             this.lessonService = lessonService;
         }
 
+        /// <summary>
+        /// Gets a list of all available lessons.
+        /// </summary>
+        /// <returns>A list of all available lessons.</returns>
         [HttpGet]
         [Route(nameof(All))]
         public async Task<IEnumerable<LessonInListResponseModel>> All()
@@ -27,6 +31,10 @@ namespace KnowledgeBarter.Server.Controllers
             return all;
         }
 
+        /// <summary>
+        /// Gets a list of the most popular lessons.
+        /// </summary>
+        /// <returns>A list of the most popular lessons.</returns>
         [HttpGet]
         [Route(nameof(Popular))]
         public async Task<IEnumerable<LessonInListResponseModel>> Popular()
@@ -36,6 +44,11 @@ namespace KnowledgeBarter.Server.Controllers
             return popular;
         }
 
+        /// <summary>
+        /// Gets the details of a lesson with the given id.
+        /// </summary>
+        /// <param name="id">The id of the lesson to retrieve.</param>
+        /// <returns>The details of the lesson, or a bad request error if the lesson does not exist.</returns>
         [HttpGet]
         [Route(IdRoute)]
         public async Task<ActionResult<LessonDetailsResponseModel>> Details(int id)
@@ -52,6 +65,11 @@ namespace KnowledgeBarter.Server.Controllers
             }
         }
 
+        /// <summary>
+        /// Creates a new lesson with the given input data.
+        /// </summary>
+        /// <param name="model">An object containing the input data for the new lesson, including the title, description, and image url.</param>
+        /// <returns>The id of the newly created lesson, or a bad request error if the request is invalid.</returns>
         [HttpPost]
         [Route(nameof(Create))]
         public async Task<ActionResult<CreateLessonResponseModel>> Create(CreateLesssonRequestModel model)
@@ -74,6 +92,11 @@ namespace KnowledgeBarter.Server.Controllers
             }
         }
 
+        /// <summary>
+        /// Deletes a lesson with the given id.
+        /// </summary>
+        /// <param name="id">The id of the lesson to delete.</param>
+        /// <returns>An HTTP status code indicating the result of the delete request.</returns>
         [HttpDelete]
         [Route(IdRoute)]
         public async Task<ActionResult> Delete(int id)
@@ -92,6 +115,12 @@ namespace KnowledgeBarter.Server.Controllers
             }
         }
 
+        /// <summary>
+        /// Edits a lesson with the given id and input data.
+        /// </summary>
+        /// <param name="id">The id of the lesson to edit.</param>
+        /// <param name="model">An object containing the input data for the lesson edit, including the title, description, and image url.</param>
+        /// <returns>The id of the edited lesson, or a bad request error if the request is invalid.</returns>
         [HttpPut]
         [Route(IdRoute)]
         public async Task<ActionResult<EditLessonResponseModel>> Edit(int id, EditLessonRequestModel model)
