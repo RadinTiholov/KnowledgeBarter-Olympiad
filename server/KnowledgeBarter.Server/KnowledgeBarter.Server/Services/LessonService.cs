@@ -47,7 +47,7 @@ namespace KnowledgeBarter.Server.Services
                 ImageId = image.Id,
                 Resources = model.Resources,
                 Views = 0,
-                Price = 0,
+                Price = 100,
                 OwnerId = userId,
             };
 
