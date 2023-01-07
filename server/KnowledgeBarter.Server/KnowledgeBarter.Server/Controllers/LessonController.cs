@@ -59,9 +59,9 @@ namespace KnowledgeBarter.Server.Controllers
 
                 return lesson;
             }
-            catch (ArgumentException)
+            catch (ArgumentException ae)
             {
-                return BadRequest();
+                return BadRequest(ae.Message);
             }
         }
 
@@ -109,9 +109,9 @@ namespace KnowledgeBarter.Server.Controllers
 
                 return Ok();
             }
-            catch (Exception)
+            catch (ArgumentException ae)
             {
-                return BadRequest();
+                return BadRequest(ae.Message);
             }
         }
 
@@ -133,12 +133,17 @@ namespace KnowledgeBarter.Server.Controllers
 
                 return response;
             }
-            catch (Exception)
+            catch (ArgumentException ae)
             {
-                return BadRequest();
+                return BadRequest(ae.Message);
             }
         }
 
+        /// <summary>
+        /// Likes a lesson with the given id.
+        /// </summary>
+        /// <param name="id">The id of the lesson to like.</param>
+        /// <returns>An HTTP status code indicating the result of the like request.</returns>
         [HttpGet]
         [Route(LikeRoute)]
         public async Task<ActionResult> Like(int id)

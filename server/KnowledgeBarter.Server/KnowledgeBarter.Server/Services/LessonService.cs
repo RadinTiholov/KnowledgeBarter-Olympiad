@@ -80,9 +80,14 @@ namespace KnowledgeBarter.Server.Services
             var lesson = await this.GetLessonAsync(lessonId);
             var user = await this.identityService.GetUserAsync(userId);
 
-            if (lesson == null || user == null || lesson.OwnerId != userId)
+            if (user == null || lesson == null)
             {
-                throw new ArgumentException();
+                throw new ArgumentException(NotFoundMessage);
+            }
+
+            if (lesson.OwnerId != userId)
+            {
+                throw new ArgumentException(Unauthorized);
             }
 
             var image = await this.imageService.CreateAsync(model.Image);
@@ -111,9 +116,14 @@ namespace KnowledgeBarter.Server.Services
             var user = await this.identityService.GetUserAsync(userId);
             var lesson = await this.GetLessonAsync(id);
 
-            if (user == null || lesson == null || lesson.OwnerId != userId)
+            if (user == null || lesson == null)
             {
-                throw new ArgumentException();
+                throw new ArgumentException(NotFoundMessage);
+            }
+
+            if (lesson.OwnerId != userId)
+            {
+                throw new ArgumentException(Unauthorized);
             }
 
             this.lessonRepository.Delete(lesson);
@@ -132,7 +142,7 @@ namespace KnowledgeBarter.Server.Services
 
             if (lesson == null)
             {
-                throw new ArgumentException();
+                throw new ArgumentException(NotFoundMessage);
             }
 
             //Increase views
@@ -166,7 +176,7 @@ namespace KnowledgeBarter.Server.Services
             return await this.lessonRepository
                 .AllAsNoTracking()
                 .Where(x => x.Id == lessonId)
-                .FirstAsync();
+                .FirstOrDefaultAsync();
         }
 
         public async Task LikeAsync(int lessonId, string userId)
