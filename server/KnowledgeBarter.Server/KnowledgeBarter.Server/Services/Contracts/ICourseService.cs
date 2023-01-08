@@ -5,5 +5,7 @@ namespace KnowledgeBarter.Server.Services.Contracts
     public interface ICourseService
     {
         Task<IEnumerable<CourseInListResponseModel>> AllAsync();
+
+        Task<IEnumerable<CourseInListResponseModel>> HighestAsync();
     }
 }

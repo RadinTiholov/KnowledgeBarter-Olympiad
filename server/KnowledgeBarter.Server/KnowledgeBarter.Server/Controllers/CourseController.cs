@@ -27,5 +27,18 @@ namespace KnowledgeBarter.Server.Controllers
 
             return all;
         }
+
+        /// <summary>
+        /// Gets a list of the highest rated courses.
+        /// </summary>
+        /// <returns>A list of all available courses.</returns>
+        [HttpGet]
+        [Route(nameof(Highest))]
+        public async Task<IEnumerable<CourseInListResponseModel>> Highest()
+        {
+            var all = await this.courseService.HighestAsync();
+
+            return all;
+        }
     }
 }

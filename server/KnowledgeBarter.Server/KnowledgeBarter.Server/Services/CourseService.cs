@@ -23,5 +23,16 @@ namespace KnowledgeBarter.Server.Services
                 .To<CourseInListResponseModel>()
                 .ToListAsync();
         }
+
+        public async Task<IEnumerable<CourseInListResponseModel>> HighestAsync()
+        {
+            return await this.courseRepository
+               .AllAsNoTracking()
+               .Include(x => x.Likes)
+               .OrderByDescending(x => x.Likes.Count())
+               .Take(4)
+               .To<CourseInListResponseModel>()
+               .ToListAsync();
+        }
     }
 }
