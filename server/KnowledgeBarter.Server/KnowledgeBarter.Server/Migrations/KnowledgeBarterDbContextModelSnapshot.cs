@@ -4,18 +4,16 @@ using KnowledgeBarter.Server.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace KnowledgeBarter.Server.Data.Migrations
+namespace KnowledgeBarter.Server.Migrations
 {
     [DbContext(typeof(KnowledgeBarterDbContext))]
-    [Migration("20221227184839_Initial")]
-    partial class Initial
+    partial class KnowledgeBarterDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -23,6 +21,66 @@ namespace KnowledgeBarter.Server.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("ApplicationUserCourse", b =>
+                {
+                    b.Property<int>("BoughtCoursesId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UsersWhoBoughtId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("BoughtCoursesId", "UsersWhoBoughtId");
+
+                    b.HasIndex("UsersWhoBoughtId");
+
+                    b.ToTable("ApplicationUserCourse");
+                });
+
+            modelBuilder.Entity("ApplicationUserCourse1", b =>
+                {
+                    b.Property<int>("LikedCoursesId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UsersWhoLikedId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("LikedCoursesId", "UsersWhoLikedId");
+
+                    b.HasIndex("UsersWhoLikedId");
+
+                    b.ToTable("ApplicationUserCourse1");
+                });
+
+            modelBuilder.Entity("ApplicationUserLesson", b =>
+                {
+                    b.Property<int>("BoughtLessonsId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UsersWhoBoughtId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("BoughtLessonsId", "UsersWhoBoughtId");
+
+                    b.HasIndex("UsersWhoBoughtId");
+
+                    b.ToTable("ApplicationUserLesson");
+                });
+
+            modelBuilder.Entity("ApplicationUserLesson1", b =>
+                {
+                    b.Property<int>("LikedLessonsId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UsersWhoLikedId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("LikedLessonsId", "UsersWhoLikedId");
+
+                    b.HasIndex("UsersWhoLikedId");
+
+                    b.ToTable("ApplicationUserLesson1");
+                });
 
             modelBuilder.Entity("CourseLesson", b =>
                 {
@@ -262,7 +320,6 @@ namespace KnowledgeBarter.Server.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Resources")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
@@ -340,7 +397,7 @@ namespace KnowledgeBarter.Server.Data.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("ReviewText")
+                    b.Property<string>("Text")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
@@ -483,6 +540,66 @@ namespace KnowledgeBarter.Server.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("ApplicationUserCourse", b =>
+                {
+                    b.HasOne("KnowledgeBarter.Server.Data.Models.Course", null)
+                        .WithMany()
+                        .HasForeignKey("BoughtCoursesId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("KnowledgeBarter.Server.Data.Models.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UsersWhoBoughtId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ApplicationUserCourse1", b =>
+                {
+                    b.HasOne("KnowledgeBarter.Server.Data.Models.Course", null)
+                        .WithMany()
+                        .HasForeignKey("LikedCoursesId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("KnowledgeBarter.Server.Data.Models.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UsersWhoLikedId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ApplicationUserLesson", b =>
+                {
+                    b.HasOne("KnowledgeBarter.Server.Data.Models.Lesson", null)
+                        .WithMany()
+                        .HasForeignKey("BoughtLessonsId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("KnowledgeBarter.Server.Data.Models.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UsersWhoBoughtId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ApplicationUserLesson1", b =>
+                {
+                    b.HasOne("KnowledgeBarter.Server.Data.Models.Lesson", null)
+                        .WithMany()
+                        .HasForeignKey("LikedLessonsId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("KnowledgeBarter.Server.Data.Models.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UsersWhoLikedId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("CourseLesson", b =>
