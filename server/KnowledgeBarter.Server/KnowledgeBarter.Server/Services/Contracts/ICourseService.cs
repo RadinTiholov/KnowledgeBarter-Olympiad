@@ -7,5 +7,7 @@ namespace KnowledgeBarter.Server.Services.Contracts
         Task<IEnumerable<CourseInListResponseModel>> AllAsync();
 
         Task<IEnumerable<CourseInListResponseModel>> HighestAsync();
+
+        Task<CreateCourseResponseModel> CreateAsync(CreateCourseRequestModel model, string userId);
     }
 }

@@ -22,6 +22,6 @@ namespace KnowledgeBarter.Server.Models.Course
 
         [Required]
         [MinLength(3)]
-        public string[] Lessons { get; set; }
+        public int[] Lessons { get; set; } = null!;
     }
 }

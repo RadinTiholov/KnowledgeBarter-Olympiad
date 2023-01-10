@@ -7,5 +7,7 @@
         public const string Unauthorized = "Unauthorized!";
 
         public const string NotEnoughMoney = "You don't have enought money!";
+
+        public const string LessonsShouldBeMore = "Lessons should be more than 5!";
     }
 }

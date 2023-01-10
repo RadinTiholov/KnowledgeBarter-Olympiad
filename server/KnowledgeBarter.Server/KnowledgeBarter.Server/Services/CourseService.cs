@@ -5,15 +5,26 @@ using KnowledgeBarter.Server.Services.Contracts;
 using KnowledgeBarter.Server.Services.Mapping;
 using Microsoft.EntityFrameworkCore;
 
+using static KnowledgeBarter.Server.Services.ServiceConstants;
+
 namespace KnowledgeBarter.Server.Services
 {
     public class CourseService : ICourseService
     {
         private readonly IDeletableEntityRepository<Course> courseRepository;
+        private readonly IImageService imageService;
+        private readonly IRepository<Lesson> lessonRepository;
+        private readonly IIdentityService identityService;
 
-        public CourseService(IDeletableEntityRepository<Course> courseRepository)
+        public CourseService(IDeletableEntityRepository<Course> courseRepository,
+            IImageService imageService,
+            IRepository<Lesson> lessonRepository,
+            IIdentityService identityService)
         {
             this.courseRepository = courseRepository;
+            this.imageService = imageService;
+            this.lessonRepository = lessonRepository;
+            this.identityService = identityService;
         }
 
         public async Task<IEnumerable<CourseInListResponseModel>> AllAsync()
@@ -22,6 +33,52 @@ namespace KnowledgeBarter.Server.Services
                 .AllAsNoTracking()
                 .To<CourseInListResponseModel>()
                 .ToListAsync();
+        }
+
+        public async Task<CreateCourseResponseModel> CreateAsync(CreateCourseRequestModel model, string userId)
+        {
+            var image = await this.imageService.CreateAsync(model.Image);
+
+            var lessons = await this.lessonRepository.All()
+                .Where(x => model.Lessons.Contains(x.Id))
+                .ToListAsync();
+
+            if (lessons.Count < 6)
+            {
+                throw new ArgumentException(LessonsShouldBeMore);
+            }
+
+            if (lessons.Count != lessons.Distinct().Count())
+            {
+                throw new ArgumentException(Unauthorized);
+            }
+
+            if (lessons.Any(x => x.OwnerId != userId))
+            {
+                throw new ArgumentException(Unauthorized);
+            }
+
+
+            var course = new Course()
+            {
+                Title = model.Title,
+                Description = model.Description,
+                Image = image,
+                OwnerId = userId,
+                Price = 500,
+                Lessons = lessons,
+            };
+
+            await this.courseRepository.AddAsync(course);
+            await this.courseRepository.SaveChangesAsync();
+
+            //Add 100 KB points to the user as a reward
+            await this.identityService.UpdatePoints(userId, 500);
+
+            return await this.courseRepository.All()
+                .Where(x => x.Id == course.Id)
+                .To<CreateCourseResponseModel>()
+                .FirstAsync();
         }
 
         public async Task<IEnumerable<CourseInListResponseModel>> HighestAsync()

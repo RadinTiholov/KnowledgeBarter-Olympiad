@@ -1,4 +1,5 @@
-﻿using KnowledgeBarter.Server.Models.Course;
+﻿using KnowledgeBarter.Server.Infrastructure.Extensions;
+using KnowledgeBarter.Server.Models.Course;
 using KnowledgeBarter.Server.Services.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -39,6 +40,34 @@ namespace KnowledgeBarter.Server.Controllers
             var all = await this.courseService.HighestAsync();
 
             return all;
+        }
+
+        /// <summary>
+        /// Creates a new course with the given input data.
+        /// </summary>
+        /// <param name="model">An object containing the input data for the new course, including the title, description, and image url.</param>
+        /// <returns>The id of the newly created course, or a bad request error if the request is invalid.</returns>
+        [HttpPost]
+        [Route(nameof(Create))]
+        public async Task<ActionResult<CreateCourseResponseModel>> Create(CreateCourseRequestModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var userId = this.User.Id();
+
+            try
+            {
+                var response = await this.courseService.CreateAsync(model, userId);
+
+                return response;
+            }
+            catch (ArgumentException ae)
+            {
+                return BadRequest(ae.Message);
+            }
         }
     }
 }
