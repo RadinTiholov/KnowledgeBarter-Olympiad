@@ -1,6 +1,7 @@
 ﻿using KnowledgeBarter.Server.Data.Common.Repositories;
 using KnowledgeBarter.Server.Data.Models;
 using KnowledgeBarter.Server.Models.Course;
+using KnowledgeBarter.Server.Models.Lesson;
 using KnowledgeBarter.Server.Services.Contracts;
 using KnowledgeBarter.Server.Services.Mapping;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +16,7 @@ namespace KnowledgeBarter.Server.Services
         private readonly IImageService imageService;
         private readonly IRepository<Lesson> lessonRepository;
         private readonly IIdentityService identityService;
+
 
         public CourseService(IDeletableEntityRepository<Course> courseRepository,
             IImageService imageService,
@@ -75,10 +77,18 @@ namespace KnowledgeBarter.Server.Services
             //Add 100 KB points to the user as a reward
             await this.identityService.UpdatePoints(userId, 500);
 
-            return await this.courseRepository.All()
+            var createdCourse = await this.courseRepository.All()
                 .Where(x => x.Id == course.Id)
                 .To<CreateCourseResponseModel>()
                 .FirstAsync();
+
+            createdCourse.Lessons = await this.lessonRepository
+                .AllAsNoTracking()
+                .Where(x => x.Courses.Any(x => x.Id == course.Id))
+                .To<LessonInListResponseModel>()
+                .ToListAsync();
+
+            return createdCourse;
         }
 
         public async Task<IEnumerable<CourseInListResponseModel>> HighestAsync()
