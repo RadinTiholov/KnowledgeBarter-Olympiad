@@ -72,6 +72,11 @@ namespace KnowledgeBarter.Server.Controllers
             }
         }
 
+        /// <summary>
+        /// Retrieves a single course by Id.
+        /// </summary>
+        /// <param name="id">The Id of the course to retrieve</param>
+        /// <returns>The course details or an error message</returns>
         [HttpGet]
         [Route(IdRoute)]
         public async Task<ActionResult<CourseDetailsResponseModel>> Details(int id)
@@ -81,6 +86,30 @@ namespace KnowledgeBarter.Server.Controllers
                 var course = await this.courseService.GetOneAsync(id);
 
                 return course;
+            }
+            catch (ArgumentException ae)
+            {
+                return BadRequest(ae.Message);
+            }
+        }
+
+        /// <summary>
+        /// Attempts to delete a single course by Id and userId and returns a 'OK' HTTP status code if successful. 
+        /// Returns a 'Bad Request' HTTP status code and an error message if the course is not found.
+        /// </summary>
+        /// <param name="id">The Id of the course to delete</param>
+        /// <returns>HTTP status code indicating success or failure</returns>
+        [HttpDelete]
+        [Route(IdRoute)]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var userId = this.User.Id();
+
+            try
+            {
+                await this.courseService.DeleteAsync(id, userId);
+
+                return Ok();
             }
             catch (ArgumentException ae)
             {

@@ -91,6 +91,33 @@ namespace KnowledgeBarter.Server.Services
             return createdCourse;
         }
 
+        public async Task DeleteAsync(int courseId, string userId)
+        {
+            var user = await this.identityService.GetUserAsync(userId);
+            var course = await this.GetCourseAsync(courseId);
+
+            if (user == null || course == null)
+            {
+                throw new ArgumentException(NotFoundMessage);
+            }
+
+            if (course.OwnerId != userId)
+            {
+                throw new ArgumentException(Unauthorized);
+            }
+
+            this.courseRepository.Delete(course);
+            await this.courseRepository.SaveChangesAsync();
+        }
+
+        private async Task<Course> GetCourseAsync(int courseId)
+        {
+            return await this.courseRepository
+                .All()
+                .Where(x => x.Id == courseId)
+                .FirstOrDefaultAsync();
+        }
+
         public async Task<CourseDetailsResponseModel> GetOneAsync(int id)
         {
             var course = await this.courseRepository.All()
