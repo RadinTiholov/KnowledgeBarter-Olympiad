@@ -3,6 +3,8 @@ using KnowledgeBarter.Server.Data.Models;
 using KnowledgeBarter.Server.Models.Comments;
 using KnowledgeBarter.Server.Models.Lesson;
 using KnowledgeBarter.Server.Services.Contracts;
+using KnowledgeBarter.Server.Services.Mapping;
+using Microsoft.EntityFrameworkCore;
 
 namespace KnowledgeBarter.Server.Services
 {
@@ -20,42 +22,25 @@ namespace KnowledgeBarter.Server.Services
             throw new NotImplementedException();
         }
 
-        public async Task<CreateLessonResponseModel> CreateAsync(CreateLesssonRequestModel model, string userId)
+        public async Task<CreateCommentResponseModel> CreateAsync(CreateCommentResponseModel model, int lessonId, string userId)
         {
+            // TODO: 
+            Lesson
+            var comment = new Comment()
+            {
+                LessonId = lessonId,
+                OwnerId = userId,
+                Text = model.Text,
+            };
 
-
-            //var image = await this.imageService.CreateAsync(model.Image);
-
-            //var lesson = new Lesson()
-            //{
-            //    Title = model.Title,
-            //    Description = model.Description,
-            //    Article = model.Article,
-            //    Video = model.Video,
-            //    ImageId = image.Id,
-            //    Resources = model.Resources,
-            //    Views = 0,
-            //    Price = 100,
-            //    OwnerId = userId,
-            //};
-
-            //await this.lessonRepository.AddAsync(lesson);
-            //await this.lessonRepository.SaveChangesAsync();
-
-            //var tags = await this.tagService.CreateManyAsync(model.Tags, lesson.Id);
-            //lesson.Tags = (ICollection<Tag>)tags;
-
-            //this.lessonRepository.Update(lesson);
-            //await this.lessonRepository.SaveChangesAsync();
-
-            //Add 100 KB points to the user as a reward
-            //await this.identityService.UpdatePoints(userId, 100);
-
-            //return await this.lessonRepository
-            //    .All()
-            //    .Where(x => x.Id == lesson.Id)
-            //    .To<CreateLessonResponseModel>()
-            //    .FirstAsync();
+            await this.commentRepository.AddAsync(comment);
+            await this.commentRepository.SaveChangesAsync();
+            
+            return await this.commentRepository
+                .All()
+                .Where(x => x.Id == x.Id)
+                .To<CreateCommentResponseModel>()
+                .FirstAsync();
         }
     }
 }

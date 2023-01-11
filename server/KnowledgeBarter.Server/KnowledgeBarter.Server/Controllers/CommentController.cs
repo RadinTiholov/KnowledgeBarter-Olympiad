@@ -29,7 +29,7 @@ namespace KnowledgeBarter.Server.Controllers
 
         [HttpPost]
         [Route(nameof(Create))]
-        public async Task<ActionResult<Comment>> Create(Comment model)
+        public async Task<ActionResult<CreateCommentResponseModel>> Create(CreateCommentResponseModel model, int lessonId)
         {
             if (!ModelState.IsValid)
             {
@@ -37,9 +37,10 @@ namespace KnowledgeBarter.Server.Controllers
             }
 
             var userId = this.User.Id();
+
             try
             {
-                var response = await this.commentService.CreateAsync(model, userId);
+                var response = await this.commentService.CreateAsync(model, lessonId, userId);
 
                 return response;
             }

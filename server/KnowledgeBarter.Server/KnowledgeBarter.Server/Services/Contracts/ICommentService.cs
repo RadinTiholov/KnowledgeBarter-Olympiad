@@ -8,6 +8,6 @@ namespace KnowledgeBarter.Server.Services.Contracts
     {
         Task<IEnumerable<CommentInListResponseModel>> AllAsync();
 
-        Task<Comment> CreateAsync(Comment model, string userId);
+        Task<CreateCommentResponseModel> CreateAsync(CreateCommentResponseModel model, int lessonId, string userId);
     }
 }
