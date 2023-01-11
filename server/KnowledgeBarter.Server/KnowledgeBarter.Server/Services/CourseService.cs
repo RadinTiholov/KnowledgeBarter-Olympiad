@@ -91,6 +91,27 @@ namespace KnowledgeBarter.Server.Services
             return createdCourse;
         }
 
+        public async Task<CourseDetailsResponseModel> GetOneAsync(int id)
+        {
+            var course = await this.courseRepository.All()
+                .Where(x => x.Id == id)
+                .To<CourseDetailsResponseModel>()
+                .FirstOrDefaultAsync();
+
+            if (course == null)
+            {
+                throw new ArgumentException(NotFoundMessage);
+            }
+
+            course.Lessons = await this.lessonRepository
+                .AllAsNoTracking()
+                .Where(x => x.Courses.Any(x => x.Id == id))
+                .To<LessonInListResponseModel>()
+                .ToListAsync();
+
+            return course;
+        }
+
         public async Task<IEnumerable<CourseInListResponseModel>> HighestAsync()
         {
             return await this.courseRepository

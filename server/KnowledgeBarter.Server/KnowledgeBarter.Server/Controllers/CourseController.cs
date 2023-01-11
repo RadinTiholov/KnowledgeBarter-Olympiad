@@ -4,6 +4,8 @@ using KnowledgeBarter.Server.Services.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
+using static KnowledgeBarter.Server.Infrastructure.WebConstants;
+
 namespace KnowledgeBarter.Server.Controllers
 {
     [Authorize]
@@ -63,6 +65,22 @@ namespace KnowledgeBarter.Server.Controllers
                 var response = await this.courseService.CreateAsync(model, userId);
 
                 return response;
+            }
+            catch (ArgumentException ae)
+            {
+                return BadRequest(ae.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route(IdRoute)]
+        public async Task<ActionResult<CourseDetailsResponseModel>> Details(int id)
+        {
+            try
+            {
+                var course = await this.courseService.GetOneAsync(id);
+
+                return course;
             }
             catch (ArgumentException ae)
             {

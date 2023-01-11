@@ -1,11 +1,11 @@
 ﻿namespace KnowledgeBarter.Server.Models.Course
 {
-    using AutoMapper;
-    using KnowledgeBarter.Server.Data.Models;
-    using KnowledgeBarter.Server.Models.Lesson;
     using KnowledgeBarter.Server.Services.Mapping;
+    using KnowledgeBarter.Server.Data.Models;
+    using AutoMapper;
+    using KnowledgeBarter.Server.Models.Lesson;
 
-    public class CreateCourseResponseModel : IMapFrom<Course>, IHaveCustomMappings
+    public class CourseDetailsResponseModel : IMapFrom<Course>, IHaveCustomMappings
     {
         public int Id { get; set; }
 
@@ -25,7 +25,7 @@
 
         public void CreateMappings(IProfileExpression configuration)
         {
-            configuration.CreateMap<Course, CreateCourseResponseModel>()
+            configuration.CreateMap<Course, CourseDetailsResponseModel>()
                 .ForMember(x => x.Thumbnail, opt =>
                     opt.MapFrom(i => i.Image.Url))
                 .ForMember(x => x.Owner, opt =>
