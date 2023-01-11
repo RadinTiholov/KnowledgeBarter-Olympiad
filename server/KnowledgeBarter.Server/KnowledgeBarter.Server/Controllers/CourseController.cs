@@ -116,5 +116,23 @@ namespace KnowledgeBarter.Server.Controllers
                 return BadRequest(ae.Message);
             }
         }
+
+        [HttpPut]
+        [Route(IdRoute)]
+        public async Task<ActionResult<EditCourseResponseModel>> Edit(int id, EditCourseRequestModel model)
+        {
+            var userId = this.User.Id();
+
+            try
+            {
+                var response = await this.courseService.EditAsync(model, id, userId);
+
+                return response;
+            }
+            catch (ArgumentException ae)
+            {
+                return BadRequest(ae.Message);
+            }
+        }
     }
 }

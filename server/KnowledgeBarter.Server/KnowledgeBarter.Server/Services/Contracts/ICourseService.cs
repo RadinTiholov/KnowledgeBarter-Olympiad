@@ -13,5 +13,7 @@ namespace KnowledgeBarter.Server.Services.Contracts
         Task<CourseDetailsResponseModel> GetOneAsync(int id);
 
         Task DeleteAsync(int courseId, string userId);
+
+        Task<EditCourseResponseModel> EditAsync(EditCourseRequestModel model, int courseId, string userId);
     }
 }

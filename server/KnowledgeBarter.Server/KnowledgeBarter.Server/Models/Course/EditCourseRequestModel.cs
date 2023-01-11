@@ -1,11 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
 using static KnowledgeBarter.Server.Data.Common.DataValidation.Course;
-
 
 namespace KnowledgeBarter.Server.Models.Course
 {
-    public class CreateCourseRequestModel
+    public class EditCourseRequestModel
     {
         [Required]
         [MaxLength(DescriptionMaxLength)]

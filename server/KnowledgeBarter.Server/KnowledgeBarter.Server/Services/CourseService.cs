@@ -5,7 +5,6 @@ using KnowledgeBarter.Server.Models.Lesson;
 using KnowledgeBarter.Server.Services.Contracts;
 using KnowledgeBarter.Server.Services.Mapping;
 using Microsoft.EntityFrameworkCore;
-
 using static KnowledgeBarter.Server.Services.ServiceConstants;
 
 namespace KnowledgeBarter.Server.Services
@@ -39,8 +38,6 @@ namespace KnowledgeBarter.Server.Services
 
         public async Task<CreateCourseResponseModel> CreateAsync(CreateCourseRequestModel model, string userId)
         {
-            var image = await this.imageService.CreateAsync(model.Image);
-
             var lessons = await this.lessonRepository.All()
                 .Where(x => model.Lessons.Contains(x.Id))
                 .ToListAsync();
@@ -60,6 +57,7 @@ namespace KnowledgeBarter.Server.Services
                 throw new ArgumentException(Unauthorized);
             }
 
+            var image = await this.imageService.CreateAsync(model.Image);
 
             var course = new Course()
             {
@@ -115,6 +113,7 @@ namespace KnowledgeBarter.Server.Services
             return await this.courseRepository
                 .All()
                 .Where(x => x.Id == courseId)
+                .Include(x => x.Lessons)
                 .FirstOrDefaultAsync();
         }
 
@@ -148,6 +147,73 @@ namespace KnowledgeBarter.Server.Services
                .Take(4)
                .To<CourseInListResponseModel>()
                .ToListAsync();
+        }
+
+        public async Task<EditCourseResponseModel> EditAsync(EditCourseRequestModel model, int courseId, string userId)
+        {
+            var course = await this.GetCourseAsync(courseId);
+            var user = await this.identityService.GetUserAsync(userId);
+
+            if (user == null || course == null)
+            {
+                throw new ArgumentException(NotFoundMessage);
+            }
+
+            if (course.OwnerId != userId)
+            {
+                throw new ArgumentException(Unauthorized);
+            }
+
+            var lessons = await this.lessonRepository.All()
+                .Where(x => model.Lessons.Contains(x.Id))
+                .ToListAsync();
+
+            if (lessons.Count < 6)
+            {
+                throw new ArgumentException(LessonsShouldBeMore);
+            }
+
+            if (lessons.Count != lessons.Distinct().Count())
+            {
+                throw new ArgumentException(Unauthorized);
+            }
+
+            if (lessons.Any(x => x.OwnerId != userId))
+            {
+                throw new ArgumentException(Unauthorized);
+            }
+
+            var image = await this.imageService.CreateAsync(model.Image);
+
+            foreach (var lesson in course.Lessons)
+            {
+                lesson.Courses.Remove(course);
+            }
+
+            this.courseRepository.Update(course);
+            await this.courseRepository.SaveChangesAsync();
+
+            course.Title = model.Title;
+            course.Description = model.Description;
+            course.Image = image;
+            course.Lessons = lessons;
+
+            this.courseRepository.Update(course);
+            await this.courseRepository.SaveChangesAsync();
+
+            //Return the created course with mapped props
+            var createdCourse = await this.courseRepository.All()
+                .Where(x => x.Id == course.Id)
+                .To<EditCourseResponseModel>()
+                .FirstAsync();
+
+            createdCourse.Lessons = await this.lessonRepository
+                .AllAsNoTracking()
+                .Where(x => x.Courses.Any(x => x.Id == course.Id))
+                .To<LessonInListResponseModel>()
+                .ToListAsync();
+
+            return createdCourse;
         }
     }
 }
