@@ -5,6 +5,6 @@ namespace KnowledgeBarter.Server.Models.Comments
 {
     public class CreateCommentResponseModel : IMapFrom<Comment>
     {
-        public string Text { get; set; }
+        public string Text { get; set; } = null!;
     }
 }
