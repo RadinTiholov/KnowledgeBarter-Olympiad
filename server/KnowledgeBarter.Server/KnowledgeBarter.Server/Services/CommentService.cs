@@ -11,10 +11,12 @@ namespace KnowledgeBarter.Server.Services
     public class CommentService : ICommentService
     {
         private readonly IRepository<Comment> commentRepository;
+        private readonly IRepository<Lesson> lessonRepository;
 
-        public CommentService(IRepository<Comment> commentRepository)
+        public CommentService(IRepository<Comment> commentRepository, IRepository<Lesson> lessonRepository)
         {
             this.commentRepository = commentRepository;
+            this.lessonRepository = lessonRepository;
         }
 
         public Task<IEnumerable<CommentInListResponseModel>> AllAsync()
@@ -24,7 +26,17 @@ namespace KnowledgeBarter.Server.Services
 
         public async Task<CreateCommentResponseModel> CreateAsync(CreateCommentResponseModel model, int lessonId, string userId)
         {
-            // TODO: 
+            var lesson = await lessonRepository
+                .All()
+                .Where(x => x.Id == x.Id)
+                .FirstOrDefaultAsync();
+
+            if (lesson == null)
+            {
+                // TODO: extract error message in a constant
+                throw new ArgumentNullException("Cannot create comment for a lesson that does not exist");
+            }
+
             var comment = new Comment()
             {
                 LessonId = lessonId,
@@ -37,7 +49,7 @@ namespace KnowledgeBarter.Server.Services
 
             return await this.commentRepository
                 .All()
-                .Where(x => x.Id == x.Id)
+                .Where(c => c.Id == comment.Id)
                 .To<CreateCommentResponseModel>()
                 .FirstAsync();
         }
