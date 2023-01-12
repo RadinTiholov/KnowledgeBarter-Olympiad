@@ -5,6 +5,7 @@ using KnowledgeBarter.Server.Models.Lesson;
 using KnowledgeBarter.Server.Services.Contracts;
 using KnowledgeBarter.Server.Services.Mapping;
 using Microsoft.EntityFrameworkCore;
+
 using static KnowledgeBarter.Server.Services.ServiceConstants;
 
 namespace KnowledgeBarter.Server.Services
@@ -12,20 +13,26 @@ namespace KnowledgeBarter.Server.Services
     public class CourseService : ICourseService
     {
         private readonly IDeletableEntityRepository<Course> courseRepository;
+        private readonly IRepository<ApplicationUser> applicationUserRepository;
         private readonly IImageService imageService;
         private readonly IRepository<Lesson> lessonRepository;
         private readonly IIdentityService identityService;
+        private readonly ILikeService likeService;
 
 
         public CourseService(IDeletableEntityRepository<Course> courseRepository,
             IImageService imageService,
             IRepository<Lesson> lessonRepository,
-            IIdentityService identityService)
+            IIdentityService identityService,
+            ILikeService likeService,
+            IRepository<ApplicationUser> applicationUserRepository)
         {
             this.courseRepository = courseRepository;
             this.imageService = imageService;
             this.lessonRepository = lessonRepository;
             this.identityService = identityService;
+            this.likeService = likeService;
+            this.applicationUserRepository = applicationUserRepository;
         }
 
         public async Task<IEnumerable<CourseInListResponseModel>> AllAsync()
@@ -214,6 +221,35 @@ namespace KnowledgeBarter.Server.Services
                 .ToListAsync();
 
             return createdCourse;
+        }
+
+        public async Task LikeAsync(int courseId, string userId)
+        {
+            var user = await this.identityService.GetUserAsync(userId);
+            var course = await this.GetCourseAsync(courseId);
+
+            if (user == null || course == null)
+            {
+                throw new ArgumentException(NotFoundMessage);
+            }
+
+            if (course.OwnerId != userId && !user.LikedCourses.Any(x => x.Id == courseId))
+            {
+                var like = await this.likeService.LikeCourseAsync(courseId, userId);
+
+                user.LikedCourses.Add(course);
+                this.applicationUserRepository.Update(user);
+                await this.applicationUserRepository.SaveChangesAsync();
+            }
+            else
+            {
+                throw new ArgumentException(Unauthorized);
+            }
+        }
+
+        public Task BuyAsync(int courseId, string userId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

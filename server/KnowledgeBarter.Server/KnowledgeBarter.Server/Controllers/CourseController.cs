@@ -117,6 +117,12 @@ namespace KnowledgeBarter.Server.Controllers
             }
         }
 
+        /// <summary>
+        /// Edits a course with the given id and input data.
+        /// </summary>
+        /// <param name="id">The id of the course to edit.</param>
+        /// <param name="model">An object containing the input data for the course edit.</param>
+        /// <returns>The the edited course, or a bad request error if the request is invalid.</returns>
         [HttpPut]
         [Route(IdRoute)]
         public async Task<ActionResult<EditCourseResponseModel>> Edit(int id, EditCourseRequestModel model)
@@ -128,6 +134,52 @@ namespace KnowledgeBarter.Server.Controllers
                 var response = await this.courseService.EditAsync(model, id, userId);
 
                 return response;
+            }
+            catch (ArgumentException ae)
+            {
+                return BadRequest(ae.Message);
+            }
+        }
+
+        /// <summary>
+        /// Likes a course with the given id.
+        /// </summary>
+        /// <param name="id">The id of the course to like.</param>
+        /// <returns>An HTTP status code indicating the result of the like request.</returns>
+        [HttpGet]
+        [Route(LikeCourseRoute)]
+        public async Task<ActionResult> Like(int id)
+        {
+            var userId = this.User.Id();
+
+            try
+            {
+                await this.courseService.LikeAsync(id, userId);
+
+                return Ok();
+            }
+            catch (ArgumentException ae)
+            {
+                return BadRequest(ae.Message);
+            }
+        }
+
+        /// <summary>
+        /// Buys a course with the given id.
+        /// </summary>
+        /// <param name="id">The id of the course to buy.</param>
+        /// <returns>An HTTP status code indicating the result of the buy request.</returns>
+        [HttpGet]
+        [Route(BuyCourseRoute)]
+        public async Task<ActionResult> Buy(int id)
+        {
+            var userId = this.User.Id();
+
+            try
+            {
+                await this.courseService.BuyAsync(id, userId);
+
+                return Ok();
             }
             catch (ArgumentException ae)
             {

@@ -1,6 +1,7 @@
 ﻿using KnowledgeBarter.Server.Data.Common.Repositories;
 using KnowledgeBarter.Server.Data.Models;
 using KnowledgeBarter.Server.Services.Contracts;
+using static KnowledgeBarter.Server.Data.Common.DataValidation;
 
 namespace KnowledgeBarter.Server.Services
 {
@@ -11,6 +12,20 @@ namespace KnowledgeBarter.Server.Services
         public LikeService(IRepository<Like> likeRepository)
         {
             this.likeRepository = likeRepository;
+        }
+
+        public async Task<Like> LikeCourseAsync(int courseId, string userId)
+        {
+            var like = new Like()
+            {
+                CourseId = courseId,
+                OwnerId = userId,
+            };
+
+            await this.likeRepository.AddAsync(like);
+            await this.likeRepository.SaveChangesAsync();
+
+            return like;
         }
 
         public async Task<Like> LikeLessonAsync(int lessonId, string userId)

@@ -25,7 +25,6 @@ namespace KnowledgeBarter.Server.Services
         public async Task<CreateCommentResponseModel> CreateAsync(CreateCommentResponseModel model, int lessonId, string userId)
         {
             // TODO: 
-            Lesson
             var comment = new Comment()
             {
                 LessonId = lessonId,
@@ -35,7 +34,7 @@ namespace KnowledgeBarter.Server.Services
 
             await this.commentRepository.AddAsync(comment);
             await this.commentRepository.SaveChangesAsync();
-            
+
             return await this.commentRepository
                 .All()
                 .Where(x => x.Id == x.Id)

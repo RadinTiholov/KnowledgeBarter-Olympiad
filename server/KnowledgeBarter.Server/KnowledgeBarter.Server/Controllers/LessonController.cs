@@ -69,7 +69,7 @@ namespace KnowledgeBarter.Server.Controllers
         /// Creates a new lesson with the given input data.
         /// </summary>
         /// <param name="model">An object containing the input data for the new lesson, including the title, description, and image url.</param>
-        /// <returns>The id of the newly created lesson, or a bad request error if the request is invalid.</returns>
+        /// <returns>The the newly created lesson, or a bad request error if the request is invalid.</returns>
         [HttpPost]
         [Route(nameof(Create))]
         public async Task<ActionResult<CreateLessonResponseModel>> Create(CreateLesssonRequestModel model)
@@ -120,7 +120,7 @@ namespace KnowledgeBarter.Server.Controllers
         /// </summary>
         /// <param name="id">The id of the lesson to edit.</param>
         /// <param name="model">An object containing the input data for the lesson edit, including the title, description, and image url.</param>
-        /// <returns>The id of the edited lesson, or a bad request error if the request is invalid.</returns>
+        /// <returns>The the edited lesson, or a bad request error if the request is invalid.</returns>
         [HttpPut]
         [Route(IdRoute)]
         public async Task<ActionResult<EditLessonResponseModel>> Edit(int id, EditLessonRequestModel model)
@@ -145,7 +145,7 @@ namespace KnowledgeBarter.Server.Controllers
         /// <param name="id">The id of the lesson to like.</param>
         /// <returns>An HTTP status code indicating the result of the like request.</returns>
         [HttpGet]
-        [Route(LikeRoute)]
+        [Route(LikeLessonRoute)]
         public async Task<ActionResult> Like(int id)
         {
             var userId = this.User.Id();
@@ -162,8 +162,13 @@ namespace KnowledgeBarter.Server.Controllers
             }
         }
 
+        /// <summary>
+        /// Buys a lesson with the given id.
+        /// </summary>
+        /// <param name="id">The id of the lesson to buy.</param>
+        /// <returns>An HTTP status code indicating the result of the buy request.</returns>
         [HttpGet]
-        [Route(BuyRoute)]
+        [Route(BuyLessonRoute)]
         public async Task<ActionResult> Buy(int id)
         {
             var userId = this.User.Id();
