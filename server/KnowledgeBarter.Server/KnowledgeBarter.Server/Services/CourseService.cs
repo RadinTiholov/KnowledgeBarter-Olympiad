@@ -5,7 +5,6 @@ using KnowledgeBarter.Server.Models.Lesson;
 using KnowledgeBarter.Server.Services.Contracts;
 using KnowledgeBarter.Server.Services.Mapping;
 using Microsoft.EntityFrameworkCore;
-
 using static KnowledgeBarter.Server.Services.ServiceConstants;
 
 namespace KnowledgeBarter.Server.Services
@@ -247,9 +246,31 @@ namespace KnowledgeBarter.Server.Services
             }
         }
 
-        public Task BuyAsync(int courseId, string userId)
+        public async Task BuyAsync(int courseId, string userId)
         {
-            throw new NotImplementedException();
+            var user = await this.identityService.GetUserAsync(userId);
+            var course = await this.GetCourseAsync(courseId);
+
+            if (user == null || course == null)
+            {
+                throw new ArgumentException(NotFoundMessage);
+            }
+
+            if (course.OwnerId == userId || user.BoughtCourses.Any(x => x.Id == courseId))
+            {
+                throw new ArgumentException(Unauthorized);
+            }
+
+            if (user.KBPoints < course.Price)
+            {
+                throw new ArgumentException(NotEnoughMoney);
+            }
+
+            await this.identityService.SubtractPointsAsync(userId, course.Price);
+
+            user.BoughtCourses.Add(course);
+            this.applicationUserRepository.Update(user);
+            await this.applicationUserRepository.SaveChangesAsync();
         }
     }
 }
