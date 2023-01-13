@@ -19,6 +19,7 @@ builder.Services.AddDbContext<KnowledgeBarterDbContext>(options =>
     .AddRepositories()
     .AddApplicationServices()
     .AddSwagger()
+    .AddCloudinary(builder.Configuration)
     .AddControllers();
 
 // Register automapper

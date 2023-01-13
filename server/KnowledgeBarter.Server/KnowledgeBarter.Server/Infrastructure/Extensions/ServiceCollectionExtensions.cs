@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
+using CloudinaryDotNet;
 
 namespace KnowledgeBarter.Server.Infrastructure.Extensions
 {
@@ -47,6 +48,7 @@ namespace KnowledgeBarter.Server.Infrastructure.Extensions
             services.AddTransient<ICommentService, CommentService>();
             services.AddTransient<ILikeService, LikeService>();
             services.AddTransient<ICourseService, CourseService>();
+            services.AddTransient<ICloudinaryService, CloudinaryService>();
 
             return services;
         }
@@ -57,6 +59,20 @@ namespace KnowledgeBarter.Server.Infrastructure.Extensions
             {
                 c.SwaggerDoc("v1", new OpenApiInfo() { Title = "KnowledgeBarter Api", Version = "v1" });
             });
+
+            return services;
+        }
+
+        public static IServiceCollection AddCloudinary(this IServiceCollection services, IConfiguration configuration)
+        {
+            Account account = new Account(
+                            configuration["Cloudinary:AppName"],
+                            configuration["Cloudinary:AppKey"],
+                            configuration["Cloudinary:AppSecret"]);
+
+            Cloudinary cloudinary = new Cloudinary(account);
+
+            services.AddSingleton(cloudinary);
 
             return services;
         }
