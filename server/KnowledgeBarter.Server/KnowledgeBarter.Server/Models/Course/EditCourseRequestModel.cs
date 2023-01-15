@@ -13,9 +13,7 @@ namespace KnowledgeBarter.Server.Models.Course
         [MaxLength(DescriptionMaxLength)]
         public string Description { get; set; } = null!;
 
-        [Required]
-        [Url]
-        public string Image { get; set; } = null!;
+        public IFormFile? Image { get; set; }
 
         [Required]
         [MinLength(5)]

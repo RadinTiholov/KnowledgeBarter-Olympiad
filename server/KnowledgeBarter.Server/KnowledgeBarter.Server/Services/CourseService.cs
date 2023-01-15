@@ -4,6 +4,7 @@ using KnowledgeBarter.Server.Models.Course;
 using KnowledgeBarter.Server.Models.Lesson;
 using KnowledgeBarter.Server.Services.Contracts;
 using KnowledgeBarter.Server.Services.Mapping;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using static KnowledgeBarter.Server.Services.ServiceConstants;
 
@@ -63,13 +64,13 @@ namespace KnowledgeBarter.Server.Services
                 throw new ArgumentException(Unauthorized);
             }
 
-            //var image = await this.imageService.CreateAsync(model.Image);
+            var image = await this.imageService.CreateAsync(model.Image);
 
             var course = new Course()
             {
                 Title = model.Title,
                 Description = model.Description,
-                //Image = image,
+                Image = image,
                 OwnerId = userId,
                 Price = 500,
                 Lessons = lessons,
@@ -189,7 +190,15 @@ namespace KnowledgeBarter.Server.Services
                 throw new ArgumentException(Unauthorized);
             }
 
-            //var image = await this.imageService.CreateAsync(model.Image);
+            Image image;
+            if (model.Image != null)
+            {
+                image = await this.imageService.CreateAsync(model.Image);
+            }
+            else
+            {
+                image = course.Image;
+            }
 
             foreach (var lesson in course.Lessons)
             {
@@ -201,7 +210,7 @@ namespace KnowledgeBarter.Server.Services
 
             course.Title = model.Title;
             course.Description = model.Description;
-            //course.Image = image;
+            course.Image = image;
             course.Lessons = lessons;
 
             this.courseRepository.Update(course);

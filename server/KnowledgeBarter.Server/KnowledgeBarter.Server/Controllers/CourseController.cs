@@ -51,7 +51,7 @@ namespace KnowledgeBarter.Server.Controllers
         /// <returns>The id of the newly created course, or a bad request error if the request is invalid.</returns>
         [HttpPost]
         [Route(nameof(Create))]
-        public async Task<ActionResult<CreateCourseResponseModel>> Create(CreateCourseRequestModel model)
+        public async Task<ActionResult<CreateCourseResponseModel>> Create([FromForm] CreateCourseRequestModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -125,7 +125,7 @@ namespace KnowledgeBarter.Server.Controllers
         /// <returns>The the edited course, or a bad request error if the request is invalid.</returns>
         [HttpPut]
         [Route(IdRoute)]
-        public async Task<ActionResult<EditCourseResponseModel>> Edit(int id, EditCourseRequestModel model)
+        public async Task<ActionResult<EditCourseResponseModel>> Edit(int id, [FromForm] EditCourseRequestModel model)
         {
             var userId = this.User.Id();
 
