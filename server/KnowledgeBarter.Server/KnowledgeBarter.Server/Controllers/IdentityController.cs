@@ -38,13 +38,13 @@ namespace KnowledgeBarter.Server.Controllers
         [Route(nameof(Register))]
         public async Task<ActionResult> Register(RegisterInputModel model)
         {
-            var image = await this.imageService.CreateAsync(model.ImageUrl);
+            //var image = await this.imageService.CreateAsync(model.ImageUrl);
             var user = new ApplicationUser
             {
                 Email = model.Email,
                 UserName = model.Username,
                 KBPoints = 0,
-                Image = image,
+                //Image = image,
             };
 
             var result = await this.userManager.CreateAsync(user, model.Password);

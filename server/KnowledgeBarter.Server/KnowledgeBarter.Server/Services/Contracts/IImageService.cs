@@ -4,6 +4,8 @@ namespace KnowledgeBarter.Server.Services.Contracts
 {
     public interface IImageService
     {
-        public Task<Image> CreateAsync(string url);
+        public Task<Image> CreateAsync(IFormFile file);
+
+        Task<Image> AddByUrlAsync(string url);
     }
 }

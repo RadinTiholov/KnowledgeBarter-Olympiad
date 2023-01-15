@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 using static KnowledgeBarter.Server.Data.Common.DataValidation.Lesson;
 
 namespace KnowledgeBarter.Server.Models.Lesson
@@ -18,8 +19,7 @@ namespace KnowledgeBarter.Server.Models.Lesson
         public string Article { get; set; } = null!;
 
         [Required]
-        [Url]
-        public string Image { get; set; } = null!;
+        public IFormFile Image { get; set; }
 
         [Required]
         [Url]

@@ -72,7 +72,7 @@ namespace KnowledgeBarter.Server.Controllers
         /// <returns>The the newly created lesson, or a bad request error if the request is invalid.</returns>
         [HttpPost]
         [Route(nameof(Create))]
-        public async Task<ActionResult<CreateLessonResponseModel>> Create(CreateLesssonRequestModel model)
+        public async Task<ActionResult<CreateLessonResponseModel>> Create([FromForm] CreateLesssonRequestModel model)
         {
             if (!ModelState.IsValid)
             {

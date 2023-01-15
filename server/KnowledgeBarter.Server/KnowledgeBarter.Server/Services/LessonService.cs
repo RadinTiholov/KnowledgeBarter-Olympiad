@@ -85,13 +85,13 @@ namespace KnowledgeBarter.Server.Services
                 throw new ArgumentException(Unauthorized);
             }
 
-            var image = await this.imageService.CreateAsync(model.Image);
+            //var image = await this.imageService.CreateAsync(model.Image);
             var tags = await this.tagService.CreateManyAsync(model.Tags, lessonId);
 
             lesson.Title = model.Title;
             lesson.Description = model.Description;
             lesson.Article = model.Article;
-            lesson.Image = image;
+            //lesson.Image = image;
             lesson.Video = model.Video;
             lesson.Resources = model.Resources;
             lesson.Tags = (ICollection<Tag>)tags;
