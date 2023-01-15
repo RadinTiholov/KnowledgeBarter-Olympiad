@@ -36,15 +36,15 @@ namespace KnowledgeBarter.Server.Controllers
         /// <returns>An HTTP status code indicating the result of the registration request.</returns>
         [HttpPost]
         [Route(nameof(Register))]
-        public async Task<ActionResult> Register(RegisterInputModel model)
+        public async Task<ActionResult> Register([FromForm] RegisterInputModel model)
         {
-            //var image = await this.imageService.CreateAsync(model.ImageUrl);
+            var image = await this.imageService.CreateAsync(model.Image);
             var user = new ApplicationUser
             {
                 Email = model.Email,
                 UserName = model.Username,
                 KBPoints = 0,
-                //Image = image,
+                Image = image,
             };
 
             var result = await this.userManager.CreateAsync(user, model.Password);

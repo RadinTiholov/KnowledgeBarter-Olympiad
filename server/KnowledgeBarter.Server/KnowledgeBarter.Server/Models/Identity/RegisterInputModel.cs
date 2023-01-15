@@ -11,7 +11,7 @@ namespace KnowledgeBarter.Server.Models.Identity
         public string Email { get; set; } = null!;
 
         [Required]
-        public string ImageUrl { get; set; } = null!;
+        public IFormFile Image { get; set; }
 
         [Required]
         public string Password { get; set; } = null!;

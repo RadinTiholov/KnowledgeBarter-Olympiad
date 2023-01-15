@@ -46,7 +46,7 @@ namespace KnowledgeBarter.Server.Services
 
             // Check if it exists
             var existingImage = await this.imageRepository
-                .AllAsNoTracking()
+                .All()
                 .Where(i => i.Url == imageUrl)
                 .FirstOrDefaultAsync();
 
@@ -66,7 +66,7 @@ namespace KnowledgeBarter.Server.Services
         private async Task<Image> GetByUrlAsync(string url)
         {
             return await this.imageRepository
-                .AllAsNoTracking()
+                .All()
                 .Where(x => x.Url == url)
                 .FirstOrDefaultAsync();
         }
