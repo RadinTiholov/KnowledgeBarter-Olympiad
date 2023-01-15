@@ -20,9 +20,9 @@ namespace KnowledgeBarter.Server.Controllers
 
         [HttpGet]
         [Route(nameof(All))]
-        public async Task<IEnumerable<CommentInListResponseModel>> All()
+        public async Task<IEnumerable<CommentInListResponseModel>> All(int lessonId)
         {
-            var all = await this.commentService.AllAsync();
+            var all = await this.commentService.AllByLessonIdAsync(lessonId);
 
             return all;
         }

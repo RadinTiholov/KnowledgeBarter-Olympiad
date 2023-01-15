@@ -19,16 +19,31 @@ namespace KnowledgeBarter.Server.Services
             this.lessonRepository = lessonRepository;
         }
 
-        public Task<IEnumerable<CommentInListResponseModel>> AllAsync()
+        public async Task<IEnumerable<CommentInListResponseModel>> AllByLessonIdAsync(int lessonId)
         {
-            throw new NotImplementedException();
+            var lesson = await lessonRepository
+                .All()
+                .Where(x => x.Id == lessonId)
+                .FirstOrDefaultAsync();
+
+            if (lesson == null)
+            {
+                // TODO: extract error message in a constant
+                throw new ArgumentNullException("Cannot create comment for a lesson that does not exist");
+            }
+
+            return await this.commentRepository
+                .All()
+                .Where(c => c.LessonId == lesson.Id)
+                .To<CommentInListResponseModel>()
+                .ToListAsync();
         }
 
         public async Task<CreateCommentResponseModel> CreateAsync(CreateCommentResponseModel model, int lessonId, string userId)
         {
             var lesson = await lessonRepository
                 .All()
-                .Where(x => x.Id == x.Id)
+                .Where(x => x.Id == lessonId)
                 .FirstOrDefaultAsync();
 
             if (lesson == null)
