@@ -17,9 +17,7 @@ namespace KnowledgeBarter.Server.Models.Lesson
         [StringLength(ArticleMaxLength, MinimumLength = ArticleMinLength)]
         public string Article { get; set; } = null!;
 
-        [Required]
-        [Url]
-        public string Image { get; set; } = null!;
+        public IFormFile? Image { get; set; }
 
         [Required]
         [Url]

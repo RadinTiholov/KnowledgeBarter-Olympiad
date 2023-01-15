@@ -123,7 +123,7 @@ namespace KnowledgeBarter.Server.Controllers
         /// <returns>The the edited lesson, or a bad request error if the request is invalid.</returns>
         [HttpPut]
         [Route(IdRoute)]
-        public async Task<ActionResult<EditLessonResponseModel>> Edit(int id, EditLessonRequestModel model)
+        public async Task<ActionResult<EditLessonResponseModel>> Edit(int id, [FromForm] EditLessonRequestModel model)
         {
             var userId = this.User.Id();
 

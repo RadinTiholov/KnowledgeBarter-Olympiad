@@ -85,13 +85,21 @@ namespace KnowledgeBarter.Server.Services
                 throw new ArgumentException(Unauthorized);
             }
 
-            //var image = await this.imageService.CreateAsync(model.Image);
+            Image image;
+            if (model.Image != null)
+            {
+                image = await this.imageService.CreateAsync(model.Image);
+            }
+            else
+            {
+                image = lesson.Image;
+            }
             var tags = await this.tagService.CreateManyAsync(model.Tags, lessonId);
 
             lesson.Title = model.Title;
             lesson.Description = model.Description;
             lesson.Article = model.Article;
-            //lesson.Image = image;
+            lesson.Image = image;
             lesson.Video = model.Video;
             lesson.Resources = model.Resources;
             lesson.Tags = (ICollection<Tag>)tags;
@@ -164,6 +172,7 @@ namespace KnowledgeBarter.Server.Services
         {
             return await this.lessonRepository
                 .All()
+                .Include(x => x.Image)
                 .Where(x => x.Id == lessonId)
                 .FirstOrDefaultAsync();
         }

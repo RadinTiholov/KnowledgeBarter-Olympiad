@@ -2,20 +2,22 @@
 using KnowledgeBarter.Server.Data.Models;
 using KnowledgeBarter.Server.Services.Contracts;
 using Microsoft.EntityFrameworkCore;
-using System.Xml.Linq;
 
 namespace KnowledgeBarter.Server.Services
 {
     public class ImageService : IImageService
     {
         private readonly IRepository<Image> imageRepository;
+        private readonly IRepository<Lesson> lessonRepository;
         private readonly ICloudinaryService cloudinaryService;
 
         public ImageService(IRepository<Image> imageRepository,
-            ICloudinaryService cloudinaryService)
+            ICloudinaryService cloudinaryService,
+            IRepository<Lesson> lessonRepository)
         {
             this.imageRepository = imageRepository;
             this.cloudinaryService = cloudinaryService;
+            this.lessonRepository = lessonRepository;
         }
 
         public async Task<Image> AddByUrlAsync(string url)
@@ -44,7 +46,7 @@ namespace KnowledgeBarter.Server.Services
 
             // Check if it exists
             var existingImage = await this.imageRepository
-                .All()
+                .AllAsNoTracking()
                 .Where(i => i.Url == imageUrl)
                 .FirstOrDefaultAsync();
 
@@ -60,9 +62,13 @@ namespace KnowledgeBarter.Server.Services
 
             return await this.GetByUrlAsync(imageUrl);
         }
+
         private async Task<Image> GetByUrlAsync(string url)
         {
-            return await this.imageRepository.AllAsNoTracking().Where(x => x.Url == url).FirstOrDefaultAsync();
+            return await this.imageRepository
+                .AllAsNoTracking()
+                .Where(x => x.Url == url)
+                .FirstOrDefaultAsync();
         }
     }
 }

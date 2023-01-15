@@ -17,21 +17,24 @@ namespace KnowledgeBarter.Server.Services
         public async Task<IEnumerable<Tag>> CreateManyAsync(string[] tags, int lessonId)
         {
             var allTags = await this.tagRepository.All().ToListAsync();
+            foreach (var tagToBeDeleted in allTags)
+            {
+                if (tagToBeDeleted.LessonId == lessonId)
+                {
+                    this.tagRepository.Delete(tagToBeDeleted);
+                }
+            }
+            await this.tagRepository.SaveChangesAsync();
 
             var createdTags = new List<Tag>();
+
             foreach (var tagText in tags)
             {
                 var tag = new Tag() { Text = tagText, LessonId = lessonId };
-                if (allTags.Any(x => x.LessonId == lessonId && x.Text == tagText))
-                {
-                    createdTags.Add(tag);
-                }
-                else
-                {
-                    await tagRepository.AddAsync(tag);
-                    await tagRepository.SaveChangesAsync();
-                    createdTags.Add(tag);
-                }
+
+                await tagRepository.AddAsync(tag);
+                await tagRepository.SaveChangesAsync();
+                createdTags.Add(tag);
             }
 
             return createdTags;
