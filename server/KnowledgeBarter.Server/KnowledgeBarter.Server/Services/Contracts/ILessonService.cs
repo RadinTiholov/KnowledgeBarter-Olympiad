@@ -19,5 +19,7 @@ namespace KnowledgeBarter.Server.Services.Contracts
         Task LikeAsync(int lessonId, string userId);
 
         Task BuyAsync(int lessonId, string userId);
+
+        Task<bool> ExistsAsync(int lessonId);
     }
 }

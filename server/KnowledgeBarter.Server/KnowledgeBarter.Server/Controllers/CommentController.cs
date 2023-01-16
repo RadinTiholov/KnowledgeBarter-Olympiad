@@ -1,10 +1,10 @@
-﻿using KnowledgeBarter.Server.Data.Models;
-using KnowledgeBarter.Server.Infrastructure.Extensions;
+﻿using KnowledgeBarter.Server.Infrastructure.Extensions;
 using KnowledgeBarter.Server.Models.Comments;
-using KnowledgeBarter.Server.Models.Lesson;
 using KnowledgeBarter.Server.Services.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using static KnowledgeBarter.Server.Infrastructure.WebConstants;
+
 
 namespace KnowledgeBarter.Server.Controllers
 {
@@ -18,6 +18,11 @@ namespace KnowledgeBarter.Server.Controllers
             this.commentService = commentService;
         }
 
+        /// <summary>
+        /// Get all comment of a certain lesson
+        /// </summary>
+        /// <param name="lessonId"></param>
+        /// <returns>Bad request error if the request is invalid or all comments of a certain lesson</returns>
         [HttpGet]
         [Route(nameof(All))]
         public async Task<IEnumerable<CommentInListResponseModel>> All(int lessonId)
@@ -27,9 +32,15 @@ namespace KnowledgeBarter.Server.Controllers
             return all;
         }
 
+        /// <summary>
+        /// Create a comment using inject data model and lesson id
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="lessonId"></param>
+        /// <returns>Bad request error if the request is invalid or the the newly created comment</returns>
         [HttpPost]
-        [Route(nameof(Create))]
-        public async Task<ActionResult<CreateCommentResponseModel>> Create(CreateCommentResponseModel model, int lessonId)
+        [Route(nameof(CreateCommentRoute))]
+        public async Task<ActionResult<CreateCommentResponseModel>> Create(CreateCommentRequestModel model, int lessonId)
         {
             if (!ModelState.IsValid)
             {
@@ -44,9 +55,9 @@ namespace KnowledgeBarter.Server.Controllers
 
                 return response;
             }
-            catch (Exception)
+            catch (ArgumentException ae)
             {
-                return BadRequest();
+                return BadRequest(ae.Message);
             }
         }
     }
