@@ -57,7 +57,7 @@ namespace KnowledgeBarter.Server.Services
             return await this.commentRepository
                 .All()
                 .Where(c => c.Id == comment.Id)
-                .To<CreateCommentResponseModel>()
+                .To<CreateCommentRequestModel>()
                 .FirstAsync();
         }
     }
