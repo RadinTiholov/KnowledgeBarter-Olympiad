@@ -55,7 +55,7 @@ namespace KnowledgeBarter.Server.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return BadRequest(SomethingWentWrongMessage);
             }
 
             var userId = this.User.Id();
@@ -127,6 +127,11 @@ namespace KnowledgeBarter.Server.Controllers
         [Route(IdRoute)]
         public async Task<ActionResult<EditCourseResponseModel>> Edit(int id, [FromForm] EditCourseRequestModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(SomethingWentWrongMessage);
+            }
+
             var userId = this.User.Id();
 
             try

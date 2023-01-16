@@ -76,7 +76,7 @@ namespace KnowledgeBarter.Server.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return BadRequest(SomethingWentWrongMessage);
             }
 
             var userId = this.User.Id();
@@ -88,7 +88,7 @@ namespace KnowledgeBarter.Server.Controllers
             }
             catch (Exception)
             {
-                return BadRequest();
+                return BadRequest(SomethingWentWrongMessage);
             }
         }
 
@@ -126,6 +126,11 @@ namespace KnowledgeBarter.Server.Controllers
         public async Task<ActionResult<EditLessonResponseModel>> Edit(int id, [FromForm] EditLessonRequestModel model)
         {
             var userId = this.User.Id();
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(SomethingWentWrongMessage);
+            }
 
             try
             {

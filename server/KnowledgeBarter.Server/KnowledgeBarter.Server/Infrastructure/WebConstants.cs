@@ -18,6 +18,8 @@ namespace KnowledgeBarter.Server.Infrastructure
 
         public const string AllowedExtensionsErrorMessage = "This file extension is not allowed.";
 
+        public const string SomethingWentWrongMessage = "Something went wrong. Please try again later.";
+
         public static readonly string[] AllowedImageExtensions = { ".jpg", ".jpeg", ".png" };
     }
 }

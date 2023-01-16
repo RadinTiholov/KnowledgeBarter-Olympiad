@@ -44,7 +44,7 @@ namespace KnowledgeBarter.Server.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return BadRequest(SomethingWentWrongMessage);
             }
 
             var userId = this.User.Id();
