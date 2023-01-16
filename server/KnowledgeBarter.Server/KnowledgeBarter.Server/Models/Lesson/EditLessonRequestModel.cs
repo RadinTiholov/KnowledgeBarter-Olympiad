@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using KnowledgeBarter.Server.Infrastructure.Attributes;
+using System.ComponentModel.DataAnnotations;
 using static KnowledgeBarter.Server.Data.Common.DataValidation.Lesson;
 
 namespace KnowledgeBarter.Server.Models.Lesson
@@ -17,6 +18,7 @@ namespace KnowledgeBarter.Server.Models.Lesson
         [StringLength(ArticleMaxLength, MinimumLength = ArticleMinLength)]
         public string Article { get; set; } = null!;
 
+        [AllowedFileExtensions]
         public IFormFile? Image { get; set; }
 
         [Required]

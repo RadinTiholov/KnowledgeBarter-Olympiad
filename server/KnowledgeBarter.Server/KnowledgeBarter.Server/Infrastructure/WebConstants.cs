@@ -15,5 +15,9 @@ namespace KnowledgeBarter.Server.Infrastructure
         public const string BuyCourseRoute = "/Course/Buy/{id}";
 
         public const string CreateCommentRoute = "/Comment/Create/{lessonId}";
+
+        public const string AllowedExtensionsErrorMessage = "This file extension is not allowed.";
+
+        public static readonly string[] AllowedImageExtensions = { ".jpg", ".jpeg", ".png" };
     }
 }

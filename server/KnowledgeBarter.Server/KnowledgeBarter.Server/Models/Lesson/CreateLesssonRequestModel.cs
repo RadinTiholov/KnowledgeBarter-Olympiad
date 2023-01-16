@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using KnowledgeBarter.Server.Infrastructure.Attributes;
+using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using static KnowledgeBarter.Server.Data.Common.DataValidation.Lesson;
 
@@ -19,6 +20,7 @@ namespace KnowledgeBarter.Server.Models.Lesson
         public string Article { get; set; } = null!;
 
         [Required]
+        [AllowedFileExtensions]
         public IFormFile Image { get; set; }
 
         [Required]

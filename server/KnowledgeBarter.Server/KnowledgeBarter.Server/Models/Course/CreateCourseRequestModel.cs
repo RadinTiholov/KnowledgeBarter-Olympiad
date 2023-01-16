@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using KnowledgeBarter.Server.Infrastructure.Attributes;
+using System.ComponentModel.DataAnnotations;
 
 using static KnowledgeBarter.Server.Data.Common.DataValidation.Course;
 
@@ -16,6 +17,7 @@ namespace KnowledgeBarter.Server.Models.Course
         public string Description { get; set; } = null!;
 
         [Required]
+        [AllowedFileExtensions]
         public IFormFile Image { get; set; }
 
         [Required]
