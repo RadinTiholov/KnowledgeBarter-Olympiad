@@ -13,14 +13,12 @@ namespace KnowledgeBarter.Server.Services
     public class CommentService : ICommentService
     {
         private readonly IRepository<Comment> commentRepository;
-        private readonly IRepository<Lesson> lessonRepository;
-
         private readonly ILessonService lessonService;
 
-        public CommentService(IRepository<Comment> commentRepository, IRepository<Lesson> lessonRepository)
+        public CommentService(IRepository<Comment> commentRepository, ILessonService lessonService)
         {
             this.commentRepository = commentRepository;
-            this.lessonRepository = lessonRepository;
+            this.lessonService = lessonService;
         }
 
         public async Task<IEnumerable<CommentInListResponseModel>> AllByLessonIdAsync(int lessonId)
@@ -39,7 +37,7 @@ namespace KnowledgeBarter.Server.Services
 
         public async Task<CreateCommentResponseModel> CreateAsync(CreateCommentRequestModel model, int lessonId, string userId)
         {
-            if (await lessonService.ExistsAsync(lessonId))
+            if (!await lessonService.ExistsAsync(lessonId))
             {
                 throw new ArgumentNullException(LessonForCommentShouldExist);
             }

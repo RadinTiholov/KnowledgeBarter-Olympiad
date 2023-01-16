@@ -39,7 +39,7 @@ namespace KnowledgeBarter.Server.Controllers
         /// <param name="lessonId"></param>
         /// <returns>Bad request error if the request is invalid or the the newly created comment</returns>
         [HttpPost]
-        [Route(nameof(CreateCommentRoute))]
+        [Route(CreateCommentRoute)]
         public async Task<ActionResult<CreateCommentResponseModel>> Create(CreateCommentRequestModel model, int lessonId)
         {
             if (!ModelState.IsValid)

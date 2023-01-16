@@ -231,7 +231,7 @@ namespace KnowledgeBarter.Server.Services
         public async Task<bool> ExistsAsync(int lessonId)
         {
             var lesson = await lessonRepository
-                .All()
+                .AllAsNoTracking()
                 .Where(x => x.Id == lessonId)
                 .FirstOrDefaultAsync();
 
