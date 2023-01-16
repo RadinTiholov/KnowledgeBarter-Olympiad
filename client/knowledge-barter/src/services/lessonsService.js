@@ -7,16 +7,16 @@ const getPopular = () => {
     return request.get(`${baseUrl}/lesson/popular`)
 }
 const getDetails = (id) => {
-    return request.get(`${baseUrl}/lesson/details/` + id)
+    return request.get(`${baseUrl}/lesson/` + id)
 }
 const create = (data) => {
-    return request.post(`${baseUrl}/lesson/all`, data)
+    return request.post(`${baseUrl}/lesson/create`, data)
 }
 const update = (data, id) => {
-    return request.put(`${baseUrl}/lesson/edit/` + id, data)
+    return request.put(`${baseUrl}/lesson/` + id, data)
 }
 const del = (id) => {
-    return request.del(`${baseUrl}/lesson/delete/` + id)
+    return request.del(`${baseUrl}/lesson/` + id)
 }
 const buy = (id) => {
     return request.get(`${baseUrl}/lesson/buy/` + id)
@@ -25,7 +25,7 @@ const like = (id) => {
     return request.get(`${baseUrl}/lesson/like/` + id)
 }
 const comment = (id, text) => {
-    return request.post(`${baseUrl}/lesson/comment/` + id, {text})
+    return request.post(`${baseUrl}/comment/create/` + id, {text})
 }
 
 export {
