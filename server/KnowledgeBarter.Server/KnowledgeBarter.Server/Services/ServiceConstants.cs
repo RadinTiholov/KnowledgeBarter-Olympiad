@@ -9,5 +9,7 @@
         public const string NotEnoughMoney = "You don't have enought money!";
 
         public const string LessonsShouldBeMore = "Lessons should be more than 5!";
+
+        public const string LessonForCommentShouldExist = "Cannot create comment for a lesson that does not exist";
     }
 }

@@ -227,5 +227,15 @@ namespace KnowledgeBarter.Server.Services
             this.applicationUserRepository.Update(user);
             await this.applicationUserRepository.SaveChangesAsync();
         }
+
+        public async Task<bool> ExistsAsync(int lessonId)
+        {
+            var lesson = await lessonRepository
+                .All()
+                .Where(x => x.Id == lessonId)
+                .FirstOrDefaultAsync();
+
+            return lesson != null;
+        }
     }
 }
