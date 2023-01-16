@@ -22,7 +22,7 @@ namespace KnowledgeBarter.Server.Controllers
         /// Get all comment of a certain lesson
         /// </summary>
         /// <param name="lessonId"></param>
-        /// <returns>Bad request error if the request is invalid, all comments of a certain lesson or the corresponding exception</returns>
+        /// <returns>Bad request error if the request is invalid or all comments of a certain lesson</returns>
         [HttpGet]
         [Route(nameof(All))]
         public async Task<IEnumerable<CommentInListResponseModel>> All(int lessonId)
@@ -37,10 +37,10 @@ namespace KnowledgeBarter.Server.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <param name="lessonId"></param>
-        /// <returns>Bad request error if the request is invalid, the the newly created comment or the corresponding exception</returns>
+        /// <returns>Bad request error if the request is invalid or the the newly created comment</returns>
         [HttpPost]
         [Route(nameof(CreateCommentRoute))]
-        public async Task<ActionResult<CreateCommentResponseModel>> Create(CreateCommentResponseModel model, int lessonId)
+        public async Task<ActionResult<CreateCommentResponseModel>> Create(CreateCommentRequestModel model, int lessonId)
         {
             if (!ModelState.IsValid)
             {
@@ -55,9 +55,9 @@ namespace KnowledgeBarter.Server.Controllers
 
                 return response;
             }
-            catch (Exception)
+            catch (ArgumentException ae)
             {
-                return BadRequest();
+                return BadRequest(ae.Message);
             }
         }
     }

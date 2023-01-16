@@ -37,7 +37,7 @@ namespace KnowledgeBarter.Server.Services
             .ToListAsync();
         }
 
-        public async Task<CreateCommentRequestModel> CreateAsync(CreateCommentRequestModel model, int lessonId, string userId)
+        public async Task<CreateCommentResponseModel> CreateAsync(CreateCommentRequestModel model, int lessonId, string userId)
         {
             if (await lessonService.ExistsAsync(lessonId))
             {
@@ -57,7 +57,7 @@ namespace KnowledgeBarter.Server.Services
             return await this.commentRepository
                 .All()
                 .Where(c => c.Id == comment.Id)
-                .To<CreateCommentRequestModel>()
+                .To<CreateCommentResponseModel>()
                 .FirstAsync();
         }
     }
