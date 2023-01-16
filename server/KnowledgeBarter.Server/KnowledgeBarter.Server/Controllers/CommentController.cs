@@ -1,10 +1,10 @@
-﻿using KnowledgeBarter.Server.Data.Models;
-using KnowledgeBarter.Server.Infrastructure.Extensions;
+﻿using KnowledgeBarter.Server.Infrastructure.Extensions;
 using KnowledgeBarter.Server.Models.Comments;
-using KnowledgeBarter.Server.Models.Lesson;
 using KnowledgeBarter.Server.Services.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using static KnowledgeBarter.Server.Infrastructure.WebConstants;
+
 
 namespace KnowledgeBarter.Server.Controllers
 {
@@ -18,6 +18,11 @@ namespace KnowledgeBarter.Server.Controllers
             this.commentService = commentService;
         }
 
+        /// <summary>
+        /// Get all comment of a certain lesson
+        /// </summary>
+        /// <param name="lessonId"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route(nameof(All))]
         public async Task<IEnumerable<CommentInListResponseModel>> All(int lessonId)
@@ -28,7 +33,7 @@ namespace KnowledgeBarter.Server.Controllers
         }
 
         [HttpPost]
-        [Route(nameof(Create))]
+        [Route(nameof(CreateCommentRoute))]
         public async Task<ActionResult<CreateCommentResponseModel>> Create(CreateCommentResponseModel model, int lessonId)
         {
             if (!ModelState.IsValid)

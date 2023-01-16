@@ -1,6 +1,7 @@
 ﻿using KnowledgeBarter.Server.Data.Common.Repositories;
 using KnowledgeBarter.Server.Data.Models;
 using KnowledgeBarter.Server.Models.Comments;
+using KnowledgeBarter.Server.Models.Lesson;
 using KnowledgeBarter.Server.Services.Contracts;
 using KnowledgeBarter.Server.Services.Mapping;
 using Microsoft.EntityFrameworkCore;
@@ -33,10 +34,10 @@ namespace KnowledgeBarter.Server.Services
                 .All()
                 .Where(c => c.LessonId == lessonId)
                 .To<CommentInListResponseModel>()
-                .ToListAsync();
+            .ToListAsync();
         }
 
-        public async Task<CreateCommentResponseModel> CreateAsync(CreateCommentResponseModel model, int lessonId, string userId)
+        public async Task<CreateCommentRequestModel> CreateAsync(CreateCommentRequestModel model, int lessonId, string userId)
         {
             if (await lessonService.ExistsAsync(lessonId))
             {

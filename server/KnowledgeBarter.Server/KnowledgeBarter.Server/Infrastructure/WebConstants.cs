@@ -13,5 +13,7 @@ namespace KnowledgeBarter.Server.Infrastructure
         public const string LikeCourseRoute = "/Course/Like/{id}";
 
         public const string BuyCourseRoute = "/Course/Buy/{id}";
+
+        public const string CreateCommentRoute = "/Comment/Create/{id}";
     }
 }
