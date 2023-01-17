@@ -9,12 +9,12 @@ export const Login = () => {
     const { userLogin } = useContext(AuthContext)
     const navigate = useNavigate();
     const [errors, setErrors] = useState({
-        email: false,
+        username: false,
         password: false
     })
     const [error, setError] = useState({active: false, message: ""});
     const [inputData, setInputData] = useState({
-        email: "",
+        username: "",
         password: ""
     });
 
@@ -33,10 +33,10 @@ export const Login = () => {
                 setError({active: true, message: res.message})
             })
     }
+    
     //Validation
-    const emailValidator = (e) => {
-        var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-        setErrors(state => ({ ...state, [e.target.name]: !re.test(inputData.email) }))
+    const usernameValidator = (e) => {
+        setErrors(state => ({ ...state, [e.target.name]: inputData.username.length < 2 || inputData.username.length > 20 }))
     }
     const passwordValidator = (e) => {
         setErrors(state => ({ ...state, [e.target.name]: !inputData.password }))
@@ -56,26 +56,27 @@ export const Login = () => {
                                 <form onSubmit={onSubmit}>
                                     <div className="form-floating mb-3">
                                         <input
-                                            type="email"
+                                            type="text"
                                             className="form-control"
                                             id="floatingInput"
                                             placeholder="name@example.com"
-                                            name="email"
-                                            value={inputData.email}
+                                            name="username"
+                                            value={inputData.username}
                                             onChange={onChange}
-                                            onBlur={(e) => emailValidator(e)}
+                                            onBlur={(e) => usernameValidator(e)}
                                         />
-                                        <label htmlFor="floatingInput">Email address</label>
+                                        <label htmlFor="floatingInput">Username</label>
                                     </div>
+
                                     {/* Alert */}
-                                    {errors.email &&
+                                    {errors.username &&
                                         <div
                                             className="alert alert-danger d-flex align-items-center"
                                             role="alert"
                                         >
                                             <i className="fa-solid fa-triangle-exclamation me-2" />
                                             <div className="text-center">
-                                                Please provide a valid email address.
+                                                Username must be between 2 and 20 characters.
                                             </div>
                                         </div>}
 
@@ -106,7 +107,7 @@ export const Login = () => {
                                             className="btn btn-outline-warning"
                                             style={{ backgroundColor: "#636EA7" }}
                                             type="submit"
-                                            disabled={!isValidForm || (!inputData.name && !inputData.password)}
+                                            disabled={!isValidForm || (!inputData.username && !inputData.password)}
                                         >
                                             Login
                                         </button>
