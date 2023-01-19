@@ -87,7 +87,11 @@ namespace KnowledgeBarter.Server.Controllers
 
             return new LoginResponseModel()
             {
-                Token = token,
+                AccessToken = token,
+                KBPoints = user.KBPoints,
+                Username = user.UserName,
+                Email = user.Email,
+                _Id = user.Id,
             };
         }
     }

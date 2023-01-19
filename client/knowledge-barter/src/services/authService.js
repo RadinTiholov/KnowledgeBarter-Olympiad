@@ -1,6 +1,6 @@
 import * as request from "./requester"
 
-const baseUrl = 'http://localhost:3030'
+const baseUrl = 'https://localhost:3030'
 
 const login = (data) => {
     return request.post(`${baseUrl}/identity/login`, data)
