@@ -10,8 +10,8 @@ export const LessonsDisplay = (props) => {
                         </div>
                     </div>
                     <div className="row gy-5">
-                    {props.lessons ? props.lessons?.map(x => <Card key = {x._id} route = {props.route} {...x}/>) : props.courses ? null :<p className='text-center'>No lessons yet!</p>}
-                    {props.courses ? props.courses?.map(x => <Card key = {x._id} route = {props.route} {...x}/>) : props.lessons ? null : <p className='text-center'>No courses yet!</p>}
+                    {props.lessons ? props.lessons?.map(x => <Card key = {x.id} route = {props.route} {...x}/>) : props.courses ? null :<p className='text-center'>No lessons yet!</p>}
+                    {props.courses ? props.courses?.map(x => <Card key = {x.id} route = {props.route} {...x}/>) : props.lessons ? null : <p className='text-center'>No courses yet!</p>}
                     </div>
                 </div>
             </section>

@@ -23,6 +23,7 @@ namespace KnowledgeBarter.Server.Controllers
         /// </summary>
         /// <returns>A list of all available courses.</returns>
         [HttpGet]
+        [AllowAnonymous]
         [Route(nameof(All))]
         public async Task<IEnumerable<CourseInListResponseModel>> All()
         {
@@ -36,6 +37,7 @@ namespace KnowledgeBarter.Server.Controllers
         /// </summary>
         /// <returns>A list of all available courses.</returns>
         [HttpGet]
+        [AllowAnonymous]
         [Route(nameof(Highest))]
         public async Task<IEnumerable<CourseInListResponseModel>> Highest()
         {
@@ -78,6 +80,7 @@ namespace KnowledgeBarter.Server.Controllers
         /// <param name="id">The Id of the course to retrieve</param>
         /// <returns>The course details or an error message</returns>
         [HttpGet]
+        [AllowAnonymous]
         [Route(IdRoute)]
         public async Task<ActionResult<CourseDetailsResponseModel>> Details(int id)
         {

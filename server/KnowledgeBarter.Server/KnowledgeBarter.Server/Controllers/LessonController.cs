@@ -23,6 +23,7 @@ namespace KnowledgeBarter.Server.Controllers
         /// </summary>
         /// <returns>A list of all available lessons.</returns>
         [HttpGet]
+        [AllowAnonymous]
         [Route(nameof(All))]
         public async Task<IEnumerable<LessonInListResponseModel>> All()
         {
@@ -36,6 +37,7 @@ namespace KnowledgeBarter.Server.Controllers
         /// </summary>
         /// <returns>A list of the most popular lessons.</returns>
         [HttpGet]
+        [AllowAnonymous]
         [Route(nameof(Popular))]
         public async Task<IEnumerable<LessonInListResponseModel>> Popular()
         {
@@ -50,6 +52,7 @@ namespace KnowledgeBarter.Server.Controllers
         /// <param name="id">The id of the lesson to retrieve.</param>
         /// <returns>The details of the lesson, or a bad request error if the lesson does not exist.</returns>
         [HttpGet]
+        [AllowAnonymous]
         [Route(IdRoute)]
         public async Task<ActionResult<LessonDetailsResponseModel>> Details(int id)
         {
