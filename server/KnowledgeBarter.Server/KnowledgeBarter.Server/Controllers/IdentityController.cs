@@ -1,4 +1,6 @@
 ﻿using KnowledgeBarter.Server.Data.Models;
+using KnowledgeBarter.Server.Infrastructure.Extensions;
+using KnowledgeBarter.Server.Models.Comments;
 using KnowledgeBarter.Server.Models.Identity;
 using KnowledgeBarter.Server.Services.Contracts;
 using Microsoft.AspNetCore.Identity;
@@ -93,6 +95,22 @@ namespace KnowledgeBarter.Server.Controllers
                 Email = user.Email,
                 _Id = user.Id,
             };
+        }
+
+        /// <summary>
+        /// Get profile of a user
+        /// </summary>
+        /// <param name="lessonId"></param>
+        /// <returns>Bad request error if the request is invalid or the user profile information</returns>
+        [HttpGet]
+        [Route(nameof(Profile))]
+        public async Task<IdentityProfileResponseModel> Profile()
+        {
+            var userId = this.User.Id();
+
+            var response = await this.identityService.GetIdentityProfileAsync(userId);
+
+            return response;
         }
     }
 }

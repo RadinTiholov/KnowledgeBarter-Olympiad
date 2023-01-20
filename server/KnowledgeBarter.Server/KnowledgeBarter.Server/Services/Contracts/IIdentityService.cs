@@ -1,4 +1,5 @@
 ﻿using KnowledgeBarter.Server.Data.Models;
+using KnowledgeBarter.Server.Models.Identity;
 
 namespace KnowledgeBarter.Server.Services.Contracts
 {
@@ -11,5 +12,7 @@ namespace KnowledgeBarter.Server.Services.Contracts
         Task UpdatePoints(string userId, int points);
 
         Task SubtractPointsAsync(string userId, int points);
+
+        Task<IdentityProfileResponseModel> GetIdentityProfileAsync(string userId);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using KnowledgeBarter.Server.Data.Common.Repositories;
 using KnowledgeBarter.Server.Data.Models;
+using KnowledgeBarter.Server.Models.Identity;
 using KnowledgeBarter.Server.Services.Contracts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -51,7 +52,7 @@ namespace KnowledgeBarter.Server.Services
 
         public async Task<ApplicationUser> GetUserAsync(string userId)
         {
-            return await this.applicationUserRepository
+            var user = await this.applicationUserRepository
                 .All()
                 .Where(x => x.Id == userId)
                 .Include(x => x.LikedLessons)
@@ -61,6 +62,8 @@ namespace KnowledgeBarter.Server.Services
                 .Include(x => x.OwnLessons)
                 .Include(x => x.OwnCourses)
                 .FirstOrDefaultAsync();
+
+            return user;
         }
 
         public async Task SubtractPointsAsync(string userId, int points)
@@ -71,6 +74,21 @@ namespace KnowledgeBarter.Server.Services
 
             this.applicationUserRepository.Update(user);
             await this.applicationUserRepository.SaveChangesAsync();
+        }
+
+        public async Task<IdentityProfileResponseModel> GetIdentityProfileAsync(string userId)
+        {
+            var user = await this.GetUserAsync(userId);
+
+            var profile = new IdentityProfileResponseModel()
+            {
+                Username = user.UserName,
+                Email = user.Email,
+                KBPoints = user.KBPoints,
+                ImageUrl = user.Image.Url,
+            };
+
+            return profile;
         }
     }
 }
