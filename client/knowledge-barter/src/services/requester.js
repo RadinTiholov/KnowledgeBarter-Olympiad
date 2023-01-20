@@ -20,8 +20,7 @@ const request = async (method, url, data) => {
             beginningRequest = fetch(url, {
                 method,
                 headers: {
-                    ...headers,
-                    'content-type': 'application/json'
+                    ...headers
                 },
                 body: JSON.stringify(data)
             });

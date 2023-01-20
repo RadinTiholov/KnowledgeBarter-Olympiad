@@ -39,7 +39,7 @@ namespace KnowledgeBarter.Server.Controllers
         /// <returns>An HTTP status code indicating the result of the registration request.</returns>
         [HttpPost]
         [Route(nameof(Register))]
-        public async Task<ActionResult> Register([FromForm] RegisterInputModel model)
+        public async Task<ActionResult<RegisterResponseModel>> Register([FromForm] RegisterInputModel model)
         {
             var image = await this.imageService.CreateAsync(model.Image);
             var user = new ApplicationUser
@@ -54,7 +54,19 @@ namespace KnowledgeBarter.Server.Controllers
 
             if (result.Succeeded)
             {
-                return Ok();
+                var token = this.identityService.GenerateJwtToken(
+                user.Id.ToString(),
+                user.UserName,
+                this.appSettings.Secret);
+
+                return new RegisterResponseModel()
+                {
+                    AccessToken = token,
+                    KBPoints = user.KBPoints,
+                    Username = user.UserName,
+                    Email = user.Email,
+                    _id = user.Id,
+                };
             }
 
             return BadRequest(result.Errors);
@@ -94,7 +106,7 @@ namespace KnowledgeBarter.Server.Controllers
                 KBPoints = user.KBPoints,
                 Username = user.UserName,
                 Email = user.Email,
-                _Id = user.Id,
+                _id = user.Id,
             };
         }
 

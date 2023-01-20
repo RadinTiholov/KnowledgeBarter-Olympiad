@@ -1,6 +1,6 @@
 ﻿namespace KnowledgeBarter.Server.Models.Identity
 {
-    public class LoginResponseModel
+    public class RegisterResponseModel
     {
         public string AccessToken { get; set; } = null!;
 
