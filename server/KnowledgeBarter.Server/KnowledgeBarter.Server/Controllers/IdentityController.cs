@@ -3,6 +3,7 @@ using KnowledgeBarter.Server.Infrastructure.Extensions;
 using KnowledgeBarter.Server.Models.Comments;
 using KnowledgeBarter.Server.Models.Identity;
 using KnowledgeBarter.Server.Services.Contracts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -103,6 +104,7 @@ namespace KnowledgeBarter.Server.Controllers
         /// <param name="lessonId"></param>
         /// <returns>Bad request error if the request is invalid or the user profile information</returns>
         [HttpGet]
+        [Authorize]
         [Route(nameof(Profile))]
         public async Task<IdentityProfileResponseModel> Profile()
         {
