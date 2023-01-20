@@ -101,7 +101,7 @@ export const Header = () => {
                                     </li>
                                     <li className="nav-item">
                                         <Link className="nav-link text-light" to="/profile">
-                                            KBPoints: {auth.kbpoints}
+                                            KBPoints: {auth.kbPoints}
                                         </Link>
                                     </li>
                                     <li className="nav-item dropdown">

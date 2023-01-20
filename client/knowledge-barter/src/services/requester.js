@@ -1,33 +1,34 @@
 const request = async (method, url, data) => {
-    try{
+    try {
         const user = localStorage.getItem('auth');
         let auth = JSON.parse('{}');
-        if(user !== 'undefined' && user){
+        if (user !== 'undefined' && user) {
             auth = JSON.parse(user);
         }
 
         let headers = {}
 
         if (auth?.accessToken) {
-            headers['Authorization'] = 'Bearer' + auth.accessToken;
+            headers['Authorization'] = 'Bearer ' + auth.accessToken;
         }
 
         let beginningRequest;
-        if(method === 'GET'){
-            beginningRequest = fetch(url,{ headers })
+        if (method === 'GET') {
+            beginningRequest = fetch(url, { headers })
         }
-        else{
+        else {
             beginningRequest = fetch(url, {
                 method,
                 headers: {
-                    ...headers
+                    ...headers,
+                    'content-type': 'application/json'
                 },
                 body: JSON.stringify(data)
             });
         }
         const response = await beginningRequest;
         let result = null;
-        if(response.ok){ 
+        if (response.ok) {
             result = await response.json();
         }
         else {
@@ -35,7 +36,7 @@ const request = async (method, url, data) => {
             throw new Error(res.message);
         }
         return result;
-    }catch(err){
+    } catch (err) {
         throw new Error(err.message);
     }
 }

@@ -22,7 +22,7 @@ export const Profile = () => {
                                     <img
                                         className="img-fluid rounded-circle"
                                         style={{ width: 300, height: 300 }}
-                                        src={fullUserInfo.profilePicture}
+                                        src={fullUserInfo.imageUrl}
                                         alt="Profile Pic"
                                     />
                                 </div>
@@ -31,7 +31,7 @@ export const Profile = () => {
                                 <h3 className="card-title text-center ">
                                     Email: {fullUserInfo.email}
                                 </h3>
-                                <h3 className="card-title text-center ">KBPoints: {auth.kbpoints}</h3>
+                                <h3 className="card-title text-center ">KBPoints: {auth.kbPoints}</h3>
                             </div>
                         </div>
                     </div>
