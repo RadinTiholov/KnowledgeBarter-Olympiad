@@ -61,6 +61,7 @@ namespace KnowledgeBarter.Server.Services
                 .Include(x => x.BoughtCourses)
                 .Include(x => x.OwnLessons)
                 .Include(x => x.OwnCourses)
+                .Include(x => x.Image)
                 .FirstOrDefaultAsync();
 
             return user;
