@@ -4,7 +4,7 @@ export const Lesson = (props) => {
         <div className="col">
         <div className="card card-display border-0" style={{ width: "15rem" }}>
             <img
-                src={props.tumbnail}
+                src={props.thumbnail}
                 className="card-img"
                 style={{ height: "15rem" }}
                 alt="..."
@@ -12,7 +12,7 @@ export const Lesson = (props) => {
             <div className="card-body">
                 <h5 className="card-title fw-bold">{props.title}</h5>
                 <Link
-                    to={"/lesson/details/" + props._id}
+                    to={"/lesson/details/" + props.id}
                     className="btn"
                     style={{ backgroundColor: "#636EA7", color: "#fff" }}
                 >
