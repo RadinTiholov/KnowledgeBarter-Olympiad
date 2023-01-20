@@ -10,35 +10,63 @@ export const Register = () => {
     const navigate = useNavigate();
     const [errors, setErrors] = useState({
         email: false,
-        password: false
+        password: false,
+        image: false,
     })
     const [error, setError] = useState({ active: false, message: "" });
     const [inputData, setInputData] = useState({
         email: "",
         username: "",
         password: "",
-        rePassword: "",
-        profilePicture: ""
+        rePassword: ""
     });
+
+    const [imageData, setImageData] = useState({
+        imageFile: '',
+    });
+
+    const [visualizationImageUrl, setVisualizationImageUrl] = useState('');
 
     const onChange = (e) => {
         setInputData(state => (
             { ...state, [e.target.name]: e.target.value }))
     }
+
+    const onSelectFile = (e) => {
+        setImageData((state) => ({ ...state, imageFile: e.target.files[0] }));
+
+        //Creating local image url for visualization
+        if (e.target.files[0]) {
+            setVisualizationImageUrl(URL.createObjectURL(e.target.files[0]));
+            //Turn off validation error
+            setErrors(state => ({ ...state, posterUrl: false }))
+        } else {
+            setVisualizationImageUrl('');
+            //Turn on validation error
+            setErrors(state => ({ ...state, posterUrl: true }))
+        }
+    };
+
     const onSubmit = (e) => {
         e.preventDefault();
         if (inputData.password === inputData.rePassword) {
-            authService.register(inputData)
+            const formData = new FormData(e.target);
+            //formData.append('image', imageData.imageFile);
+            formData.append('username', inputData.username);
+            formData.append('email', inputData.email);
+            formData.append('password', inputData.password);
+
+            authService.register(formData)
                 .then(res => {
                     userLogin(res);
                     navigate('/')
                 })
                 .catch(res => {
-                    setError({active: true, message: res.message})
+                    setError({ active: true, message: res.message })
                 })
         }
-        else{
-            setError({active: true, message: "Password and RePassword aren't the same."})
+        else {
+            setError({ active: true, message: "Password and RePassword aren't the same." })
         }
     }
     const emailValidator = (e) => {
@@ -54,10 +82,6 @@ export const Register = () => {
     const usernameValidator = (e) => {
         setErrors(state => ({ ...state, [e.target.name]: inputData.username.length < 2 || inputData.username.length > 30 }))
     }
-    const profilePictureValidator = (e) => {
-        var re = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/;
-        setErrors(state => ({ ...state, [e.target.name]: !re.test(inputData.profilePicture) }))
-    }
     const isValidForm = !Object.values(errors).some(x => x);
     return (
         <div style={{ backgroundImage: `url(${background})` }} className="backgound-layer-register">
@@ -71,6 +95,25 @@ export const Register = () => {
                                     Register Form
                                 </h5>
                                 <form onSubmit={onSubmit}>
+                                    <div className="form-floating mb-3">
+                                        <input
+                                            type="username"
+                                            className="form-control"
+                                            id="username"
+                                            name="username"
+                                            placeholder="ExAmPlE"
+                                            value={inputData.username}
+                                            onChange={onChange}
+                                            onBlur={(e) => usernameValidator(e)}
+                                        />
+                                        <label htmlFor="username">Username</label>
+                                    </div>
+                                    {errors.username && <div className="alert alert-danger d-flex align-items-center" role="alert">
+                                        <i className="fa-solid fa-triangle-exclamation me-2"></i>
+                                        <div className="text-center">
+                                            Your username must be more than 2 and less than 30 characters.
+                                        </div>
+                                    </div>}
                                     <div className="form-floating mb-3">
                                         <input
                                             type="email"
@@ -89,25 +132,6 @@ export const Register = () => {
                                         <i className="fa-solid fa-triangle-exclamation me-2"></i>
                                         <div className="text-center">
                                             Please provide a valid email address.
-                                        </div>
-                                    </div>}
-                                    <div className="form-floating mb-3">
-                                        <input
-                                            type="username"
-                                            className="form-control"
-                                            id="username"
-                                            name="username"
-                                            placeholder="ExAmPlE"
-                                            value={inputData.username}
-                                            onChange={onChange}
-                                            onBlur={(e) => usernameValidator(e)}
-                                        />
-                                        <label htmlFor="username">Username</label>
-                                    </div>
-                                    {errors.username && <div className="alert alert-danger d-flex align-items-center" role="alert">
-                                        <i className="fa-solid fa-triangle-exclamation me-2"></i>
-                                        <div className="text-center">
-                                            Your username must be more than 2 and less than 30 characters.
                                         </div>
                                     </div>}
                                     <div className="form-floating mb-3">
@@ -152,34 +176,37 @@ export const Register = () => {
                                                 Please enter a password.
                                             </div>
                                         </div>}
-                                    {/* profilePicture */}
-                                    <div className="form-floating mb-3">
+                                    {/*Image input*/}
+                                    <div>
                                         <input
-                                            type="text"
-                                            className="form-control"
-                                            id="profilePicture"
-                                            name="profilePicture"
-                                            placeholder="Profile Picture Link"
-                                            value={inputData.profilePicture}
-                                            onChange={onChange}
-                                            onBlur={(e) => profilePictureValidator(e)}
+                                            className='form-control'
+                                            type='file'
+                                            name='image'
+                                            onChange={onSelectFile}
                                         />
-                                        <label htmlFor="profilePicture">Profile Picture Link</label>
+                                        <label htmlFor='formFile' className='form-label'>
+                                            Choose Profile Picture
+                                        </label>
                                     </div>
-                                    {/* Alert */}
-                                    {errors.profilePicture &&
+                                    {/*Poster alert*/}
+                                    {errors.image &&
                                         <div className="alert alert-danger d-flex align-items-center" role="alert">
                                             <i className="fa-solid fa-triangle-exclamation me-2"></i>
                                             <div className="text-center">
-                                                Please provide valid URL.
+                                            Please provide valid profile picture.
                                             </div>
                                         </div>}
+                                    {visualizationImageUrl &&
+                                        <>
+                                            <img className='img-fluid' src={visualizationImageUrl} alt='img' style={{ height: 300 }} />
+                                        </>
+                                    }
                                     <div className="d-grid">
                                         <button
                                             className="btn btn-outline-warning"
                                             style={{ backgroundColor: "#636EA7" }}
                                             type="submit"
-                                            disabled={!isValidForm || !(inputData.email  && inputData.password && inputData.rePassword && inputData.profilePicture && inputData.username)}
+                                            disabled={!isValidForm || !(inputData.email && inputData.password && inputData.rePassword && imageData.imageFile && inputData.username)}
                                         >
                                             Register
                                         </button>
@@ -187,7 +214,7 @@ export const Register = () => {
                                     {/* Error message */}
                                     {error.active === true ? <div className="alert alert-danger fade show mt-3">
                                         <strong>Error!</strong> {error.message}
-                                    </div>: null}
+                                    </div> : null}
                                     <hr className="my-4" />
                                     <h5 style={{ textAlign: "center" }}>or</h5>
                                     <div className="d-grid">

@@ -4,7 +4,7 @@
     {
         public string AccessToken { get; set; } = null!;
 
-        public string _Id { get; set; } = null!;
+        public string _id { get; set; } = null!;
 
         public string Username { get; set; } = null!;
 

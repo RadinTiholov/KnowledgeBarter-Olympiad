@@ -93,7 +93,7 @@ namespace KnowledgeBarter.Server.Controllers
                 KBPoints = user.KBPoints,
                 Username = user.UserName,
                 Email = user.Email,
-                _Id = user.Id,
+                _id = user.Id,
             };
         }
 
