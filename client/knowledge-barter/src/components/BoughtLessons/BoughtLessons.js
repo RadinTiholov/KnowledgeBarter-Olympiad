@@ -12,7 +12,7 @@ export const BoughtLessons = () => {
             <div className="container">
                 <div className="text-center">
                     <div className="row row-cols-5 gy-3 pb-5">
-                        {collection.length > 0 ? collection?.map(x => <Lesson {...x} key= {x._id}/>): <p className='text-center'>No lessons yet.</p>}
+                        {collection.length > 0 ? collection?.map(x => <Lesson {...x} key= {x.id}/>): <p className='text-center'>No lessons yet.</p>}
                     </div>
                 </div>
             </div>

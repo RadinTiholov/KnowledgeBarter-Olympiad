@@ -15,11 +15,12 @@ export const useCollectionInfo = (collectionName) => {
     useEffect(() => {
         authService.getDetails(auth._id)
             .then(res => {
+                console.log(res[collectionName]);
                 setfullUserInfo(res)
                 if (collectionName.includes('Lesson')) {
                     let promises = [];
                     for (let i = 0; i < res[collectionName].length; i++) {
-                        if (lessons.some(x => x._id === res[collectionName][i])) {
+                        if (lessons.some(x => x.id === res[collectionName][i])) {
                             promises.push(lessonService.getDetails(res[collectionName][i]))
                         }
                     }
@@ -30,7 +31,7 @@ export const useCollectionInfo = (collectionName) => {
                 } else {
                     let promises = [];
                     for (let i = 0; i < res[collectionName].length; i++) {
-                        if (courses.some(x => x._id === res[collectionName][i])) {
+                        if (courses.some(x => x.id === res[collectionName][i])) {
                             promises.push(courseService.getDetails(res[collectionName][i]))
                         }
                     }

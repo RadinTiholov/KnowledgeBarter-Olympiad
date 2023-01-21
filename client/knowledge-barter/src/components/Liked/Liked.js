@@ -14,8 +14,8 @@ export const Liked = () => {
             <div className="container">
                 <div className="text-center">
                     <div className="row row-cols-5 gy-3 pb-5">
-                    {collectionLesson.length > 0 ? collectionLesson?.map(x => <Lesson {...x} key= {x._id}/>): <h3 className='text-center'>No lessons yet.</h3>}
-                    {collectionCourses.length > 0 ? collectionCourses?.map(x => <Course {...x} key= {x._id}/>): <h3 className='text-center'>No courses yet.</h3>}
+                    {collectionLesson.length > 0 ? collectionLesson?.map(x => <Lesson {...x} key= {x.id}/>): <h3 className='text-center'>No lessons yet.</h3>}
+                    {collectionCourses.length > 0 ? collectionCourses?.map(x => <Course {...x} key= {x.id}/>): <h3 className='text-center'>No courses yet.</h3>}
                     </div>
                 </div>
             </div>

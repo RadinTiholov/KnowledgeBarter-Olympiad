@@ -15,13 +15,13 @@ export const CourseProvider = ({children}) => {
         setCourses(state => [...state, course])
     }
     const update = (course) => {
-        setCourses(state => courses.map(x => x._id === course._id ? course : x));
+        setCourses(state => courses.map(x => x.id === course.id ? course : x));
     }
     const delCourse = (id) => {
-        setCourses(state => courses.filter(x => x._id !== id));
+        setCourses(state => courses.filter(x => x.id !== id));
     }
     const select = (id) => {
-        return courses.find(x => x._id === id) || {};
+        return courses.find(x => x.id == id) || {};
     };
     return (
         <CourseContext.Provider value={{courses, create, update, delCourse, select}}>

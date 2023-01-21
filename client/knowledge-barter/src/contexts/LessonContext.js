@@ -14,13 +14,13 @@ export const LessonProvider = ({children}) => {
         setLessons(state => [...state, lesson])
     }
     const update = (lesson) => {
-        setLessons(state => lessons.map(x => x._id === lesson._id ? lesson : x));
+        setLessons(state => lessons.map(x => x.id === lesson.id ? lesson : x));
     }
     const delLesson = (id) => {
-        setLessons(state => lessons.filter(x => x._id !== id));
+        setLessons(state => lessons.filter(x => x.id !== id));
     }
     const select = (id) => {
-        return lessons.find(x => x._id === id) || {};
+        return lessons.find(x => x.id == id) || {};
     };
     return (
         <LessonContext.Provider value={{lessons, create, update, delLesson, select}}>

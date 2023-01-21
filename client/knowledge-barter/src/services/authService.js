@@ -9,8 +9,8 @@ const login = (data) => {
 const register = (data) => {
     return multipartRequester.post(`${baseUrl}/identity/register`, data)
 }
-const getDetails = () => {
-    return request.get(`${baseUrl}/identity/profile`)
+const getDetails = (id) => {
+    return request.get(`${baseUrl}/identity/profile/` + id)
 }
 export{
     login,

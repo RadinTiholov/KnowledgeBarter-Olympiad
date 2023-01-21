@@ -1,14 +1,14 @@
 import { useContext, useState, useEffect } from "react"
-import {AuthContext} from '../contexts/AuthContext'
+import { AuthContext } from '../contexts/AuthContext'
 import * as authService from '../services/authService'
 export const useBoughtLesson = (id) => {
-    const {auth} = useContext(AuthContext)
+    const { auth } = useContext(AuthContext)
     const [isBought, setIsBought] = useState(false);
 
     useEffect(() => {
-        if(auth !== null){
+        if (auth !== null) {
             authService.getDetails(auth?._id)
-            .then(res => setIsBought(res.boughtLessons.some(x => x === id)))
+                .then(res => setIsBought(res.boughtLessons?.some(x => x === id)))
         }
     }, [])
     return [
