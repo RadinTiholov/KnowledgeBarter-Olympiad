@@ -15,7 +15,6 @@ export const useCollectionInfo = (collectionName) => {
     useEffect(() => {
         authService.getDetails(auth._id)
             .then(res => {
-                console.log(res[collectionName]);
                 setfullUserInfo(res)
                 if (collectionName.includes('Lesson')) {
                     let promises = [];
