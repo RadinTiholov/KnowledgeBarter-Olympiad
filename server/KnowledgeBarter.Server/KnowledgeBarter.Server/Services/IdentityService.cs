@@ -83,10 +83,15 @@ namespace KnowledgeBarter.Server.Services
 
             var profile = new IdentityProfileResponseModel()
             {
+                Id = userId,
                 Username = user.UserName,
                 Email = user.Email,
-                KBPoints = user.KBPoints,
                 ImageUrl = user.Image.Url,
+                BoughtCourses = user.BoughtCourses.Select(b => b.Id),
+                OwnCourses = user.OwnCourses.Select(o => o.Id),
+                BoughtLessons = user.BoughtLessons.Select(b => b.Id),
+                LikedLessons = user.LikedLessons.Select(l => l.Id),
+                OwnLessons = user.OwnLessons.Select(o => o.Id),
             };
 
             return profile;
