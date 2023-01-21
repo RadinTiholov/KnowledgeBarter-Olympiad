@@ -13,7 +13,7 @@ export const LessonDetailsPreview = (props) => {
                                 <h1 className="card-title text-center mb-5 fw-bold">{props.lesson.title}</h1>
                                 <img
                                     className="img-fluid rounded"
-                                    src={props.lesson.tumbnail}
+                                    src={props.lesson.thumbnail}
                                     alt="Lesson Pic"
                                 />
                                 <hr className="my-4" />
