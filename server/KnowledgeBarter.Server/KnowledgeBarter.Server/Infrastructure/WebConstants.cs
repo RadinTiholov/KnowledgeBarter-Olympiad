@@ -16,6 +16,8 @@ namespace KnowledgeBarter.Server.Infrastructure
 
         public const string CreateCommentRoute = "/Comment/Create/{lessonId}";
 
+        public const string IdentityProfileRoute = "/Identity/Profile/{userId}";
+
         public const string AllowedExtensionsErrorMessage = "This file extension is not allowed.";
 
         public const string SomethingWentWrongMessage = "Something went wrong. Please try again later.";

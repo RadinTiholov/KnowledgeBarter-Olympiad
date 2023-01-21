@@ -1,16 +1,12 @@
 ﻿using KnowledgeBarter.Server.Data.Models;
-using KnowledgeBarter.Server.Infrastructure.Extensions;
-using KnowledgeBarter.Server.Models.Comments;
 using KnowledgeBarter.Server.Models.Identity;
 using KnowledgeBarter.Server.Services.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
+using static KnowledgeBarter.Server.Infrastructure.WebConstants;
+
 
 namespace KnowledgeBarter.Server.Controllers
 {
@@ -117,11 +113,9 @@ namespace KnowledgeBarter.Server.Controllers
         /// <returns>Bad request error if the request is invalid or the user profile information</returns>
         [HttpGet]
         [Authorize]
-        [Route(nameof(Profile))]
-        public async Task<IdentityProfileResponseModel> Profile()
+        [Route(IdentityProfileRoute)]
+        public async Task<IdentityProfileResponseModel> Profile(string userId)
         {
-            var userId = this.User.Id();
-
             var response = await this.identityService.GetIdentityProfileAsync(userId);
 
             return response;
