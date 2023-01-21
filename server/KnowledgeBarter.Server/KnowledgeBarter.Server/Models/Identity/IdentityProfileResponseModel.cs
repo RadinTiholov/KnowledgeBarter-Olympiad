@@ -8,13 +8,23 @@ namespace KnowledgeBarter.Server.Models.Identity
 {
     public class IdentityProfileResponseModel : IMapFrom<ApplicationUser>, IHaveCustomMappings
     {
+        public string Id { get; set; }
+
         public string Username { get; set; } = null!;
 
         public string Email { get; set; } = null!;
 
         public string ImageUrl { get; set; } = null!;
 
-        public int KBPoints { get; set; }
+        public IEnumerable<int> BoughtCourses { get; set; } = null!;
+
+        public IEnumerable<int> OwnCourses { get; set; } = null!;
+
+        public IEnumerable<int> LikedLessons { get; set; } = null!;
+
+        public IEnumerable<int> BoughtLessons { get; set; } = null!;
+
+        public IEnumerable<int> OwnLessons { get; set; } = null!;
 
         public void CreateMappings(IProfileExpression configuration)
         {
