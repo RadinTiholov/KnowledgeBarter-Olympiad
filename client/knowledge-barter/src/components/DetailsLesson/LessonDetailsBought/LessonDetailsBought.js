@@ -15,7 +15,7 @@ export const LessonDetailsBought = (props) => {
     }
     const onComment = (e) => {
         e.preventDefault();
-        lessonsService.comment(props.lesson._id, comment)
+        lessonsService.comment(props.lesson.id, comment)
             .then(res => {
                 props.comment(res)
                 setComment('');
@@ -58,7 +58,7 @@ export const LessonDetailsBought = (props) => {
                                 <Link
                                     className="btn btn-outline-warning btn fw-bold"
                                     style={{ backgroundColor: "#636EA7" }}
-                                    to={'/lesson/edit/' + props.lesson._id}
+                                    to={'/lesson/edit/' + props.lesson.id}
                                 >
                                     Edit
                                 </Link>
@@ -127,12 +127,12 @@ export const LessonDetailsBought = (props) => {
                                         </div>
                                     </div>}
                             </form>
-                            {props.lesson.comments?.map(x => <Comment key = {x._id} {...x} commentedUsers = {props.commentedUsers.filter(y => y._id === x.owner)}/>) }
+                            {props.lesson.comments?.map(x => <Comment key = {x.id} {...x} commentedUsers = {props.commentedUsers.filter(y => y.id === x.owner)}/>) }
                         </div>
                     </div>
                     <div className="col-2">
                         <p>Most popular lessons</p>
-                        {props.mostPopularLessons?.map(x => <Lesson key = {x._id} {...x}/>)}
+                        {props.mostPopularLessons?.map(x => <Lesson key = {x.id} {...x}/>)}
                     </div>
                 </div>
             </div>

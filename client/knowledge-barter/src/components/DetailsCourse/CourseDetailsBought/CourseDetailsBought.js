@@ -15,7 +15,7 @@ export const CourseDetailsBought = (props) => {
     }
     const onComment = (e) => {
         e.preventDefault();
-        lessonsService.comment(props.lesson._id, comment)
+        lessonsService.comment(props.lesson.id, comment)
             .then(res => {
                 props.comment(res)
                 setComment('');
@@ -60,7 +60,7 @@ export const CourseDetailsBought = (props) => {
                                         <Link
                                             className="btn btn-outline-warning btn fw-bold"
                                             style={{ backgroundColor: "#636EA7" }}
-                                            to={'/lesson/edit/' + props.lesson._id}
+                                            to={'/lesson/edit/' + props.lesson.id}
                                         >
                                             Edit Lesson
                                         </Link>
@@ -68,7 +68,7 @@ export const CourseDetailsBought = (props) => {
                                         <Link
                                             className="btn btn-outline-warning btn fw-bold"
                                             style={{ backgroundColor: "#636EA7" }}
-                                            to={'/course/edit/' + props.course._id}
+                                            to={'/course/edit/' + props.course.id}
                                         >
                                             Edit Course
                                         </Link>
@@ -141,12 +141,12 @@ export const CourseDetailsBought = (props) => {
                                         </div>
                                     </div>}
                             </form>
-                            {props.lesson.comments?.map(x => <Comment key={x._id} {...x} commentedUsers={props.commentedUsers.filter(y => y._id === x.owner)} />)}
+                            {props.lesson.comments?.map(x => <Comment key={x.id} {...x} commentedUsers={props.commentedUsers.filter(y => y.id === x.owner)} />)}
                         </div>
                     </div>
                     <div className="col-2">
                         <p>Lessons</p>
-                        {props.course?.lessons?.map(x => <Lesson key={x._id} {...x} courseId={props.course._id} />)}
+                        {props.course?.lessons?.map(x => <Lesson key={x.id} {...x} courseId={props.course.id} />)}
                     </div>
                 </div>
             </div>
