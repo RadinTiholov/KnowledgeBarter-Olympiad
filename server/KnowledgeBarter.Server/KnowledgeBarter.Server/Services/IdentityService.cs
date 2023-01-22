@@ -88,6 +88,7 @@ namespace KnowledgeBarter.Server.Services
                 Email = user.Email,
                 ImageUrl = user.Image.Url,
                 BoughtCourses = user.BoughtCourses.Select(b => b.Id),
+                LikedCourses = user.LikedCourses.Select(l => l.Id),
                 OwnCourses = user.OwnCourses.Select(o => o.Id),
                 BoughtLessons = user.BoughtLessons.Select(b => b.Id),
                 LikedLessons = user.LikedLessons.Select(l => l.Id),

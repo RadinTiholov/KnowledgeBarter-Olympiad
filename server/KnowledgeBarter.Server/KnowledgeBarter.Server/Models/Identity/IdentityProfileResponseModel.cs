@@ -18,6 +18,8 @@ namespace KnowledgeBarter.Server.Models.Identity
 
         public IEnumerable<int> BoughtCourses { get; set; } = null!;
 
+        public IEnumerable<int> LikedCourses { get; set; } = null!;
+
         public IEnumerable<int> OwnCourses { get; set; } = null!;
 
         public IEnumerable<int> LikedLessons { get; set; } = null!;
