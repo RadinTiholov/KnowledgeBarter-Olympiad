@@ -107,7 +107,7 @@ export const CreateLesson = () => {
     const isValidForm = !Object.values(errors).some(x => x);
     return (
         <div style={{ backgroundImage: `url(${background})` }} className="backgound-layer-create">
-            {/* Login Form */}
+            {/* Create lesson form */}
             <div className="container">
                 <div className="row">
                     <div className="col-sm-9 col-md-7 col-lg-5 mx-auto">
@@ -198,7 +198,7 @@ export const CreateLesson = () => {
                                             onChange={onSelectFile}
                                         />
                                         <label htmlFor='formFile' className='form-label'>
-                                            Choose Profile Picture
+                                            Choose lesson Image
                                         </label>
                                     </div>
                                     {/* Alert */}
@@ -209,7 +209,7 @@ export const CreateLesson = () => {
                                     >
                                         <i className="fa-solid fa-triangle-exclamation me-2" />
                                         <div className="text-center">
-                                            Please a valid image.
+                                            Please provide a valid image.
                                         </div>
                                     </div>}
                                     {visualizationImageUrl &&
