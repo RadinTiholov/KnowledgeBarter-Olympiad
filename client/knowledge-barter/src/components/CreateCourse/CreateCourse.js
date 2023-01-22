@@ -60,22 +60,22 @@ export const CreateCourse = () => {
         e.preventDefault();
 
         const formData = new FormData(e.target);
-        const lessonsIds = [];
 
         for (let i = 0; i < collection?.length; i++) {
-            if (formData.get(collection[i]._id) !== null) {
-                lessonsIds.push(formData.get(collection[i]._id))
+            
+            console.log(formData.get(collection[i].id));
+            if (formData.get(collection[i].id) !== null) {
+                formData.append("lessons", formData.get(collection[i].id))
             }
         }
 
-        formData.append('title', inputData.title);
-        formData.append('description', inputData.description);
+        console.log(formData.get('lessons'));
 
         courseService.create(formData)
             .then(res => {
                 create(res);
                 updatePoints(500);
-                navigate('/course/details/' + res.id + '/' + res.lessons[0])
+                navigate('/course/details/' + res.id + '/' + res.lessons[0].id)
             })
             .catch(err => {
                 setError({ active: true, message: err.message })
@@ -179,7 +179,7 @@ export const CreateCourse = () => {
                                     
                                 <h5>Your lessons</h5>
                                 <div className="form-floating mb-3">
-                                    {collection.length > 0 ? collection?.map(x => <Option {...x} key={x._id} onChange={onChange} value={inputData.lessons} />) : <p className='text-center'>No lessons yet.</p>}
+                                    {collection.length > 0 ? collection?.map(x => <Option {...x} key={x.id} onChange={onChange} value={inputData.lessons} />) : <p className='text-center'>No lessons yet.</p>}
                                     {error.active === true ? <div className="alert alert-danger fade show mt-3">
                                         <strong>Error! </strong> {error.message}
                                     </div> : null}

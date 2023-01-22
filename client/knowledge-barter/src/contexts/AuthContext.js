@@ -11,7 +11,7 @@ export const AuthProvider = ({children}) => {
     };
     const updatePoints = (points) => {
         let temp = {...auth}
-        temp.kbpoints += points;  
+        temp.kbPoints += points;  
         setAuth(temp);
     };
 
