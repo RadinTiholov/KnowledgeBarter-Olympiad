@@ -20,6 +20,5 @@ export const Liked = () => {
                 </div>
             </div>
         </div>
-
     )
 }

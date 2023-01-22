@@ -51,7 +51,7 @@ export const Register = () => {
         e.preventDefault();
         if (inputData.password === inputData.rePassword) {
             const formData = new FormData(e.target);
-            //formData.append('image', imageData.imageFile);
+            
             formData.append('username', inputData.username);
             formData.append('email', inputData.email);
             formData.append('password', inputData.password);

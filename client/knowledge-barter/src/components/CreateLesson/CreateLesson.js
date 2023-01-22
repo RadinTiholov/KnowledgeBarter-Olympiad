@@ -11,25 +11,32 @@ export const CreateLesson = () => {
     const [inputData, setInputData] = useState({
         title: "",
         description: "",
-        tumbnail: "",
         article: "",
         video: "",
         tags: [],
         resources: "",
     });
+
+    const [imageData, setImageData] = useState({
+        imageFile: '',
+    });
+
+    const [visualizationImageUrl, setVisualizationImageUrl] = useState('');
+
     const navigate = useNavigate();
     const {create} = useContext(LessonContext)
     const {updatePoints} = useContext(AuthContext);
     const [errors, setErrors] = useState({
         title: false,
         description: false,
-        tumbnail: false,
+        image: false,
         article: false,
         video: false,
         tags: false,
         resources: false,
     })
     const [error, setError] = useState({active: false, message: ""});
+
     const onChange = (e) => {
         setInputData(state => {
             if (e.target.name === 'tags') {
@@ -42,14 +49,38 @@ export const CreateLesson = () => {
             }
         })
     }
+
+    const onSelectFile = (e) => {
+        setImageData((state) => ({ ...state, imageFile: e.target.files[0] }));
+
+        //Creating local image url for visualization
+        if (e.target.files[0]) {
+            setVisualizationImageUrl(URL.createObjectURL(e.target.files[0]));
+            //Turn off validation error
+            setErrors(state => ({ ...state, posterUrl: false }))
+        } else {
+            setVisualizationImageUrl('');
+            //Turn on validation error
+            setErrors(state => ({ ...state, posterUrl: true }))
+        }
+    };
     const onSubmit = (e) => {
         e.preventDefault();
 
-        lessonsService.create(inputData)
+        const formData = new FormData(e.target);
+
+        formData.append('title', inputData.title);
+        formData.append('description', inputData.description);
+        formData.append('article', inputData.article);
+        formData.append('video', inputData.video);
+        formData.append('tags', inputData.tags);
+        formData.append('resources', inputData.resources);
+
+        lessonsService.create(formData)
             .then(res => {
                 create(res);
                 updatePoints(100);
-                navigate('/lesson/details/' + res._id)
+                navigate('/lesson/details/' + res.id)
             })
             .catch(err => {
                 setError({active: true, message: err.message})
@@ -65,10 +96,6 @@ export const CreateLesson = () => {
     //Validation
     const minMaxValidator = (e, min, max) => {
         setErrors(state => ({ ...state, [e.target.name]: inputData[e.target.name].length < min || inputData[e.target.name].length > max}))
-    }
-    const urlValidator = (e) => {
-        var re = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/;
-        setErrors(state => ({ ...state, [e.target.name]: !re.test(inputData[e.target.name]) }))
     }
     const urlYoutubeValidator = (e) => {
         var re = /^(https|http):\/\/(?:www\.)?youtube.com\/embed\/[A-z0-9]+/;
@@ -162,30 +189,34 @@ export const CreateLesson = () => {
                                             Please provide embedded youtube video.
                                         </div>
                                     </div>}
-                                    <div className="form-floating mb-3">
+                                    {/* Image */}
+                                    <div>
                                         <input
-                                            type="text"
-                                            className="form-control"
-                                            name="tumbnail"
-                                            id="tumbnail"
-                                            placeholder="Some link"
-                                            value={inputData.tumbnail}
-                                            onChange={onChange}
-                                            onBlur = {(e) => urlValidator(e)}
+                                            className='form-control'
+                                            type='file'
+                                            name='image'
+                                            onChange={onSelectFile}
                                         />
-                                        <label htmlFor="tumbnail">Thumbnail Link</label>
+                                        <label htmlFor='formFile' className='form-label'>
+                                            Choose Profile Picture
+                                        </label>
                                     </div>
                                     {/* Alert */}
-                                    {errors.tumbnail && 
+                                    {errors.image && 
                                     <div
                                         className="alert alert-danger d-flex align-items-center"
                                         role="alert"
                                     >
                                         <i className="fa-solid fa-triangle-exclamation me-2" />
                                         <div className="text-center">
-                                            Please provide valid URL.
+                                            Please a valid image.
                                         </div>
                                     </div>}
+                                    {visualizationImageUrl &&
+                                        <>
+                                            <img className='img-fluid' src={visualizationImageUrl} alt='img' style={{ height: 300 }} />
+                                        </>
+                                    }
                                     <div className="form-floating mb-3">
                                         <input
                                             type="text"
@@ -254,7 +285,7 @@ export const CreateLesson = () => {
                                             className="btn btn-outline-warning"
                                             style={{ backgroundColor: "#636EA7" }}
                                             type="submit"
-                                            disabled={!isValidForm || (!inputData.title || !inputData.description || !inputData.video || !inputData.article || !inputData.tumbnail || !inputData.tags.length > 0)}
+                                            disabled={!isValidForm || (!inputData.title || !inputData.description || !inputData.video || !inputData.article || !imageData.imageFile || !inputData.tags.length > 0)}
                                         >
                                             Create
                                         </button>

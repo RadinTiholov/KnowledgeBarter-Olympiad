@@ -1,4 +1,6 @@
 import * as request from "./requester"
+import * as multipartRequester from "./multipartFormDataRequester"
+
 const baseUrl = 'https://localhost:3030'
 const getAll = () => {
     return request.get(`${baseUrl}/lesson/all`)
@@ -10,10 +12,10 @@ const getDetails = (id) => {
     return request.get(`${baseUrl}/lesson/` + id)
 }
 const create = (data) => {
-    return request.post(`${baseUrl}/lesson/create`, data)
+    return multipartRequester.post(`${baseUrl}/lesson/create`, data)
 }
 const update = (data, id) => {
-    return request.put(`${baseUrl}/lesson/` + id, data)
+    return multipartRequester.put(`${baseUrl}/lesson/` + id, data)
 }
 const del = (id) => {
     return request.del(`${baseUrl}/lesson/` + id)
