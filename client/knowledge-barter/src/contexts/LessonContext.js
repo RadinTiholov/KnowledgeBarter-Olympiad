@@ -17,7 +17,7 @@ export const LessonProvider = ({children}) => {
         setLessons(state => lessons.map(x => x.id === lesson.id ? lesson : x));
     }
     const delLesson = (id) => {
-        setLessons(state => lessons.filter(x => x.id !== id));
+        setLessons(state => lessons.filter(x => x.id != id));
     }
     const select = (id) => {
         return lessons.find(x => x.id == id) || {};

@@ -110,7 +110,7 @@ namespace KnowledgeBarter.Server.Controllers
             {
                 await this.lessonService.DeleteAsync(id, userId);
 
-                return Ok();
+                return Ok(SuccessfullyDeleted);
             }
             catch (ArgumentException ae)
             {
@@ -162,7 +162,7 @@ namespace KnowledgeBarter.Server.Controllers
             {
                 await this.lessonService.LikeAsync(id, userId);
 
-                return Ok();
+                return Ok(SuccessfullyLiked);
             }
             catch (ArgumentException ae)
             {
@@ -185,7 +185,7 @@ namespace KnowledgeBarter.Server.Controllers
             {
                 await this.lessonService.BuyAsync(id, userId);
 
-                return Ok();
+                return Ok(SuccessfullyBuied);
             }
             catch (ArgumentException ae)
             {

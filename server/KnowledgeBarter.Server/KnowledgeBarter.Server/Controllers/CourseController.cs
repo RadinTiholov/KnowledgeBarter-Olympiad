@@ -164,7 +164,7 @@ namespace KnowledgeBarter.Server.Controllers
             {
                 await this.courseService.LikeAsync(id, userId);
 
-                return Ok();
+                return Ok(SuccessfullyLiked);
             }
             catch (ArgumentException ae)
             {
@@ -187,7 +187,7 @@ namespace KnowledgeBarter.Server.Controllers
             {
                 await this.courseService.BuyAsync(id, userId);
 
-                return Ok();
+                return Ok(SuccessfullyBuied);
             }
             catch (ArgumentException ae)
             {

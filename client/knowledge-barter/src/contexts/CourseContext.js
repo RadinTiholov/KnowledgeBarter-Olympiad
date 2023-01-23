@@ -18,7 +18,7 @@ export const CourseProvider = ({children}) => {
         setCourses(state => courses.map(x => x.id === course.id ? course : x));
     }
     const delCourse = (id) => {
-        setCourses(state => courses.filter(x => x.id !== id));
+        setCourses(state => courses.filter(x => x.id != id));
     }
     const select = (id) => {
         return courses.find(x => x.id == id) || {};
