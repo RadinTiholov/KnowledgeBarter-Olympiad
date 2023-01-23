@@ -13,7 +13,7 @@ export const Comment = (props) => {
                     />
                 </div>
                 <div className="col-11">
-                    <p className="mt-4">{props.commentedUsers[0]?.username}</p>
+                    <p className="mt-4">{props.commentedUsers[0]?.userName}</p>
                 </div>
             </div>
             <div className="row mx-3">

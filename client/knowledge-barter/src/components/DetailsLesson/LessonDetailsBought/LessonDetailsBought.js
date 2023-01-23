@@ -10,13 +10,16 @@ export const LessonDetailsBought = (props) => {
     const [comment, setComment] = useState('');
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+
     const onChange = (e) => {
         setComment(e.target.value)
     }
+
     const onComment = (e) => {
         e.preventDefault();
         lessonsService.comment(props.lesson.id, comment)
             .then(res => {
+                console.log(res);
                 props.comment(res)
                 setComment('');
             }).catch(err => {
