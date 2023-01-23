@@ -29,10 +29,10 @@ export const EditCourse = () => {
 
     useEffect(() => {
         courseService.getDetails(id)
-            .then(res => setInputData(res => {
+            .then(res => {
                 setInputData(res);
                 setVisualizationImageUrl(res.thumbnail);
-            }))
+            })
     }, []);
 
     const [errors, setErrors] = useState({
@@ -80,7 +80,7 @@ export const EditCourse = () => {
             courseService.update(formData, id)
                 .then(res => {
                     update(res)
-                    navigate('/course/details/' + id + '/' + res.lessons[0].Id)
+                    navigate('/course/details/' + id + '/' + res.lessons[0].id)
                 })
                 .catch(err => {
                     setError({ active: true, message: err.message })
@@ -182,7 +182,7 @@ export const EditCourse = () => {
 
                                 <h5>Your lessons</h5>
                                 <div className="form-floating mb-3">
-                                    {collection.length > 0 ? collection?.map(x => <Option {...x} key={x._id} onChange={onChange} isSelected={inputData.lessons.some(y => y._id === x._id)} />) : <p className='text-center'>No lessons yet.</p>}
+                                    {collection.length > 0 ? collection?.map(x => <Option {...x} key={x.id} onChange={onChange} isSelected={inputData.lessons.some(y => y.id === x.id)} />) : <p className='text-center'>No lessons yet.</p>}
                                     {error.active === true ? <div className="alert alert-danger fade show mt-3">
                                         <strong>Error!</strong> {error.message}
                                     </div> : null}
