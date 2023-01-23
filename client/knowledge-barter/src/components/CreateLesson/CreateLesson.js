@@ -69,11 +69,6 @@ export const CreateLesson = () => {
 
         const formData = new FormData(e.target);
 
-        formData.append('title', inputData.title);
-        formData.append('description', inputData.description);
-        formData.append('article', inputData.article);
-        formData.append('video', inputData.video);
-        formData.append('tags', inputData.tags);
         formData.append('resources', inputData.resources);
 
         lessonsService.create(formData)

@@ -79,7 +79,7 @@ export const EditLesson = () => {
 
         let formData = new FormData(e.target);
 
-        formData.append('resources', inputData.resources);
+        formData.append('resources', inputData.resources ? inputData.resources : '');
 
         lessonsService.update(formData, id )
             .then(res => {
