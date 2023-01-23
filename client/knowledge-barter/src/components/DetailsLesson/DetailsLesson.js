@@ -37,7 +37,7 @@ export const DetailsLesson = () => {
             })
     }
     const buyLessonOnClick = () => {
-        if (auth.kbpoints >= lesson.price) {
+        if (auth.kbPoints >= lesson.price) {
             lessonService.buy(id)
                 .then(res => {
                     navigate('/lesson/bought')

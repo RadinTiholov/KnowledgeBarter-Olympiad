@@ -8,7 +8,7 @@ export const useBoughtLesson = (id) => {
     useEffect(() => {
         if (auth !== null) {
             authService.getDetails(auth?._id)
-                .then(res => setIsBought(res.boughtLessons?.some(x => x === id)))
+                .then(res => setIsBought(res.boughtLessons?.some(x => x == id)))
         }
     }, [])
     return [
