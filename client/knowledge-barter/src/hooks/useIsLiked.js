@@ -10,13 +10,13 @@ export const useIsLiked = (id, isLesson) => {
             .then(res => {
                 setfullUserInfo(res)
                 if (isLesson) {
-                    if (res.likedLessons?.some(x => x === id)) {
+                    if (res.likedLessons?.some(x => x == id)) {
                         setIsLiked(true)
                     } else {
                         setIsLiked(false)
                     }
                 } else {
-                    if (res.likedCourses?.some(x => x === id)) {
+                    if (res.likedCourses?.some(x => x == id)) {
                         setIsLiked(true)
                     } else {
                         setIsLiked(false)

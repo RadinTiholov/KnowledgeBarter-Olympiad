@@ -4,7 +4,7 @@ export const Course = (props) => {
         <div className="col">
         <div className="card card-display border-0" style={{ width: "15rem" }}>
             <img
-                src={props.tumbnail}
+                src={props.thumbnail}
                 className="card-img"
                 style={{ height: "15rem" }}
                 alt="..."
