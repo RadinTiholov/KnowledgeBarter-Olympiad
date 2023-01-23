@@ -16,6 +16,14 @@ const request = async (method, url, data) => {
         if (method === 'GET') {
             beginningRequest = fetch(url, { headers })
         }
+        else if(method === "DELETE"){
+            beginningRequest = fetch(url, {
+                method,
+                headers: {
+                    ...headers
+                },
+            });
+        }
         else {
             beginningRequest = fetch(url, {
                 method,
@@ -29,7 +37,11 @@ const request = async (method, url, data) => {
         const response = await beginningRequest;
         let result = null;
         if (response.ok) {
-            result = await response.json();
+            try {
+                result = await response.json();
+            } catch (error) {
+                result = null;
+            }
         }
         else {
             const res = await response.json();

@@ -22,6 +22,12 @@ namespace KnowledgeBarter.Server.Infrastructure
 
         public const string SomethingWentWrongMessage = "Something went wrong. Please try again later.";
 
+        public const string SuccessfullyDeleted = "Successfully deleted.";
+
+        public const string SuccessfullyLiked = "Successfully liked.";
+
+        public const string SuccessfullyBuied = "Successfully buied.";
+
         public static readonly string[] AllowedImageExtensions = { ".jpg", ".jpeg", ".png" };
     }
 }
