@@ -63,13 +63,13 @@ export const CreateCourse = () => {
 
         for (let i = 0; i < collection?.length; i++) {
             
-            console.log(formData.get(collection[i].id));
+            // console.log(formData.get(collection[i].id));
             if (formData.get(collection[i].id) !== null) {
                 formData.append("lessons", formData.get(collection[i].id))
             }
         }
 
-        console.log(formData.get('lessons'));
+        // console.log(formData.get('lessons'));
 
         courseService.create(formData)
             .then(res => {
