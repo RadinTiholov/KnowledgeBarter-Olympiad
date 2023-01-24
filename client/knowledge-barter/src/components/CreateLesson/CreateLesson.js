@@ -29,7 +29,7 @@ export const CreateLesson = () => {
     const [errors, setErrors] = useState({
         title: false,
         description: false,
-        image: false,
+        posterUrl: false,
         article: false,
         video: false,
         tags: false,
@@ -55,13 +55,22 @@ export const CreateLesson = () => {
 
         //Creating local image url for visualization
         if (e.target.files[0]) {
-            setVisualizationImageUrl(URL.createObjectURL(e.target.files[0]));
-            //Turn off validation error
-            setErrors(state => ({ ...state, posterUrl: false }))
+            let extension = e.target.files[0].name.split('.')[1];
+            let allowedExtensions = ['jpg', 'jpeg', 'png']
+            if (!allowedExtensions.some(x => x === extension)) {
+                setErrors(state => ({ ...state, posterUrl: true }))
+                
+                setVisualizationImageUrl('');
+            }
+            else{
+                setErrors(state => ({ ...state, posterUrl: false }))
+
+                setVisualizationImageUrl(URL.createObjectURL(e.target.files[0]));
+            }
         } else {
-            setVisualizationImageUrl('');
-            //Turn on validation error
             setErrors(state => ({ ...state, posterUrl: true }))
+
+            setVisualizationImageUrl('');
         }
     };
     const onSubmit = (e) => {
@@ -197,14 +206,14 @@ export const CreateLesson = () => {
                                         </label>
                                     </div>
                                     {/* Alert */}
-                                    {errors.image && 
+                                    {errors.posterUrl && 
                                     <div
                                         className="alert alert-danger d-flex align-items-center"
                                         role="alert"
                                     >
                                         <i className="fa-solid fa-triangle-exclamation me-2" />
                                         <div className="text-center">
-                                            Please provide a valid image.
+                                            The allowed extenstions are jpeg, jpg and png.
                                         </div>
                                     </div>}
                                     {visualizationImageUrl &&
