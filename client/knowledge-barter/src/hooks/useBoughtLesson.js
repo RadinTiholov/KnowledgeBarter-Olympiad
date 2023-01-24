@@ -10,7 +10,7 @@ export const useBoughtLesson = (id) => {
             authService.getDetails(auth?._id)
                 .then(res => setIsBought(res.boughtLessons?.some(x => x == id)))
         }
-    }, [])
+    }, [id])
     return [
         isBought
     ]
