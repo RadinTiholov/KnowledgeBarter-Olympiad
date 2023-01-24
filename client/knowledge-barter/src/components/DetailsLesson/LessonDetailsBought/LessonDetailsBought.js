@@ -19,7 +19,6 @@ export const LessonDetailsBought = (props) => {
         e.preventDefault();
         lessonsService.comment(props.lesson.id, comment)
             .then(res => {
-                console.log(res);
                 props.comment(res)
                 setComment('');
             }).catch(err => {
@@ -130,7 +129,7 @@ export const LessonDetailsBought = (props) => {
                                         </div>
                                     </div>}
                             </form>
-                            {props.lesson.comments?.map(x => <Comment key = {x.id} {...x} commentedUsers = {props.commentedUsers.filter(y => y.id === x.owner)}/>) }
+                            {props.lesson.comments?.map(x => <Comment key = {x.id} {...x} />) }
                         </div>
                     </div>
                     <div className="col-2">

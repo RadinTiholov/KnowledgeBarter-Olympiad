@@ -8,12 +8,12 @@ export const Comment = (props) => {
                 <div className="col-1">
                     <img
                         className="img-fluid rounded-circle profile-comment m-3"
-                        src={props.commentedUsers[0]?.profilePicture}
+                        src={props.profilePicture}
                         alt="Lesson Pic"
                     />
                 </div>
                 <div className="col-11">
-                    <p className="mt-4">{props.commentedUsers[0]?.userName}</p>
+                    <p className="mt-4">{props.userName}</p>
                 </div>
             </div>
             <div className="row mx-3">

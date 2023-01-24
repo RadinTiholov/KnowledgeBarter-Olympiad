@@ -13,7 +13,7 @@ import { useIsLiked } from '../../hooks/useIsLiked';
 
 export const DetailsLesson = () => {
     const { id } = useParams();
-    const { lesson, setLesson, owner, commentedUsers, setCommentedUsers} = useLessonsWithUser(id);
+    const { lesson, setLesson, owner } = useLessonsWithUser(id);
     const navigate = useNavigate();
     const [isOwner] = useOwner(id, true);
     const [isBought] = useBoughtLesson(id);
@@ -70,19 +70,29 @@ export const DetailsLesson = () => {
     }
     const comment = (comment) => {
         setLesson(state => {
-            let temp = {...state}
+            let temp = { ...state }
             temp.comments.push(comment)
-            return temp
-        })
-        setCommentedUsers(state => {
-            let temp = [...state]
-            temp.push(fullUserInfo)
             return temp
         })
     }
     return (
         <>
-            {isBought || isOwner ? <LessonDetailsBought lesson={lesson} owner={owner} commentedUsers={commentedUsers} onClickDelete={onClickDelete} likeLessonOnClick= {likeLessonOnClick} isOwner={isOwner} isLiked={isLiked} comment = {comment} mostPopularLessons= {!Array.isArray(mostPopularLessons) ? [] : mostPopularLessons}/> : <LessonDetailsPreview lesson={lesson} owner={owner} buyLessonOnClick={buyLessonOnClick} likeLessonOnClick= {likeLessonOnClick} isLiked={isLiked} isAuth = {auth}/>}
+            {isBought || isOwner ? <LessonDetailsBought
+                    lesson={lesson}
+                    owner={owner}
+                    onClickDelete={onClickDelete}
+                    likeLessonOnClick={likeLessonOnClick}
+                    isOwner={isOwner}
+                    isLiked={isLiked}
+                    comment={comment}
+                    mostPopularLessons={!Array.isArray(mostPopularLessons) ? [] : mostPopularLessons} />
+                : <LessonDetailsPreview
+                    lesson={lesson}
+                    owner={owner}
+                    buyLessonOnClick={buyLessonOnClick}
+                    likeLessonOnClick={likeLessonOnClick}
+                    isLiked={isLiked}
+                    isAuth={auth} />}
         </>
     )
 }

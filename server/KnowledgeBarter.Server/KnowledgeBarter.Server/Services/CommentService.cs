@@ -32,7 +32,7 @@ namespace KnowledgeBarter.Server.Services
                 .All()
                 .Where(c => c.LessonId == lessonId)
                 .To<CommentInListResponseModel>()
-            .ToListAsync();
+                .ToListAsync();
         }
 
         public async Task<CreateCommentResponseModel> CreateAsync(CreateCommentRequestModel model, int lessonId, string userId)

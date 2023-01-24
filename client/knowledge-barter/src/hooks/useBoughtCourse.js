@@ -10,7 +10,7 @@ export const useBoughtCourse = (id) => {
             authService.getDetails(auth?._id)
             .then(res => setIsBought(res.boughtCourses?.some(x => x == id)))
         }
-    }, [])
+    }, [id])
     return [
         isBought
     ]

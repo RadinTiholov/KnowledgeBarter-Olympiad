@@ -45,8 +45,14 @@
                 .ForMember(x => x.Tags, opt =>
                     opt.MapFrom(i => i.Tags.Select(x => x.Text).ToArray()))
                 .ForMember(x => x.Comments, opt =>
-                    opt.MapFrom(i => i.Comments.Select(x => new CommentInListResponseModel() { Id = x.Id, Text = x.Text, LessonId = x.LessonId, Owner = x.OwnerId })));
+                    opt.MapFrom(i => i.Comments.Select(x => new CommentInListResponseModel()
+                    {
+                        Id = x.Id,
+                        Text = x.Text,
+                        LessonId = x.LessonId,
+                        UserName = x.Owner.UserName,
+                        ProfilePicture = x.Owner.Image.Url
+                    })));
         }
-
     }
 }
