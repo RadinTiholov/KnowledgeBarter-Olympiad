@@ -18,19 +18,17 @@ export const Banner = () => {
         <section id="banner">
             <div className="container">
                 <div className="row">
-                    <div className="col-md-6">
+                    <div className="main-text col-md-6">
                         <h1 className="promo-title">Knowledge</h1>
-                        <h1 style={{ marginLeft: 250, fontSize: 70, fontWeight: 600 }}>
-                            Barter
-                        </h1>
+                        <h1 className="promo-title-2">Barter</h1>
                         <p>Learn new things by sharing knowledge you have.</p>
                         <p style={{ marginLeft: 340 }}>Barter your knowledge.</p>
-                        <form className="d-flex" role="search" onSubmit={onSearch}>
+                        <form className="d-flex justify-content-center" role="search" onSubmit={onSearch}>
                             <input
                                 type="text"
                                 className="form-control"
                                 name="title"
-                                id="title"
+                                id="home-search"
                                 placeholder="Search for a lesson"
                                 value={search}
                                 onChange={onChange}

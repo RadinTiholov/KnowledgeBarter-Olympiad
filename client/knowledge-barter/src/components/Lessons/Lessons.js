@@ -15,7 +15,7 @@ export const Lessons = () => {
             </div>
             <div className="container">
                 <div className="text-center">
-                    <div className="row row-cols-5 gy-3 pb-5">
+                    <div className="row row-cols-5 gy-3 pb-5 pt-3">
                         {search ? lessons.map(x => x.title.toLowerCase().includes(search.toLowerCase()) ? <Lesson {...x} key = {x.id}/> : null) : lessons.map(x => <Lesson {...x} key = {x.id}/>)}
                     </div>
                 </div>

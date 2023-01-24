@@ -13,7 +13,7 @@ export const Courses = () => {
             </div>
             <div className="container">
                 <div className="text-center">
-                    <div className="row row-cols-5 gy-3 pb-5">
+                    <div className="row row-cols-5 gy-3 pb-5 pt-3">
                         {courses.map(x => <Course {...x} key={x.id} />)}
                     </div>
                 </div>
