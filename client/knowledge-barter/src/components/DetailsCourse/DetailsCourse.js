@@ -15,17 +15,18 @@ import { useIsLiked } from "../../hooks/useIsLiked";
 import { useUserInfo } from "../../hooks/useUserInfo";
 
 export const DetailsCourse = () => {
-    const {courseId, lessonId} = useParams();
+    const { courseId, lessonId } = useParams();
     const [isOwner] = useOwner(courseId, false);
-    const {course, setCourse, owner} = useCourseWithUser(courseId);
+    const { course, setCourse, owner } = useCourseWithUser(courseId);
     const [isBought] = useBoughtCourse(courseId);
-    const {lesson, setLesson, commentedUsers, setCommentedUsers} = useLessonsWithUser(lessonId);
+    const { lesson, setLesson } = useLessonsWithUser(lessonId);
     const navigate = useNavigate();
-    const {delLesson} = useContext(LessonContext)
-    const {delCourse} = useContext(CourseContext)
-    const {auth, updatePoints} = useContext(AuthContext);
+    const { delLesson } = useContext(LessonContext)
+    const { delCourse } = useContext(CourseContext)
+    const { auth, updatePoints } = useContext(AuthContext);
     const [isLiked, setIsLiked] = useIsLiked(courseId, false);
     const [fullUserInfo, setfullUserInfo] = useUserInfo({})
+
     const onClickDeleteLesson = () => {
         lessonService.del(lessonId)
             .then(res => {
@@ -35,6 +36,7 @@ export const DetailsCourse = () => {
                 alert(err)
             })
     }
+
     const onClickDeleteCourse = () => {
         courseService.del(courseId)
             .then(res => {
@@ -44,8 +46,9 @@ export const DetailsCourse = () => {
                 alert(err)
             })
     }
+
     const buyCourseOnClick = () => {
-        if(auth.kbPoints >= course.price){
+        if (auth.kbPoints >= course.price) {
             courseService.buy(courseId)
                 .then(res => {
                     navigate('/course/bought')
@@ -53,10 +56,11 @@ export const DetailsCourse = () => {
                 }).catch(err => {
                     alert(err)
                 })
-        }else{
+        } else {
             alert("You don't have enough KBPoints")
         }
     }
+
     const likeCourseOnClick = () => {
         courseService.like(courseId)
             .then(res => {
@@ -76,21 +80,33 @@ export const DetailsCourse = () => {
                 alert(err)
             })
     }
+
     const comment = (comment) => {
         setLesson(state => {
-            let temp = {...state}
+            let temp = { ...state }
             temp.comments.push(comment)
-            return temp
-        })
-        setCommentedUsers(state => {
-            let temp = [...state]
-            temp.push(fullUserInfo)
             return temp
         })
     }
     return (
         <>
-            {isOwner || isBought ? <CourseDetailsBought lesson = {lesson} commentedUsers = {commentedUsers} course = {course} owner = {owner} onClickDeleteLesson= {onClickDeleteLesson} onClickDeleteCourse= {onClickDeleteCourse} isOwner= {isOwner} likeCourseOnClick = {likeCourseOnClick} isLiked = {isLiked} comment = {comment}/> : <CourseDetailsPreview course = {course} owner = {owner} buyCourseOnClick= {buyCourseOnClick} likeCourseOnClick = {likeCourseOnClick} isLiked = {isLiked} isAuth = {auth}/>}
+            {isOwner || isBought ? <CourseDetailsBought
+                    lesson={lesson}
+                    course={course}
+                    owner={owner}
+                    onClickDeleteLesson={onClickDeleteLesson}
+                    onClickDeleteCourse={onClickDeleteCourse}
+                    isOwner={isOwner}
+                    likeCourseOnClick={likeCourseOnClick}
+                    isLiked={isLiked} comment={comment} />
+                : <CourseDetailsPreview
+                    course={course}
+                    owner={owner}
+                    buyCourseOnClick={buyCourseOnClick}
+                    likeCourseOnClick={likeCourseOnClick}
+                    isLiked={isLiked}
+                    isAuth={auth}
+                />}
         </>
     )
 }
