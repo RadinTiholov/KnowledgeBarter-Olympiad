@@ -1,7 +1,7 @@
 import './CreateLesson.css'
 import background from '../../images/waves-login.svg'
 import { useContext, useState } from 'react';
-import * as lessonsService from '../../services/lessonsService'
+import * as lessonsService from '../../dataServices/lessonsService'
 import { useNavigate } from 'react-router-dom';
 import { LessonContext } from '../../contexts/LessonContext';
 import { AuthContext } from '../../contexts/AuthContext';
@@ -29,7 +29,7 @@ export const CreateLesson = () => {
     const [errors, setErrors] = useState({
         title: false,
         description: false,
-        posterUrl: false,
+        image: false,
         article: false,
         video: false,
         tags: false,
@@ -58,21 +58,22 @@ export const CreateLesson = () => {
             let extension = e.target.files[0].name.split('.')[1];
             let allowedExtensions = ['jpg', 'jpeg', 'png']
             if (!allowedExtensions.some(x => x === extension)) {
-                setErrors(state => ({ ...state, posterUrl: true }))
+                setErrors(state => ({ ...state, image: true }))
                 
                 setVisualizationImageUrl('');
             }
             else{
-                setErrors(state => ({ ...state, posterUrl: false }))
+                setErrors(state => ({ ...state, image: false }))
 
                 setVisualizationImageUrl(URL.createObjectURL(e.target.files[0]));
             }
         } else {
-            setErrors(state => ({ ...state, posterUrl: true }))
+            setErrors(state => ({ ...state, image: true }))
 
             setVisualizationImageUrl('');
         }
     };
+    
     const onSubmit = (e) => {
         e.preventDefault();
 
@@ -206,7 +207,7 @@ export const CreateLesson = () => {
                                         </label>
                                     </div>
                                     {/* Alert */}
-                                    {errors.posterUrl && 
+                                    {errors.image && 
                                     <div
                                         className="alert alert-danger d-flex align-items-center"
                                         role="alert"

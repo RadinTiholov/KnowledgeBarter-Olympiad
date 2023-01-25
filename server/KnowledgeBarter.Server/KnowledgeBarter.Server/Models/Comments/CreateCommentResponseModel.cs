@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using KnowledgeBarter.Server.Data.Models;
-using KnowledgeBarter.Server.Models.Course;
 using KnowledgeBarter.Server.Services.Mapping;
 
 namespace KnowledgeBarter.Server.Models.Comments
