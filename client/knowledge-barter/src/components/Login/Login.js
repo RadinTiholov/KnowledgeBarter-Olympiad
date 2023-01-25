@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import background from '../../images/waves-login.svg'
 import './Login.css'
-import * as authService from '../../services/authService'
+import * as authService from '../../dataServices/authService'
 import { AuthContext } from '../../contexts/AuthContext'
 import { useContext, useState } from 'react';
 

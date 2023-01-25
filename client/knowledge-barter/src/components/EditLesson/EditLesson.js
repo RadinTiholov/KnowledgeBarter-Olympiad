@@ -1,10 +1,11 @@
 import './EditLesson.css'
 import background from '../../images/waves-login.svg'
 import { useContext, useEffect, useState } from 'react';
-import * as lessonsService from '../../services/lessonsService'
+import * as lessonsService from '../../dataServices/lessonsService'
 import { useNavigate, useParams } from 'react-router-dom';
 import { LessonContext } from '../../contexts/LessonContext';
 import DropboxChooser from 'react-dropbox-chooser';
+import { onSelectFile } from '../../infrastructureUtils/fileSelectionUtils';
 
 export const EditLesson = () => {
     const {id} = useParams();
@@ -59,20 +60,6 @@ export const EditLesson = () => {
             }
         })
     }
-
-    const onSelectFile = (e) => {
-        setImageData((state) => ({ ...state, imageFile: e.target.files[0] }));
-        //Creating local image url for visualization
-        if (e.target.files[0]) {
-            setVisualizationImageUrl(URL.createObjectURL(e.target.files[0]));
-            //Turn off validation error
-            setErrors(state => ({ ...state, posterUrl: false }))
-        } else {
-            setVisualizationImageUrl('');
-            //Turn on validation error
-            setErrors(state => ({ ...state, posterUrl: true }))
-        }
-    };
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -201,7 +188,7 @@ export const EditLesson = () => {
                                             className='form-control'
                                             type='file'
                                             name='image'
-                                            onChange={onSelectFile}
+                                            onChange={e => onSelectFile(e, setImageData, setVisualizationImageUrl, setErrors)}
                                         />
                                         <label htmlFor='formFile' className='form-label'>
                                             Choose lesson Image
@@ -215,7 +202,7 @@ export const EditLesson = () => {
                                     >
                                         <i className="fa-solid fa-triangle-exclamation me-2" />
                                         <div className="text-center">
-                                            Please provide a valid image.
+                                            The allowed extenstions are jpeg, jpg and png.
                                         </div>
                                     </div>}
                                     {visualizationImageUrl &&

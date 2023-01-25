@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 
-import * as coursesService from '../services/coursesService'
-import * as authService from '../services/authService'
+import * as coursesService from '../dataServices/coursesService'
+import * as authService from '../dataServices/authService'
 
 export const useCourseWithUser = (id) => {
     const [owner, setOwner] = useState({});

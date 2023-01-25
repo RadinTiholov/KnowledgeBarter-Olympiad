@@ -4,7 +4,7 @@ import background from '../../../images/waves-details.svg'
 import { Comment } from './Comment/Comment'
 import { Lesson } from './Lesson/Lesson'
 import { useState } from 'react'
-import * as lessonsService from '../../../services/lessonsService'
+import * as lessonsService from '../../../dataServices/lessonsService'
 
 export const CourseDetailsBought = (props) => {
     const [comment, setComment] = useState('');

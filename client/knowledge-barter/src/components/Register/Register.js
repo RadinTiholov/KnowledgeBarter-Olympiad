@@ -3,7 +3,8 @@ import background from '../../images/waves-register.svg'
 import { useContext, useState } from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
-import * as authService from '../../services/authService'
+import * as authService from '../../dataServices/authService'
+import { onSelectFile } from '../../infrastructureUtils/fileSelectionUtils';
 
 export const Register = () => {
     const { userLogin } = useContext(AuthContext)
@@ -31,21 +32,6 @@ export const Register = () => {
         setInputData(state => (
             { ...state, [e.target.name]: e.target.value }))
     }
-
-    const onSelectFile = (e) => {
-        setImageData((state) => ({ ...state, imageFile: e.target.files[0] }));
-
-        //Creating local image url for visualization
-        if (e.target.files[0]) {
-            setVisualizationImageUrl(URL.createObjectURL(e.target.files[0]));
-            //Turn off validation error
-            setErrors(state => ({ ...state, posterUrl: false }))
-        } else {
-            setVisualizationImageUrl('');
-            //Turn on validation error
-            setErrors(state => ({ ...state, posterUrl: true }))
-        }
-    };
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -182,7 +168,7 @@ export const Register = () => {
                                             className='form-control'
                                             type='file'
                                             name='image'
-                                            onChange={onSelectFile}
+                                            onChange={e => onSelectFile(e, setImageData, setVisualizationImageUrl, setErrors)}
                                         />
                                         <label htmlFor='formFile' className='form-label'>
                                             Choose Profile Picture
@@ -193,7 +179,7 @@ export const Register = () => {
                                         <div className="alert alert-danger d-flex align-items-center" role="alert">
                                             <i className="fa-solid fa-triangle-exclamation me-2"></i>
                                             <div className="text-center">
-                                            Please provide valid profile picture.
+                                                The allowed extenstions are jpeg, jpg and png.
                                             </div>
                                         </div>}
                                     {visualizationImageUrl &&

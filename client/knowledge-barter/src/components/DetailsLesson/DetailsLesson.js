@@ -4,7 +4,7 @@ import { useLessonsWithUser } from "../../hooks/useLessonsWithUser";
 import { useOwner } from "../../hooks/useOwner";
 import { LessonDetailsBought } from "./LessonDetailsBought/LessonDetailsBought";
 import { LessonDetailsPreview } from "./LessonDetailsPreview/LessonDetailsPreview";
-import * as lessonService from '../../services/lessonsService'
+import * as lessonService from '../../dataServices/lessonsService'
 import { useContext, useEffect, useState } from 'react';
 import { LessonContext } from '../../contexts/LessonContext';
 import { AuthContext } from '../../contexts/AuthContext';

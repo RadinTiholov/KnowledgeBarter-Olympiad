@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from "react"
 import { AuthContext } from '../contexts/AuthContext'
-import * as authService from '../services/authService'
+import * as authService from '../dataServices/authService'
 export const useBoughtCourse = (id) => {
     const { auth } = useContext(AuthContext)
     const [isBought, setIsBought] = useState(false);

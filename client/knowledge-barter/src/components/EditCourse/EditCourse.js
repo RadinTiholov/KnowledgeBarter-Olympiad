@@ -5,7 +5,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useCollectionInfo } from '../../hooks/useCollectionInfo'
 import { Option } from './Option/Option';
 import { CourseContext } from '../../contexts/CourseContext'
-import * as courseService from '../../services/coursesService'
+import * as courseService from '../../dataServices/coursesService'
+import { onSelectFile } from '../../infrastructureUtils/fileSelectionUtils';
 
 export const EditCourse = () => {
     const [collection] = useCollectionInfo('ownLessons');
@@ -48,20 +49,6 @@ export const EditCourse = () => {
         setInputData(state => (
             { ...state, [e.target.name]: e.target.value }))
     }
-
-    const onSelectFile = (e) => {
-        setImageData((state) => ({ ...state, imageFile: e.target.files[0] }));
-        //Creating local image url for visualization
-        if (e.target.files[0]) {
-            setVisualizationImageUrl(URL.createObjectURL(e.target.files[0]));
-            //Turn off validation error
-            setErrors(state => ({ ...state, posterUrl: false }))
-        } else {
-            setVisualizationImageUrl('');
-            //Turn on validation error
-            setErrors(state => ({ ...state, posterUrl: true }))
-        }
-    };
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -158,7 +145,7 @@ export const EditCourse = () => {
                                     className='form-control'
                                     type='file'
                                     name='image'
-                                    onChange={onSelectFile}
+                                    onChange={e => onSelectFile(e, setImageData, setVisualizationImageUrl, setErrors)}
                                 />
                                 <label htmlFor='formFile' className='form-label'>
                                     Choose lesson Image
@@ -171,7 +158,7 @@ export const EditCourse = () => {
                                     >
                                         <i className="fa-solid fa-triangle-exclamation me-2" />
                                         <div className="text-center">
-                                            Please provide valid image.
+                                            The allowed extenstions are jpeg, jpg and png.
                                         </div>
                                     </div>}
                                 {visualizationImageUrl &&

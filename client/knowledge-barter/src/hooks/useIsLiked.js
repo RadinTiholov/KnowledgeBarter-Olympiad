@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from "react"
 import { AuthContext } from '../contexts/AuthContext'
-import * as authService from '../services/authService'
+import * as authService from '../dataServices/authService'
 export const useIsLiked = (id, isLesson) => {
     const [fullUserInfo, setfullUserInfo] = useState({})
     const [isLiked, setIsLiked] = useState(false);

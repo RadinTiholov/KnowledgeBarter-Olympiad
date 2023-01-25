@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from "react"
 import { AuthContext } from '../contexts/AuthContext'
-import * as lessonService from '../services/lessonsService';
-import * as courseService from '../services/coursesService';
-import * as authService from '../services/authService'
+import * as lessonService from '../dataServices/lessonsService';
+import * as courseService from '../dataServices/coursesService';
+import * as authService from '../dataServices/authService'
 import { LessonContext } from "../contexts/LessonContext";
 import { CourseContext } from "../contexts/CourseContext";
 export const useCollectionInfo = (collectionName) => {

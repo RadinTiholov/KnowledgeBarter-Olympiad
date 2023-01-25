@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { LessonContext } from '../../contexts/LessonContext';
 import { AuthContext } from '../../contexts/AuthContext';
 import DropboxChooser from 'react-dropbox-chooser';
+import { onSelectFile } from '../../infrastructureUtils/fileSelectionUtils';
 
 export const CreateLesson = () => {
     const [inputData, setInputData] = useState({
@@ -49,30 +50,6 @@ export const CreateLesson = () => {
             }
         })
     }
-
-    const onSelectFile = (e) => {
-        setImageData((state) => ({ ...state, imageFile: e.target.files[0] }));
-
-        //Creating local image url for visualization
-        if (e.target.files[0]) {
-            let extension = e.target.files[0].name.split('.')[1];
-            let allowedExtensions = ['jpg', 'jpeg', 'png']
-            if (!allowedExtensions.some(x => x === extension)) {
-                setErrors(state => ({ ...state, image: true }))
-                
-                setVisualizationImageUrl('');
-            }
-            else{
-                setErrors(state => ({ ...state, image: false }))
-
-                setVisualizationImageUrl(URL.createObjectURL(e.target.files[0]));
-            }
-        } else {
-            setErrors(state => ({ ...state, image: true }))
-
-            setVisualizationImageUrl('');
-        }
-    };
     
     const onSubmit = (e) => {
         e.preventDefault();
@@ -200,7 +177,7 @@ export const CreateLesson = () => {
                                             className='form-control'
                                             type='file'
                                             name='image'
-                                            onChange={onSelectFile}
+                                            onChange={e => onSelectFile(e, setImageData, setVisualizationImageUrl, setErrors)}
                                         />
                                         <label htmlFor='formFile' className='form-label'>
                                             Choose lesson Image

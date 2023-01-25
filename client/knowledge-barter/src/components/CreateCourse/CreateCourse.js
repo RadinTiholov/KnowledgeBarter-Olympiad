@@ -6,7 +6,7 @@ import { useCollectionInfo } from '../../hooks/useCollectionInfo'
 import { Option } from './Option/Option';
 import { CourseContext } from '../../contexts/CourseContext'
 import { AuthContext } from '../../contexts/AuthContext'
-import * as courseService from '../../services/coursesService'
+import * as courseService from '../../dataServices/coursesService'
 import { onSelectFile } from '../../infrastructureUtils/fileSelectionUtils';
 
 export const CreateCourse = () => {
@@ -152,7 +152,7 @@ export const CreateCourse = () => {
                                     >
                                         <i className="fa-solid fa-triangle-exclamation me-2" />
                                         <div className="text-center">
-                                            Please provide a valid image.
+                                            The allowed extenstions are jpeg, jpg and png.
                                         </div> 
                                     </div>
                                 }

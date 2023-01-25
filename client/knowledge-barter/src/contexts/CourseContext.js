@@ -1,5 +1,5 @@
 import {createContext, useEffect, useState} from 'react'
-import * as coursesService from '../services/coursesService'
+import * as coursesService from '../dataServices/coursesService'
 
 export const CourseContext = createContext();
 

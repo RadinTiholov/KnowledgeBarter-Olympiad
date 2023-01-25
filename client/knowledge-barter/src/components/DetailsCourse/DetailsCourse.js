@@ -5,8 +5,8 @@ import { useLessonsWithUser } from "../../hooks/useLessonsWithUser";
 import { useOwner } from "../../hooks/useOwner";
 import { CourseDetailsBought } from "./CourseDetailsBought/CourseDetailsBought";
 import { CourseDetailsPreview } from "./CourseDetailsPreview/CourseDetailsPreview";
-import * as lessonService from '../../services/lessonsService'
-import * as courseService from '../../services/coursesService'
+import * as lessonService from '../../dataServices/lessonsService'
+import * as courseService from '../../dataServices/coursesService'
 import { useContext } from 'react';
 import { LessonContext } from '../../contexts/LessonContext';
 import { CourseContext } from "../../contexts/CourseContext";

@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect } from "react"
 import {AuthContext} from '../contexts/AuthContext'
-import * as lessonsService from '../services/lessonsService'
-import * as coursesService from '../services/coursesService'
+import * as lessonsService from '../dataServices/lessonsService'
+import * as coursesService from '../dataServices/coursesService'
 export const useOwner = (id, isLesson) => {
     const {auth} = useContext(AuthContext)
     const [isOwner, setIsOwner] = useState(false);

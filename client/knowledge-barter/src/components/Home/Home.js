@@ -2,8 +2,8 @@ import { useEffect, useState } from "react"
 import { Banner } from "./Banner/Banner"
 import { LessonsDisplay } from "./LessonsDisplay/LessonsDisplay"
 import { PointsBanner } from "./PointsBanner/PointsBanner"
-import * as lessonsService from '../../services/lessonsService'
-import * as coursesService from '../../services/coursesService'
+import * as lessonsService from '../../dataServices/lessonsService'
+import * as coursesService from '../../dataServices/coursesService'
 
 export const Home = () => {
     const [lessons, setLessons] = useState([]);
