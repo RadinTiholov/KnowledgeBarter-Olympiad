@@ -10,13 +10,13 @@ export const useOwner = (id, isLesson) => {
         if(auth){
             if(isLesson){
                 lessonsService.getDetails(id)
-                .then(res => setIsOwner(res.owner === auth?._id))
+                .then(res => setIsOwner(res.owner == auth?._id))
             }else{
                 coursesService.getDetails(id)
-                .then(res => setIsOwner(res.owner === auth?._id))
+                .then(res => setIsOwner(res.owner == auth?._id))
             }
         }
-    }, [])
+    }, [id])
     return [
         isOwner
     ]

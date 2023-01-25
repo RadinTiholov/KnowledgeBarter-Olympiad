@@ -55,42 +55,49 @@ export const LessonDetailsBought = (props) => {
                                 >
                                     Resources
                                 </a>
-                                {props.isOwner ? 
-                                <>
-                                <Link
-                                    className="btn btn-outline-warning btn fw-bold"
-                                    style={{ backgroundColor: "#636EA7" }}
-                                    to={'/lesson/edit/' + props.lesson.id}
-                                >
-                                    Edit
-                                </Link>
-                                <button
-                                    className="btn btn-outline-warning btn fw-bold"
-                                    style={{ backgroundColor: "red" }}
-                                    onClick = {props.onClickDelete}
-                                >
-                                    Delete
-                                </button></> : <>
-                                {props.isLiked ? 
-                                    <button
-                                    className="btn btn-outline-warning btn fw-bold"
-                                    style={{
-                                        backgroundColor: "#636EA7"
-                                    }}
-                                    disabled = {true}
-                                >
-                                    Liked
-                                </button> : 
-                                <button
-                                className="btn btn-outline-warning btn fw-bold"
-                                style={{
-                                    backgroundColor: "#636EA7"
-                                }}
-                                onClick = {props.likeLessonOnClick}
-                            >
-                                Like
-                            </button>}
-                                </>
+                                {props.isOwner ?
+                                    <>
+                                        <Link
+                                            className="btn btn-outline-warning btn fw-bold"
+                                            style={{ backgroundColor: "#636EA7" }}
+                                            to={'/lesson/edit/' + props.lesson.id}
+                                        >
+                                            Edit
+                                        </Link>
+                                        <button
+                                            className="btn btn-outline-warning btn fw-bold"
+                                            style={{ backgroundColor: "red" }}
+                                            onClick={props.onClickDelete}
+                                        >
+                                            Delete
+                                        </button></> : <>
+                                        {props.isLiked ?
+                                            <button
+                                                className="btn btn-outline-warning btn fw-bold"
+                                                style={{
+                                                    backgroundColor: "#636EA7"
+                                                }}
+                                                disabled={true}
+                                            >
+                                                Liked
+                                            </button> :
+                                            <button
+                                                className="btn btn-outline-warning btn fw-bold"
+                                                style={{
+                                                    backgroundColor: "#636EA7"
+                                                }}
+                                                onClick={props.likeLessonOnClick}
+                                            >
+                                                Like
+                                            </button>}
+                                        <Link
+                                            className="btn btn-outline-warning btn fw-bold"
+                                            style={{ backgroundColor: "#636EA7" }}
+                                            to={'/lesson/contact/' + props.lesson.id}
+                                        >
+                                            Contact with owner
+                                        </Link>
+                                    </>
                                 }
                                 <h5>{props.lesson.description}</h5>
                             </div>
@@ -102,7 +109,7 @@ export const LessonDetailsBought = (props) => {
                             </div>
                             <h2 className="text-center">Comments</h2>
                             {/* Comment form */}
-                            <form onSubmit = {onComment}>
+                            <form onSubmit={onComment}>
                                 <div className="form-outline w-100 mx-5">
                                     <textarea
                                         className="form-control"
@@ -110,8 +117,8 @@ export const LessonDetailsBought = (props) => {
                                         rows={3}
                                         style={{ background: "#fff", height: 150, width: 900 }}
                                         placeholder="Comment"
-                                        value ={comment}
-                                        onChange = {onChange}
+                                        value={comment}
+                                        onChange={onChange}
                                     />
                                 </div>
                                 <div className="mt-2 pt-1 mx-5">
@@ -120,21 +127,21 @@ export const LessonDetailsBought = (props) => {
                                     </button>
                                 </div>
                                 {error && <div
-                                        className="alert alert-danger d-flex align-items-center mt-3"
-                                        role="alert"
-                                    >
-                                        <i className="fa-solid fa-triangle-exclamation me-2" />
-                                        <div className="text-center">
-                                            {errorMessage}
-                                        </div>
-                                    </div>}
+                                    className="alert alert-danger d-flex align-items-center mt-3"
+                                    role="alert"
+                                >
+                                    <i className="fa-solid fa-triangle-exclamation me-2" />
+                                    <div className="text-center">
+                                        {errorMessage}
+                                    </div>
+                                </div>}
                             </form>
-                            {props.lesson.comments?.map(x => <Comment key = {x.id} {...x} />) }
+                            {props.lesson.comments?.map(x => <Comment key={x.id} {...x} />)}
                         </div>
                     </div>
                     <div className="col-2">
                         <p>Most popular lessons</p>
-                        {props.mostPopularLessons?.map(x => <Lesson key = {x.id} {...x}/>)}
+                        {props.mostPopularLessons?.map(x => <Lesson key={x.id} {...x} />)}
                     </div>
                 </div>
             </div>

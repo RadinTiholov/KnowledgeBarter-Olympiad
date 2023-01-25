@@ -32,6 +32,7 @@ import GuestGuard from './components/common/GuestGuard';
 import UserGuard from './components/common/UserGuard';
 import LessonOwner from './components/common/LessonOwner';
 import CourseOwner from './components/common/CourseOwner';
+import { SendEmail } from './components/SendEmail/SendEmail';
 
 function App() {
     return (
@@ -57,6 +58,7 @@ function App() {
                                 <Route path='/course/bought' element={<BoughtCourses />} />
                                 <Route path='/course/yours' element={<YourCourses />} />
                                 <Route path='/liked' element={<Liked />} />
+                                <Route path='/lesson/contact/:id' element={<SendEmail />} />
                             </Route>
                             <Route element={<LessonOwner />}>
                                 <Route path='/lesson/edit/:id' element={<EditLesson />} />
