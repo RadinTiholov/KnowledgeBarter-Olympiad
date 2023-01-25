@@ -17,6 +17,7 @@ builder.Services.AddDbContext<KnowledgeBarterDbContext>(options =>
     .AddIdentity()
     .AddJwtAuthentication(appSettings)
     .AddRepositories()
+    .AddSendGrid(builder.Configuration)
     .AddApplicationServices()
     .AddSwagger()
     .AddCloudinary(builder.Configuration)

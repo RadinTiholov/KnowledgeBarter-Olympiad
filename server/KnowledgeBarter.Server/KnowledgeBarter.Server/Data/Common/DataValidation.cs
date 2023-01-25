@@ -32,5 +32,13 @@
         {
             public const int TextMaxLength = 200;
         }
+
+        public class Email
+        {
+            public const int EmailMinLength = 30;
+            public const int EmailMaxLength = 1000;
+            public const int TopicMinLength = 3;
+            public const int TopicMaxLength = 20;
+        }
     }
 }
