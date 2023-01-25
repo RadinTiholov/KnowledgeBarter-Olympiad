@@ -5,6 +5,7 @@ import { AuthContext } from '../../contexts/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 import * as authService from '../../dataServices/authService'
 import { onSelectFile } from '../../infrastructureUtils/fileSelectionUtils';
+import { isValidForm } from '../../infrastructureUtils/validationUtils';
 
 export const Register = () => {
     const { userLogin } = useContext(AuthContext)
@@ -68,7 +69,7 @@ export const Register = () => {
     const usernameValidator = (e) => {
         setErrors(state => ({ ...state, [e.target.name]: inputData.username.length < 2 || inputData.username.length > 30 }))
     }
-    const isValidForm = !Object.values(errors).some(x => x);
+
     return (
         <div style={{ backgroundImage: `url(${background})` }} className="backgound-layer-register">
             {/* Login Form */}
@@ -192,7 +193,7 @@ export const Register = () => {
                                             className="btn btn-outline-warning"
                                             style={{ backgroundColor: "#636EA7" }}
                                             type="submit"
-                                            disabled={!isValidForm || !(inputData.email && inputData.password && inputData.rePassword && imageData.imageFile && inputData.username)}
+                                            disabled={!isValidForm(errors) || !(inputData.email && inputData.password && inputData.rePassword && imageData.imageFile && inputData.username)}
                                         >
                                             Register
                                         </button>

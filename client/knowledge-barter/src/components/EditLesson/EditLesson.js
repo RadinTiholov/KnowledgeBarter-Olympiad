@@ -6,6 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { LessonContext } from '../../contexts/LessonContext';
 import DropboxChooser from 'react-dropbox-chooser';
 import { onSelectFile } from '../../infrastructureUtils/fileSelectionUtils';
+import { isValidForm } from '../../infrastructureUtils/validationUtils';
 
 export const EditLesson = () => {
     const {id} = useParams();
@@ -97,7 +98,7 @@ export const EditLesson = () => {
     const isPositivelength = (e) => {
         setErrors(state => ({...state, [e.target.name]: inputData[e.target.name].length < 0}))
     }
-    const isValidForm = !Object.values(errors).some(x => x);
+    
     return (
         <div style={{ backgroundImage: `url(${background})` }} className="backgound-layer-create">
             {/* Login Form */}
@@ -278,7 +279,7 @@ export const EditLesson = () => {
                                             className="btn btn-outline-warning"
                                             style={{ backgroundColor: "#636EA7" }}
                                             type="submit"
-                                            disabled={!isValidForm || (!inputData.title || !inputData.description || !inputData.video || !inputData.article || !inputData.tags.length > 0)}
+                                            disabled={!isValidForm(errors) || (!inputData.title || !inputData.description || !inputData.video || !inputData.article || !inputData.tags.length > 0)}
                                         >
                                             Update
                                         </button>

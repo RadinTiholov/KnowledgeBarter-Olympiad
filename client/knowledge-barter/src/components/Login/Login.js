@@ -4,6 +4,7 @@ import './Login.css'
 import * as authService from '../../dataServices/authService'
 import { AuthContext } from '../../contexts/AuthContext'
 import { useContext, useState } from 'react';
+import { isValidForm } from '../../infrastructureUtils/validationUtils';
 
 export const Login = () => {
     const { userLogin } = useContext(AuthContext)
@@ -41,7 +42,7 @@ export const Login = () => {
     const passwordValidator = (e) => {
         setErrors(state => ({ ...state, [e.target.name]: !inputData.password }))
     }
-    const isValidForm = !Object.values(errors).some(x => x);
+    
     return (
         <div style={{ backgroundImage: `url(${background})` }} className="backgound-layer-login">
             {/* Login Form */}
@@ -107,7 +108,7 @@ export const Login = () => {
                                             className="btn btn-outline-warning"
                                             style={{ backgroundColor: "#636EA7" }}
                                             type="submit"
-                                            disabled={!isValidForm || (!inputData.username && !inputData.password)}
+                                            disabled={!isValidForm(errors) || (!inputData.username && !inputData.password)}
                                         >
                                             Login
                                         </button>

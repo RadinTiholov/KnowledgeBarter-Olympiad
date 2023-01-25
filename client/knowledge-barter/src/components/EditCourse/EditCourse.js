@@ -7,6 +7,7 @@ import { Option } from './Option/Option';
 import { CourseContext } from '../../contexts/CourseContext'
 import * as courseService from '../../dataServices/coursesService'
 import { onSelectFile } from '../../infrastructureUtils/fileSelectionUtils';
+import { isValidForm } from '../../infrastructureUtils/validationUtils';
 
 export const EditCourse = () => {
     const [collection] = useCollectionInfo('ownLessons');
@@ -78,8 +79,6 @@ export const EditCourse = () => {
     const minMaxValidator = (e, min, max) => {
         setErrors(state => ({ ...state, [e.target.name]: inputData[e.target.name].length < min || inputData[e.target.name].length > max }))
     }
-
-    const isValidForm = !Object.values(errors).some(x => x);
 
     return (<div style={{ backgroundImage: `url(${background})` }} className="backgound-layer-login">
         {/* Login Form */}
@@ -182,7 +181,7 @@ export const EditCourse = () => {
                                         className="btn btn-outline-warning"
                                         style={{ backgroundColor: "#636EA7" }}
                                         type="submit"
-                                        disabled={!isValidForm || (!inputData.title || !inputData.description || collection?.length < 6)}
+                                        disabled={!isValidForm(errors) || (!inputData.title || !inputData.description || collection?.length < 6)}
                                     >
                                         Edit
                                     </button>

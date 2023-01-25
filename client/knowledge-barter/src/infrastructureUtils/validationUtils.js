@@ -1,0 +1,1 @@
+export const isValidForm = (errors) => !Object.values(errors).some(x => x);

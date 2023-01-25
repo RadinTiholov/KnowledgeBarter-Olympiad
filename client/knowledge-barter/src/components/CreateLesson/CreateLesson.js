@@ -7,6 +7,7 @@ import { LessonContext } from '../../contexts/LessonContext';
 import { AuthContext } from '../../contexts/AuthContext';
 import DropboxChooser from 'react-dropbox-chooser';
 import { onSelectFile } from '../../infrastructureUtils/fileSelectionUtils';
+import { isValidForm } from '../../infrastructureUtils/validationUtils';
 
 export const CreateLesson = () => {
     const [inputData, setInputData] = useState({
@@ -86,7 +87,7 @@ export const CreateLesson = () => {
     const isPositivelength = (e) => {
         setErrors(state => ({...state, [e.target.name]: inputData[e.target.name].length < 0}))
     }
-    const isValidForm = !Object.values(errors).some(x => x);
+    
     return (
         <div style={{ backgroundImage: `url(${background})` }} className="backgound-layer-create">
             {/* Create lesson form */}
@@ -267,7 +268,7 @@ export const CreateLesson = () => {
                                             className="btn btn-outline-warning"
                                             style={{ backgroundColor: "#636EA7" }}
                                             type="submit"
-                                            disabled={!isValidForm || (!inputData.title || !inputData.description || !inputData.video || !inputData.article || !imageData.imageFile || !inputData.tags.length > 0)}
+                                            disabled={!isValidForm(errors) || (!inputData.title || !inputData.description || !inputData.video || !inputData.article || !imageData.imageFile || !inputData.tags.length > 0)}
                                         >
                                             Create
                                         </button>

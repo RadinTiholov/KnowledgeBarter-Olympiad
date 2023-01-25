@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { useParams, useNavigate} from "react-router-dom";
-import { useLessonsWithUser } from "../../hooks/useLessonsWithUser";
+import { useParams, useNavigate } from "react-router-dom";
+import { useLessonsWithUser } from '../../hooks/useLessonsWithUser';
 import background from '../../images/waves-login.svg';
 import * as emailService from '../../dataServices/emailService';
+import { isValidForm } from '../../infrastructureUtils/validationUtils';
 
 export const SendEmail = () => {
     const { id } = useParams();
@@ -30,12 +31,12 @@ export const SendEmail = () => {
     const onSubmit = (e) => {
         e.preventDefault();
 
-        emailService.sendEmail({...inputData, ownerEmail: owner.email})
+        emailService.sendEmail({ ...inputData, ownerEmail: owner.email })
             .then(res => {
                 navigate('/lesson/details/' + id)
             })
             .catch(res => {
-                setError({active: true, message: res.message})
+                setError({ active: true, message: res.message })
             })
     }
 
@@ -46,7 +47,6 @@ export const SendEmail = () => {
     const minMaxValidator = (e, min, max) => {
         setErrors(state => ({ ...state, [e.target.name]: inputData[e.target.name].length < min || inputData[e.target.name].length > max }))
     }
-    const isValidForm = !Object.values(errors).some(x => x);
 
     return (
         <div style={{ backgroundImage: `url(${background})` }} className="backgound-layer-login">
@@ -126,7 +126,7 @@ export const SendEmail = () => {
                                             rows={20}
                                             value={inputData.emailText}
                                             onChange={onChange}
-                                            onBlur = {(e) => minMaxValidator(e, 30, 1000)}
+                                            onBlur={(e) => minMaxValidator(e, 30, 1000)}
                                         />
                                         <label htmlFor="emailText">Email</label>
                                     </div>
@@ -148,7 +148,7 @@ export const SendEmail = () => {
                                             className="btn btn-outline-warning"
                                             style={{ backgroundColor: "#636EA7" }}
                                             type="submit"
-                                            disabled={!isValidForm || (!inputData.senderEmail && !inputData.topic && !inputData.emailText)}
+                                            disabled={!isValidForm(errors) || (!inputData.senderEmail && !inputData.topic && !inputData.emailText)}
                                         >
                                             Send Email
                                         </button>
