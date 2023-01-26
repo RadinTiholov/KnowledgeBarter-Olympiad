@@ -9,14 +9,14 @@ export const PointsBanner = () => {
                 <div className="row" style={{ margin: "auto" }}>
                     <div className="col-6 text-center">
                         <img
-                            id="knowledge-image"
+                            id="knowledge-image2"
                             className="image-fluid"
                             src={coinImage}
                             alt="icon"
                         />
                     </div>
                     <div className="col-6 ">
-                        <p style={{ fontSize: "200%", marginTop: 150 }}>
+                        <p style={{ fontSize: "200%"}}>
                             With KBP you can unlock lessons and courses.
                         </p>
                         <p style={{ fontSize: "200%"}}>

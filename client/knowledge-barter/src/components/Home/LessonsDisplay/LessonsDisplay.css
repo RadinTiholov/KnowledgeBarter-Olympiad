@@ -4,3 +4,9 @@
 .card-display{
     background-color: #f0ad4e;
 }
+
+@media screen and (max-width: 1200px) {
+    h1 {
+        text-align: center;
+    }
+}

@@ -22,7 +22,7 @@ export const Banner = () => {
                         <h1 className="promo-title">Knowledge</h1>
                         <h1 className="promo-title-2">Barter</h1>
                         <p>Learn new things by sharing knowledge you have.</p>
-                        <p style={{ marginLeft: 340 }}>Barter your knowledge.</p>
+                        <p>Barter your knowledge.</p>
                         <form className="d-flex justify-content-center" role="search" onSubmit={onSearch}>
                             <input
                                 type="text"

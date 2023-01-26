@@ -1,7 +1,6 @@
 #banner {
     background-color: #f0ad4e;
     padding-top: 5%;
-    
 }
 
 #knowledge-image {
@@ -18,6 +17,10 @@
     font-size: 4rem;
     margin-left: 250px;
     font-weight: 600px;
+}
+
+.main-text p:last-of-type {
+    margin-left: 340px;
 }
 
 @media screen and (max-width: 1150px) {
@@ -49,9 +52,9 @@
     }
 }
 
-/* 
-@media screen and (max-width: 650px) {
-    #knowledge-image {
-        display: none;
+
+@media screen and (max-width: 760px) {
+    .main-text p:last-of-type {
+        margin-left: 0px;
     }
-} */
+}
