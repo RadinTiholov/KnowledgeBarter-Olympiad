@@ -47,6 +47,21 @@ namespace KnowledgeBarter.Server.Controllers
         }
 
         /// <summary>
+        /// Gets a list of the recommended lessons.
+        /// </summary>
+        /// <returns>A list of the recommended lessons for a user.</returns>
+        [HttpGet]
+        [Route(nameof(Recommended))]
+        public async Task<IEnumerable<LessonInListResponseModel>> Recommended()
+        {
+            var userId = this.User.Id();
+
+            var recommended = await this.lessonService.RecommendedAsync(userId);
+
+            return recommended;
+        }
+
+        /// <summary>
         /// Gets the details of a lesson with the given id.
         /// </summary>
         /// <param name="id">The id of the lesson to retrieve.</param>

@@ -1,10 +1,10 @@
-﻿using KnowledgeBarter.Server.Data.Common.Repositories;
+﻿using AutoMapper;
+using KnowledgeBarter.Server.Data.Common.Repositories;
 using KnowledgeBarter.Server.Data.Models;
 using KnowledgeBarter.Server.Models.Lesson;
 using KnowledgeBarter.Server.Services.Contracts;
 using KnowledgeBarter.Server.Services.Mapping;
 using Microsoft.EntityFrameworkCore;
-using System.Runtime.InteropServices;
 using static KnowledgeBarter.Server.Services.ServiceConstants;
 
 namespace KnowledgeBarter.Server.Services
@@ -236,6 +236,55 @@ namespace KnowledgeBarter.Server.Services
                 .FirstOrDefaultAsync();
 
             return lesson != null;
+        }
+
+        public async Task<IEnumerable<LessonInListResponseModel>> RecommendedAsync(string userId)
+        {
+            var lessons = await this.lessonRepository
+                .All()
+                .Include(x => x.UsersWhoBought)
+                .Include(x => x.Tags)
+                .Where(x => x.UsersWhoBought.Any(x => x.Id == userId))
+                .ToListAsync();
+
+            Dictionary<string, int> tagsDictionary = new Dictionary<string, int>();
+            foreach (var lesson in lessons)
+            {
+                foreach (var tag in lesson.Tags)
+                {
+                    if (tagsDictionary.ContainsKey(tag.Text))
+                    {
+                        tagsDictionary[tag.Text]++;
+                    }
+                    else
+                    {
+                        tagsDictionary.Add(tag.Text, 1);
+                    }
+                }
+            }
+            var theMostPopular = await this.PopularAsync();
+            if (tagsDictionary.Count() == 0)
+            {
+                return theMostPopular;
+            }
+            else
+            {
+                var theMostCommonTag = tagsDictionary.OrderByDescending(x => x.Value).Take(1).First();
+
+                var recommended = await this.lessonRepository
+                    .All()
+                    .Include(x => x.UsersWhoBought)
+                    .Include(x => x.Tags)
+                    .Where(x => !x.UsersWhoBought.Any(x => x.Id == userId))
+                    .Where(x => x.Tags.Any(t => t.Text == theMostCommonTag.Key))
+                    .Take(5)
+                    .To<LessonInListResponseModel>()
+                    .ToListAsync();
+
+                recommended.AddRange(theMostPopular.Take(5 - recommended.Count));
+
+                return recommended;
+            }
         }
     }
 }

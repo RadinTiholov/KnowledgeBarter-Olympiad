@@ -8,6 +8,8 @@ namespace KnowledgeBarter.Server.Services.Contracts
 
         Task<IEnumerable<LessonInListResponseModel>> PopularAsync();
 
+        Task<IEnumerable<LessonInListResponseModel>> RecommendedAsync(string userId);
+
         Task<LessonDetailsResponseModel> GetOneAsync(int id);
 
         Task<CreateLessonResponseModel> CreateAsync(CreateLesssonRequestModel model, string userId);
