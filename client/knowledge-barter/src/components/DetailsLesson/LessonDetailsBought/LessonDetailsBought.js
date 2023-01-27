@@ -27,6 +27,7 @@ export const LessonDetailsBought = (props) => {
                 setComment('');
             })
     }
+
     return (
         <div style={{ backgroundImage: `url(${background})` }} className="backgound-layer-details">
             {/* Login Form */}
@@ -141,7 +142,7 @@ export const LessonDetailsBought = (props) => {
                     </div>
                     <div className="col-2">
                         <p>Most popular lessons</p>
-                        {props.mostPopularLessons?.map(x => <Lesson key={x.id} {...x} />)}
+                        {props.recommendedLessons?.map(x => <Lesson key={x.id} {...x} />)}
                     </div>
                 </div>
             </div>

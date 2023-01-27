@@ -5,6 +5,9 @@ const baseUrl = 'https://localhost:3030'
 const getAll = () => {
     return request.get(`${baseUrl}/lesson/all`)
 }
+const recommended = () => {
+    return request.get(`${baseUrl}/lesson/recommended`)
+}
 const getPopular = () => {
     return request.get(`${baseUrl}/lesson/popular`)
 }
@@ -32,6 +35,7 @@ const comment = (id, text) => {
 
 export {
     getAll,
+    recommended,
     getPopular,
     getDetails,
     create,

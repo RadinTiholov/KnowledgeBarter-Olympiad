@@ -17,16 +17,18 @@ export const DetailsLesson = () => {
     const navigate = useNavigate();
     const [isOwner] = useOwner(id, true);
     const [isBought] = useBoughtLesson(id);
-    const [fullUserInfo, setfullUserInfo] = useUserInfo({})
+    const [fullUserInfo, setfullUserInfo] = useUserInfo({});
     const [isLiked, setIsLiked] = useIsLiked(id, true);
-    const { delLesson } = useContext(LessonContext)
-    const { auth, updatePoints } = useContext(AuthContext)
-    const [mostPopularLessons, setMostPopularLessons] = useState([]);
+    const { delLesson } = useContext(LessonContext);
+    const { auth, updatePoints } = useContext(AuthContext);
+    const [recommendedLessons, setRecommendedLessons] = useState([]);
+
     useEffect(() => {
-        lessonService.getPopular()
-            .then(res => setMostPopularLessons(res))
+        lessonService.recommended()
+            .then(res => setRecommendedLessons(res))
             .catch(err => alert(err))
     }, [])
+
     const onClickDelete = () => {
         lessonService.del(id)
             .then(res => {
@@ -78,14 +80,14 @@ export const DetailsLesson = () => {
     return (
         <>
             {isBought || isOwner ? <LessonDetailsBought
-                    lesson={lesson}
-                    owner={owner}
-                    onClickDelete={onClickDelete}
-                    likeLessonOnClick={likeLessonOnClick}
-                    isOwner={isOwner}
-                    isLiked={isLiked}
-                    comment={comment}
-                    mostPopularLessons={!Array.isArray(mostPopularLessons) ? [] : mostPopularLessons} />
+                lesson={lesson}
+                owner={owner}
+                onClickDelete={onClickDelete}
+                likeLessonOnClick={likeLessonOnClick}
+                isOwner={isOwner}
+                isLiked={isLiked}
+                comment={comment}
+                recommendedLessons={!Array.isArray(recommendedLessons) ? [] : recommendedLessons} />
                 : <LessonDetailsPreview
                     lesson={lesson}
                     owner={owner}
