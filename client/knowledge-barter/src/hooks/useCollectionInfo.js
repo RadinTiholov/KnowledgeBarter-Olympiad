@@ -40,7 +40,7 @@ export const useCollectionInfo = (collectionName) => {
                         });
                 }
             })
-    }, [])
+    }, [lessons, courses, auth, collectionName])
 
     return [collection]
 }
