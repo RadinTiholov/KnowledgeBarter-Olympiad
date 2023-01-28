@@ -197,7 +197,7 @@ export const CreateLesson = () => {
                                     </div>}
                                     {visualizationImageUrl &&
                                         <>
-                                            <img className='img-fluid' src={visualizationImageUrl} alt='img' style={{ height: 300 }} />
+                                            <img className='img-fluid mb-3' src={visualizationImageUrl} alt='img' style={{ height: 300 }} />
                                         </>
                                     }
                                     <div className="form-floating mb-3">
