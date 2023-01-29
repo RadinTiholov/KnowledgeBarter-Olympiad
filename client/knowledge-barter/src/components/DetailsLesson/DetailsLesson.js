@@ -22,11 +22,13 @@ export const DetailsLesson = () => {
     const { delLesson } = useContext(LessonContext);
     const { auth, updatePoints } = useContext(AuthContext);
     const [recommendedLessons, setRecommendedLessons] = useState([]);
-    
+
     useEffect(() => {
-        lessonService.recommended()
-            .then(res => setRecommendedLessons(res))
-            .catch(err => alert(err))
+        if (auth !== null) {
+            lessonService.recommended()
+                .then(res => setRecommendedLessons(res))
+                .catch(err => alert(err))
+        }
     }, [])
 
     const onClickDelete = () => {
