@@ -25,9 +25,9 @@ namespace KnowledgeBarter.Server.Controllers
         /// <returns>Bad request error if the request is invalid or all comments of a certain lesson</returns>
         [HttpGet]
         [Route(nameof(All))]
-        public async Task<IEnumerable<CommentInListResponseModel>> All(int lessonId)
+        public async Task<IEnumerable<CommentWithPredictionInListResponseModel>> All()
         {
-            var all = await this.commentService.AllByLessonIdAsync(lessonId);
+            var all = await this.commentService.AllAsync();
 
             return all;
         }

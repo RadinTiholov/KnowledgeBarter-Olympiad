@@ -6,7 +6,7 @@ namespace KnowledgeBarter.Server.Services.Contracts
 {
     public interface ICommentService
     {
-        Task<IEnumerable<CommentInListResponseModel>> AllByLessonIdAsync(int lessonId);
+        Task<IEnumerable<CommentWithPredictionInListResponseModel>> AllAsync();
 
         Task<CreateCommentResponseModel> CreateAsync(CreateCommentRequestModel model, int lessonId, string userId);
     }

@@ -22,7 +22,7 @@
             string modelPath = Directory.GetCurrentDirectory() + "\\MLModel.zip";
             if (!modelPath.Contains("Test"))
             {
-                modelPath = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\ML.Models\\MLModel.zip");
+                modelPath = Path.Combine(Directory.GetCurrentDirectory(), @"ML\\MLModel.zip");
             }
             ITransformer mlModel = mlContext.Model.Load(modelPath, out var modelInputSchema);
             var predEngine = mlContext.Model.CreatePredictionEngine<ModelInput, ModelOutput>(mlModel);

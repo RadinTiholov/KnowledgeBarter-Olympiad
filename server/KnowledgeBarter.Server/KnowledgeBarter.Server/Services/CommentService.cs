@@ -1,10 +1,10 @@
 ﻿using KnowledgeBarter.Server.Data.Common.Repositories;
 using KnowledgeBarter.Server.Data.Models;
 using KnowledgeBarter.Server.Models.Comments;
-using KnowledgeBarter.Server.Models.Lesson;
 using KnowledgeBarter.Server.Services.Contracts;
 using KnowledgeBarter.Server.Services.Mapping;
 using Microsoft.EntityFrameworkCore;
+using ML;
 using static KnowledgeBarter.Server.Services.ServiceConstants;
 
 
@@ -21,18 +21,26 @@ namespace KnowledgeBarter.Server.Services
             this.lessonService = lessonService;
         }
 
-        public async Task<IEnumerable<CommentInListResponseModel>> AllByLessonIdAsync(int lessonId)
+        public async Task<IEnumerable<CommentWithPredictionInListResponseModel>> AllAsync()
         {
-            if (await lessonService.ExistsAsync(lessonId))
+            var comments = await this.commentRepository
+                .AllAsNoTracking()
+                .To<CommentWithPredictionInListResponseModel>()
+                .ToListAsync();
+
+            foreach (var comment in comments)
             {
-                throw new ArgumentNullException(LessonForCommentShouldExist);
+                ModelInput sampleData = new ModelInput()
+                {
+                    Review = comment.Text,
+                };
+
+                var predictionResult = ReviewPredictionModel.Predict(sampleData);
+
+                comment.Prediction = predictionResult.Prediction.ToUpper();
             }
 
-            return await this.commentRepository
-                .All()
-                .Where(c => c.LessonId == lessonId)
-                .To<CommentInListResponseModel>()
-                .ToListAsync();
+            return comments;
         }
 
         public async Task<CreateCommentResponseModel> CreateAsync(CreateCommentRequestModel model, int lessonId, string userId)
