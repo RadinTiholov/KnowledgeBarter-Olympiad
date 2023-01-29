@@ -1,6 +1,11 @@
 #lessons-display{
     background-color: #636EA7;
 }
+
+#lessons-display h1 {
+    color: #F9F9DD;
+}
+
 .card-display{
     background-color: #f0ad4e;
 }

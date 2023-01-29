@@ -108,7 +108,8 @@ export const LessonDetailsBought = (props) => {
                                     {props.lesson.article}
                                 </h5>
                             </div>
-                            <h2 className="text-center">Comments</h2>
+                            <h2 className="text-center">Comment</h2>
+
                             {/* Comment form */}
                             <form onSubmit={onComment}>
                                 <div className="form-outline w-100 mx-5">
@@ -122,7 +123,7 @@ export const LessonDetailsBought = (props) => {
                                         onChange={onChange}
                                     />
                                 </div>
-                                <div className="mt-2 pt-1 mx-5">
+                                <div className="mt-2 pt-1 pb-2 mx-5">
                                     <button type="submit" className="btn btn-primary btn-sm">
                                         Post comment
                                     </button>
@@ -137,11 +138,12 @@ export const LessonDetailsBought = (props) => {
                                     </div>
                                 </div>}
                             </form>
-                            {props.lesson.comments?.map(x => <Comment key={x.id} {...x} />)}
+                            {props.lesson.comments.length > 0 ? props.lesson.comments?.map(x => <Comment key={x.id} {...x} />) : <p className='text-center'>No comments yet.</p>}
+                            
                         </div>
                     </div>
                     <div className="col-2">
-                        <p>Most popular lessons</p>
+                        <p>Recommended lessons</p>
                         {props.recommendedLessons?.map(x => <Lesson key={x.id} {...x} />)}
                     </div>
                 </div>

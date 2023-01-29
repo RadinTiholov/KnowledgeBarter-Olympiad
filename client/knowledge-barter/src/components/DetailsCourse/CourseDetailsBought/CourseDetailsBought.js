@@ -88,21 +88,21 @@ export const CourseDetailsBought = (props) => {
                                         </button>
                                     </> :
                                     <>
-                                    {props.isLiked ? <button
+                                        {props.isLiked ? <button
                                             className="btn btn-outline-warning btn fw-bold"
                                             style={{ backgroundColor: "#636EA7" }}
-                                            disabled = {true}
+                                            disabled={true}
                                         >
                                             Liked Course
-                                        </button> : 
-                                        <button
-                                            className="btn btn-outline-warning btn fw-bold"
-                                            style={{ backgroundColor: "#636EA7" }}
-                                            onClick = {props.likeCourseOnClick}
-                                        >
-                                            Like Course
-                                        </button>}
-                                        
+                                        </button> :
+                                            <button
+                                                className="btn btn-outline-warning btn fw-bold"
+                                                style={{ backgroundColor: "#636EA7" }}
+                                                onClick={props.likeCourseOnClick}
+                                            >
+                                                Like Course
+                                            </button>}
+
                                     </>}
                                 <h5>{props.lesson.description}</h5>
                             </div>
@@ -112,9 +112,10 @@ export const CourseDetailsBought = (props) => {
                                     {props.lesson.article}
                                 </h5>
                             </div>
-                            <h2 className="text-center">Comments</h2>
+                            
+                            <h2 className="text-center">Comment</h2>
                             {/* Comment form */}
-                            <form onSubmit = {onComment}>
+                            <form onSubmit={onComment}>
                                 <div className="form-outline w-100 mx-5">
                                     <textarea
                                         className="form-control"
@@ -122,26 +123,26 @@ export const CourseDetailsBought = (props) => {
                                         rows={3}
                                         style={{ background: "#fff", height: 150, width: 900 }}
                                         placeholder="Comment"
-                                        value ={comment}
-                                        onChange = {onChange}
+                                        value={comment}
+                                        onChange={onChange}
                                     />
                                 </div>
-                                <div className="mt-2 pt-1 mx-5">
+                                <div className="mt-2 pt-1 pb-2 mx-5">
                                     <button type="submit" className="btn btn-primary btn-sm">
                                         Post comment
                                     </button>
                                 </div>
                                 {error && <div
-                                        className="alert alert-danger d-flex align-items-center mt-3"
-                                        role="alert"
-                                    >
-                                        <i className="fa-solid fa-triangle-exclamation me-2" />
-                                        <div className="text-center">
-                                            {errorMessage}
-                                        </div>
-                                    </div>}
+                                    className="alert alert-danger d-flex align-items-center mt-3"
+                                    role="alert"
+                                >
+                                    <i className="fa-solid fa-triangle-exclamation me-2" />
+                                    <div className="text-center">
+                                        {errorMessage}
+                                    </div>
+                                </div>}
                             </form>
-                            {props.lesson.comments?.map(x => <Comment key={x.id} {...x}/>)}
+                            {props.lesson.comments.length > 0 ? props.lesson.comments?.map(x => <Comment key={x.id} {...x} />) : <p className='text-center'>No comments yet.</p>}
                         </div>
                     </div>
                     <div className="col-2">

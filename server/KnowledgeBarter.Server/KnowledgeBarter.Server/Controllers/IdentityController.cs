@@ -112,7 +112,7 @@ namespace KnowledgeBarter.Server.Controllers
         /// <param name="lessonId"></param>
         /// <returns>Bad request error if the request is invalid or the user profile information</returns>
         [HttpGet]
-        [Authorize]
+        //[Authorize]
         [Route(IdentityProfileRoute)]
         public async Task<IdentityProfileResponseModel> Profile(string userId)
         {
