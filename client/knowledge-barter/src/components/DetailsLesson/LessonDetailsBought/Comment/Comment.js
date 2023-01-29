@@ -2,7 +2,7 @@ export const Comment = (props) => {
     return (
         <div
             className="card card-display-details mx-5 my-2"
-            style={{ height: 150, width: 900 }}
+            style={{ height: 150 }}
         >
             <div className="row">
                 <div className="col-1">
@@ -10,6 +10,7 @@ export const Comment = (props) => {
                         className="img-fluid rounded-circle profile-comment m-3"
                         src={props.profilePicture}
                         alt="Lesson Pic"
+                        style={{ objectFit: "contain" }}
                     />
                 </div>
                 <div className="col-11">

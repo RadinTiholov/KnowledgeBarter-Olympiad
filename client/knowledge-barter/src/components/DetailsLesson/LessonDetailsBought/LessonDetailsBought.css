@@ -12,3 +12,12 @@
     background-position: center;
     background-size: cover;
 }
+
+.info-bar {
+    gap: 0.5rem;
+}
+
+.video {
+    aspect-ratio: 16 / 9;
+    width: 100%;
+  }
