@@ -10,7 +10,7 @@ export const useCourseWithUser = (id) => {
         coursesService.getDetails(id)
             .then(res => {
                 setCourse(res)
-                authService.getDetails(res.owner)
+                authService.getUserInformation(res.owner)
                     .then(res => setOwner(res))
             })
     }, [id])

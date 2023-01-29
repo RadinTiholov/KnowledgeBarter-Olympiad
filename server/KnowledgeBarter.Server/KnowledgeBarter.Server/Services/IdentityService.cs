@@ -2,6 +2,7 @@
 using KnowledgeBarter.Server.Data.Models;
 using KnowledgeBarter.Server.Models.Identity;
 using KnowledgeBarter.Server.Services.Contracts;
+using KnowledgeBarter.Server.Services.Mapping;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -96,6 +97,14 @@ namespace KnowledgeBarter.Server.Services
             };
 
             return profile;
+        }
+
+        public async Task<UserInformationResponseModel> GetUserInformationAsync(string userId)
+        {
+            return await this.applicationUserRepository
+                .AllAsNoTracking()
+                .To<UserInformationResponseModel>()
+                .FirstOrDefaultAsync();
         }
     }
 }

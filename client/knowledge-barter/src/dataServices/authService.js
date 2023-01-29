@@ -12,8 +12,12 @@ const register = (data) => {
 const getDetails = (id) => {
     return request.get(`${baseUrl}/identity/profile/` + id)
 }
+const getUserInformation = (id) => {
+    return request.get(`${baseUrl}/identity/userinformation/` + id)
+}
 export{
     login,
     register,
-    getDetails
+    getDetails,
+    getUserInformation
 }

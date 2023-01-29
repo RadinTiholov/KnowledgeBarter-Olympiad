@@ -14,5 +14,7 @@ namespace KnowledgeBarter.Server.Services.Contracts
         Task SubtractPointsAsync(string userId, int points);
 
         Task<IdentityProfileResponseModel> GetIdentityProfileAsync(string userId);
+
+        Task<UserInformationResponseModel> GetUserInformationAsync(string userId);
     }
 }

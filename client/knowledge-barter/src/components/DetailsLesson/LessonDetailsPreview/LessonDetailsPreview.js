@@ -19,7 +19,7 @@ export const LessonDetailsPreview = (props) => {
                                 <hr className="my-4" />
                                 <p>{props.lesson.description}</p>
                                 <hr className="my-1" />
-                                <p>Creator: {props.owner.username}</p>
+                                <p>Creator: {props.owner.userName}</p>
                                 <hr className="my-1" />
                                 <div className="container">
                                     <div className="row">

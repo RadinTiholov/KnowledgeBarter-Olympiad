@@ -22,7 +22,7 @@ export const DetailsLesson = () => {
     const { delLesson } = useContext(LessonContext);
     const { auth, updatePoints } = useContext(AuthContext);
     const [recommendedLessons, setRecommendedLessons] = useState([]);
-
+    
     useEffect(() => {
         lessonService.recommended()
             .then(res => setRecommendedLessons(res))
@@ -81,7 +81,6 @@ export const DetailsLesson = () => {
         <>
             {isBought || isOwner ? <LessonDetailsBought
                 lesson={lesson}
-                owner={owner}
                 onClickDelete={onClickDelete}
                 likeLessonOnClick={likeLessonOnClick}
                 isOwner={isOwner}

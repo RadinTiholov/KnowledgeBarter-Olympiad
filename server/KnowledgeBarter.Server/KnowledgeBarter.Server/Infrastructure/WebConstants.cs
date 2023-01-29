@@ -18,6 +18,8 @@ namespace KnowledgeBarter.Server.Infrastructure
 
         public const string IdentityProfileRoute = "/Identity/Profile/{userId}";
 
+        public const string UserInformationRoute = "/Identity/UserInformation/{userId}";
+
         public const string AllowedExtensionsErrorMessage = "This file extension is not allowed.";
 
         public const string SomethingWentWrongMessage = "Something went wrong. Please try again later.";

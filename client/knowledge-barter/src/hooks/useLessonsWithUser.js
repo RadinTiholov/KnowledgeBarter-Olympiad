@@ -10,7 +10,7 @@ export const useLessonsWithUser = (id) => {
         lessonsService.getDetails(id)
             .then(res => {
                 setLesson(res)
-                authService.getDetails(res.owner)
+                authService.getUserInformation(res.owner)
                     .then(res => setOwner(res))
             })
             .catch(err => {

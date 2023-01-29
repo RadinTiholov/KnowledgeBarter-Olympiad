@@ -1,10 +1,12 @@
 ﻿using KnowledgeBarter.Server.Data.Models;
+using KnowledgeBarter.Server.Infrastructure;
 using KnowledgeBarter.Server.Models.Identity;
 using KnowledgeBarter.Server.Services.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+
 using static KnowledgeBarter.Server.Infrastructure.WebConstants;
 
 
@@ -109,16 +111,35 @@ namespace KnowledgeBarter.Server.Controllers
         /// <summary>
         /// Get profile of a user
         /// </summary>
-        /// <param name="lessonId"></param>
+        /// <param name="userId"></param>
         /// <returns>Bad request error if the request is invalid or the user profile information</returns>
         [HttpGet]
-        //[Authorize]
+        [Authorize]
         [Route(IdentityProfileRoute)]
         public async Task<IdentityProfileResponseModel> Profile(string userId)
         {
             var response = await this.identityService.GetIdentityProfileAsync(userId);
 
             return response;
+        }
+
+        /// <summary>
+        /// Get profile of a user
+        /// </summary>
+        /// <param name="lessonId"></param>
+        /// <returns>Bad request error if the request is invalid or the user profile information</returns>
+        [HttpGet]
+        [Route(UserInformationRoute)]
+        public async Task<ActionResult<UserInformationResponseModel>> UserInformation(string userId)
+        {
+            var user = await this.identityService.GetUserInformationAsync(userId);
+
+            if (user == null)
+            {
+                return BadRequest();
+            }
+
+            return user;
         }
     }
 }
