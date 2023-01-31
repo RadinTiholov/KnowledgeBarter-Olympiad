@@ -5,6 +5,7 @@ import { Comment } from './Comment/Comment'
 import { Lesson } from './Lesson/Lesson'
 import { useState } from 'react'
 import * as lessonsService from '../../../dataServices/lessonsService'
+import { commentValidator } from '../../../infrastructureUtils/validationUtils'
 
 export const LessonDetailsBought = (props) => {
     const [comment, setComment] = useState('');
@@ -26,16 +27,6 @@ export const LessonDetailsBought = (props) => {
                 setErrorMessage(err.message)
                 setComment('');
             })
-    }
-
-    //Validation
-    const commentValidator = (min, max) => {
-        if (comment.length < min || comment.length > max ) {
-            setError(true);
-            setErrorMessage("The length of the comment must be a minimum of 10 and a maximum of 200 characters.");
-        }else{
-            setError(false);
-        }
     }
 
     return (
@@ -137,7 +128,7 @@ export const LessonDetailsBought = (props) => {
                                         placeholder="Comment"
                                         value={comment}
                                         onChange={onChange}
-                                        onBlur ={() => commentValidator(10, 200)}
+                                        onBlur ={() => commentValidator(10, 200, comment, setError, setErrorMessage)}
                                     />
                                 </div>
                                 <div className="mt-2 pt-1 pb-2 mx-5">

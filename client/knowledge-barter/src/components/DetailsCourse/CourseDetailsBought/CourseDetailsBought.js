@@ -5,6 +5,7 @@ import { Comment } from './Comment/Comment'
 import { Lesson } from './Lesson/Lesson'
 import { useState } from 'react'
 import * as lessonsService from '../../../dataServices/lessonsService'
+import { commentValidator } from '../../../infrastructureUtils/validationUtils'
 
 export const CourseDetailsBought = (props) => {
     const [comment, setComment] = useState('');
@@ -119,7 +120,7 @@ export const CourseDetailsBought = (props) => {
                                     {props.lesson.article}
                                 </h5>
                             </div>
-                            
+
                             <h2 className="text-center">Comment</h2>
                             {/* Comment form */}
                             <form onSubmit={onComment}>
@@ -132,22 +133,27 @@ export const CourseDetailsBought = (props) => {
                                         placeholder="Comment"
                                         value={comment}
                                         onChange={onChange}
+                                        onBlur={() => commentValidator(10, 200, comment, setError, setErrorMessage)}
                                     />
                                 </div>
                                 <div className="mt-2 pt-1 pb-2 mx-5">
-                                    <button type="submit" className="btn btn-primary btn-sm">
+                                    <button
+                                        type="submit"
+                                        className="btn btn-primary btn-sm"
+                                        disabled={error}>
                                         Post comment
                                     </button>
                                 </div>
-                                {error && <div
-                                    className="alert alert-danger d-flex align-items-center mt-3"
-                                    role="alert"
-                                >
-                                    <i className="fa-solid fa-triangle-exclamation me-2" />
-                                    <div className="text-center">
-                                        {errorMessage}
-                                    </div>
-                                </div>}
+                                {error &&
+                                    <div
+                                        className="alert alert-danger d-flex align-items-center mt-3 mx-5"
+                                        role="alert"
+                                    >
+                                        <i className="fa-solid fa-triangle-exclamation me-2" />
+                                        <div className="text-center">
+                                            {errorMessage}
+                                        </div>
+                                    </div>}
                             </form>
                             {props.lesson.comments?.length > 0 ? props.lesson.comments?.map(x => <Comment key={x.id} {...x} />) : <p className='text-center'>No comments yet.</p>}
                         </div>
