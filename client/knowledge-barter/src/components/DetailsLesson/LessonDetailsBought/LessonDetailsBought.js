@@ -28,6 +28,16 @@ export const LessonDetailsBought = (props) => {
             })
     }
 
+    //Validation
+    const commentValidator = (min, max) => {
+        if (comment.length < min || comment.length > max ) {
+            setError(true);
+            setErrorMessage("The length of the comment must be a minimum of 10 and a maximum of 200 characters.");
+        }else{
+            setError(false);
+        }
+    }
+
     return (
         <div style={{ backgroundImage: `url(${background})` }} className="backgound-layer-details">
             {/* Login Form */}
@@ -127,15 +137,20 @@ export const LessonDetailsBought = (props) => {
                                         placeholder="Comment"
                                         value={comment}
                                         onChange={onChange}
+                                        onBlur ={() => commentValidator(10, 200)}
                                     />
                                 </div>
                                 <div className="mt-2 pt-1 pb-2 mx-5">
-                                    <button type="submit" className="btn btn-primary btn-sm">
+                                    <button 
+                                    type="submit" 
+                                    className="btn btn-primary btn-sm"
+                                    disabled={error}>
                                         Post comment
                                     </button>
                                 </div>
-                                {error && <div
-                                    className="alert alert-danger d-flex align-items-center mt-3"
+                                {error && 
+                                <div
+                                    className="alert alert-danger d-flex align-items-center mt-3 mx-5"
                                     role="alert"
                                 >
                                     <i className="fa-solid fa-triangle-exclamation me-2" />

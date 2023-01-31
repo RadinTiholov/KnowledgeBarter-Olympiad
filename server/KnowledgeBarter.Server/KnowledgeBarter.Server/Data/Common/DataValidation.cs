@@ -31,6 +31,7 @@
         public class Comment
         {
             public const int TextMaxLength = 200;
+            public const int TextMinLength = 10;
         }
 
         public class Email
