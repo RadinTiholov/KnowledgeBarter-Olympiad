@@ -7,11 +7,11 @@ namespace KnowledgeBarter.Server.Models.Course
     public class EditCourseRequestModel
     {
         [Required]
-        [MaxLength(DescriptionMaxLength)]
+        [StringLength(DescriptionMaxLength, MinimumLength = TitleMinLength)]
         public string Title { get; set; } = null!;
 
         [Required]
-        [MaxLength(DescriptionMaxLength)]
+        [StringLength(DescriptionMaxLength, MinimumLength = DescriptionMinLength)]
         public string Description { get; set; } = null!;
 
         [AllowedFileExtensions]
