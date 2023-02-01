@@ -1,10 +1,13 @@
 ﻿using KnowledgeBarter.Server.Infrastructure.Extensions;
 using KnowledgeBarter.Server.Models.Course;
+using KnowledgeBarter.Server.Models.Lesson.Base;
+using KnowledgeBarter.Server.Models.Lesson;
 using KnowledgeBarter.Server.Services.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 using static KnowledgeBarter.Server.Infrastructure.WebConstants;
+using KnowledgeBarter.Server.Models.Course.Base;
 
 namespace KnowledgeBarter.Server.Controllers
 {
@@ -82,13 +85,26 @@ namespace KnowledgeBarter.Server.Controllers
         [HttpGet]
         [AllowAnonymous]
         [Route(IdRoute)]
-        public async Task<ActionResult<CourseDetailsResponseModel>> Details(int id)
+        public async Task<ActionResult<object>> Details(int id)
         {
             try
             {
-                var course = await this.courseService.GetOneAsync(id);
+                if (User.Identity.IsAuthenticated)
+                {
+                    var userId = this.User.Id();
+                    if (await this.courseService.IsBoughtOrOwnerAsync(id, userId))
+                    {
+                        var course = await this.courseService.GetOneAsync<BoughtCourseDetailsResponseModel>(id);
 
-                return course;
+                        return course;
+                    }
+
+                    return await this.courseService.GetOneAsync<BaseCourseDetailsResponseModel>(id);
+                }
+                else
+                {
+                    return await this.courseService.GetOneAsync<BaseCourseDetailsResponseModel>(id);
+                }
             }
             catch (ArgumentException ae)
             {
