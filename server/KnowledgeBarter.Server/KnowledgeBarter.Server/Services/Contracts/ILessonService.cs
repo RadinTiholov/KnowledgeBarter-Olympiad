@@ -10,7 +10,7 @@ namespace KnowledgeBarter.Server.Services.Contracts
 
         Task<IEnumerable<LessonInListResponseModel>> RecommendedAsync(string userId);
 
-        Task<LessonDetailsResponseModel> GetOneAsync(int id);
+        Task<T> GetOneAsync<T>(int id);
 
         Task<CreateLessonResponseModel> CreateAsync(CreateLesssonRequestModel model, string userId);
 
@@ -23,5 +23,7 @@ namespace KnowledgeBarter.Server.Services.Contracts
         Task BuyAsync(int lessonId, string userId);
 
         Task<bool> ExistsAsync(int lessonId);
+
+        Task<bool> IsBoughtOrOwnerAsync(int lessonId, string userId);
     }
 }

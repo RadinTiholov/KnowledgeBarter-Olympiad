@@ -4,30 +4,15 @@
     using KnowledgeBarter.Server.Data.Models;
     using AutoMapper;
     using KnowledgeBarter.Server.Models.Comments;
+    using KnowledgeBarter.Server.Models.Lesson.Base;
 
-    public class LessonDetailsResponseModel : IMapFrom<Lesson>, IHaveCustomMappings
+    public class BoughtLessonDetailsResponseModel : BaseLessonDetailsResponseModel, IMapFrom<Lesson>, IHaveCustomMappings
     {
-        public int Id { get; set; }
-
-        public string Title { get; set; } = null!;
-
-        public string Description { get; set; } = null!;
-
         public string Article { get; set; } = null!;
-
-        public string Thumbnail { get; set; } = null!;
 
         public string Video { get; set; } = null!;
 
         public string Resources { get; set; } = null!;
-
-        public int Likes { get; set; }
-
-        public int Price { get; set; }
-
-        public int Views { get; set; }
-
-        public string Owner { get; set; } = null!;
 
         public string[] Tags { get; set; } = null!;
 
@@ -35,7 +20,7 @@
 
         public void CreateMappings(IProfileExpression configuration)
         {
-            configuration.CreateMap<Lesson, LessonDetailsResponseModel>()
+            configuration.CreateMap<Lesson, BoughtLessonDetailsResponseModel>()
                 .ForMember(x => x.Thumbnail, opt =>
                     opt.MapFrom(i => i.Image.Url))
                 .ForMember(x => x.Owner, opt =>
