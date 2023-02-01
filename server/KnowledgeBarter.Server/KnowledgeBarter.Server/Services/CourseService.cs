@@ -4,8 +4,8 @@ using KnowledgeBarter.Server.Models.Course;
 using KnowledgeBarter.Server.Models.Lesson;
 using KnowledgeBarter.Server.Services.Contracts;
 using KnowledgeBarter.Server.Services.Mapping;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+
 using static KnowledgeBarter.Server.Services.ServiceConstants;
 
 namespace KnowledgeBarter.Server.Services
@@ -124,11 +124,11 @@ namespace KnowledgeBarter.Server.Services
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<CourseDetailsResponseModel> GetOneAsync(int id)
+        public async Task<T> GetOneAsync<T>(int id)
         {
             var course = await this.courseRepository.All()
                 .Where(x => x.Id == id)
-                .To<CourseDetailsResponseModel>()
+                .To<T>()
                 .FirstOrDefaultAsync();
 
             if (course == null)
@@ -136,11 +136,14 @@ namespace KnowledgeBarter.Server.Services
                 throw new ArgumentException(NotFoundMessage);
             }
 
-            course.Lessons = await this.lessonRepository
-                .AllAsNoTracking()
-                .Where(x => x.Courses.Any(x => x.Id == id))
-                .To<LessonInListResponseModel>()
-                .ToListAsync();
+            if (typeof(T) == typeof(BoughtCourseDetailsResponseModel))
+            {
+                (course as BoughtCourseDetailsResponseModel).Lessons = await this.lessonRepository
+                    .AllAsNoTracking()
+                    .Where(x => x.Courses.Any(x => x.Id == id))
+                    .To<LessonInListResponseModel>()
+                    .ToListAsync();
+            }
 
             return course;
         }
@@ -280,6 +283,24 @@ namespace KnowledgeBarter.Server.Services
             user.BoughtCourses.Add(course);
             this.applicationUserRepository.Update(user);
             await this.applicationUserRepository.SaveChangesAsync();
+        }
+
+        public async Task<bool> IsBoughtOrOwnerAsync(int courseId, string userId)
+        {
+            var user = await this.identityService.GetUserAsync(userId);
+            var course = await this.GetCourseAsync(courseId);
+
+            if (user == null || course == null)
+            {
+                throw new ArgumentException(NotFoundMessage);
+            }
+
+            if (course.OwnerId == userId || user.BoughtLessons.Any(x => x.Id == courseId))
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }
