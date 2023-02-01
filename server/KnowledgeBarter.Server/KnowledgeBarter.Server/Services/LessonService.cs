@@ -2,6 +2,7 @@
 using KnowledgeBarter.Server.Data.Common.Repositories;
 using KnowledgeBarter.Server.Data.Models;
 using KnowledgeBarter.Server.Models.Lesson;
+using KnowledgeBarter.Server.Models.Lesson.Base;
 using KnowledgeBarter.Server.Services.Contracts;
 using KnowledgeBarter.Server.Services.Mapping;
 using Microsoft.EntityFrameworkCore;
@@ -134,13 +135,12 @@ namespace KnowledgeBarter.Server.Services
 
         }
 
-
-        public async Task<LessonDetailsResponseModel> GetOneAsync(int id)
+        public async Task<T> GetOneAsync<T>(int id)
         {
             var lesson = await this.lessonRepository
                 .AllAsNoTracking()
                 .Where(x => x.Id == id)
-                .To<LessonDetailsResponseModel>()
+                .To<T>()
                 .FirstOrDefaultAsync();
 
             if (lesson == null)
@@ -149,7 +149,7 @@ namespace KnowledgeBarter.Server.Services
             }
 
             //Increase views
-            var lessonForUpdate = await this.GetLessonAsync(lesson.Id);
+            var lessonForUpdate = await this.GetLessonAsync(id);
             lessonForUpdate.Views++;
 
             this.lessonRepository.Update(lessonForUpdate);
@@ -285,6 +285,24 @@ namespace KnowledgeBarter.Server.Services
 
                 return recommended;
             }
+        }
+
+        public async Task<bool> IsBoughtOrOwnerAsync(int lessonId, string userId)
+        {
+            var user = await this.identityService.GetUserAsync(userId);
+            var lesson = await this.GetLessonAsync(lessonId);
+
+            if (user == null || lesson == null)
+            {
+                throw new ArgumentException(NotFoundMessage);
+            }
+
+            if (lesson.OwnerId == userId || user.BoughtLessons.Any(x => x.Id == lessonId))
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }
