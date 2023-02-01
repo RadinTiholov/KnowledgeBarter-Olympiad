@@ -9,9 +9,9 @@ export const Lessons = () => {
     const {lessons} = useContext(LessonContext);
     const {search} = useParams();
     return (
-        <div style = {{backgroundImage: `url(${background})`}}className="backgound-layer-lessons">
+        <div className="backgound-layer-lessons">
             <div className="col text-xl-center">
-                <h1 className="fw-bold mb-3 pt-5">All Lessons</h1>
+                <h1 className="fw-bold mb-3 px-4 pt-5">All Lessons</h1>
             </div>
             <div className="container">
                 <div className="text-center">

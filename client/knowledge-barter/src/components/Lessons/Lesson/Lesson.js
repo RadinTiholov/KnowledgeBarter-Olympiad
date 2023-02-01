@@ -2,7 +2,7 @@ import {Link} from 'react-router-dom'
 export const Lesson = (props) => {
     return (
         <div className="col">
-        <div className="card card-display border-0" style={{ width: "15rem" }}>
+        <div className="card card-display border-0" style={{ width: "15rem", margin: 'auto' }}>
             <img
                 src={props.thumbnail}
                 className="card-img"

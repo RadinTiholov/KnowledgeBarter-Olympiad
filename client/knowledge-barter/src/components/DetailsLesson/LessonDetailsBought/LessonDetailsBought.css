@@ -1,11 +1,13 @@
-.card-display-details{
+.card-display-details {
     background-color: #636EA7;
 }
-.profile-comment{
+
+.profile-comment {
     height: 50px;
     width: 50px;
 }
-.backgound-layer-details{
+
+.backgound-layer-details {
     aspect-ratio: 16/4;
     width: 100%;
     background-repeat: no-repeat;
@@ -20,4 +22,44 @@
 .video {
     aspect-ratio: 16 / 9;
     width: 100%;
-  }
+}
+
+
+@media screen and (max-width: 1000px) {
+    div.row.pt-5 div.col-10 {
+        width: 100%;
+    }
+
+    div.row.pt-5 div.col-2 {
+        width: 100%;
+    }
+
+    .lessons-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: auto;
+    }
+
+    /* div.card.card-display-details {
+        width: 10rem;
+    } */
+
+}
+
+@media screen and (max-width: 455px) {
+    .lessons-container {
+        justify-content: center;
+    }
+}
+
+
+@media screen and (max-width: 370px) {
+    div.comment-card div.col-1 {
+        display: none;
+    }
+
+    div.comment-card div.col-11 {
+        padding-left: 1.5rem;
+    }
+}

@@ -1,28 +1,51 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
 
-html *
-{
+html * {
     font-family: 'Open Sans', sans-serif;
 }
-p{
+
+#root {
+    min-height: 100vh;
+}
+
+p {
     font-size: 20px;
     font-weight: 600;
 }
-.wave-image{
+
+.wave-image {
     width: 100%;
 }
 
 .row-cols-5>* {
-    width: 240px;    
+    width: 240px;
     margin: auto;
 }
 
 div.card.card-display.border-0 {
-    width: 100%;    
+    width: 100%;
 }
 
 div.row.row-cols-5 {
     gap: 1rem;
     flex-wrap: wrap;
     justify-content: center;
+}
+
+section#nav-bar {
+    min-height: 5vh;
+}
+
+section#main {
+    min-height: 90vh;
+    /* display: flex;
+    flex-direction: column; */
+}
+
+.backgound-layer-profile {
+    min-height: 90vh;
+}
+
+footer {
+    min-height: 5vh;
 }

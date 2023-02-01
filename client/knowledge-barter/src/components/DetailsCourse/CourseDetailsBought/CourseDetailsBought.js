@@ -160,7 +160,9 @@ export const CourseDetailsBought = (props) => {
                     </div>
                     <div className="col-2">
                         <p>Lessons</p>
-                        {props.course?.lessons?.map(x => <Lesson key={x.id} {...x} courseId={props.course.id} />)}
+                        <div className='lessons-container'>
+                            {props.course?.lessons?.map(x => <Lesson key={x.id} {...x} courseId={props.course.id} />)}
+                        </div>
                     </div>
                 </div>
             </div>
