@@ -8,7 +8,7 @@ import { CourseContext } from '../../contexts/CourseContext'
 import { AuthContext } from '../../contexts/AuthContext'
 import * as courseService from '../../dataServices/coursesService'
 import { onSelectFile } from '../../infrastructureUtils/fileSelectionUtils';
-import { isValidForm } from '../../infrastructureUtils/validationUtils';
+import { isValidForm, minMaxValidator } from '../../infrastructureUtils/validationUtils';
 
 export const CreateCourse = () => {
     const [collection] = useCollectionInfo('ownLessons');
@@ -67,10 +67,6 @@ export const CreateCourse = () => {
             })
     }
 
-    const minMaxValidator = (e, min, max) => {
-        setErrors(state => ({ ...state, [e.target.name]: inputData[e.target.name].length < min || inputData[e.target.name].length > max }))
-    }
-
     return (<div style={{ backgroundImage: `url(${background})` }} className="backgound-layer-login">
         {/* Create course form */}
         <div className="container">
@@ -91,7 +87,7 @@ export const CreateCourse = () => {
                                         placeholder="Some title"
                                         onChange={onChange}
                                         value={inputData.title}
-                                        onBlur={(e) => minMaxValidator(e, 3, 20)}
+                                        onBlur={(e) => minMaxValidator(e, 3, 20, setErrors, inputData)}
                                     />
                                     <label htmlFor="title">Title</label>
                                 </div>
@@ -114,7 +110,7 @@ export const CreateCourse = () => {
                                         placeholder="Some description"
                                         onChange={onChange}
                                         value={inputData.description}
-                                        onBlur={(e) => minMaxValidator(e, 10, 60)}
+                                        onBlur={(e) => minMaxValidator(e, 10, 60, setErrors, inputData)}
                                     />
                                     <label htmlFor="description">Description</label>
                                 </div>

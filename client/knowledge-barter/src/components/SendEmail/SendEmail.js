@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useLessonsWithUser } from '../../hooks/useLessonsWithUser';
 import background from '../../images/waves-login.svg';
 import * as emailService from '../../dataServices/emailService';
-import { isValidForm } from '../../infrastructureUtils/validationUtils';
+import { emailValidator, isValidForm, minMaxValidator } from '../../infrastructureUtils/validationUtils';
 
 export const SendEmail = () => {
     const { id } = useParams();
@@ -40,14 +40,6 @@ export const SendEmail = () => {
             })
     }
 
-    const emailValidator = (e) => {
-        var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-        setErrors(state => ({ ...state, [e.target.name]: !re.test(inputData.senderEmail) }))
-    }
-    const minMaxValidator = (e, min, max) => {
-        setErrors(state => ({ ...state, [e.target.name]: inputData[e.target.name].length < min || inputData[e.target.name].length > max }))
-    }
-
     return (
         <div style={{ backgroundImage: `url(${background})` }} className="backgound-layer-login">
             {/* Login Form */}
@@ -72,7 +64,7 @@ export const SendEmail = () => {
                                             name="senderEmail"
                                             value={inputData.senderEmail}
                                             onChange={onChange}
-                                            onBlur={(e) => emailValidator(e)}
+                                            onBlur={(e) => emailValidator(e, setErrors, inputData, 'senderEmail')}
                                         />
                                         <label htmlFor="senderEmail">Your email</label>
                                     </div>
@@ -99,7 +91,7 @@ export const SendEmail = () => {
                                             name="topic"
                                             value={inputData.topic}
                                             onChange={onChange}
-                                            onBlur={(e) => minMaxValidator(e, 3, 20)}
+                                            onBlur={(e) => minMaxValidator(e, 3, 20, setErrors, inputData)}
                                         />
                                         <label htmlFor="topic">Topic</label>
                                     </div>
@@ -126,7 +118,7 @@ export const SendEmail = () => {
                                             rows={20}
                                             value={inputData.emailText}
                                             onChange={onChange}
-                                            onBlur={(e) => minMaxValidator(e, 30, 1000)}
+                                            onBlur={(e) => minMaxValidator(e, 30, 1000, setErrors, inputData)}
                                         />
                                         <label htmlFor="emailText">Email</label>
                                     </div>

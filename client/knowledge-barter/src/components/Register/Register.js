@@ -5,13 +5,14 @@ import { AuthContext } from '../../contexts/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 import * as authService from '../../dataServices/authService'
 import { onSelectFile } from '../../infrastructureUtils/fileSelectionUtils';
-import { isValidForm } from '../../infrastructureUtils/validationUtils';
+import { emailValidator, isValidForm, passwordValidator, usernameValidator } from '../../infrastructureUtils/validationUtils';
 
 export const Register = () => {
     const { userLogin } = useContext(AuthContext)
     const navigate = useNavigate();
     const [errors, setErrors] = useState({
         email: false,
+        username: false,
         password: false,
         image: false,
     })
@@ -56,18 +57,9 @@ export const Register = () => {
             setError({ active: true, message: "Password and RePassword aren't the same." })
         }
     }
-    const emailValidator = (e) => {
-        var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-        setErrors(state => ({ ...state, [e.target.name]: !re.test(inputData.email) }))
-    }
-    const passwordValidator = (e) => {
-        setErrors(state => ({ ...state, [e.target.name]: !inputData.password }))
-    }
+
     const rePasswordValidator = (e) => {
         setErrors(state => ({ ...state, [e.target.name]: !inputData.rePassword }))
-    }
-    const usernameValidator = (e) => {
-        setErrors(state => ({ ...state, [e.target.name]: inputData.username.length < 2 || inputData.username.length > 30 }))
     }
 
     return (
@@ -91,7 +83,7 @@ export const Register = () => {
                                             placeholder="ExAmPlE"
                                             value={inputData.username}
                                             onChange={onChange}
-                                            onBlur={(e) => usernameValidator(e)}
+                                            onBlur={(e) => usernameValidator(e, setErrors, inputData)}
                                         />
                                         <label htmlFor="username">Username</label>
                                     </div>
@@ -110,7 +102,7 @@ export const Register = () => {
                                             placeholder="name@example.com"
                                             value={inputData.email}
                                             onChange={onChange}
-                                            onBlur={(e) => emailValidator(e)}
+                                            onBlur={(e) => emailValidator(e, setErrors, inputData, 'email')}
                                         />
                                         <label htmlFor="email">Email address</label>
                                     </div>
@@ -130,7 +122,7 @@ export const Register = () => {
                                             placeholder="Password"
                                             value={inputData.password}
                                             onChange={onChange}
-                                            onBlur={(e) => passwordValidator(e)}
+                                            onBlur={(e) => passwordValidator(e, setErrors, inputData)}
                                         />
                                         <label htmlFor="password">Password</label>
                                     </div>

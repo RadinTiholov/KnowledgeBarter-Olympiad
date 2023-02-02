@@ -6,7 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { LessonContext } from '../../contexts/LessonContext';
 import DropboxChooser from 'react-dropbox-chooser';
 import { onSelectFile } from '../../infrastructureUtils/fileSelectionUtils';
-import { isValidForm } from '../../infrastructureUtils/validationUtils';
+import { isPositiveLength, isValidForm, minMaxValidator, urlYoutubeValidator } from '../../infrastructureUtils/validationUtils';
 
 export const EditLesson = () => {
     const {id} = useParams();
@@ -86,18 +86,6 @@ export const EditLesson = () => {
             return newValue;
         })
     }
-
-    //Validation
-    const minMaxValidator = (e, min, max) => {
-        setErrors(state => ({ ...state, [e.target.name]: inputData[e.target.name].length < min || inputData[e.target.name].length > max}))
-    }
-    const urlYoutubeValidator = (e) => {
-        var re = /^(https|http):\/\/(?:www\.)?youtube.com\/embed\/[A-z0-9]+/;
-        setErrors(state => ({ ...state, [e.target.name]: !re.test(inputData[e.target.name]) }))
-    }
-    const isPositivelength = (e) => {
-        setErrors(state => ({...state, [e.target.name]: inputData[e.target.name].length < 0}))
-    }
     
     return (
         <div style={{ backgroundImage: `url(${background})` }} className="backgound-layer-create">
@@ -120,7 +108,7 @@ export const EditLesson = () => {
                                             placeholder="Some title"
                                             value={inputData.title}
                                             onChange={onChange}
-                                            onBlur = {(e) => minMaxValidator(e, 3, 20)}
+                                            onBlur = {(e) => minMaxValidator(e, 3, 20, setErrors, inputData)}
                                         />
                                         <label htmlFor="title">Title</label>
                                     </div>
@@ -144,7 +132,7 @@ export const EditLesson = () => {
                                             placeholder="Some description"
                                             value={inputData.description}
                                             onChange={onChange}
-                                            onBlur = {(e) => minMaxValidator(e, 10, 60)}
+                                            onBlur = {(e) => minMaxValidator(e, 10, 60, setErrors, inputData)}
                                         />
                                         <label htmlFor="description">Description</label>
                                     </div>
@@ -168,7 +156,7 @@ export const EditLesson = () => {
                                             placeholder="Some link"
                                             value={inputData.video}
                                             onChange={onChange}
-                                            onBlur = {(e) => urlYoutubeValidator(e)}
+                                            onBlur = {(e) => urlYoutubeValidator(e, setErrors, inputData)}
                                         />
                                         <label htmlFor="video">Video Link</label>
                                     </div>
@@ -220,7 +208,7 @@ export const EditLesson = () => {
                                             placeholder="Tags"
                                             value={inputData.tags}
                                             onChange={onChange}
-                                            onBlur= {(e) => isPositivelength(e)}
+                                            onBlur= {(e) => isPositiveLength(e, setErrors, inputData)}
                                         />
                                         <label htmlFor="tags">Tags (split them by comma ",")</label>
                                     </div>
@@ -255,7 +243,7 @@ export const EditLesson = () => {
                                             rows={10}
                                             value={inputData.article}
                                             onChange={onChange}
-                                            onBlur = {(e) => minMaxValidator(e, 50, 1000)}
+                                            onBlur = {(e) => minMaxValidator(e, 50, 1000, setErrors, inputData)}
                                         />
                                         <label htmlFor="article">Article</label>
                                     </div>

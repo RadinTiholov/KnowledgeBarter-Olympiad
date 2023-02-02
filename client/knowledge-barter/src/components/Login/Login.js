@@ -4,7 +4,7 @@ import './Login.css'
 import * as authService from '../../dataServices/authService'
 import { AuthContext } from '../../contexts/AuthContext'
 import { useContext, useState } from 'react';
-import { isValidForm } from '../../infrastructureUtils/validationUtils';
+import { isValidForm, passwordValidator, usernameValidator } from '../../infrastructureUtils/validationUtils';
 
 export const Login = () => {
     const { userLogin } = useContext(AuthContext)
@@ -35,14 +35,6 @@ export const Login = () => {
             })
     }
     
-    //Validation
-    const usernameValidator = (e) => {
-        setErrors(state => ({ ...state, [e.target.name]: inputData.username.length < 2 || inputData.username.length > 20 }))
-    }
-    const passwordValidator = (e) => {
-        setErrors(state => ({ ...state, [e.target.name]: !inputData.password }))
-    }
-    
     return (
         <div style={{ backgroundImage: `url(${background})` }} className="backgound-layer-login">
             {/* Login Form */}
@@ -64,7 +56,7 @@ export const Login = () => {
                                             name="username"
                                             value={inputData.username}
                                             onChange={onChange}
-                                            onBlur={(e) => usernameValidator(e)}
+                                            onBlur={(e) => usernameValidator(e, setErrors, inputData)}
                                         />
                                         <label htmlFor="floatingInput">Username</label>
                                     </div>
@@ -90,7 +82,7 @@ export const Login = () => {
                                             name="password"
                                             onChange={onChange}
                                             value={inputData.password}
-                                            onBlur={(e) => passwordValidator(e)}
+                                            onBlur={(e) => passwordValidator(e, setErrors, inputData)}
                                         />
                                         <label htmlFor="floatingPassword">Password</label>
                                     </div>
