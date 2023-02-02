@@ -1,6 +1,6 @@
 import './Lessons.css'
 import { Lesson } from './Lesson/Lesson'
-import { useContext, useMemo, useState } from 'react'
+import { useContext, useEffect, useMemo, useState } from 'react'
 import { LessonContext } from '../../contexts/LessonContext'
 import { useParams } from 'react-router-dom'
 import Pagination from '../common/Pagination/Pagination'
@@ -11,12 +11,27 @@ export const Lessons = () => {
     const { lessons } = useContext(LessonContext);
     const { search } = useParams();
 
+    const [collectionLength, setCollectionLength] = useState(0);
+    useEffect(() => {
+        if (search) {
+            setCollectionLength(lessons.filter(x => x.title.toLowerCase().includes(search?.toLowerCase())).length);
+        }
+        else{
+            setCollectionLength(lessons.length);
+        }
+    }, [collectionLength, lessons, search])
+
     const [currentPage, setCurrentPage] = useState(1);
     const currentTableData = useMemo(() => {
         const firstPageIndex = (currentPage - 1) * pageSize;
         const lastPageIndex = firstPageIndex + pageSize;
+
+        if (search) {
+            return lessons.filter(x => x.title.toLowerCase().includes(search.toLowerCase())).slice(firstPageIndex, lastPageIndex);
+        }
+
         return lessons.slice(firstPageIndex, lastPageIndex);
-    }, [currentPage, lessons]);
+    }, [currentPage, lessons, search]);
 
     return (
         <div className="backgound-layer-lessons">
@@ -32,7 +47,7 @@ export const Lessons = () => {
                 <Pagination
                     className="pagination-bar"
                     currentPage={currentPage}
-                    totalCount={lessons.length}
+                    totalCount={collectionLength}
                     pageSize={pageSize}
                     onPageChange={page => setCurrentPage(page)}
                 />
