@@ -1,11 +1,22 @@
 import './Courses.css'
-import { useContext } from 'react'
+import { useContext, useMemo, useState } from 'react'
 import { CourseContext } from '../../contexts/CourseContext'
 import background from '../../images/waves-lessons.svg'
 import { Course } from './Course/Course'
+import Pagination from '../common/Pagination/Pagination'
+
+let pageSize = 10;
 
 export const Courses = () => {
     const { courses } = useContext(CourseContext)
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const currentTableData = useMemo(() => {
+        const firstPageIndex = (currentPage - 1) * pageSize;
+        const lastPageIndex = firstPageIndex + pageSize;
+        return courses.slice(firstPageIndex, lastPageIndex);
+    }, [currentPage, courses]);
+
     return (
         <div style={{ backgroundImage: `url(${background})` }} className="backgound-layer-courses">
             <div className="col text-xl-center">
@@ -14,9 +25,16 @@ export const Courses = () => {
             <div className="container">
                 <div className="text-center">
                     <div className="row row-cols-5 gy-3 pb-5 pt-3">
-                        {courses.map(x => <Course {...x} key={x.id} />)}
+                        {currentTableData.map(x => <Course {...x} key={x.id} />)}
                     </div>
                 </div>
+                <Pagination
+                    className="pagination-bar"
+                    currentPage={currentPage}
+                    totalCount={courses.length}
+                    pageSize={pageSize}
+                    onPageChange={page => setCurrentPage(page)}
+                />
             </div>
         </div>
     )
