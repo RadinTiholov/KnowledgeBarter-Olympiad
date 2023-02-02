@@ -42,7 +42,7 @@ namespace KnowledgeBarter.Server.Services
         {
             // Save image to Cloudinary
             var imageUrl = await this.cloudinaryService
-                .UploadAsync(file, file.Name);
+                .UploadAsync(file, file.FileName);
 
             // Check if it exists
             var existingImage = await this.imageRepository
