@@ -9,6 +9,7 @@ const LessonOwner = ({ children }) => {
     const { id } = useParams();
 
     const currentLesson = select(id);
+    
     if (auth?._id !== currentLesson.owner) {
         return <Navigate to='/lesson/all' replace />
     }

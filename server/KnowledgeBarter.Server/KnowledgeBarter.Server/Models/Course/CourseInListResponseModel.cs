@@ -14,6 +14,8 @@
 
         public string Thumbnail { get; set; } = null!;
 
+        public string Owner { get; set; } = null!;
+
         public int[] Lessons { get; set; } = null!;
 
         public void CreateMappings(IProfileExpression configuration)
@@ -22,7 +24,9 @@
                 .ForMember(x => x.Thumbnail, opt =>
                     opt.MapFrom(i => i.Image.Url))
                 .ForMember(x => x.Lessons, opt =>
-                    opt.MapFrom(i => i.Lessons.Select(x => x.Id).ToArray()));
+                    opt.MapFrom(i => i.Lessons.Select(x => x.Id).ToArray()))
+                .ForMember(x => x.Owner, opt =>
+                    opt.MapFrom(i => i.OwnerId));
         }
     }
 }

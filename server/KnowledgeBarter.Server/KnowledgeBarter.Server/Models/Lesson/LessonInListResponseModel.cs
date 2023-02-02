@@ -14,12 +14,15 @@
 
         public string Thumbnail { get; set; } = null!;
 
+        public string Owner { get; set; } = null!;
 
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<Lesson, LessonInListResponseModel>()
                 .ForMember(x => x.Thumbnail, opt =>
-                    opt.MapFrom(i => i.Image.Url));
+                    opt.MapFrom(i => i.Image.Url))
+                .ForMember(x => x.Owner, opt =>
+                    opt.MapFrom(i => i.OwnerId));
         }
     }
 }
