@@ -39,7 +39,7 @@ export const LessonDetailsBought = (props) => {
                             title='video'
                             className="video"
                             src={props.lesson.video}
-                            frameborder="0"
+                            frameBorder="0"
                             allow="accelerometer; autoplay; encrypted-media; gyroscope;"
                             allowfullscreen>
                         </iframe>
