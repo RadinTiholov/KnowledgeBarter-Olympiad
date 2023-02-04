@@ -49,3 +49,13 @@ section#main {
 footer {
     min-height: 5vh;
 }
+
+.zoom {
+    transition: transform .2s; /* Animation */
+}
+
+
+.zoom:hover {
+    z-index: 2;
+    transform: scale(1.15); /* (130% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
