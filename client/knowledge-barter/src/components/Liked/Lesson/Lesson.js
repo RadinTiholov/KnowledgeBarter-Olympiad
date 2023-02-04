@@ -16,7 +16,7 @@ export const Lesson = (props) => {
                     className="btn"
                     style={{ backgroundColor: "#636EA7", color: "#fff" }}
                 >
-                    Details(lesson)
+                    Details (Lesson)
                 </Link>
             </div>
         </div>

@@ -295,7 +295,7 @@ namespace KnowledgeBarter.Server.Services
                 throw new ArgumentException(NotFoundMessage);
             }
 
-            if (course.OwnerId == userId || user.BoughtLessons.Any(x => x.Id == courseId))
+            if (course.OwnerId == userId || user.BoughtCourses.Any(x => x.Id == courseId) || user.LikedCourses.Any(x => x.Id == courseId))
             {
                 return true;
             }
