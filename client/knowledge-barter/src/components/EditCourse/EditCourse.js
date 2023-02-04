@@ -8,9 +8,10 @@ import { CourseContext } from '../../contexts/CourseContext'
 import * as courseService from '../../dataServices/coursesService'
 import { onSelectFile } from '../../infrastructureUtils/fileSelectionUtils';
 import { isValidForm, minMaxValidator } from '../../infrastructureUtils/validationUtils';
+import { SmallSpinner } from '../common/Spinners/SmallSpinner';
 
 export const EditCourse = () => {
-    const [collection] = useCollectionInfo('ownLessons');
+    const [collection, isLoading] = useCollectionInfo('ownLessons');
     const navigate = useNavigate();
     const { update } = useContext(CourseContext);
 
@@ -163,15 +164,18 @@ export const EditCourse = () => {
                                 }
 
                                 <h5>Your lessons</h5>
-                                <div className="form-floating mb-3">
-                                    {collection.length > 0 ? collection?.map(x => <Option {...x} key={x.id} onChange={onChange} isSelected={inputData.lessons.some(y => y.id === x.id)} />) : <p className='text-center'>No lessons yet.</p>}
-                                    {error.active === true ? <div className="alert alert-danger fade show mt-3">
-                                        <strong>Error!</strong> {error.message}
-                                    </div> : null}
-                                    {collection?.length < 6 ? <div className="alert alert-danger fade show mt-3">
-                                        <strong>Error!</strong>You need at least 6 lessons to create a course.
-                                    </div> : null}
-                                </div>
+                                {isLoading ?
+                                    <SmallSpinner /> :
+                                    <div className="form-floating mb-3">
+                                        {collection.length > 0 ? collection?.map(x => <Option {...x} key={x.id} onChange={onChange} isSelected={inputData.lessons.some(y => y.id === x.id)} />) : <p className='text-center'>No lessons yet.</p>}
+                                        {error.active === true ? <div className="alert alert-danger fade show mt-3">
+                                            <strong>Error!</strong> {error.message}
+                                        </div> : null}
+                                        {collection?.length < 6 ? <div className="alert alert-danger fade show mt-3">
+                                            <strong>Error!</strong>You need at least 6 lessons to create a course.
+                                        </div> : null}
+                                    </div>
+                                }
                                 <div className="d-grid">
                                     <button
                                         className="btn btn-outline-warning"

@@ -9,10 +9,11 @@ import { AuthContext } from '../../contexts/AuthContext'
 import * as courseService from '../../dataServices/coursesService'
 import { onSelectFile } from '../../infrastructureUtils/fileSelectionUtils';
 import { isValidForm, minMaxValidator } from '../../infrastructureUtils/validationUtils';
+import { SmallSpinner } from '../common/Spinners/SmallSpinner';
 
 export const CreateCourse = () => {
-    const [collection] = useCollectionInfo('ownLessons');
-
+    const [collection, isLoading] = useCollectionInfo('ownLessons');
+    console.log(isLoading);
     const navigate = useNavigate();
 
     const { create } = useContext(CourseContext)
@@ -49,7 +50,7 @@ export const CreateCourse = () => {
         const formData = new FormData(e.target);
 
         for (let i = 0; i < collection?.length; i++) {
-            
+
             if (formData.get(collection[i].id) !== null) {
                 formData.append("lessons", formData.get(collection[i].id))
             }
@@ -148,24 +149,27 @@ export const CreateCourse = () => {
                                         <i className="fa-solid fa-triangle-exclamation me-2" />
                                         <div className="text-center">
                                             The allowed extenstions are jpeg, jpg and png.
-                                        </div> 
+                                        </div>
                                     </div>
                                 }
 
                                 {visualizationImageUrl &&
                                     <img className='img-fluid mb-3' src={visualizationImageUrl} alt='img' style={{ height: 300 }} />
                                 }
-                                    
+
                                 <h5>Your lessons</h5>
-                                <div className="form-floating mb-3">
-                                    {collection.length > 0 ? collection?.map(x => <Option {...x} key={x.id} onChange={onChange} value={inputData.lessons} />) : <p className='text-center'>No lessons yet.</p>}
-                                    {error.active === true ? <div className="alert alert-danger fade show mt-3">
-                                        <strong>Error! </strong> {error.message}
-                                    </div> : null}
-                                    {collection?.length < 6 ? <div className="alert alert-danger fade show mt-3">
-                                        <strong>Error! </strong>You need at least 6 lessons to create a course.
-                                    </div> : null}
-                                </div>
+                                {isLoading ?
+                                    <SmallSpinner /> :
+                                    <div className="form-floating mb-3">
+                                        {collection.length > 0 ? collection?.map(x => <Option {...x} key={x.id} onChange={onChange} value={inputData.lessons} />) : <p className='text-center'>No lessons yet.</p>}
+                                        {error.active === true ? <div className="alert alert-danger fade show mt-3">
+                                            <strong>Error! </strong> {error.message}
+                                        </div> : null}
+                                        {collection?.length < 6 ? <div className="alert alert-danger fade show mt-3">
+                                            <strong>Error! </strong>You need at least 6 lessons to create a course.
+                                        </div> : null}
+                                    </div>
+                                }
                                 <div className="d-grid">
                                     <button
                                         className="btn btn-outline-warning"

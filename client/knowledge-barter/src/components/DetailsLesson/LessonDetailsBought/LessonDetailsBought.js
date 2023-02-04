@@ -41,7 +41,7 @@ export const LessonDetailsBought = (props) => {
                             src={props.lesson.video}
                             frameBorder="0"
                             allow="accelerometer; autoplay; encrypted-media; gyroscope;"
-                            allowfullscreen>
+                            allowFullScreen>
                         </iframe>
                         <div className="w-100 card card-display my-3">
                             <div className="mx-3">

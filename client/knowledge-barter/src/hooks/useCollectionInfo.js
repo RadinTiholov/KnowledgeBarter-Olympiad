@@ -11,6 +11,7 @@ export const useCollectionInfo = (collectionName) => {
     const { auth } = useContext(AuthContext);
     const { lessons } = useContext(LessonContext);
     const { courses } = useContext(CourseContext);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         authService.getDetails(auth._id)
@@ -26,6 +27,7 @@ export const useCollectionInfo = (collectionName) => {
                     Promise.all(promises)
                         .then((values) => {
                             setCollection(values)
+                            setIsLoading(false);
                         });
                 } else {
                     let promises = [];
@@ -37,10 +39,11 @@ export const useCollectionInfo = (collectionName) => {
                     Promise.all(promises)
                         .then((values) => {
                             setCollection(values)
+                            setIsLoading(false);
                         });
                 }
             })
     }, [lessons, courses, auth, collectionName])
 
-    return [collection]
+    return [collection, isLoading]
 }

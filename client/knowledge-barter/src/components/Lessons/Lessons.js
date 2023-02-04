@@ -22,7 +22,7 @@ export const Lessons = () => {
     }, [collectionLength, lessons, search])
 
     const [currentPage, setCurrentPage] = useState(1);
-    const currentTableData = useMemo(() => {
+    const currentCollection = useMemo(() => {
         const firstPageIndex = (currentPage - 1) * pageSize;
         const lastPageIndex = firstPageIndex + pageSize;
 
@@ -41,7 +41,7 @@ export const Lessons = () => {
             <div className="container">
                 <div className="text-center">
                     <div className="row row-cols-5 gy-3 pb-5 pt-3">
-                        {search ? currentTableData.map(x => x.title.toLowerCase().includes(search.toLowerCase()) ? <Lesson {...x} key={x.id} /> : null) : currentTableData.map(x => <Lesson {...x} key={x.id} />)}
+                        {search ? currentCollection.map(x => x.title.toLowerCase().includes(search.toLowerCase()) ? <Lesson {...x} key={x.id} /> : null) : currentCollection.map(x => <Lesson {...x} key={x.id} />)}
                     </div>
                 </div>
                 <Pagination

@@ -11,7 +11,7 @@ export const Courses = () => {
     const { courses } = useContext(CourseContext)
 
     const [currentPage, setCurrentPage] = useState(1);
-    const currentTableData = useMemo(() => {
+    const currentCollection = useMemo(() => {
         const firstPageIndex = (currentPage - 1) * pageSize;
         const lastPageIndex = firstPageIndex + pageSize;
         return courses.slice(firstPageIndex, lastPageIndex);
@@ -25,7 +25,7 @@ export const Courses = () => {
             <div className="container">
                 <div className="text-center">
                     <div className="row row-cols-5 gy-3 pb-5 pt-3">
-                        {currentTableData.map(x => <Course {...x} key={x.id} />)}
+                        {currentCollection.map(x => <Course {...x} key={x.id} />)}
                     </div>
                 </div>
                 <Pagination
