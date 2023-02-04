@@ -10,7 +10,6 @@ export const BoughtLessons = () => {
             <div className="col text-xl-center">
                 <h1 className="fw-bold mb-3 pt-5">Bought Lessons</h1>
             </div>
-            <BookSpinner/>
             { isLoading ? 
             <BookSpinner/> : 
             <div className="container">

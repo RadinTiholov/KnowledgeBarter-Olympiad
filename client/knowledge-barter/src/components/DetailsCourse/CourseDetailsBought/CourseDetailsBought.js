@@ -33,7 +33,7 @@ export const CourseDetailsBought = (props) => {
                 <div className="row pt-5">
                     <div className="col-10">
                         <h1>{props.course.title}</h1>
-
+ 
                         <iframe
                             title='video'
                             className="video"

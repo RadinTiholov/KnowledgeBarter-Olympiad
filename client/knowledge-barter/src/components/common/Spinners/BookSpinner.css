@@ -2,12 +2,17 @@
 	--hue: 223;
 	--bg: hsl(var(--hue),10%,90%);
 	--fg: hsl(var(--hue),10%,10%);
-	--primary: hsl(var(--hue),90%,55%);
-	--primary-l: hsl(var(--hue),90%,65%);
+	--primary: rgb(99 110 167);
+	--primary-l: rgb(79 88 134);;
 	--primary-d: hsl(var(--hue),90%,45%);
 	--white: hsl(var(--hue),10%,100%);
 	--white-d: hsl(var(--hue),10%,45%);
 }
+
+.book {
+	margin: 3rem auto;
+}
+
 .book,
 .book__pg-shadow,
 .book__pg {
