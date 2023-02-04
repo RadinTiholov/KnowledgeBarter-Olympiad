@@ -8,7 +8,7 @@ export const YourCourses = () => {
     return (
         <div style={{ backgroundImage: `url(${background})` }} className="backgound-layer-courses">
             <div className="col text-xl-center">
-                <h1 className="fw-bold mb-3 pt-5">Your Courses</h1>
+                <h1 className="fw-bold mb-3 pt-5 text-center">Your Courses</h1>
             </div>
             {isLoading ?
                 <BookSpinner /> :

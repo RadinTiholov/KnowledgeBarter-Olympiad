@@ -8,7 +8,7 @@ export const BoughtLessons = () => {
     return (
         <div style = {{backgroundImage: `url(${background})`}}className="backgound-layer-lessons">
             <div className="col text-xl-center">
-                <h1 className="fw-bold mb-3 pt-5">Bought Lessons</h1>
+                <h1 className="fw-bold mb-3 pt-5 text-center">Bought Lessons</h1>
             </div>
             { isLoading ? 
             <BookSpinner/> : 

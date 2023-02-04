@@ -10,7 +10,7 @@ export const Liked = () => {
     return (
         <div style={{ backgroundImage: `url(${background})` }} className="backgound-layer-lessons">
             <div className="col text-xl-center">
-                <h1 className="fw-bold mb-3 pt-5">Liked</h1>
+                <h1 className="fw-bold mb-3 pt-5 text-center">Liked</h1>
             </div>
             {isLoadingLessons === true || isLoadingCourses === true ?
                 <BookSpinner />

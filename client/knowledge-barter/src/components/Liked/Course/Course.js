@@ -3,7 +3,7 @@ export const Course = (props) => {
     
     return (
         <div className="col">
-        <div className="card card-display border-0 zoom" style={{ width: "15rem" }}>
+        <div className="card card-display border-0 zoom" style={{ width: "15rem", margin: 'auto' }}>
             <img
                 src={props.thumbnail}
                 className="card-img"
