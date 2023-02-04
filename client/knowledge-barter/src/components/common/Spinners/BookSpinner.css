@@ -10,7 +10,8 @@
 }
 
 .book {
-	margin: 3rem auto;
+	margin: 0 auto;
+	padding: 3rem 0;
 }
 
 .book,
