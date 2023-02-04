@@ -8,16 +8,22 @@ import { isValidForm, passwordValidator, usernameValidator } from '../../infrast
 
 export const Login = () => {
     const { userLogin } = useContext(AuthContext)
+
     const navigate = useNavigate();
+
     const [errors, setErrors] = useState({
         username: false,
         password: false
     })
+
     const [error, setError] = useState({active: false, message: ""});
+
     const [inputData, setInputData] = useState({
         username: "",
         password: ""
     });
+
+    const [isLoading, setIsLoading] = useState(false);
 
     const onChange = (e) => {
         setInputData(state => (
@@ -25,13 +31,23 @@ export const Login = () => {
     }
     const onSubmit = (e) => {
         e.preventDefault();
+
+        // Start spinner
+        setIsLoading(true);
+
         authService.login(inputData)
             .then(res => {
                 userLogin(res);
+
+                //Stop spinner
+                setIsLoading(false);
                 navigate('/')
             })
             .catch(res => {
                 setError({active: true, message: res.message})
+
+                //Stop spinner
+                setIsLoading(false);
             })
     }
     
@@ -102,6 +118,9 @@ export const Login = () => {
                                             type="submit"
                                             disabled={!isValidForm(errors) || (!inputData.username && !inputData.password)}
                                         >
+                                            {isLoading 
+                                                ? <span className="spinner-border spinner-border-sm mx-2" role="status" aria-hidden="true" /> 
+                                                : <></>}
                                             Login
                                         </button>
                                     </div>

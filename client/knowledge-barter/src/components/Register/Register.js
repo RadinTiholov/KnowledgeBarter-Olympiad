@@ -30,6 +30,8 @@ export const Register = () => {
 
     const [visualizationImageUrl, setVisualizationImageUrl] = useState('');
 
+    const [isLoading, setIsLoading] = useState(false);
+
     const onChange = (e) => {
         setInputData(state => (
             { ...state, [e.target.name]: e.target.value }))
@@ -37,6 +39,10 @@ export const Register = () => {
 
     const onSubmit = (e) => {
         e.preventDefault();
+
+        // Start spinner
+        setIsLoading(true);
+
         if (inputData.password === inputData.rePassword) {
             const formData = new FormData(e.target);
             
@@ -47,10 +53,16 @@ export const Register = () => {
             authService.register(formData)
                 .then(res => {
                     userLogin(res);
+
+                    //Stop spinner
+                    setIsLoading(false);
                     navigate('/')
                 })
                 .catch(res => {
                     setError({ active: true, message: res.message })
+
+                    //Stop spinner
+                    setIsLoading(false);
                 })
         }
         else {
@@ -187,6 +199,9 @@ export const Register = () => {
                                             type="submit"
                                             disabled={!isValidForm(errors) || !(inputData.email && inputData.password && inputData.rePassword && imageData.imageFile && inputData.username)}
                                         >
+                                            {isLoading 
+                                                ? <span className="spinner-border spinner-border-sm mx-2" role="status" aria-hidden="true" /> 
+                                                : <></>}
                                             Register
                                         </button>
                                     </div>

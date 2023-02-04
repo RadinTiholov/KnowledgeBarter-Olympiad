@@ -9,7 +9,7 @@ import { onSelectFile } from '../../infrastructureUtils/fileSelectionUtils';
 import { isPositiveLength, isValidForm, minMaxValidator, urlYoutubeValidator } from '../../infrastructureUtils/validationUtils';
 
 export const EditLesson = () => {
-    const {id} = useParams();
+    const { id } = useParams();
 
     const [inputData, setInputData] = useState({
         title: "",
@@ -36,7 +36,7 @@ export const EditLesson = () => {
     }, [])
 
     const navigate = useNavigate();
-    const {update} = useContext(LessonContext)
+    const { update } = useContext(LessonContext)
     const [errors, setErrors] = useState({
         title: false,
         description: false,
@@ -47,7 +47,9 @@ export const EditLesson = () => {
         resources: false,
     })
 
-    const [error, setError] = useState({active: false, message: ""});
+    const [error, setError] = useState({ active: false, message: "" });
+
+    const [isLoading, setIsLoading] = useState(false);
 
     const onChange = (e) => {
         setInputData(state => {
@@ -65,17 +67,26 @@ export const EditLesson = () => {
     const onSubmit = (e) => {
         e.preventDefault();
 
+        // Start spinner
+        setIsLoading(true);
+
         let formData = new FormData(e.target);
 
         formData.append('resources', inputData.resources ? inputData.resources : '');
 
-        lessonsService.update(formData, id )
+        lessonsService.update(formData, id)
             .then(res => {
                 update(res)
-                navigate('/lesson/details/' + id )
+
+                // Stop spinner
+                setIsLoading(false);
+                navigate('/lesson/details/' + id)
             })
             .catch(err => {
-                setError({active: true, message: err.message})
+                setError({ active: true, message: err.message })
+                
+                // Stop spinner
+                setIsLoading(false);
             })
     }
 
@@ -86,7 +97,7 @@ export const EditLesson = () => {
             return newValue;
         })
     }
-    
+
     return (
         <div style={{ backgroundImage: `url(${background})` }} className="backgound-layer-create">
             {/* Login Form */}
@@ -108,21 +119,21 @@ export const EditLesson = () => {
                                             placeholder="Some title"
                                             value={inputData.title}
                                             onChange={onChange}
-                                            onBlur = {(e) => minMaxValidator(e, 3, 20, setErrors, inputData)}
+                                            onBlur={(e) => minMaxValidator(e, 3, 20, setErrors, inputData)}
                                         />
                                         <label htmlFor="title">Title</label>
                                     </div>
                                     {/* Alert */}
-                                    {errors.title && 
-                                    <div
-                                        className="alert alert-danger d-flex align-items-center"
-                                        role="alert"
-                                    >
-                                        <i className="fa-solid fa-triangle-exclamation me-2" />
-                                        <div className="text-center">
-                                            The length of the title must be a minimum of 3 and a maximum of 20 characters.
-                                        </div>
-                                    </div>}
+                                    {errors.title &&
+                                        <div
+                                            className="alert alert-danger d-flex align-items-center"
+                                            role="alert"
+                                        >
+                                            <i className="fa-solid fa-triangle-exclamation me-2" />
+                                            <div className="text-center">
+                                                The length of the title must be a minimum of 3 and a maximum of 20 characters.
+                                            </div>
+                                        </div>}
                                     <div className="form-floating mb-3">
                                         <input
                                             type="text"
@@ -132,21 +143,21 @@ export const EditLesson = () => {
                                             placeholder="Some description"
                                             value={inputData.description}
                                             onChange={onChange}
-                                            onBlur = {(e) => minMaxValidator(e, 10, 60, setErrors, inputData)}
+                                            onBlur={(e) => minMaxValidator(e, 10, 60, setErrors, inputData)}
                                         />
                                         <label htmlFor="description">Description</label>
                                     </div>
                                     {/* Alert */}
-                                    {errors.description && 
-                                    <div
-                                        className="alert alert-danger d-flex align-items-center"
-                                        role="alert"
-                                    >
-                                        <i className="fa-solid fa-triangle-exclamation me-2" />
-                                        <div className="text-center">
-                                            The length of the description must be a minimum of 10 and a maximum of 60 characters.
-                                        </div>
-                                    </div>}
+                                    {errors.description &&
+                                        <div
+                                            className="alert alert-danger d-flex align-items-center"
+                                            role="alert"
+                                        >
+                                            <i className="fa-solid fa-triangle-exclamation me-2" />
+                                            <div className="text-center">
+                                                The length of the description must be a minimum of 10 and a maximum of 60 characters.
+                                            </div>
+                                        </div>}
                                     <div className="form-floating mb-3">
                                         <input
                                             type="text"
@@ -156,21 +167,21 @@ export const EditLesson = () => {
                                             placeholder="Some link"
                                             value={inputData.video}
                                             onChange={onChange}
-                                            onBlur = {(e) => urlYoutubeValidator(e, setErrors, inputData)}
+                                            onBlur={(e) => urlYoutubeValidator(e, setErrors, inputData)}
                                         />
                                         <label htmlFor="video">Video Link</label>
                                     </div>
                                     {/* Alert */}
-                                    {errors.video && 
-                                    <div
-                                        className="alert alert-danger d-flex align-items-center"
-                                        role="alert"
-                                    >
-                                        <i className="fa-solid fa-triangle-exclamation me-2" />
-                                        <div className="text-center">
-                                            Please provide embedded youtube video.
-                                        </div>
-                                    </div>}
+                                    {errors.video &&
+                                        <div
+                                            className="alert alert-danger d-flex align-items-center"
+                                            role="alert"
+                                        >
+                                            <i className="fa-solid fa-triangle-exclamation me-2" />
+                                            <div className="text-center">
+                                                Please provide embedded youtube video.
+                                            </div>
+                                        </div>}
                                     {/* Image */}
                                     <div>
                                         <input
@@ -184,16 +195,16 @@ export const EditLesson = () => {
                                         </label>
                                     </div>
                                     {/* Alert */}
-                                    {errors.image && 
-                                    <div
-                                        className="alert alert-danger d-flex align-items-center"
-                                        role="alert"
-                                    >
-                                        <i className="fa-solid fa-triangle-exclamation me-2" />
-                                        <div className="text-center">
-                                            The allowed extenstions are jpeg, jpg and png.
-                                        </div>
-                                    </div>}
+                                    {errors.image &&
+                                        <div
+                                            className="alert alert-danger d-flex align-items-center"
+                                            role="alert"
+                                        >
+                                            <i className="fa-solid fa-triangle-exclamation me-2" />
+                                            <div className="text-center">
+                                                The allowed extenstions are jpeg, jpg and png.
+                                            </div>
+                                        </div>}
                                     {visualizationImageUrl &&
                                         <>
                                             <img className='img-fluid mb-3' src={visualizationImageUrl} alt='img' style={{ height: 300 }} />
@@ -208,29 +219,29 @@ export const EditLesson = () => {
                                             placeholder="Tags"
                                             value={inputData.tags}
                                             onChange={onChange}
-                                            onBlur= {(e) => isPositiveLength(e, setErrors, inputData)}
+                                            onBlur={(e) => isPositiveLength(e, setErrors, inputData)}
                                         />
                                         <label htmlFor="tags">Tags (split them by comma ",")</label>
                                     </div>
                                     {/* Alert */}
-                                    {errors.tags && 
-                                    <div
-                                        className="alert alert-danger d-flex align-items-center"
-                                        role="alert"
-                                    >
-                                        <i className="fa-solid fa-triangle-exclamation me-2" />
-                                        <div className="text-center">
-                                            Please provide tags.
-                                        </div>
-                                    </div>}
+                                    {errors.tags &&
+                                        <div
+                                            className="alert alert-danger d-flex align-items-center"
+                                            role="alert"
+                                        >
+                                            <i className="fa-solid fa-triangle-exclamation me-2" />
+                                            <div className="text-center">
+                                                Please provide tags.
+                                            </div>
+                                        </div>}
                                     <div className="form-control mb-3">
                                         <label htmlFor="resources">Resources (optional)</label>
                                         <div>
-                                            <DropboxChooser 
-                                                appKey= {"fp536edus6mtntt"}
-                                                success = {onSuccessfullyUploaded}
+                                            <DropboxChooser
+                                                appKey={"fp536edus6mtntt"}
+                                                success={onSuccessfullyUploaded}
                                                 multiselect={false}>
-                                                <div className="dropbox-button btn btn-outline-warning" style={{ backgroundColor: "#636EA7" }}>Upload here</div> 
+                                                <div className="dropbox-button btn btn-outline-warning" style={{ backgroundColor: "#636EA7" }}>Upload here</div>
                                             </DropboxChooser>
                                         </div>
                                     </div>
@@ -243,25 +254,25 @@ export const EditLesson = () => {
                                             rows={10}
                                             value={inputData.article}
                                             onChange={onChange}
-                                            onBlur = {(e) => minMaxValidator(e, 50, 1000, setErrors, inputData)}
+                                            onBlur={(e) => minMaxValidator(e, 50, 1000, setErrors, inputData)}
                                         />
                                         <label htmlFor="article">Article</label>
                                     </div>
                                     {/* Alert */}
-                                    {errors.article && 
-                                    <div
-                                        className="alert alert-danger d-flex align-items-center"
-                                        role="alert"
-                                    >
-                                        <i className="fa-solid fa-triangle-exclamation me-2" />
-                                        <div className="text-center">
-                                        The length of the description must be a minimum of 50 and a maximum of 1000 characters.
-                                        </div>
-                                    </div>}
+                                    {errors.article &&
+                                        <div
+                                            className="alert alert-danger d-flex align-items-center"
+                                            role="alert"
+                                        >
+                                            <i className="fa-solid fa-triangle-exclamation me-2" />
+                                            <div className="text-center">
+                                                The length of the description must be a minimum of 50 and a maximum of 1000 characters.
+                                            </div>
+                                        </div>}
                                     {/* Error message */}
                                     {error.active === true ? <div className="alert alert-danger fade show mt-3">
                                         <strong>Error!</strong> {error.message}
-                                    </div>: null}
+                                    </div> : null}
                                     <div className="d-grid">
                                         <button
                                             className="btn btn-outline-warning"
@@ -269,6 +280,9 @@ export const EditLesson = () => {
                                             type="submit"
                                             disabled={!isValidForm(errors) || (!inputData.title || !inputData.description || !inputData.video || !inputData.article || !inputData.tags.length > 0)}
                                         >
+                                            {isLoading
+                                                ? <span className="spinner-border spinner-border-sm mx-2" role="status" aria-hidden="true" />
+                                                : <></>}
                                             Update
                                         </button>
                                     </div>

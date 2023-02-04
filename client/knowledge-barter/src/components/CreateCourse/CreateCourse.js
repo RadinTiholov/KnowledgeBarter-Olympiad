@@ -39,6 +39,8 @@ export const CreateCourse = () => {
 
     const [error, setError] = useState({ active: false, message: "" });
 
+    const [isLoadingSubmit, setIsLoadingSubmit] = useState(false);
+
     const onChange = (e) => {
         setInputData(state => (
             { ...state, [e.target.name]: e.target.value }))
@@ -46,6 +48,9 @@ export const CreateCourse = () => {
 
     const onSubmit = (e) => {
         e.preventDefault();
+
+        // Start spinner
+        setIsLoadingSubmit(true);
 
         const formData = new FormData(e.target);
 
@@ -61,10 +66,16 @@ export const CreateCourse = () => {
             .then(res => {
                 create(res);
                 updatePoints(500);
+
+                // Stop spinner
+                setIsLoadingSubmit(false);
                 navigate('/course/details/' + res.id + '/' + res.lessons[0].id)
             })
             .catch(err => {
                 setError({ active: true, message: err.message })
+                
+                // Stop spinner
+                setIsLoadingSubmit(false);
             })
     }
 
@@ -177,6 +188,9 @@ export const CreateCourse = () => {
                                         type="submit"
                                         disabled={!isValidForm(errors) || (!inputData.title || !inputData.description || !imageData.imageFile || collection?.length < 6)}
                                     >
+                                        {isLoadingSubmit 
+                                                ? <span className="spinner-border spinner-border-sm mx-2" role="status" aria-hidden="true" /> 
+                                                : <></>}
                                         Create
                                     </button>
                                 </div>

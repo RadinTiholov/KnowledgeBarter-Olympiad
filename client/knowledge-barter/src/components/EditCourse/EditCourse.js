@@ -26,6 +26,8 @@ export const EditCourse = () => {
 
     const [visualizationImageUrl, setVisualizationImageUrl] = useState('');
 
+    const [isLoadingSubmit, setIsLoadingSubmit] = useState(false);
+
     const [imageData, setImageData] = useState({
         imageFile: '',
     });
@@ -55,6 +57,9 @@ export const EditCourse = () => {
     const onSubmit = (e) => {
         e.preventDefault();
 
+        // Start spinner
+        setIsLoadingSubmit(true);
+
         const formData = new FormData(e.target);
 
         for (let i = 0; i < collection?.length; i++) {
@@ -69,10 +74,16 @@ export const EditCourse = () => {
             courseService.update(formData, id)
                 .then(res => {
                     update(res)
+
+                    // Stop spinner
+                    setIsLoadingSubmit(false);
                     navigate('/course/details/' + id + '/' + res.lessons[0].id)
                 })
                 .catch(err => {
-                    setError({ active: true, message: err.message })
+                    setError({ active: true, message: err.message }) 
+                    
+                    // Stop spinner
+                    setIsLoadingSubmit(false);
                 })
         }
     }
@@ -183,6 +194,9 @@ export const EditCourse = () => {
                                         type="submit"
                                         disabled={!isValidForm(errors) || (!inputData.title || !inputData.description || collection?.length < 6)}
                                     >
+                                        {isLoadingSubmit 
+                                                ? <span className="spinner-border spinner-border-sm mx-2" role="status" aria-hidden="true" /> 
+                                                : <></>}
                                         Edit
                                     </button>
                                 </div>

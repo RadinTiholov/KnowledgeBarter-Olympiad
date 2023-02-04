@@ -39,6 +39,8 @@ export const CreateLesson = () => {
     })
     const [error, setError] = useState({active: false, message: ""});
 
+    const [isLoading, setIsLoading] = useState(false);
+
     const onChange = (e) => {
         setInputData(state => {
             if (e.target.name === 'tags') {
@@ -54,6 +56,9 @@ export const CreateLesson = () => {
     
     const onSubmit = (e) => {
         e.preventDefault();
+        
+        // Start spinner
+        setIsLoading(true);
 
         const formData = new FormData(e.target);
 
@@ -63,10 +68,14 @@ export const CreateLesson = () => {
             .then(res => {
                 create(res);
                 updatePoints(100);
+                // Stop spinner
+                setIsLoading(false);
                 navigate('/lesson/details/' + res.id)
             })
             .catch(err => {
                 setError({active: true, message: err.message})
+                // Stop spinner
+                setIsLoading(false);
             })
     }
     const onSuccessfullyUploaded = (file) => {
@@ -259,6 +268,9 @@ export const CreateLesson = () => {
                                             type="submit"
                                             disabled={!isValidForm(errors) || (!inputData.title || !inputData.description || !inputData.video || !inputData.article || !imageData.imageFile || !inputData.tags.length > 0)}
                                         >
+                                            {isLoading 
+                                                ? <span className="spinner-border spinner-border-sm mx-2" role="status" aria-hidden="true" /> 
+                                                : <></>}
                                             Create
                                         </button>
                                     </div>
