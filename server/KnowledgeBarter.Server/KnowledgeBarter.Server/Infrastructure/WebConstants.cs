@@ -30,6 +30,8 @@ namespace KnowledgeBarter.Server.Infrastructure
 
         public const string SuccessfullyBuied = "Successfully buied.";
 
+        public const string AdministratorRoleName = "administrator";
+
         public static readonly string[] AllowedImageExtensions = { ".jpg", ".jpeg", ".png" };
     }
 }

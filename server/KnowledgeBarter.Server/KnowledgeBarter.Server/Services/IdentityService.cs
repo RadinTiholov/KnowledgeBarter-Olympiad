@@ -20,7 +20,7 @@ namespace KnowledgeBarter.Server.Services
             this.applicationUserRepository = applicationUserRepository;
         }
 
-        public string GenerateJwtToken(string userId, string username, string secret)
+        public string GenerateJwtToken(string userId, string username, string role, string secret)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(secret);
@@ -31,6 +31,7 @@ namespace KnowledgeBarter.Server.Services
                 {
                     new Claim(ClaimTypes.Name, userId),
                     new Claim(ClaimTypes.NameIdentifier, username),
+                    new Claim(ClaimTypes.Role, role),
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)

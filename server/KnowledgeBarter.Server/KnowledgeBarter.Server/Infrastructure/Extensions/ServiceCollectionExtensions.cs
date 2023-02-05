@@ -108,6 +108,7 @@ namespace KnowledgeBarter.Server.Infrastructure.Extensions
                         IssuerSigningKey = new SymmetricSecurityKey(key),
                         ValidateIssuer = false,
                         ValidateAudience = false,
+                        RoleClaimType = "rol",
                     };
                 });
 
