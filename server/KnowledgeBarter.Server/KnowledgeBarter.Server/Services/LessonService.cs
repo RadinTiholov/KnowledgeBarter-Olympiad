@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using KnowledgeBarter.Server.Data.Common.Repositories;
 using KnowledgeBarter.Server.Data.Models;
+using KnowledgeBarter.Server.Infrastructure;
 using KnowledgeBarter.Server.Models.Lesson;
 using KnowledgeBarter.Server.Models.Lesson.Base;
 using KnowledgeBarter.Server.Services.Contracts;
@@ -81,7 +82,7 @@ namespace KnowledgeBarter.Server.Services
                 throw new ArgumentException(NotFoundMessage);
             }
 
-            if (lesson.OwnerId != userId)
+            if (lesson.OwnerId != userId && !await this.identityService.IsUserInRoleAsync(userId, WebConstants.AdministratorRoleName))
             {
                 throw new ArgumentException(Unauthorized);
             }
@@ -125,7 +126,7 @@ namespace KnowledgeBarter.Server.Services
                 throw new ArgumentException(NotFoundMessage);
             }
 
-            if (lesson.OwnerId != userId)
+            if (lesson.OwnerId != userId && !await this.identityService.IsUserInRoleAsync(userId, WebConstants.AdministratorRoleName))
             {
                 throw new ArgumentException(Unauthorized);
             }
