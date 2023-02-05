@@ -38,11 +38,17 @@ section#nav-bar {
 
 section#main {
     min-height: 90vh;
+    background-image: url('./images/waves-lessons.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
     /* display: flex;
     flex-direction: column; */
 }
 
-.backgound-layer-profile {
+.backgound-layer-profile,
+.backgound-layer-login,
+.backgound-layer-register{
     min-height: 90vh;
 }
 

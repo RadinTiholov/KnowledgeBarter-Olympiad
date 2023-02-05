@@ -6,7 +6,7 @@ import { BookSpinner } from '../common/Spinners/BookSpinner';
 export const BoughtCourses = () => {
     const [collection, isLoading] = useCollectionInfo('boughtCourses');
     return (
-        <div style={{ backgroundImage: `url(${background})` }} className="backgound-layer-courses">
+        <>
             <div className="col text-xl-center">
                 <h1 className="fw-bold mb-3 pt-5 text-center">Bought Courses</h1>
             </div>
@@ -22,6 +22,6 @@ export const BoughtCourses = () => {
                     </div>
                 </div>
             }
-        </div>
+        </>
     )
 }

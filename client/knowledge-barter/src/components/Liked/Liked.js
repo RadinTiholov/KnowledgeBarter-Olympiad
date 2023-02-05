@@ -8,7 +8,7 @@ export const Liked = () => {
     const [collectionLesson, isLoadingLessons] = useCollectionInfo('likedLessons');
     const [collectionCourses, isLoadingCourses] = useCollectionInfo('likedCourses');
     return (
-        <div style={{ backgroundImage: `url(${background})` }} className="backgound-layer-lessons">
+        <>
             <div className="col text-xl-center">
                 <h1 className="fw-bold mb-3 pt-5 text-center">Liked</h1>
             </div>
@@ -22,6 +22,6 @@ export const Liked = () => {
                         </div>
                     </div>
                 </div>}
-        </div>
+        </>
     )
 }
