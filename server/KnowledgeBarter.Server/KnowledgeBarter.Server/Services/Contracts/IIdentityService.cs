@@ -1,5 +1,6 @@
 ﻿using KnowledgeBarter.Server.Data.Models;
 using KnowledgeBarter.Server.Models.Identity;
+using System.Security.Claims;
 
 namespace KnowledgeBarter.Server.Services.Contracts
 {
@@ -16,5 +17,7 @@ namespace KnowledgeBarter.Server.Services.Contracts
         Task<IdentityProfileResponseModel> GetIdentityProfileAsync(string userId);
 
         Task<UserInformationResponseModel> GetUserInformationAsync(string userId);
+
+        Task<bool> IsUserInRoleAsync(string userId, string role);
     }
 }

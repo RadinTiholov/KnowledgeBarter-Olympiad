@@ -3,6 +3,7 @@ using KnowledgeBarter.Server.Data.Models;
 using KnowledgeBarter.Server.Models.Identity;
 using KnowledgeBarter.Server.Services.Contracts;
 using KnowledgeBarter.Server.Services.Mapping;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -14,10 +15,13 @@ namespace KnowledgeBarter.Server.Services
     public class IdentityService : IIdentityService
     {
         private readonly IRepository<ApplicationUser> applicationUserRepository;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public IdentityService(IRepository<ApplicationUser> applicationUserRepository)
+        public IdentityService(IRepository<ApplicationUser> applicationUserRepository,
+            UserManager<ApplicationUser> userManager)
         {
             this.applicationUserRepository = applicationUserRepository;
+            this.userManager = userManager;
         }
 
         public string GenerateJwtToken(string userId, string username, string role, string secret)
@@ -106,6 +110,17 @@ namespace KnowledgeBarter.Server.Services
                 .AllAsNoTracking()
                 .To<UserInformationResponseModel>()
                 .FirstOrDefaultAsync();
+        }
+
+        public async Task<bool> IsUserInRoleAsync(string userId, string role)
+        {
+            var user = await this.userManager.FindByIdAsync(userId);
+            if (await this.userManager.IsInRoleAsync(user, role))
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }
