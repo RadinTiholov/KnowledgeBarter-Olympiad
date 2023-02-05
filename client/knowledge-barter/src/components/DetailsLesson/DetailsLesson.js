@@ -79,6 +79,7 @@ export const DetailsLesson = () => {
             return temp
         })
     }
+
     return (
         <>
             {isBought || isOwner ? <LessonDetailsBought

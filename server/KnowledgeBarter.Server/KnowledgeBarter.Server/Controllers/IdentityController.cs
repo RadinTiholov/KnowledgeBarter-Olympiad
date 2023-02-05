@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-
 using static KnowledgeBarter.Server.Infrastructure.WebConstants;
 
 
@@ -52,9 +51,12 @@ namespace KnowledgeBarter.Server.Controllers
 
             if (result.Succeeded)
             {
+                var role = await this.GetCurrentRole(user);
+
                 var token = this.identityService.GenerateJwtToken(
                 user.Id.ToString(),
                 user.UserName,
+                role,
                 this.appSettings.Secret);
 
                 return new RegisterResponseModel()
@@ -63,6 +65,7 @@ namespace KnowledgeBarter.Server.Controllers
                     KBPoints = user.KBPoints,
                     Username = user.UserName,
                     Email = user.Email,
+                    Role = role,
                     _id = user.Id,
                 };
             }
@@ -93,9 +96,12 @@ namespace KnowledgeBarter.Server.Controllers
                 return Unauthorized();
             }
 
+            var role = await this.GetCurrentRole(user);
+
             var token = this.identityService.GenerateJwtToken(
                 user.Id.ToString(),
                 user.UserName,
+                role,
                 this.appSettings.Secret);
 
             return new LoginResponseModel()
@@ -104,6 +110,7 @@ namespace KnowledgeBarter.Server.Controllers
                 KBPoints = user.KBPoints,
                 Username = user.UserName,
                 Email = user.Email,
+                Role = role,
                 _id = user.Id,
             };
         }
@@ -140,6 +147,11 @@ namespace KnowledgeBarter.Server.Controllers
             }
 
             return user;
+        }
+        private async Task<string> GetCurrentRole(ApplicationUser user)
+        {
+            var roles = (List<string>)await this.userManager.GetRolesAsync(user);
+            return roles.Count > 0 ? roles[0].ToLower() : "User";
         }
     }
 }

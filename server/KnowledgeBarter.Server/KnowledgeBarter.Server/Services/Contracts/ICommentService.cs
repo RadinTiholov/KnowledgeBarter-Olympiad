@@ -9,5 +9,6 @@ namespace KnowledgeBarter.Server.Services.Contracts
         Task<IEnumerable<CommentWithPredictionInListResponseModel>> AllAsync();
 
         Task<CreateCommentResponseModel> CreateAsync(CreateCommentRequestModel model, int lessonId, string userId);
+        Task DeleteAsync(int id);
     }
 }

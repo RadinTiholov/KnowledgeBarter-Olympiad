@@ -6,7 +6,7 @@ using static KnowledgeBarter.Server.Data.Common.DataValidation.Comment;
 
 namespace KnowledgeBarter.Server.Data.Models
 {
-    public class Comment : BaseModel<int>
+    public class Comment : BaseDeletableModel<int>
     {
         [Required]
         [ForeignKey(nameof(Owner))]

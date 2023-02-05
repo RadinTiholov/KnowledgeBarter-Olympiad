@@ -16,6 +16,8 @@ namespace KnowledgeBarter.Server.Infrastructure
 
         public const string CreateCommentRoute = "/Comment/Create/{lessonId}";
 
+        public const string DeleteCommentRoute = "/Comment/Delete/{id}";
+
         public const string IdentityProfileRoute = "/Identity/Profile/{userId}";
 
         public const string UserInformationRoute = "/Identity/UserInformation/{userId}";
@@ -29,6 +31,8 @@ namespace KnowledgeBarter.Server.Infrastructure
         public const string SuccessfullyLiked = "Successfully liked.";
 
         public const string SuccessfullyBuied = "Successfully buied.";
+
+        public const string AdministratorRoleName = "administrator";
 
         public static readonly string[] AllowedImageExtensions = { ".jpg", ".jpeg", ".png" };
     }

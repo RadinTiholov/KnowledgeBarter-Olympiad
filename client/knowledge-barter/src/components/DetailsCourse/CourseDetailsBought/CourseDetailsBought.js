@@ -6,14 +6,19 @@ import { Lesson } from './Lesson/Lesson'
 import { useState } from 'react'
 import * as lessonsService from '../../../dataServices/lessonsService'
 import { commentValidator } from '../../../infrastructureUtils/validationUtils'
+import { speechHandler } from '../../../infrastructureUtils/commonUtils'
 
 export const CourseDetailsBought = (props) => {
     const [comment, setComment] = useState('');
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+
+    const speech = new SpeechSynthesisUtterance();
+
     const onChange = (e) => {
         setComment(e.target.value)
     }
+
     const onComment = (e) => {
         e.preventDefault();
         lessonsService.comment(props.lesson.id, comment)
@@ -25,6 +30,7 @@ export const CourseDetailsBought = (props) => {
                 setErrorMessage(err.message)
                 setComment('');
             })
+            
     }
     return (
         <div style={{ backgroundImage: `url(${background})` }} className="backgound-layer-details">
@@ -116,6 +122,7 @@ export const CourseDetailsBought = (props) => {
                             </div>
                             <div className="text-center">
                                 <h2>Information</h2>
+                                <button className='btn btn-primary' onClick={() => speechHandler(speech, props.lesson.article)}>SPEAK</button>
                                 <h5>
                                     {props.lesson.article}
                                 </h5>

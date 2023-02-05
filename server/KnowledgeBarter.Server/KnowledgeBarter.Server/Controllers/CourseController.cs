@@ -15,10 +15,12 @@ namespace KnowledgeBarter.Server.Controllers
     public class CourseController : ApiController
     {
         private readonly ICourseService courseService;
+        private readonly IIdentityService identityService;
 
-        public CourseController(ICourseService courseService)
+        public CourseController(ICourseService courseService, IIdentityService identityService)
         {
             this.courseService = courseService;
+            this.identityService = identityService;
         }
 
         /// <summary>
@@ -92,7 +94,7 @@ namespace KnowledgeBarter.Server.Controllers
                 if (User.Identity.IsAuthenticated)
                 {
                     var userId = this.User.Id();
-                    if (await this.courseService.IsBoughtOrOwnerAsync(id, userId))
+                    if (await this.courseService.IsBoughtOrOwnerAsync(id, userId) || await this.identityService.IsUserInRoleAsync(userId, AdministratorRoleName))
                     {
                         var course = await this.courseService.GetOneAsync<BoughtCourseDetailsResponseModel>(id);
 

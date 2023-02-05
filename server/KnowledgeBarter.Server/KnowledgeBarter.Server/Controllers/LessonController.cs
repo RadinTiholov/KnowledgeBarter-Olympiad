@@ -1,4 +1,5 @@
-﻿using KnowledgeBarter.Server.Infrastructure.Extensions;
+﻿using KnowledgeBarter.Server.Infrastructure;
+using KnowledgeBarter.Server.Infrastructure.Extensions;
 using KnowledgeBarter.Server.Models.Lesson;
 using KnowledgeBarter.Server.Models.Lesson.Base;
 using KnowledgeBarter.Server.Services.Contracts;
@@ -13,10 +14,12 @@ namespace KnowledgeBarter.Server.Controllers
     public class LessonController : ApiController
     {
         private readonly ILessonService lessonService;
+        private readonly IIdentityService identityService;
 
-        public LessonController(ILessonService lessonService)
+        public LessonController(ILessonService lessonService, IIdentityService identityService)
         {
             this.lessonService = lessonService;
+            this.identityService = identityService;
         }
 
         /// <summary>
@@ -77,7 +80,7 @@ namespace KnowledgeBarter.Server.Controllers
                 if (User.Identity.IsAuthenticated)
                 {
                     var userId = this.User.Id();
-                    if (await this.lessonService.IsBoughtOrOwnerAsync(id, userId))
+                    if (await this.lessonService.IsBoughtOrOwnerAsync(id, userId) || await this.identityService.IsUserInRoleAsync(userId, AdministratorRoleName))
                     {
                         var lesson = await this.lessonService.GetOneAsync<BoughtLessonDetailsResponseModel>(id);
 
