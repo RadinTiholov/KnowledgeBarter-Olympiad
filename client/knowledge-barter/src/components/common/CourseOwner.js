@@ -10,7 +10,7 @@ const CourseOwner = ({ children }) => {
 
     const currentCourse = select(id);
 
-    if (isAuthenticated && auth._id !== currentCourse.owner) {
+    if (isAuthenticated && auth._id !== currentCourse.owner && auth?.role !== 'administrator') {
         return <Navigate to='/course/all' replace />
     }
 

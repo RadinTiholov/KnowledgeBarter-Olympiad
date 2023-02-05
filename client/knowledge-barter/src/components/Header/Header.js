@@ -34,11 +34,26 @@ export const Header = () => {
                     </button>
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li className="nav-item">
-                                <Link className="nav-link active text-light" to="/">
-                                    Home
-                                </Link>
-                            </li>
+                            {auth?.role === 'administrator'
+                                ?
+                                <>
+                                    <li className="nav-item">
+                                        <Link className="nav-link active text-light" to="/">
+                                            Admin
+                                        </Link>
+                                    </li>
+                                    <li className="nav-item">
+                                        <Link className="nav-link active text-light" to="/comment/all">
+                                            Comments
+                                        </Link>
+                                    </li>
+                                    </>
+                                :
+                                <li className="nav-item">
+                                    <Link className="nav-link active text-light" to="/">
+                                        Home
+                                    </Link>
+                                </li>}
                             <li className="nav-item">
                                 <Link className="nav-link text-light" to="/lesson/all">
                                     Lessons

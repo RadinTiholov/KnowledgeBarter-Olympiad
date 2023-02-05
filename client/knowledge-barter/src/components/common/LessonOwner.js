@@ -10,7 +10,7 @@ const LessonOwner = ({ children }) => {
 
     const currentLesson = select(id);
     
-    if (auth?._id !== currentLesson.owner) {
+    if (auth?._id !== currentLesson.owner && auth?.role !== 'administrator') {
         return <Navigate to='/lesson/all' replace />
     }
 

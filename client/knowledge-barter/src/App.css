@@ -48,7 +48,7 @@ section#main {
 
 .backgound-layer-profile,
 .backgound-layer-login,
-.backgound-layer-register{
+.backgound-layer-not-found{
     min-height: 90vh;
 }
 
@@ -59,7 +59,6 @@ footer {
 .zoom {
     transition: transform .2s; /* Animation */
 }
-
 
 .zoom:hover {
     z-index: 2;
