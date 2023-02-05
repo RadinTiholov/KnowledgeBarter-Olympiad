@@ -61,5 +61,22 @@ namespace KnowledgeBarter.Server.Controllers
                 return BadRequest(ae.Message);
             }
         }
+
+        [HttpDelete]
+        [Route(DeleteCommentRoute)]
+        [RoleAuthorize(AdministratorRoleName)]
+        public async Task<ActionResult> Delete(int id)
+        {
+            try
+            {
+                await this.commentService.DeleteAsync(id);
+
+                return Ok();
+            }
+            catch (ArgumentException ae)
+            {
+                return BadRequest(ae.Message);
+            }
+        }
     }
 }

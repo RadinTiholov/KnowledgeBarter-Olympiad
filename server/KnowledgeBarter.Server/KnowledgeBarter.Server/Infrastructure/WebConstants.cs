@@ -16,6 +16,8 @@ namespace KnowledgeBarter.Server.Infrastructure
 
         public const string CreateCommentRoute = "/Comment/Create/{lessonId}";
 
+        public const string DeleteCommentRoute = "/Comment/Delete/{id}";
+
         public const string IdentityProfileRoute = "/Identity/Profile/{userId}";
 
         public const string UserInformationRoute = "/Identity/UserInformation/{userId}";
