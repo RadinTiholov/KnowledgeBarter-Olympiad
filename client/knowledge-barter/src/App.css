@@ -48,7 +48,7 @@ section#main {
 
 .backgound-layer-profile,
 .backgound-layer-login,
-.backgound-layer-not-found{
+.backgound-layer-not-found {
     min-height: 90vh;
 }
 
@@ -57,10 +57,52 @@ footer {
 }
 
 .zoom {
-    transition: transform .2s; /* Animation */
+    transition: transform .2s;
+    /* Animation */
 }
 
 .zoom:hover {
     z-index: 2;
-    transform: scale(1.15); /* (130% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+    transform: scale(1.15);
+    /* (130% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+
+.table-container {
+    padding: 3rem 5rem;
+    border-radius: 5rem;
+    overflow: hidden;
+}
+
+table {
+    padding: 2rem;
+    overflow: hidden;
+}
+
+table thead tr th {
+    font-size: large;
+    text-align: center;
+    vertical-align: middle;
+}
+
+table td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+@media screen and (max-width: 600px) {
+    .table-responsive {
+        overflow-x: auto;
+        overflow-y: hidden;
+        display: block;
+        width: 100%;
+    }
+
+    .table-container {
+        padding: 1rem;
+
+    } 
+
+    table {
+        padding: 0;
+    } 
 }

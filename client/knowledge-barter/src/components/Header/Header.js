@@ -88,7 +88,7 @@ export const Header = () => {
                                         value={search}
                                         onChange={onChange}
                                     />
-                                    <div className="input-group-append me-2">
+                                    <div className="input-group-append ms-1 me-2">
                                         <div className="dropdown">
                                             <a
                                                 className="dropdown-toggle btn btn-outline-warning"

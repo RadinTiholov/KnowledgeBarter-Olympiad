@@ -22,19 +22,21 @@ export const Comments = () => {
     }
 
     return (
-            <table className="table table-hover  my-5">
+        <div className="rounded table-container">
+            <table className="w-100 table-responsive rounded table table-dark table-striped table-hover my-0 pb-3">
                 <thead>
-                    <tr className="table-primary">
+                    <tr className="">
                         <th scope="col">User</th>
                         <th scope="col">Lesson</th>
                         <th scope="col">Comment</th>
                         <th scope="col">AI's Opinion <i className="fa-solid fa-robot" /></th>
-                        <th scope="col">Delete</th>
+                        <th scope="col">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {comments.map(x => <CommentRow key = {x.id} {...x} onClickDelete = {onClickDelete}/>)}
+                    {comments.map(x => <CommentRow key={x.id} {...x} onClickDelete={onClickDelete} />)}
                 </tbody>
             </table>
+        </div>
     )
 }

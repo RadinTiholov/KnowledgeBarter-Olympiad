@@ -92,7 +92,9 @@ export const DetailsCourse = () => {
     return (
         <>
             {isLoading
-                ? <BookSpinner />
+                ? <div className="pt-5">
+                    <BookSpinner />
+                </div>
                 : isOwner || isBought ? <CourseDetailsBought
                     lesson={lesson}
                     course={course}

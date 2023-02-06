@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 export const CommentRow = (props) => {
     return (
         <tr>
-            <td>{props.userName}</td>
+            <td className="text-center">{props.userName}</td>
             <td>
                 <Link to={`/lesson/details/${props.lessonId}`}>
                     {props.lessonTitle}

@@ -84,8 +84,9 @@ export const DetailsLesson = () => {
     return (
         <>
             {isLoading
-                ?
-                <BookSpinner />
+                ? <div className="pt-5">
+                    <BookSpinner />
+                </div>
                 : isBought || isOwner ? <LessonDetailsBought
                     lesson={lesson}
                     onClickDelete={onClickDelete}

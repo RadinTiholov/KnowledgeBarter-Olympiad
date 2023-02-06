@@ -34,7 +34,6 @@ export const LessonDetailsBought = (props) => {
 
     return (
         <div style={{ backgroundImage: `url(${background})` }} className="backgound-layer-details">
-            {/* Login Form */}
             <div className="container">
                 <div className="row pt-5">
                     <div className="col-10">
@@ -49,6 +48,9 @@ export const LessonDetailsBought = (props) => {
                         <div className="w-100 card card-display my-3">
                             <div className="mx-3">
                                 <h1>{props.lesson.title}</h1>
+                                {
+                                    props.lesson.tags?.map(x => <h4><span class="badge rounded-pill bg-secondary">{x}</span></h4>)
+                                }
                                 <div className='info-bar d-flex align-items-center flex-wrap'>
                                     <div>
                                         <i className="fa-solid fa-thumbs-up fa-2xl" />
@@ -114,10 +116,12 @@ export const LessonDetailsBought = (props) => {
                             </div>
                             <div className="text-center">
                                 <h2>Information</h2>
-                                <button className='btn btn-primary' onClick={() => speechHandler(speech, props.lesson.article)}>SPEAK</button>
                                 <h5>
                                     {props.lesson.article}
                                 </h5>
+                                <div className='w-100 d-inline-flex justify-content-end'>
+                                    <button className='btn btn-primary me-5' onClick={() => speechHandler(speech, props.lesson.article)}><i class="fa-solid fa-volume-high"></i></button>
+                                </div>
                             </div>
                             <h2 className="text-center">Comment</h2>
 
@@ -132,27 +136,27 @@ export const LessonDetailsBought = (props) => {
                                         placeholder="Comment"
                                         value={comment}
                                         onChange={onChange}
-                                        onBlur ={() => commentValidator(10, 200, comment, setError, setErrorMessage)}
+                                        onBlur={() => commentValidator(10, 200, comment, setError, setErrorMessage)}
                                     />
                                 </div>
                                 <div className="mt-2 pt-1 pb-2 mx-5">
-                                    <button 
-                                    type="submit" 
-                                    className="btn btn-primary btn-sm"
-                                    disabled={error}>
+                                    <button
+                                        type="submit"
+                                        className="btn btn-primary btn-sm"
+                                        disabled={error}>
                                         Post comment
                                     </button>
                                 </div>
-                                {error && 
-                                <div
-                                    className="alert alert-danger d-flex align-items-center mt-3 mx-5"
-                                    role="alert"
-                                >
-                                    <i className="fa-solid fa-triangle-exclamation me-2" />
-                                    <div className="text-center">
-                                        {errorMessage}
-                                    </div>
-                                </div>}
+                                {error &&
+                                    <div
+                                        className="alert alert-danger d-flex align-items-center mt-3 mx-5"
+                                        role="alert"
+                                    >
+                                        <i className="fa-solid fa-triangle-exclamation me-2" />
+                                        <div className="text-center">
+                                            {errorMessage}
+                                        </div>
+                                    </div>}
                             </form>
                             {props.lesson.comments?.length > 0 ? props.lesson.comments?.map(x => <Comment key={x.id} {...x} />) : <p className='text-center'>No comments yet.</p>}
 

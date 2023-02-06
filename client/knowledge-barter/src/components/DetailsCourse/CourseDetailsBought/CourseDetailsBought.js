@@ -34,12 +34,10 @@ export const CourseDetailsBought = (props) => {
     }
     return (
         <div style={{ backgroundImage: `url(${background})` }} className="backgound-layer-details">
-            {/* Login Form */}
             <div className="container">
                 <div className="row pt-5">
                     <div className="col-10">
                         <h1>{props.course.title}</h1>
- 
                         <iframe
                             title='video'
                             className="video"
@@ -52,6 +50,9 @@ export const CourseDetailsBought = (props) => {
                         <div className="card card-display my-3">
                             <div className="mx-3">
                                 <h1>{props.lesson.title}</h1>
+                                {
+                                    props.lesson.tags?.map(x => <h4><span class="badge rounded-pill bg-secondary">{x}</span></h4>)
+                                }
                                 <div className='info-bar d-flex align-items-center flex-wrap'>
                                     <div>
                                         <i className="fa-solid fa-thumbs-up fa-2xl" />
@@ -122,10 +123,12 @@ export const CourseDetailsBought = (props) => {
                             </div>
                             <div className="text-center">
                                 <h2>Information</h2>
-                                <button className='btn btn-primary' onClick={() => speechHandler(speech, props.lesson.article)}>SPEAK</button>
                                 <h5>
                                     {props.lesson.article}
                                 </h5>
+                                <div className='w-100 d-inline-flex justify-content-end'>
+                                    <button className='btn btn-primary me-5' onClick={() => speechHandler(speech, props.lesson.article)}><i class="fa-solid fa-volume-high"></i></button>
+                                </div>
                             </div>
 
                             <h2 className="text-center">Comment</h2>
