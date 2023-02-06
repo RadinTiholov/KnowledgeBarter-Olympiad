@@ -37,6 +37,8 @@ const request = async (method, url, data) => {
         const response = await beginningRequest;
         let result = null;
         if (response.ok) {
+
+            // If the response is empty
             try {
                 result = await response.json();
             } catch (error) {
@@ -45,7 +47,7 @@ const request = async (method, url, data) => {
         }
         else {
             const res = await response.json();
-            throw new Error(res.message);
+            throw new Error(res.title);
         }
         return result;
     } catch (err) {

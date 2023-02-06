@@ -67,6 +67,9 @@ export const Register = () => {
         }
         else {
             setError({ active: true, message: "Password and RePassword aren't the same." })
+
+            //Stop spinner
+            setIsLoading(false);
         }
     }
 

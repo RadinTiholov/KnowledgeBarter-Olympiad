@@ -29,9 +29,8 @@ const multipartFormDataRequester = async (method, url, data) => {
         if (response.ok) {
             result = await response.json();
         } else {
-            console.log(response);
             const res = await response.json();
-            let errorMessages = createErrorMessage(res.errors);
+            let errorMessages = createErrorMessage(res);
             throw new Error(errorMessages);
         }
         
@@ -43,8 +42,8 @@ const multipartFormDataRequester = async (method, url, data) => {
 
 const createErrorMessage = (errors) => {
     let result = '';
-    for (const error in errors) {
-        result += errors[error][0] + '\n';
+    for (let i = 0; i < errors.length; i++) {
+        result += errors[0].description + '\n';
     }
     return result;
 };
