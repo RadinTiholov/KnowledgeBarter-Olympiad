@@ -6,14 +6,27 @@ import { AuthContext } from '../../contexts/AuthContext';
 export const Header = () => {
     const { isAuthenticated, auth } = useContext(AuthContext);
     const [search, setSearch] = useState();
+    const [selection, setSelection] = useState('Lesson');
     const navigate = useNavigate();
+
     const onChange = (e) => {
         setSearch(e.target.value)
     }
+
+    const changeSelection = (e) => {
+        setSelection(e.target.innerText)
+    }
+
     const onSearch = (e) => {
         e.preventDefault();
-        navigate(`/lesson/all/${search}`)
+
+        if (search !== '') { 
+            navigate(`/${selection.toLowerCase()}/all?search=${search}`);
+        }else{
+            navigate(`/${selection.toLowerCase()}/all`);
+        }
     }
+    
     return (
         <section id="nav-bar">
             <nav className="navbar navbar-expand-lg">
@@ -47,7 +60,7 @@ export const Header = () => {
                                             Comments
                                         </Link>
                                     </li>
-                                    </>
+                                </>
                                 :
                                 <li className="nav-item">
                                     <Link className="nav-link active text-light" to="/">
@@ -66,12 +79,41 @@ export const Header = () => {
                             </li>
                             <li className="nav-item">
                                 <form className="d-flex" role="search" onSubmit={onSearch}>
+                                    <div className="input-group-prepend">
+                                        <div className="dropdown">
+                                            <a
+                                                className="dropdown-toggle btn btn-outline-warning"
+                                                href="/"
+                                                id="navbarDropdown"
+                                                role="button"
+                                                data-bs-toggle="dropdown"
+                                                aria-expanded="false"
+                                            >
+                                                {selection}
+                                            </a>
+                                            <ul
+                                                className="dropdown-menu text-light"
+                                                aria-labelledby="navbarDropdown"
+                                            >
+                                                <li>
+                                                    <h5 className="dropdown-item" onClick={changeSelection} >
+                                                        Lesson
+                                                    </h5>
+                                                </li>
+                                                <li>
+                                                    <h5 className="dropdown-item" onClick={changeSelection} >
+                                                        Course
+                                                    </h5>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                     <input
                                         type="text"
                                         className="form-control me-2"
                                         name="title"
                                         id="title"
-                                        placeholder="Search for a lesson"
+                                        placeholder={`Search for a ${selection.toLowerCase()}`}
                                         value={search}
                                         onChange={onChange}
                                     />
