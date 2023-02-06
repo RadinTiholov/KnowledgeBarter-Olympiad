@@ -20,13 +20,13 @@ export const Header = () => {
     const onSearch = (e) => {
         e.preventDefault();
 
-        if (search !== '') { 
+        if (search !== '') {
             navigate(`/${selection.toLowerCase()}/all?search=${search}`);
-        }else{
+        } else {
             navigate(`/${selection.toLowerCase()}/all`);
         }
     }
-    
+
     return (
         <section id="nav-bar">
             <nav className="navbar navbar-expand-lg">
@@ -79,7 +79,16 @@ export const Header = () => {
                             </li>
                             <li className="nav-item">
                                 <form className="d-flex" role="search" onSubmit={onSearch}>
-                                    <div className="input-group-prepend">
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        name="title"
+                                        id="title"
+                                        placeholder={`Search for a ${selection.toLowerCase()}`}
+                                        value={search}
+                                        onChange={onChange}
+                                    />
+                                    <div className="input-group-append me-2">
                                         <div className="dropdown">
                                             <a
                                                 className="dropdown-toggle btn btn-outline-warning"
@@ -108,15 +117,6 @@ export const Header = () => {
                                             </ul>
                                         </div>
                                     </div>
-                                    <input
-                                        type="text"
-                                        className="form-control me-2"
-                                        name="title"
-                                        id="title"
-                                        placeholder={`Search for a ${selection.toLowerCase()}`}
-                                        value={search}
-                                        onChange={onChange}
-                                    />
                                     <button className="btn btn-outline-warning" type="submit">
                                         Search
                                     </button>
