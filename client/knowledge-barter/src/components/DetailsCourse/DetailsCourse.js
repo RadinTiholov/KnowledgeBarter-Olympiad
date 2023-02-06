@@ -13,11 +13,12 @@ import { CourseContext } from "../../contexts/CourseContext";
 import { AuthContext } from "../../contexts/AuthContext";
 import { useIsLiked } from "../../hooks/useIsLiked";
 import { useUserInfo } from "../../hooks/useUserInfo";
+import { BookSpinner } from "../common/Spinners/BookSpinner";
 
 export const DetailsCourse = () => {
     const { courseId, lessonId } = useParams();
     const [isOwner] = useOwner(courseId, false);
-    const { course, setCourse, owner } = useCourseWithUser(courseId);
+    const { course, setCourse, owner, isLoading } = useCourseWithUser(courseId);
     const [isBought] = useBoughtCourse(courseId);
     const { lesson, setLesson } = useLessonsWithUser(lessonId);
     const navigate = useNavigate();
@@ -90,7 +91,9 @@ export const DetailsCourse = () => {
     }
     return (
         <>
-            {isOwner || isBought ? <CourseDetailsBought
+            {isLoading
+                ? <BookSpinner />
+                : isOwner || isBought ? <CourseDetailsBought
                     lesson={lesson}
                     course={course}
                     owner={owner}
@@ -99,14 +102,14 @@ export const DetailsCourse = () => {
                     isOwner={isOwner}
                     likeCourseOnClick={likeCourseOnClick}
                     isLiked={isLiked} comment={comment} />
-                : <CourseDetailsPreview
-                    course={course}
-                    owner={owner}
-                    buyCourseOnClick={buyCourseOnClick}
-                    likeCourseOnClick={likeCourseOnClick}
-                    isLiked={isLiked}
-                    isAuth={auth}
-                />}
+                    : <CourseDetailsPreview
+                        course={course}
+                        owner={owner}
+                        buyCourseOnClick={buyCourseOnClick}
+                        likeCourseOnClick={likeCourseOnClick}
+                        isLiked={isLiked}
+                        isAuth={auth}
+                    />}
         </>
     )
 }

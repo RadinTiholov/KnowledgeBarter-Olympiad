@@ -1,8 +1,8 @@
 import { useCollectionInfo } from '../../hooks/useCollectionInfo'
-import background from '../../images/waves-lessons.svg'
 import { BookSpinner } from '../common/Spinners/BookSpinner'
 import { Lesson } from './Lesson/Lesson'
 import './YourLessons.css'
+
 export const YourLessons = () => {
     const [collection, isLoading] = useCollectionInfo('ownLessons');
     return (

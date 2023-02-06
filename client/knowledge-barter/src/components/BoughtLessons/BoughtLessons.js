@@ -1,4 +1,3 @@
-import background from '../../images/waves-lessons.svg'
 import { Lesson } from './Lesson/Lesson'
 import './BoughtLessons.css'
 import { useCollectionInfo } from '../../hooks/useCollectionInfo';

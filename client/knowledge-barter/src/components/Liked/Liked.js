@@ -1,9 +1,9 @@
 import { useCollectionInfo } from '../../hooks/useCollectionInfo';
-import background from '../../images/waves-lessons.svg'
 import { BookSpinner } from '../common/Spinners/BookSpinner';
 import { Course } from './Course/Course';
 import { Lesson } from './Lesson/Lesson'
 import './Liked.css'
+
 export const Liked = () => {
     const [collectionLesson, isLoadingLessons] = useCollectionInfo('likedLessons');
     const [collectionCourses, isLoadingCourses] = useCollectionInfo('likedCourses');
