@@ -13,7 +13,6 @@ import { SmallSpinner } from '../common/Spinners/SmallSpinner';
 
 export const CreateCourse = () => {
     const [collection, isLoading] = useCollectionInfo('ownLessons');
-    console.log(isLoading);
     const navigate = useNavigate();
 
     const { create } = useContext(CourseContext)

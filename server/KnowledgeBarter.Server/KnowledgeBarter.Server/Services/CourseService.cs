@@ -189,7 +189,7 @@ namespace KnowledgeBarter.Server.Services
                 throw new ArgumentException(Unauthorized);
             }
 
-            if (lessons.Any(x => x.OwnerId != userId))
+            if (lessons.Any(x => x.OwnerId != userId) && !await this.identityService.IsUserInRoleAsync(userId, WebConstants.AdministratorRoleName))
             {
                 throw new ArgumentException(Unauthorized);
             }

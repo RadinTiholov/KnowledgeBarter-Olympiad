@@ -9,11 +9,13 @@ import * as courseService from '../../dataServices/coursesService'
 import { onSelectFile } from '../../infrastructureUtils/fileSelectionUtils';
 import { isValidForm, minMaxValidator } from '../../infrastructureUtils/validationUtils';
 import { SmallSpinner } from '../common/Spinners/SmallSpinner';
+import { LessonContext } from '../../contexts/LessonContext';
 
 export const EditCourse = () => {
     const [collection, isLoading] = useCollectionInfo('ownLessons');
     const navigate = useNavigate();
     const { update } = useContext(CourseContext);
+    const { lessons } = useContext(LessonContext);
 
     const { id } = useParams();
 
@@ -61,14 +63,15 @@ export const EditCourse = () => {
         setIsLoadingSubmit(true);
 
         const formData = new FormData(e.target);
+        const ownerLessons = lessons.filter(x => x.owner === inputData.owner);
 
-        for (let i = 0; i < collection?.length; i++) {
-            if (formData.get(collection[i].id) !== null) {
-                formData.append("lessons", formData.get(collection[i].id))
+        for (let i = 0; i < ownerLessons?.length; i++) {
+            if (formData.get(ownerLessons[i].id) !== null) {
+                formData.append("lessons", formData.get(ownerLessons[i].id))
             }
         }
 
-        if (collection?.length < 6) {
+        if (ownerLessons?.length < 6) {
             setError({ active: true, message: "You need at least 6 lessons to create a course." });
         } else {
             courseService.update(formData, id)
@@ -80,15 +83,15 @@ export const EditCourse = () => {
                     navigate('/course/details/' + id + '/' + res.lessons[0].id)
                 })
                 .catch(err => {
-                    setError({ active: true, message: err.message }) 
-                    
+                    setError({ active: true, message: err.message })
+
                     // Stop spinner
                     setIsLoadingSubmit(false);
                 })
         }
     }
 
-    return (<div style={{ backgroundImage: `url(${background})` }} className = "backgound-layer-create">
+    return (<div style={{ backgroundImage: `url(${background})` }} className="backgound-layer-create">
         <div className="container">
             <div className="row">
                 <div className="col-sm-9 col-md-7 col-lg-5 mx-auto">
@@ -177,13 +180,20 @@ export const EditCourse = () => {
                                 {isLoading ?
                                     <SmallSpinner /> :
                                     <div className="form-floating mb-3">
-                                        {collection.length > 0 ? collection?.map(x => <Option {...x} key={x.id} onChange={onChange} isSelected={inputData.lessons.some(y => y.id === x.id)} />) : <p className='text-center'>No lessons yet.</p>}
+                                        {lessons.filter(x => x.owner === inputData.owner).length > 0
+                                            ? lessons.filter(x => x.owner === inputData.owner)?.map(x => <Option {...x} key={x.id} onChange={onChange} isSelected={inputData.lessons.some(y => y.id === x.id)} />)
+                                            : <p className='text-center'>No lessons yet.</p>
+                                        }
+
                                         {error.active === true ? <div className="alert alert-danger fade show mt-3">
                                             <strong>Error!</strong> {error.message}
-                                        </div> : null}
-                                        {collection?.length < 6 ? <div className="alert alert-danger fade show mt-3">
+                                        </div> : null
+                                        }
+
+                                        {lessons.filter(x => x.owner === inputData.owner).length < 6 ? <div className="alert alert-danger fade show mt-3">
                                             <strong>Error!</strong>You need at least 6 lessons to create a course.
-                                        </div> : null}
+                                        </div> : null
+                                        }
                                     </div>
                                 }
                                 <div className="d-grid">
@@ -191,11 +201,11 @@ export const EditCourse = () => {
                                         className="btn btn-outline-warning"
                                         style={{ backgroundColor: "#636EA7" }}
                                         type="submit"
-                                        disabled={!isValidForm(errors) || (!inputData.title || !inputData.description || collection?.length < 6)}
+                                        disabled={!isValidForm(errors) || (!inputData.title || !inputData.description || lessons.filter(x => x.owner === inputData.owner)?.length < 6)}
                                     >
-                                        {isLoadingSubmit 
-                                                ? <span className="spinner-border spinner-border-sm mx-2" role="status" aria-hidden="true" /> 
-                                                : <></>}
+                                        {isLoadingSubmit
+                                            ? <span className="spinner-border spinner-border-sm mx-2" role="status" aria-hidden="true" />
+                                            : <></>}
                                         Edit
                                     </button>
                                 </div>

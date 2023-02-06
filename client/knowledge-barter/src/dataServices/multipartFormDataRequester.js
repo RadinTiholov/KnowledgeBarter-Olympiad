@@ -27,11 +27,25 @@ const multipartFormDataRequester = async (method, url, data) => {
         const response = await beginningRequest;
         let result = null;
         if (response.ok) {
-            result = await response.json();
+            // If the response is empty
+            try {
+                result = await response.json();
+            } catch (error) {
+                result = null;
+            }
         } else {
-            const res = await response.json();
-            let errorMessages = createErrorMessage(res);
-            throw new Error(errorMessages);
+             // If the response is only message
+             try {
+                const res = await response.json();
+                let errorMessages = createErrorMessage(res);
+                
+                throw new Error(errorMessages);
+            } catch (error) {
+                if (error.message.includes("Unexpected token")) {
+                    throw new Error('Something went wrong!');
+                }
+                throw new Error(error.message);
+            }
         }
         
         return result;
