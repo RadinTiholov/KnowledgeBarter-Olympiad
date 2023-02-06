@@ -16,6 +16,8 @@
 
         public int LessonId { get; set; }
 
+        public string LessonTitle { get; set; } = null!;
+
         public string Prediction { get; set; } = null!;
 
         public void CreateMappings(IProfileExpression configuration)
@@ -24,7 +26,9 @@
                 .ForMember(c => c.UserName, opt =>
                     opt.MapFrom(x => x.Owner.UserName))
                  .ForMember(c => c.ProfilePicture, opt =>
-                    opt.MapFrom(x => x.Owner.Image.Url));
+                    opt.MapFrom(x => x.Owner.Image.Url))
+                 .ForMember(c => c.LessonTitle, opt =>
+                    opt.MapFrom(x => x.Lesson.Title));
         }
     }
 }

@@ -33,6 +33,8 @@ import UserGuard from './components/common/UserGuard';
 import LessonOwner from './components/common/LessonOwner';
 import CourseOwner from './components/common/CourseOwner';
 import { SendEmail } from './components/SendEmail/SendEmail';
+import { Comments } from './components/Comments/Comments';
+import AdminGuard from './components/common/AdminGuard';
 
 function App() {
     return (
@@ -66,6 +68,9 @@ function App() {
                                 </Route>
                                 <Route element={<CourseOwner />}>
                                     <Route path='/course/edit/:id' element={<EditCourse />} />
+                                </Route>
+                                <Route element={<AdminGuard />}>
+                                    <Route path='/comment/all' element={<Comments />} />
                                 </Route>
                                 <Route element={<UserGuard />}>
                                     <Route path='/login' element={<Login />} />

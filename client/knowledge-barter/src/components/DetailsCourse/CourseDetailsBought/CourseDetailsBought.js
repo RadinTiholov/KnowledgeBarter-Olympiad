@@ -4,7 +4,7 @@ import background from '../../../images/waves-details.svg'
 import { Comment } from './Comment/Comment'
 import { Lesson } from './Lesson/Lesson'
 import { useState } from 'react'
-import * as lessonsService from '../../../dataServices/lessonsService'
+import * as commentsService from '../../../dataServices/commentsService'
 import { commentValidator } from '../../../infrastructureUtils/validationUtils'
 import { speechHandler } from '../../../infrastructureUtils/commonUtils'
 
@@ -21,7 +21,7 @@ export const CourseDetailsBought = (props) => {
 
     const onComment = (e) => {
         e.preventDefault();
-        lessonsService.comment(props.lesson.id, comment)
+        commentsService.create(props.lesson.id, comment)
             .then(res => {
                 props.comment(res)
                 setComment('');
