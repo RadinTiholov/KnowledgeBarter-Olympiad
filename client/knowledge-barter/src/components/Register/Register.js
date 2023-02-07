@@ -200,7 +200,7 @@ export const Register = () => {
                                             className="btn btn-outline-warning"
                                             style={{ backgroundColor: "#636EA7" }}
                                             type="submit"
-                                            disabled={!isValidForm(errors) || !(inputData.email && inputData.password && inputData.rePassword && imageData.imageFile && inputData.username)}
+                                            disabled={isLoading ||!isValidForm(errors) || !(inputData.email && inputData.password && inputData.rePassword && imageData.imageFile && inputData.username)}
                                         >
                                             {isLoading 
                                                 ? <span className="spinner-border spinner-border-sm mx-2" role="status" aria-hidden="true" /> 

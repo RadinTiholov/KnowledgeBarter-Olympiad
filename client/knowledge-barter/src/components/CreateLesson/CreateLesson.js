@@ -279,7 +279,7 @@ export const CreateLesson = () => {
                                             className="btn btn-outline-warning"
                                             style={{ backgroundColor: "#636EA7" }}
                                             type="submit"
-                                            disabled={!isValidForm(errors) || (!inputData.title || !inputData.description || !inputData.video || !inputData.article || !imageData.imageFile || !inputData.tags.length > 0)}
+                                            disabled={isLoading || !isValidForm(errors) || (!inputData.title || !inputData.description || !inputData.video || !inputData.article || !imageData.imageFile || !inputData.tags.length > 0)}
                                         >
                                             {isLoading
                                                 ? <span className="spinner-border spinner-border-sm mx-2" role="status" aria-hidden="true" />

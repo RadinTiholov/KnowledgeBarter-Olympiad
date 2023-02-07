@@ -13,6 +13,7 @@ export const CourseDetailsBought = (props) => {
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
 
+    const synth = window.speechSynthesis;
     const speech = new SpeechSynthesisUtterance();
 
     const onChange = (e) => {
@@ -30,7 +31,7 @@ export const CourseDetailsBought = (props) => {
                 setErrorMessage(err.message)
                 setComment('');
             })
-            
+
     }
     return (
         <div style={{ backgroundImage: `url(${background})` }} className="backgound-layer-details">
@@ -127,7 +128,11 @@ export const CourseDetailsBought = (props) => {
                                     {props.lesson.article}
                                 </h5>
                                 <div className='w-100 d-inline-flex justify-content-end'>
-                                    <button className='btn btn-primary me-5' onClick={() => speechHandler(speech, props.lesson.article)}><i class="fa-solid fa-volume-high"></i></button>
+                                    <button
+                                        className='btn btn-primary me-5'
+                                        onClick={() => speechHandler(speech, props.lesson.article, synth)}>
+                                        <i className="fa-solid fa-volume-high"></i>
+                                    </button>
                                 </div>
                             </div>
 

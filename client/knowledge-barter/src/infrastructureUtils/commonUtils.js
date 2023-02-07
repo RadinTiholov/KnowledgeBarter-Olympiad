@@ -1,4 +1,4 @@
-export const speechHandler = (speech, text) => {
+export const speechHandler = (speech, text, synth) => {
     speech.text = text;
-    window.speechSynthesis.speak(speech)
+    synth.speak(speech);
 }

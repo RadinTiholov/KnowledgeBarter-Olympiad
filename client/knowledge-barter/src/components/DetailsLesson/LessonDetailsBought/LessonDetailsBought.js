@@ -14,6 +14,7 @@ export const LessonDetailsBought = (props) => {
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
 
+    const synth = window.speechSynthesis;
     const speech = new SpeechSynthesisUtterance();
 
     const onChange = (e) => {
@@ -50,7 +51,7 @@ export const LessonDetailsBought = (props) => {
                             <div className="mx-3">
                                 <h1>{props.lesson.title}</h1>
                                 {
-                                    props.lesson.tags?.map((x, index) => <Pill text = {x} key={index}/>)
+                                    props.lesson.tags?.map((x, index) => <Pill text={x} key={index} />)
                                 }
                                 <div className='info-bar d-flex align-items-center flex-wrap'>
                                     <div>
@@ -121,7 +122,11 @@ export const LessonDetailsBought = (props) => {
                                     {props.lesson.article}
                                 </h5>
                                 <div className='w-100 d-inline-flex justify-content-end'>
-                                    <button className='btn btn-primary me-5' onClick={() => speechHandler(speech, props.lesson.article)}><i className="fa-solid fa-volume-high"></i></button>
+                                    <button
+                                        className='btn btn-primary me-5'
+                                        onClick={() => speechHandler(speech, props.lesson.article, synth)}>
+                                        <i className="fa-solid fa-volume-high"></i>
+                                    </button>
                                 </div>
                             </div>
                             <h2 className="text-center">Comment</h2>

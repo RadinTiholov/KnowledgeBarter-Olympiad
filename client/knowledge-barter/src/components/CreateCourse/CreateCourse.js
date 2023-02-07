@@ -185,7 +185,7 @@ export const CreateCourse = () => {
                                         className="btn btn-outline-warning"
                                         style={{ backgroundColor: "#636EA7" }}
                                         type="submit"
-                                        disabled={!isValidForm(errors) || (!inputData.title || !inputData.description || !imageData.imageFile || collection?.length < 6)}
+                                        disabled={isLoading || !isValidForm(errors) || (!inputData.title || !inputData.description || !imageData.imageFile || collection?.length < 6)}
                                     >
                                         {isLoadingSubmit 
                                                 ? <span className="spinner-border spinner-border-sm mx-2" role="status" aria-hidden="true" /> 

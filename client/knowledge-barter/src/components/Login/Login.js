@@ -116,7 +116,7 @@ export const Login = () => {
                                             className="btn btn-outline-warning"
                                             style={{ backgroundColor: "#636EA7" }}
                                             type="submit"
-                                            disabled={!isValidForm(errors) || (!inputData.username && !inputData.password)}
+                                            disabled={isLoading || !isValidForm(errors) || (!inputData.username && !inputData.password)}
                                         >
                                             {isLoading 
                                                 ? <span className="spinner-border spinner-border-sm mx-2" role="status" aria-hidden="true" /> 
