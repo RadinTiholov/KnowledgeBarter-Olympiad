@@ -1,22 +1,21 @@
 import './CreateCourse.css'
 import background from '../../images/waves-login.svg'
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useCollectionInfo } from '../../hooks/useCollectionInfo'
 import { Option } from './Option/Option';
 import { CourseContext } from '../../contexts/CourseContext'
 import { AuthContext } from '../../contexts/AuthContext'
 import * as courseService from '../../dataServices/coursesService'
 import { onSelectFile } from '../../infrastructureUtils/fileSelectionUtils';
 import { isValidForm, minMaxValidator } from '../../infrastructureUtils/validationUtils';
-import { SmallSpinner } from '../common/Spinners/SmallSpinner';
+import { LessonContext } from '../../contexts/LessonContext';
 
 export const CreateCourse = () => {
-    const [collection, isLoading] = useCollectionInfo('ownLessons');
     const navigate = useNavigate();
 
     const { create } = useContext(CourseContext)
-    const { updatePoints } = useContext(AuthContext);
+    const { auth, updatePoints } = useContext(AuthContext);
+    const { lessons } = useContext(LessonContext);
 
     const [inputData, setInputData] = useState({
         title: "",
@@ -52,11 +51,11 @@ export const CreateCourse = () => {
         setIsLoadingSubmit(true);
 
         const formData = new FormData(e.target);
+        const ownerLessons = lessons.filter(x => x.owner === auth._id);
 
-        for (let i = 0; i < collection?.length; i++) {
-
-            if (formData.get(collection[i].id) !== null) {
-                formData.append("lessons", formData.get(collection[i].id))
+        for (let i = 0; i < ownerLessons?.length; i++) {
+            if (formData.get(ownerLessons[i].id) !== null) {
+                formData.append("lessons", formData.get(ownerLessons[i].id))
             }
         }
 
@@ -72,7 +71,7 @@ export const CreateCourse = () => {
             })
             .catch(err => {
                 setError({ active: true, message: err.message })
-                
+
                 // Stop spinner
                 setIsLoadingSubmit(false);
             })
@@ -168,28 +167,25 @@ export const CreateCourse = () => {
                                 }
 
                                 <h5>Your lessons</h5>
-                                {isLoading ?
-                                    <SmallSpinner /> :
-                                    <div className="form-floating mb-3">
-                                        {collection.length > 0 ? collection?.map(x => <Option {...x} key={x.id} onChange={onChange} value={inputData.lessons} />) : <p className='text-center'>No lessons yet.</p>}
-                                        {error.active === true ? <div className="alert alert-danger fade show mt-3">
-                                            <strong>Error! </strong> {error.message}
-                                        </div> : null}
-                                        {collection?.length < 6 ? <div className="alert alert-danger fade show mt-3">
-                                            <strong>Error! </strong>You need at least 6 lessons to create a course.
-                                        </div> : null}
-                                    </div>
-                                }
+                                <div className="form-floating mb-3">
+                                    {lessons.filter(x => x.owner === auth._id).length > 0 ? lessons.filter(x => x.owner === auth._id)?.map(x => <Option {...x} key={x.id} onChange={onChange} value={inputData.lessons} />) : <p className='text-center'>No lessons yet.</p>}
+                                    {error.active === true ? <div className="alert alert-danger fade show mt-3">
+                                        <strong>Error! </strong> {error.message}
+                                    </div> : null}
+                                    {lessons.filter(x => x.owner === auth._id)?.length < 6 ? <div className="alert alert-danger fade show mt-3">
+                                        <strong>Error! </strong>You need at least 6 lessons to create a course.
+                                    </div> : null}
+                                </div>
                                 <div className="d-grid">
                                     <button
                                         className="btn btn-outline-warning"
                                         style={{ backgroundColor: "#636EA7" }}
                                         type="submit"
-                                        disabled={isLoading || !isValidForm(errors) || (!inputData.title || !inputData.description || !imageData.imageFile || collection?.length < 6)}
+                                        disabled={!isValidForm(errors) || (!inputData.title || !inputData.description || !imageData.imageFile || lessons.filter(x => x.owner === auth._id)?.length < 6)}
                                     >
-                                        {isLoadingSubmit 
-                                                ? <span className="spinner-border spinner-border-sm mx-2" role="status" aria-hidden="true" /> 
-                                                : <></>}
+                                        {isLoadingSubmit
+                                            ? <span className="spinner-border spinner-border-sm mx-2" role="status" aria-hidden="true" />
+                                            : <></>}
                                         Create
                                     </button>
                                 </div>
