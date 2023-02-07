@@ -2,17 +2,14 @@ import './EditCourse.css'
 import background from '../../images/waves-login.svg'
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useCollectionInfo } from '../../hooks/useCollectionInfo'
 import { Option } from './Option/Option';
 import { CourseContext } from '../../contexts/CourseContext'
 import * as courseService from '../../dataServices/coursesService'
 import { onSelectFile } from '../../infrastructureUtils/fileSelectionUtils';
 import { isValidForm, minMaxValidator } from '../../infrastructureUtils/validationUtils';
-import { SmallSpinner } from '../common/Spinners/SmallSpinner';
 import { LessonContext } from '../../contexts/LessonContext';
 
 export const EditCourse = () => {
-    const [collection, isLoading] = useCollectionInfo('ownLessons');
     const navigate = useNavigate();
     const { update } = useContext(CourseContext);
     const { lessons } = useContext(LessonContext);
@@ -177,31 +174,28 @@ export const EditCourse = () => {
                                 }
 
                                 <h5>Your lessons</h5>
-                                {isLoading ?
-                                    <SmallSpinner /> :
-                                    <div className="form-floating mb-3">
-                                        {lessons.filter(x => x.owner === inputData.owner).length > 0
-                                            ? lessons.filter(x => x.owner === inputData.owner)?.map(x => <Option {...x} key={x.id} onChange={onChange} isSelected={inputData.lessons.some(y => y.id === x.id)} />)
-                                            : <p className='text-center'>No lessons yet.</p>
-                                        }
+                                <div className="form-floating mb-3">
+                                    {lessons.filter(x => x.owner === inputData.owner).length > 0
+                                        ? lessons.filter(x => x.owner === inputData.owner)?.map(x => <Option {...x} key={x.id} onChange={onChange} isSelected={inputData.lessons.some(y => y.id === x.id)} />)
+                                        : <p className='text-center'>No lessons yet.</p>
+                                    }
 
-                                        {error.active === true ? <div className="alert alert-danger fade show mt-3">
-                                            <strong>Error!</strong> {error.message}
-                                        </div> : null
-                                        }
+                                    {error.active === true ? <div className="alert alert-danger fade show mt-3">
+                                        <strong>Error!</strong> {error.message}
+                                    </div> : null
+                                    }
 
-                                        {lessons.filter(x => x.owner === inputData.owner).length < 6 ? <div className="alert alert-danger fade show mt-3">
-                                            <strong>Error!</strong>You need at least 6 lessons to create a course.
-                                        </div> : null
-                                        }
-                                    </div>
-                                }
+                                    {lessons.filter(x => x.owner === inputData.owner).length < 6 ? <div className="alert alert-danger fade show mt-3">
+                                        <strong>Error!</strong>You need at least 6 lessons to create a course.
+                                    </div> : null
+                                    }
+                                </div>
                                 <div className="d-grid">
                                     <button
                                         className="btn btn-outline-warning"
                                         style={{ backgroundColor: "#636EA7" }}
                                         type="submit"
-                                        disabled={isLoading || !isValidForm(errors) || (!inputData.title || !inputData.description || lessons.filter(x => x.owner === inputData.owner)?.length < 6)}
+                                        disabled={!isValidForm(errors) || (!inputData.title || !inputData.description || lessons.filter(x => x.owner === inputData.owner)?.length < 6)}
                                     >
                                         {isLoadingSubmit
                                             ? <span className="spinner-border spinner-border-sm mx-2" role="status" aria-hidden="true" />

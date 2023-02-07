@@ -41,9 +41,8 @@ namespace Tests.Service_Data_Tests
 
             var mockCloudinaryService = new Mock<ICloudinaryService>();
             mockCloudinaryService.Setup(x => x.UploadAsync(It.IsAny<IFormFile>(), It.IsAny<string>()))
-                .Returns(async () =>
+                .ReturnsAsync(() =>
                 {
-                    await Task.Delay(1);
                     return "testUrl";
                 });
 
@@ -55,7 +54,7 @@ namespace Tests.Service_Data_Tests
         [Fact]
         public async Task AddByUrlAsyncShouldWorkFine()
         {
-            this.SeedData();
+            await this.SeedData();
 
             var image = await this.imageService.AddByUrlAsync("1111");
             var images = await this.knowledgeBarterDbContext.Images.ToListAsync();
@@ -66,7 +65,7 @@ namespace Tests.Service_Data_Tests
         [Fact]
         public async Task CreateAsyncShouldWorkCorrectly()
         {
-            this.SeedData();
+            await this.SeedData();
 
             var file = this.CreateFakeFormFile();
             var image = await this.imageService.CreateAsync(file);
@@ -78,7 +77,7 @@ namespace Tests.Service_Data_Tests
         [Fact]
         public async Task CreateAsyncShouldReturnsImageWhenExists()
         {
-            this.SeedData();
+            await this.SeedData();
 
             var file = this.CreateFakeFormFile();
             var image = await this.imageService.CreateAsync(file);
@@ -87,7 +86,7 @@ namespace Tests.Service_Data_Tests
             Assert.Equal(image, image2);
         }
 
-        private async void SeedData()
+        private async Task SeedData()
         {
             var firstImage = new Image()
             {

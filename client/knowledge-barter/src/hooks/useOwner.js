@@ -5,19 +5,31 @@ import * as coursesService from '../dataServices/coursesService'
 export const useOwner = (id, isLesson) => {
     const {auth} = useContext(AuthContext)
     const [isOwner, setIsOwner] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         if(auth){
             if(isLesson){
                 lessonsService.getDetails(id)
-                .then(res => setIsOwner(res.owner == auth?._id || auth?.role === 'administrator'))
+                .then(res => {
+                    setIsOwner(res.owner == auth?._id || auth?.role === 'administrator')
+
+                    setIsLoading(false);
+                })
             }else{
                 coursesService.getDetails(id)
-                .then(res => setIsOwner(res.owner == auth?._id || auth?.role === 'administrator'))
+                .then(res => {
+                    setIsOwner(res.owner == auth?._id || auth?.role === 'administrator')
+                
+                    setIsLoading(false);
+                })
             }
+        }else{
+            setIsLoading(false);
         }
     }, [id])
     return [
-        isOwner
+        isOwner,
+        isLoading
     ]
 }
