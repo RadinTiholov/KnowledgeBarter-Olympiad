@@ -21,12 +21,15 @@ namespace KnowledgeBarter.Server.Services
                 .Where(x => x.LessonId == lessonId)
                 .ToListAsync();
 
-            foreach (var tagToBeDeleted in allTags)
+            if (allTags.Count > 0)
             {
-                this.tagRepository.Delete(tagToBeDeleted);
-            }
+                foreach (var tagToBeDeleted in allTags)
+                {
+                    this.tagRepository.Delete(tagToBeDeleted);
+                }
 
-            await this.tagRepository.SaveChangesAsync();
+                await this.tagRepository.SaveChangesAsync();
+            }
 
             var createdTags = new List<Tag>();
 
@@ -35,9 +38,10 @@ namespace KnowledgeBarter.Server.Services
                 var tag = new Tag() { Text = tagText, LessonId = lessonId };
 
                 await tagRepository.AddAsync(tag);
-                await tagRepository.SaveChangesAsync();
                 createdTags.Add(tag);
             }
+
+            await tagRepository.SaveChangesAsync();
 
             return createdTags;
         }
