@@ -51,9 +51,13 @@ export const CourseDetailsBought = (props) => {
                         <div className="card card-display my-3">
                             <div className="mx-3">
                                 <h1>{props.lesson.title}</h1>
-                                {
-                                    props.lesson.tags?.map(x => <h4><span class="badge rounded-pill bg-secondary">{x}</span></h4>)
-                                }
+
+                                <div className='d-flex'>
+                                    {
+                                        props.lesson.tags?.map(x => <h4><span class="badge rounded-pill bg-secondary">{x}</span></h4>)
+                                    }
+                                </div>
+
                                 <div className='info-bar d-flex align-items-center flex-wrap'>
                                     <div>
                                         <i className="fa-solid fa-thumbs-up fa-2xl" />
@@ -120,9 +124,9 @@ export const CourseDetailsBought = (props) => {
 
                                         </>}
                                 </div>
-                                <h5>{props.lesson.description}</h5>
+                                <h5 className='px-2'>{props.lesson.description}</h5>
                             </div>
-                            <div className="text-center">
+                            <div className="text-center px-3">
                                 <h2>Information</h2>
                                 <h5>
                                     {props.lesson.article}
