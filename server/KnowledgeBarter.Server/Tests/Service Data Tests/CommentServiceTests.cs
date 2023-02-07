@@ -43,15 +43,13 @@ namespace Tests.Service_Data_Tests
 
             var mockLessonService = new Mock<ILessonService>();
             mockLessonService.Setup(x => x.ExistsAsync(1))
-                .Returns(async () =>
+                .ReturnsAsync(() =>
                 {
-                    await Task.Delay(1);
                     return true;
                 });
             mockLessonService.Setup(x => x.ExistsAsync(2))
-                .Returns(async () =>
+                .ReturnsAsync(() =>
                 {
-                    await Task.Delay(1);
                     return false;
                 });
 
