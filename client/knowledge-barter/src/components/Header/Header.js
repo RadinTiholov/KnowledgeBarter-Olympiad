@@ -29,7 +29,7 @@ export const Header = () => {
 
     return (
         <section id="nav-bar">
-            <nav className="navbar navbar-expand-lg">
+            <nav className="navbar navbar-expand-xl">
                 <div className="container-fluid">
                     <Link className="navbar-brand" to="/">
                         <img src={logo} alt="" width={60} height={35} />
