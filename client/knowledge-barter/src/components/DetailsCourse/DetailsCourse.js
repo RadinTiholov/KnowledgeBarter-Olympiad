@@ -17,9 +17,9 @@ import { BookSpinner } from "../common/Spinners/BookSpinner";
 
 export const DetailsCourse = () => {
     const { courseId, lessonId } = useParams();
-    const [isOwner] = useOwner(courseId, false);
-    const { course, setCourse, owner, isLoading } = useCourseWithUser(courseId);
-    const [isBought] = useBoughtCourse(courseId);
+    const [isOwner, isLoadingOwner] = useOwner(courseId, false);
+    const { course, setCourse, owner, isLoadingLesson } = useCourseWithUser(courseId);
+    const [isBought, isLoadingCourse] = useBoughtCourse(courseId);
     const { lesson, setLesson } = useLessonsWithUser(lessonId);
     const navigate = useNavigate();
     const { delLesson } = useContext(LessonContext)
@@ -91,7 +91,7 @@ export const DetailsCourse = () => {
     }
     return (
         <>
-            {isLoading
+            {isLoadingLesson || isLoadingOwner || isLoadingCourse
                 ? <div className="pt-5">
                     <BookSpinner />
                 </div>

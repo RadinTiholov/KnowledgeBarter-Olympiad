@@ -50,17 +50,11 @@ export const LessonDetailsBought = (props) => {
                         <div className="w-100 card card-display my-3">
                             <div className="mx-3">
                                 <h1>{props.lesson.title}</h1>
-<<<<<<< Updated upstream
-                                {
-                                    props.lesson.tags?.map((x, index) => <Pill text={x} key={index} />)
-                                }
-=======
                                 <div className='d-flex'>
                                     {
                                         props.lesson.tags?.map((x, index) => <Pill text={x} key={index} />)
                                     }
                                 </div>
->>>>>>> Stashed changes
                                 <div className='info-bar d-flex align-items-center flex-wrap'>
                                     <div>
                                         <i className="fa-solid fa-thumbs-up fa-2xl" />

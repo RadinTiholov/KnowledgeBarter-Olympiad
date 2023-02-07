@@ -14,10 +14,10 @@ import { BookSpinner } from '../common/Spinners/BookSpinner';
 
 export const DetailsLesson = () => {
     const { id } = useParams();
-    const { lesson, setLesson, owner, isLoading } = useLessonsWithUser(id);
+    const { lesson, setLesson, owner, isLoadingLesson } = useLessonsWithUser(id);
     const navigate = useNavigate();
-    const [isOwner] = useOwner(id, true);
-    const [isBought] = useBoughtLesson(id);
+    const [isOwner, isLoadingOwner] = useOwner(id, true);
+    const [isBought, isLoadingBoughtLeson] = useBoughtLesson(id);
     const [fullUserInfo, setfullUserInfo] = useUserInfo({});
     const [isLiked, setIsLiked] = useIsLiked(id, true);
     const { delLesson } = useContext(LessonContext);
@@ -83,7 +83,7 @@ export const DetailsLesson = () => {
 
     return (
         <>
-            {isLoading
+            {isLoadingLesson || isLoadingOwner || isLoadingBoughtLeson
                 ? <div className="pt-5">
                     <BookSpinner />
                 </div>
