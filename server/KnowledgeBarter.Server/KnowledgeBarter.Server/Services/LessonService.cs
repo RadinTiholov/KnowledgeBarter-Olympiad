@@ -133,7 +133,6 @@ namespace KnowledgeBarter.Server.Services
 
             this.lessonRepository.Delete(lesson);
             await this.lessonRepository.SaveChangesAsync();
-
         }
 
         public async Task<T> GetOneAsync<T>(int id)
