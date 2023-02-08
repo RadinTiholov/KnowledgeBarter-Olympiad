@@ -1,11 +1,6 @@
 ﻿using KnowledgeBarter.Server.Data.Common.Repositories;
 using KnowledgeBarter.Server.Data;
 using KnowledgeBarter.Server.Services.Contracts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using KnowledgeBarter.Server.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using KnowledgeBarter.Server.Data.Repositories;
