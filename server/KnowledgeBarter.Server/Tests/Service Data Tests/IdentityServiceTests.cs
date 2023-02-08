@@ -2,20 +2,14 @@
 using KnowledgeBarter.Server.Data.Common.Repositories;
 using KnowledgeBarter.Server.Data.Models;
 using KnowledgeBarter.Server.Data.Repositories;
-using KnowledgeBarter.Server.Models.Comments;
 using KnowledgeBarter.Server.Models.Identity;
 using KnowledgeBarter.Server.Services;
 using KnowledgeBarter.Server.Services.Contracts;
 using KnowledgeBarter.Server.Services.Mapping;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.IdentityModel.Tokens;
 using Moq;
-using System.IdentityModel.Tokens.Jwt;
 using System.Reflection;
-using System.Security.Principal;
-using System.Text;
 using Xunit;
 
 namespace Tests.Service_Data_Tests

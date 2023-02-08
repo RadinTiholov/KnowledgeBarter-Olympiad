@@ -13,6 +13,10 @@ using KnowledgeBarter.Server.Data.Common.Repositories;
 using KnowledgeBarter.Server.Services.Contracts;
 using Moq;
 using Microsoft.AspNetCore.Http;
+using KnowledgeBarter.Server.Models.Comments;
+using KnowledgeBarter.Server.Services.Mapping;
+using KnowledgeBarter.Server.Models.Lesson;
+using System.Reflection;
 
 namespace Tests.Service_Data_Tests
 {
@@ -65,12 +69,12 @@ namespace Tests.Service_Data_Tests
 
 
             var mockIdentityService = new Mock<IIdentityService>();
-            //mockIdentityService.Setup(x => x.CreateAsync(It.IsAny<IFormFile>()))
-            //    .ReturnsAsync(() =>
-            //    {
-            //        var image = new Image();
-            //        return image;
-            //    });
+            mockIdentityService.Setup(x => x.GetUserAsync(It.IsAny<string>()))
+                .ReturnsAsync((string id) =>
+                {
+                    var user = this.knowledgeBarterDbContext.Users.Where(x => x.Id == "userId").First();
+                    return user;
+                });
 
             this.identityService = mockIdentityService.Object;
 
@@ -90,6 +94,7 @@ namespace Tests.Service_Data_Tests
         [Fact]
         public async Task AllAsyncShouldWorkFine()
         {
+            AutoMapperConfig.RegisterMappings(typeof(LessonInListResponseModel).GetTypeInfo().Assembly);
             await this.SeedDataAsync();
 
             var lessons = await this.lessonService.AllAsync();
@@ -104,8 +109,8 @@ namespace Tests.Service_Data_Tests
             await this.SeedDataAsync();
 
             await this.lessonService.DeleteAsync(1, "userId");
-            var lessons = this.knowledgeBarterDbContext.Lessons;
-            
+            var lessons = await this.lessonRepository.AllAsNoTracking().ToListAsync();
+
             Assert.Single(lessons);
         }
 

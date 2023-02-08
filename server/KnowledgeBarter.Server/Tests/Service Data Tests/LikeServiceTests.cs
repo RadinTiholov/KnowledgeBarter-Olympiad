@@ -5,12 +5,6 @@ using KnowledgeBarter.Server.Data.Repositories;
 using KnowledgeBarter.Server.Services.Contracts;
 using KnowledgeBarter.Server.Services;
 using Microsoft.EntityFrameworkCore;
-using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace Tests.Service_Data_Tests

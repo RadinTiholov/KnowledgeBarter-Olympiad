@@ -20,7 +20,6 @@ namespace KnowledgeBarter.Server.Services
         private readonly IIdentityService identityService;
         private readonly ILikeService likeService;
 
-
         public CourseService(IDeletableEntityRepository<Course> courseRepository,
             IImageService imageService,
             IRepository<Lesson> lessonRepository,

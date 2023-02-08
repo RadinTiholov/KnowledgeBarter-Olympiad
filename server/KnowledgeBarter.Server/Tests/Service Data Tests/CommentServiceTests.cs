@@ -7,16 +7,8 @@ using KnowledgeBarter.Server.Services;
 using KnowledgeBarter.Server.Services.Contracts;
 using KnowledgeBarter.Server.Services.Mapping;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.ML.Tokenizers;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.Metrics;
-using System.Linq;
 using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace Tests.Service_Data_Tests
