@@ -143,7 +143,7 @@ namespace Tests.Service_Data_Tests
         public async Task DeleteAsyncShouldThrowException()
         {
             await this.SeedDataAsync();
-            
+
             await Assert.ThrowsAsync<ArgumentException>(async () => { await this.lessonService.DeleteAsync(1, "userId32"); });
             await Assert.ThrowsAsync<ArgumentException>(async () => { await this.lessonService.DeleteAsync(1, "userId2"); });
         }
@@ -271,7 +271,7 @@ namespace Tests.Service_Data_Tests
             await this.SeedDataAsync();
 
             var exists = await this.lessonService.ExistsAsync(1);
-            
+
             Assert.True(exists);
         }
 
@@ -322,12 +322,80 @@ namespace Tests.Service_Data_Tests
         }
 
         [Fact]
+        public async Task RecommendedShouldWorkCorrectly()
+        {
+            AutoMapperConfig.RegisterMappings(typeof(LessonInListResponseModel).GetTypeInfo().Assembly);
+            await this.SeedDataAsync();
+            await this.SeedLessonsToUser();
+
+            var recommended = await this.lessonService.RecommendedAsync("userId2");
+            Assert.Equal(6, recommended.ToList()[0].Id);
+        }
+
+        [Fact]
         public async Task LikeAsyncShouldThrowException()
         {
             await this.SeedDataAsync();
 
             await Assert.ThrowsAsync<ArgumentException>(async () => { await this.lessonService.LikeAsync(1, "userId32"); });
             await Assert.ThrowsAsync<ArgumentException>(async () => { await this.lessonService.LikeAsync(1, "userId"); });
+        }
+
+        private async Task SeedLessonsToUser()
+        {
+            var applicationUser = await this.knowledgeBarterDbContext.Users.Where(x => x.Id == "userId").FirstAsync();
+            var applicationUser2 = await this.knowledgeBarterDbContext.Users.Where(x => x.Id == "userId2").FirstAsync();
+            var image = new Image()
+            {
+                Id = 2,
+                Url = "aaaaaaaaaaa",
+            };
+
+            var lesson = new Lesson()
+            {
+                Id = 8,
+                Title = "aaaaaaaaaa",
+                Article = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                Description = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                OwnerId = "userId",
+                Owner = applicationUser,
+                ImageId = 1,
+                Image = image,
+                Views = 1,
+                Video = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                Price = 2,
+            };
+            var lesson2 = new Lesson()
+            {
+                Id = 9,
+                Title = "aaaaaaaaaa",
+                Article = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                Description = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                OwnerId = "userId",
+                Owner = applicationUser,
+                ImageId = 1,
+                Image = image,
+                Views = 1,
+                Video = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                Price = 2,
+            };
+
+            var tag = new Tag()
+            {
+                Text = "test",
+                LessonId = 8,
+            };
+
+            lesson.Tags.Add(tag);
+
+            applicationUser2.BoughtLessons.Add(lesson);
+            lesson.UsersWhoBought.Add(applicationUser2);
+
+            this.knowledgeBarterDbContext.Lessons.Add(lesson);
+            this.knowledgeBarterDbContext.Lessons.Add(lesson2);
+            this.knowledgeBarterDbContext.Users.Update(applicationUser2);
+
+            await this.knowledgeBarterDbContext.SaveChangesAsync();
         }
 
         private async Task SeedDataAsync()
