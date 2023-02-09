@@ -37,7 +37,7 @@ namespace KnowledgeBarter.Server.Services
                 .ToListAsync();
         }
 
-        public async Task<CreateLessonResponseModel> CreateAsync(CreateLesssonRequestModel model, string userId)
+        public async Task<CreateLessonResponseModel> CreateAsync(CreateLessonRequestModel model, string userId)
         {
             var image = await this.imageService.CreateAsync(model.Image);
 

@@ -5,7 +5,7 @@ using static KnowledgeBarter.Server.Data.Common.DataValidation.Lesson;
 
 namespace KnowledgeBarter.Server.Models.Lesson
 {
-    public class CreateLesssonRequestModel
+    public class CreateLessonRequestModel
     {
         [Required]
         [StringLength(TitleMaxLength, MinimumLength = TitleMinLength)]

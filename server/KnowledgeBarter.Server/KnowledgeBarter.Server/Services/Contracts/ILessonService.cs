@@ -12,7 +12,7 @@ namespace KnowledgeBarter.Server.Services.Contracts
 
         Task<T> GetOneAsync<T>(int id);
 
-        Task<CreateLessonResponseModel> CreateAsync(CreateLesssonRequestModel model, string userId);
+        Task<CreateLessonResponseModel> CreateAsync(CreateLessonRequestModel model, string userId);
 
         Task<EditLessonResponseModel> EditAsync(EditLessonRequestModel model, int lessonId, string userId);
 
