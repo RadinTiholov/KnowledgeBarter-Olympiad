@@ -203,19 +203,18 @@ namespace Tests.Service_Data_Tests
 
             await this.SeedDataAsync();
 
-            CreateLessonRequestModel model = new CreateLessonRequestModel();
-            model.Title = "Title";
+            EditLessonRequestModel model = new EditLessonRequestModel();
+            model.Title = "EditedTitle";
             model.Description = "Description";
             model.Article = "Article";
             model.Video = "https:/google.com";
-            model.Image = this.formFile;
             model.Tags = new string[] { "a" };
 
-            var lesson = await lessonService.CreateAsync(model, "userId");
+            var lesson = await lessonService.EditAsync(model, 1, "userId");
+            model.Image = this.formFile;
+            lesson = await lessonService.EditAsync(model, 1, "userId");
 
-            var lessons = await this.lessonRepository.AllAsNoTracking().ToListAsync();
-
-            Assert.Equal(7, lessons.Count);
+            Assert.Equal("EditedTitle", lesson.Title);
         }
 
         [Fact]
@@ -225,19 +224,10 @@ namespace Tests.Service_Data_Tests
 
             await this.SeedDataAsync();
 
-            CreateLessonRequestModel model = new CreateLessonRequestModel();
-            model.Title = "Title";
-            model.Description = "Description";
-            model.Article = "Article";
-            model.Video = "https:/google.com";
-            model.Image = this.formFile;
-            model.Tags = new string[] { "a" };
+            EditLessonRequestModel model = new EditLessonRequestModel();
 
-            var lesson = await lessonService.CreateAsync(model, "userId");
-
-            var lessons = await this.lessonRepository.AllAsNoTracking().ToListAsync();
-
-            Assert.Equal(7, lessons.Count);
+            await Assert.ThrowsAsync<ArgumentException>(async () => { await lessonService.EditAsync(model, 1, "userId32"); });
+            await Assert.ThrowsAsync<ArgumentException>(async () => { await lessonService.EditAsync(model, 1, "userId2"); });
         }
 
         [Fact]
