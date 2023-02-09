@@ -31,8 +31,6 @@
 
         public string[] Tags { get; set; } = null!;
 
-        public IEnumerable<CommentInListResponseModel> Comments { get; set; } = null!;
-
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<Lesson, CreateLessonResponseModel>()
@@ -43,16 +41,7 @@
                 .ForMember(x => x.Likes, opt =>
                     opt.MapFrom(i => i.Likes.Count()))
                 .ForMember(x => x.Tags, opt =>
-                    opt.MapFrom(i => i.Tags.Select(x => x.Text).ToArray()))
-                .ForMember(x => x.Comments, opt =>
-                    opt.MapFrom(i => i.Comments.Select(x => new CommentInListResponseModel()
-                    {
-                        Id = x.Id,
-                        Text = x.Text,
-                        LessonId = x.LessonId,
-                        UserName = x.Owner.UserName,
-                        ProfilePicture = x.Owner.Image.Url
-                    })));
+                    opt.MapFrom(i => i.Tags.Select(x => x.Text).ToArray()));
         }
     }
 }
