@@ -148,7 +148,7 @@ namespace Tests.Service_Data_Tests
 
             await this.SeedData();
 
-            var courses = await this.courseService.AllAsync();
+            var courses = await this.courseService.HighestAsync();
 
             Assert.Single(courses);
         }
@@ -368,6 +368,122 @@ namespace Tests.Service_Data_Tests
             };
 
             await Assert.ThrowsAsync<ArgumentException>(async () => { await this.courseService.CreateAsync(model, "userId1"); });
+        }
+
+        [Fact]
+        public async Task EditAsyncShouldThrowExWhenNotFound()
+        {
+            await this.SeedData();
+
+            await this.SeedLessons();
+
+            var model = new EditCourseRequestModel()
+            {
+                Title = "Test11",
+                Description = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                Image = this.formFile,
+                Lessons = new int[] { 1, 2, 3, 4, 5, 6 }
+            };
+
+            await Assert.ThrowsAsync<ArgumentException>(async () => { await this.courseService.EditAsync(model, 4, "userId3"); });
+        }
+
+        [Fact]
+        public async Task EditAsyncShouldThrowExWhenNotOwner()
+        {
+            await this.SeedData();
+
+            await this.SeedLessons();
+
+            var model = new EditCourseRequestModel()
+            {
+                Title = "Test11",
+                Description = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                Image = this.formFile,
+                Lessons = new int[] { 1, 2, 3, 4, 5, 6 }
+            };
+
+            await Assert.ThrowsAsync<ArgumentException>(async () => { await this.courseService.EditAsync(model, 1, "userId2"); });
+        }
+
+        [Fact]
+        public async Task EditAsyncShouldThrowExWhenNotEnoughLessons()
+        {
+            await this.SeedData();
+
+            await this.SeedLessons();
+
+            var model = new EditCourseRequestModel()
+            {
+                Title = "Test11",
+                Description = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                Image = this.formFile,
+                Lessons = new int[] { 1, 2, 3 }
+            };
+
+            await Assert.ThrowsAsync<ArgumentException>(async () => { await this.courseService.EditAsync(model, 1, "userId1"); });
+        }
+
+        [Fact]
+        public async Task EditAsyncShouldThrowExWhenNotLessonOwner()
+        {
+            await this.SeedData();
+
+            await this.SeedLessons();
+
+            var model = new EditCourseRequestModel()
+            {
+                Title = "Test11",
+                Description = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                Image = this.formFile,
+                Lessons = new int[] { 1, 2, 3, 4, 5, 7 }
+            };
+
+            await Assert.ThrowsAsync<ArgumentException>(async () => { await this.courseService.EditAsync(model, 1, "userId1"); });
+        }
+
+        [Fact]
+        public async Task EditAsyncShouldWorkCorrectlyWhenImage()
+        {
+            AutoMapperConfig.RegisterMappings(typeof(EditCourseResponseModel).GetTypeInfo().Assembly);
+            await this.SeedData();
+
+            await this.SeedLessons();
+
+            var model = new EditCourseRequestModel()
+            {
+                Title = "TestUpdate",
+                Description = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                Image = this.formFile,
+                Lessons = new int[] { 1, 2, 3, 4, 5, 6 }
+            };
+
+            var result = await this.courseService.EditAsync(model, 1, "userId1");
+            var images = await this.knowledgeBarterDbContext.Images.ToListAsync();
+
+            Assert.Equal("TestUpdate", result.Title);
+            Assert.Equal(3, images.Count);
+        }
+        [Fact]
+        public async Task EditAsyncShouldWorkCorrectlyWhenImageIsNotUpload()
+        {
+            AutoMapperConfig.RegisterMappings(typeof(EditCourseResponseModel).GetTypeInfo().Assembly);
+            await this.SeedData();
+
+            await this.SeedLessons();
+
+            var model = new EditCourseRequestModel()
+            {
+                Title = "TestUpdate",
+                Description = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                Lessons = new int[] { 1, 2, 3, 4, 5, 6 }
+            };
+
+            var result = await this.courseService.EditAsync(model, 1, "userId1");
+            var images = await this.knowledgeBarterDbContext.Images.ToListAsync();
+
+            Assert.Equal("TestUpdate", result.Title);
+            Assert.Equal(2, images.Count);
         }
 
         private async Task SeedLessons()
