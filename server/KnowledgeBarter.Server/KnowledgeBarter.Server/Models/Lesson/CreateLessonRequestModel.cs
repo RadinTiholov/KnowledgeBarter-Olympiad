@@ -1,5 +1,4 @@
 ﻿using KnowledgeBarter.Server.Infrastructure.Attributes;
-using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using static KnowledgeBarter.Server.Data.Common.DataValidation.Lesson;
 

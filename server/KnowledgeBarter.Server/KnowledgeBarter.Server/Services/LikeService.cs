@@ -1,7 +1,6 @@
 ﻿using KnowledgeBarter.Server.Data.Common.Repositories;
 using KnowledgeBarter.Server.Data.Models;
 using KnowledgeBarter.Server.Services.Contracts;
-using static KnowledgeBarter.Server.Data.Common.DataValidation;
 
 namespace KnowledgeBarter.Server.Services
 {
