@@ -35,6 +35,7 @@ import CourseOwner from './components/common/CourseOwner';
 import { SendEmail } from './components/SendEmail/SendEmail';
 import { Comments } from './components/Comments/Comments';
 import AdminGuard from './components/common/AdminGuard';
+import { About } from './components/About/About';
 
 function App() {
     return (
@@ -46,6 +47,7 @@ function App() {
                         <section id='main'>
                             <Routes>
                                 <Route path='/' element={<Home />} />
+                                <Route path='/about' element={<About />} />
                                 <Route path='/course/all' element={<Courses />} />
                                 <Route path='/lesson/all' element={<Lessons />} />
                                 <Route path='/lesson/details/:id' element={<DetailsLesson />} />

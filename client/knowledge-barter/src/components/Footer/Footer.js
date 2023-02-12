@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 export const Footer = () => {
     return (
         <footer
@@ -11,6 +13,9 @@ export const Footer = () => {
                 style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}
             >
                 <b>© Knowledge Barter App</b>
+                <Link className="nav-link text-light" to="/about">
+                    About
+                </Link>
                 {/* {' © 2022 Copyright: '} */}
             </div>
             {/* Copyright */}
