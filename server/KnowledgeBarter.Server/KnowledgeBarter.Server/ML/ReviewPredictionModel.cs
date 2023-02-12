@@ -1,6 +1,7 @@
 ﻿namespace ML
 {
     using Microsoft.ML;
+    using System.Net;
 
     public class ReviewPredictionModel
     {
@@ -17,14 +18,15 @@
             MLContext mlContext = new MLContext();
 
             //string modelPath = @"C:\Users\radit\AppData\Local\Temp\MLVSTools\AutoMlTestML\AutoMlTestML.Model\MLModel.zip";
-
-            //For unit testing
-            string modelPath = Directory.GetCurrentDirectory() + "\\MLModel.zip";
-            if (!modelPath.Contains("Test"))
+            if (!File.Exists("MLModel.zip"))
             {
-                modelPath = Path.Combine(Directory.GetCurrentDirectory(), @"ML\\MLModel.zip");
+                using (var client = new WebClient())
+                {
+                    client.DownloadFile("https://firebasestorage.googleapis.com/v0/b/knowledge-barter.appspot.com/o/MLModel.zip?alt=media&token=eff55593-acdd-41ca-9027-90089ea23b9c", "MLModel.zip");
+                }
             }
-            ITransformer mlModel = mlContext.Model.Load(modelPath, out var modelInputSchema);
+
+            ITransformer mlModel = mlContext.Model.Load("MLModel.zip", out var modelInputSchema);
             var predEngine = mlContext.Model.CreatePredictionEngine<ModelInput, ModelOutput>(mlModel);
 
             return predEngine;
