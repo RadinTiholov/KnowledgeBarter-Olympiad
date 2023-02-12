@@ -9,7 +9,7 @@ export const Footer = () => {
             {/* Grid container */}
             {/* Copyright */}
             <div
-                className="text-center p-4"
+                className="text-center p-3"
                 style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}
             >
                 <b>© Knowledge Barter App</b>
