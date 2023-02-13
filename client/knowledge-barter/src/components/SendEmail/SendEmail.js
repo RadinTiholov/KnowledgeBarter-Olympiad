@@ -41,7 +41,7 @@ export const SendEmail = () => {
     }
 
     return (
-        <div style={{ backgroundImage: `url(${background})` }} className="backgound-layer-login">
+        <div className="backgound-layer-create">
             {/* Login Form */}
             <div className="container">
                 <div className="row">

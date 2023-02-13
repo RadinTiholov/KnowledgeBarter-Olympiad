@@ -77,7 +77,7 @@ export const CreateCourse = () => {
             })
     }
 
-    return (<div style={{ backgroundImage: `url(${background})` }} className="backgound-layer-login">
+    return (<div className="backgound-layer-create">
         {/* Create course form */}
         <div className="container">
             <div className="row">
