@@ -108,6 +108,7 @@ namespace KnowledgeBarter.Server.Services
         {
             return await this.applicationUserRepository
                 .AllAsNoTracking()
+                .Where(x => x.Id == userId)
                 .To<UserInformationResponseModel>()
                 .FirstOrDefaultAsync();
         }
