@@ -65,6 +65,7 @@ namespace KnowledgeBarter.Server.Services
                 .Include(x => x.LikedCourses)
                 .Include(x => x.BoughtLessons)
                 .Include(x => x.BoughtCourses)
+                    .ThenInclude(bc => bc.Lessons)
                 .Include(x => x.OwnLessons)
                 .Include(x => x.OwnCourses)
                 .Include(x => x.Image)

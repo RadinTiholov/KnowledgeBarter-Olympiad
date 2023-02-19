@@ -153,7 +153,7 @@ namespace KnowledgeBarter.Server.Services
             return await this.courseRepository
                .AllAsNoTracking()
                .Include(x => x.Likes)
-               .OrderByDescending(x => x.Likes.Count())
+               .OrderByDescending(x => x.Likes.ToList().Count)
                .Take(4)
                .To<CourseInListResponseModel>()
                .ToListAsync();
