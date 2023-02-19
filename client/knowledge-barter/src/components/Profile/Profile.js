@@ -1,11 +1,14 @@
 import './Profile.css'
 import background from '../../images/waves-profile.svg'
-import { useUserInfo } from '../../hooks/useUserInfo'
 import { useContext } from 'react'
 import { AuthContext } from '../../contexts/AuthContext'
+import { useParams } from 'react-router-dom'
+import { useSelectedUserInfor } from '../../hooks/useSelectedUserInfo'
 
 export const Profile = () => {
-    const [fullUserInfo, setfullUserInfo] = useUserInfo({})
+    const { id } = useParams();
+
+    const [fullUserInfo, setfullUserInfo] = useSelectedUserInfor(id)
     const {auth} = useContext(AuthContext);
     return (
         <div style = {{backgroundImage: `url(${background})`}}  className="backgound-layer-profile">

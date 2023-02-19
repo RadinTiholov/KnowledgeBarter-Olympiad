@@ -157,14 +157,14 @@ export const Header = () => {
                                         </ul>
                                     </li>
                                     <li className="nav-item">
-                                        <Link className="nav-link text-light" to="/profile">
+                                        <Link className="nav-link text-light" to={`/profile/${auth._id}`}>
                                             KBPoints: {auth.kbPoints}
                                         </Link>
                                     </li>
                                     <li className="nav-item dropdown">
                                         <a
                                             className="nav-link dropdown-toggle text-light"
-                                            href="/profile"
+                                            href={`/profile/${auth._id}`}
                                             style={{ fontWeight: 600, fontSize: "large", paddingRight: 80 }}
                                             id="navbarDropdown"
                                             role="button"
@@ -178,7 +178,7 @@ export const Header = () => {
                                             aria-labelledby="navbarDropdown"
                                         >
                                             <li>
-                                                <Link className="dropdown-item" to="/profile">
+                                                <Link className="dropdown-item" to={`/profile/${auth._id}`}>
                                                     Information
                                                 </Link>
                                             </li>

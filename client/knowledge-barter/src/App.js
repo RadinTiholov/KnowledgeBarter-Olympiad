@@ -54,7 +54,7 @@ function App() {
                                 <Route path='/course/details/:courseId/:lessonId' element={<DetailsCourse />} />
                                 <Route element={<GuestGuard />}>
                                     <Route path='/logout' element={<Logout />} />
-                                    <Route path='/profile' element={<Profile />} />
+                                    <Route path='/profile/:id' element={<Profile />} />
                                     <Route path='/lesson/create' element={<CreateLesson />} />
                                     <Route path='/lesson/bought' element={<BoughtLessons />} />
                                     <Route path='/lesson/yours' element={<YourLessons />} />

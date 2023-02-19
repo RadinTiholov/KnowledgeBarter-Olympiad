@@ -8,7 +8,7 @@ import * as lessonService from '../../dataServices/lessonsService'
 import { useContext, useEffect, useState } from 'react';
 import { LessonContext } from '../../contexts/LessonContext';
 import { AuthContext } from '../../contexts/AuthContext';
-import { useUserInfo } from '../../hooks/useUserInfo'
+import { useCurrentUserInfo } from '../../hooks/useCurrentUserInfo'
 import { useIsLiked } from '../../hooks/useIsLiked';
 import { BookSpinner } from '../common/Spinners/BookSpinner';
 
@@ -18,7 +18,7 @@ export const DetailsLesson = () => {
     const navigate = useNavigate();
     const [isOwner, isLoadingOwner] = useOwner(id, true);
     const [isBought, isLoadingBoughtLeson] = useBoughtLesson(id);
-    const [fullUserInfo, setfullUserInfo] = useUserInfo({});
+    const [fullUserInfo, setfullUserInfo] = useCurrentUserInfo({});
     const [isLiked, setIsLiked] = useIsLiked(id, true);
     const { delLesson } = useContext(LessonContext);
     const { auth, updatePoints } = useContext(AuthContext);

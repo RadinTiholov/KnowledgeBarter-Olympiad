@@ -12,7 +12,7 @@ import { LessonContext } from '../../contexts/LessonContext';
 import { CourseContext } from "../../contexts/CourseContext";
 import { AuthContext } from "../../contexts/AuthContext";
 import { useIsLiked } from "../../hooks/useIsLiked";
-import { useUserInfo } from "../../hooks/useUserInfo";
+import { useCurrentUserInfo } from "../../hooks/useCurrentUserInfo";
 import { BookSpinner } from "../common/Spinners/BookSpinner";
 
 export const DetailsCourse = () => {
@@ -26,7 +26,7 @@ export const DetailsCourse = () => {
     const { delCourse } = useContext(CourseContext)
     const { auth, updatePoints } = useContext(AuthContext);
     const [isLiked, setIsLiked] = useIsLiked(courseId, false);
-    const [fullUserInfo, setfullUserInfo] = useUserInfo({})
+    const [fullUserInfo, setfullUserInfo] = useCurrentUserInfo({})
 
     const onClickDeleteLesson = () => {
         lessonService.del(lessonId)

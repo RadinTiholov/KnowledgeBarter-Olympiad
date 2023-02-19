@@ -148,6 +148,7 @@ namespace KnowledgeBarter.Server.Controllers
 
             return user;
         }
+
         private async Task<string> GetCurrentRole(ApplicationUser user)
         {
             var roles = (List<string>)await this.userManager.GetRolesAsync(user);
