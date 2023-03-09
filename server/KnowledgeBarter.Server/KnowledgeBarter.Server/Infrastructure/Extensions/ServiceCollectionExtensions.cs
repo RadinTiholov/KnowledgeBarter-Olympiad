@@ -72,6 +72,16 @@ namespace KnowledgeBarter.Server.Infrastructure.Extensions
             return services;
         }
 
+        public static IServiceCollection AddSignalRExtn(this IServiceCollection services)
+        {
+            services.AddSignalR(options =>
+            {
+                options.EnableDetailedErrors = true;
+            });
+
+            return services;
+        }
+
         public static IServiceCollection AddCloudinary(this IServiceCollection services, IConfiguration configuration)
         {
             Account account = new Account(

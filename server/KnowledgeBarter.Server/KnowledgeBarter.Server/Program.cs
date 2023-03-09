@@ -1,4 +1,5 @@
 using KnowledgeBarter.Server.Data;
+using KnowledgeBarter.Server.Hubs;
 using KnowledgeBarter.Server.Infrastructure.Extensions;
 using KnowledgeBarter.Server.Models;
 using KnowledgeBarter.Server.Services.Mapping;
@@ -18,6 +19,7 @@ builder.Services.AddDbContext<KnowledgeBarterDbContext>(options =>
     .AddJwtAuthentication(appSettings)
     .AddRepositories()
     .AddSendGrid(builder.Configuration)
+    .AddSignalRExtn()
     .AddApplicationServices()
     .AddSwagger()
     .AddCloudinary(builder.Configuration)
@@ -59,6 +61,8 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapHub<ChatHub>("/chatHub");
 
 app.ApplyMigration();
 
