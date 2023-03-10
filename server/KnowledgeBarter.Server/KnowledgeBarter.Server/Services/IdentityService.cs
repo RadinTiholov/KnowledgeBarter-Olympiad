@@ -131,9 +131,9 @@ namespace KnowledgeBarter.Server.Services
             var user = await this.applicationUserRepository
                 .AllAsNoTracking()
                 .Where(x => x.UserName == username)
-                .FirstAsync();
+                .FirstOrDefaultAsync();
 
-            return user.Id;
+            return user?.Id;
         }
     }
 }
