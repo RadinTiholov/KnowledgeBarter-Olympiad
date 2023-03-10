@@ -36,6 +36,7 @@ import { SendEmail } from './components/SendEmail/SendEmail';
 import { Comments } from './components/Comments/Comments';
 import AdminGuard from './components/common/AdminGuard';
 import { About } from './components/About/About';
+import { Chat } from './components/Chat/Chat';
 
 function App() {
     return (
@@ -63,6 +64,7 @@ function App() {
                                     <Route path='/course/yours' element={<YourCourses />} />
                                     <Route path='/liked' element={<Liked />} />
                                     <Route path='/lesson/contact/:id' element={<SendEmail />} />
+                                    <Route path='/chat' element={<Chat/>}/>
                                 </Route>
                                 <Route element={<LessonOwner />}>
                                     <Route path='/lesson/edit/:id' element={<EditLesson />} />
