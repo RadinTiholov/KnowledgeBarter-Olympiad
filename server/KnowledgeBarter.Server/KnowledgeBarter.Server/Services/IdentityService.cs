@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using static KnowledgeBarter.Server.Data.Common.DataValidation;
 
 namespace KnowledgeBarter.Server.Services
 {
@@ -123,6 +124,16 @@ namespace KnowledgeBarter.Server.Services
             }
 
             return false;
+        }
+
+        public async Task<string> GetIdByUsernameAsync(string username)
+        {
+            var user = await this.applicationUserRepository
+                .AllAsNoTracking()
+                .Where(x => x.UserName == username)
+                .FirstAsync();
+
+            return user.Id;
         }
     }
 }
