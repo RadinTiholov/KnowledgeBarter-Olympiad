@@ -51,6 +51,7 @@ namespace KnowledgeBarter.Server.Infrastructure.Extensions
             services.AddTransient<ICourseService, CourseService>();
             services.AddTransient<ICloudinaryService, CloudinaryService>();
             services.AddTransient<IEmailService, EmailService>();
+            services.AddTransient<IMessageService, MessageService>();
 
             return services;
         }

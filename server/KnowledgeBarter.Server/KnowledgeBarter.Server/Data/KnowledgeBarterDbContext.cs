@@ -31,6 +31,8 @@ namespace KnowledgeBarter.Server.Data
 
         public DbSet<Tag> Tags { get; set; }
 
+        public DbSet<Message> Messages { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)

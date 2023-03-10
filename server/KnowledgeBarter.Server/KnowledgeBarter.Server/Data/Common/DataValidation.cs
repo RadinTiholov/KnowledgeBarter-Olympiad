@@ -41,5 +41,17 @@
             public const int TopicMinLength = 3;
             public const int TopicMaxLength = 20;
         }
+
+        public class Message
+        {
+            public const int TextMaxLength = 200;
+            public const int TextMinLength = 10;
+        }
+
+        public class User
+        {
+            public const int UserNameMaxLength = 200;
+            public const int UserNameMinLength = 1;
+        }
     }
 }
