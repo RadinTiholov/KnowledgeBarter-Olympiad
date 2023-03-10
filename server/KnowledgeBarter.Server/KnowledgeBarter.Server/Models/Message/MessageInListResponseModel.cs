@@ -6,6 +6,8 @@
 
     public class MessageInListViewModel : IMapFrom<Message>, IHaveCustomMappings
     {
+        public int Id { get; set; }
+
         public string Text { get; set; } = null!;
 
         public string SenderUsername { get; set; } = null!;

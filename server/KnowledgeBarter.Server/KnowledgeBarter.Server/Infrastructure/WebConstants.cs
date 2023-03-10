@@ -22,6 +22,10 @@ namespace KnowledgeBarter.Server.Infrastructure
 
         public const string UserInformationRoute = "/Identity/UserInformation/{userId}";
 
+        public const string MessageCreateRoute = "/Message/Create";
+
+        public const string MessageAllRoute = "/Message/All/{receiverUsername}";
+
         public const string AllowedExtensionsErrorMessage = "This file extension is not allowed.";
 
         public const string SomethingWentWrongMessage = "Something went wrong. Please try again later.";

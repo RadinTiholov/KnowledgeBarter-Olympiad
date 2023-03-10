@@ -12,9 +12,10 @@ namespace KnowledgeBarter.Server.Services
         private readonly IIdentityService identityService;
         private readonly IRepository<Message> messageRepository;
 
-        public MessageService(IIdentityService identityService)
+        public MessageService(IIdentityService identityService, IRepository<Message> messageRepository)
         {
             this.identityService = identityService;
+            this.messageRepository = messageRepository;
         }
 
         public async Task CreateAsync(CreateMessageRequestModel model, string senderId)

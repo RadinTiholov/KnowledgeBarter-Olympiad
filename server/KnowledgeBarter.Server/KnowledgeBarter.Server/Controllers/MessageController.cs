@@ -1,15 +1,18 @@
 ﻿using KnowledgeBarter.Server.Infrastructure.Extensions;
 using KnowledgeBarter.Server.Models.Message;
 using KnowledgeBarter.Server.Services.Contracts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+
+using static KnowledgeBarter.Server.Infrastructure.WebConstants;
 
 namespace KnowledgeBarter.Server.Controllers
 {
+    [Authorize]
     public class MessageController : ApiController
     {
         private readonly IMessageService messageService;
         private readonly IIdentityService identityService;
-
 
         public MessageController(IMessageService messageService, IIdentityService identityService)
         {
@@ -18,6 +21,7 @@ namespace KnowledgeBarter.Server.Controllers
         }
 
         [HttpPost]
+        [Route(MessageCreateRoute)]
         public async Task<ActionResult> Create(CreateMessageRequestModel model)
         {
             if (!this.ModelState.IsValid)
@@ -31,17 +35,19 @@ namespace KnowledgeBarter.Server.Controllers
         }
 
         [HttpGet]
+        [Route(MessageAllRoute)]
         public async Task<ActionResult<IEnumerable<MessageInListViewModel>>> All(string receiverUsername)
         {
-            if (!this.ModelState.IsValid || await this.identityService.GetIdByUsernameAsync(receiverUsername) == null)
+            var receiverId = await this.identityService.GetIdByUsernameAsync(receiverUsername);
+            if (!this.ModelState.IsValid || receiverId == null)
             {
                 return this.BadRequest();
             }
 
-            var receiver = await this.identityService.GetUserAsync(receiverUsername);
-            var senderUsername = this.User?.Identity?.Name;
+            var receiver = await this.identityService.GetUserAsync(receiverId);
+            var sender = await this.identityService.GetUserAsync(this.User.Id());
 
-            var messages = await this.messageService.GetAllForUsersAsync(senderUsername, receiver.UserName);
+            var messages = await this.messageService.GetAllForUsersAsync(sender.UserName, receiver.UserName);
 
             return messages;
         }

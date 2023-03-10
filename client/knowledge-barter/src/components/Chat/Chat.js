@@ -2,9 +2,25 @@ import "./Chat.css"
 import * as signalR from "@microsoft/signalr";
 import { MesssageBubble } from "./MessageBubble/MessageBubble";
 import { useSearchParams } from "react-router-dom";
+import { useState } from "react";
+import { useEffect } from "react";
+import * as messagesService from "../../dataServices/messagesService";
 
 export const Chat = () => {
     const [searchParams, setSearchParams] = useSearchParams();
+
+    const [messages, setMessages] = useState([]);
+
+    useEffect(() => {
+        messagesService
+            .getAll(searchParams.get('receiver'))
+            .then(res => {
+                setMessages(res);
+            })
+            .catch(err => {
+                alert(err);
+            })
+    }, []);
 
     let connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
 
@@ -59,6 +75,8 @@ export const Chat = () => {
                         </div>
                     </header>
                     <div className="msger-chat">
+                        {/* {messages.map(x => <MesssageBubble key = {x.Id} {...x} position = {x.receiverUsername == }/>)} */}
+                        {messages.map(x => <MesssageBubble key = {x.Id} {...x}/>)}
                         {/* @foreach (var message in Model.Messages) */}
                         {/* {message.ReceiverUsername == Model.Receiver} */}
                         {/* <MesssageBubble/> */}
