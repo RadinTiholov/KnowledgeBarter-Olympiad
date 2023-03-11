@@ -3,10 +3,8 @@ using Microsoft.AspNetCore.SignalR;
 
 namespace KnowledgeBarter.Server.Hubs
 {
-    [Authorize]
     public class ChatHub : Hub
     {
-
         public void Subscribe(string connectionUsername)
         {
             string currentUserName = this.Context.User.Identity.Name;

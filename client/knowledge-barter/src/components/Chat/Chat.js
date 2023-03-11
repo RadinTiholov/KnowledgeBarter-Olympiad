@@ -6,10 +6,40 @@ import { useState } from "react";
 import { useEffect } from "react";
 import * as messagesService from "../../dataServices/messagesService";
 
+
+let connection = new signalR.HubConnectionBuilder()
+    .withUrl("https://localhost:3030/chatHub")
+    .build();
+
+connection.on("ReceiveMessage", function (user, message) {
+    const msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+    //const imageUrlRaw = get("#receiver-img").style.backgroundImage;
+    //const imageUrl = imageUrlRaw.substring(5, imageUrlRaw.length - 2);
+
+    //appendMessage(user, imageUrl, "left", msg);
+});
+
+connection.start()
+    .then(function () {
+        //Subscribe to the group
+        //const receiver = get("#receiver").value;
+
+        // connection.invoke("Subscribe", receiver).catch(function (err) {
+        //     return console.error(err.toString());
+        // });
+
+        //msgetSendButton.disabled = false;
+    }).catch(function (err) {
+        return console.error(err.toString());
+    });
+
 export const Chat = () => {
     const [searchParams, setSearchParams] = useSearchParams();
 
     const [messages, setMessages] = useState([]);
+
+    
 
     useEffect(() => {
         messagesService
@@ -19,33 +49,9 @@ export const Chat = () => {
             })
             .catch(err => {
                 alert(err);
-            })
+            });
+
     }, []);
-
-    let connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
-
-    connection.on("ReceiveMessage", function (user, message) {
-        const msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    
-        //const imageUrlRaw = get("#receiver-img").style.backgroundImage;
-        //const imageUrl = imageUrlRaw.substring(5, imageUrlRaw.length - 2);
-    
-        //appendMessage(user, imageUrl, "left", msg);
-    });
-    
-    connection.start()
-        .then(function () {
-            //Subscribe to the group
-            //const receiver = get("#receiver").value;
-    
-            // connection.invoke("Subscribe", receiver).catch(function (err) {
-            //     return console.error(err.toString());
-            // });
-    
-            //msgetSendButton.disabled = false;
-        }).catch(function (err) {
-            return console.error(err.toString());
-        });
 
     return (
         <>

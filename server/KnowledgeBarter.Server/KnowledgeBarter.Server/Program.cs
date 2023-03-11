@@ -51,9 +51,12 @@ app
 app.UseRouting();
 
 app.UseCors(options => options
-    .AllowAnyOrigin()
+    .WithOrigins("https://localhost:3000")
     .AllowAnyHeader()
-    .AllowAnyMethod());
+    .AllowAnyMethod()
+    .SetIsOriginAllowed((x) => true)
+    .AllowCredentials());
+
 
 app.UseAuthentication();
 app.UseAuthorization();
