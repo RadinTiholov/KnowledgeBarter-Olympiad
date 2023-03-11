@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.SignalR;
 
 namespace KnowledgeBarter.Server.Hubs
 {
@@ -7,15 +6,14 @@ namespace KnowledgeBarter.Server.Hubs
     {
         public void Subscribe(string connectionUsername)
         {
-            string currentUserName = this.Context.User.Identity.Name;
-            this.Groups.AddToGroupAsync(this.Context.ConnectionId, currentUserName + connectionUsername);
+            //string currentUserName = this.Context.User.Identity.Name;
+            this.Groups.AddToGroupAsync(this.Context.ConnectionId, connectionUsername);
         }
 
         public Task SendMessageToGroup(string receiver, string message)
         {
-            var sender = this.Context.User.Identity.Name;
-
-            return this.Clients.Group(receiver + sender).SendAsync("ReceiveMessage", sender, message);
+            //var sender = this.Context.User.Identity.Name;
+            return this.Clients.Group(receiver).SendAsync("ReceiveMessage", message);
         }
     }
 }
