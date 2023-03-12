@@ -135,5 +135,13 @@ namespace KnowledgeBarter.Server.Services
 
             return user?.Id;
         }
+
+        public async Task<IEnumerable<ProfilesInListResponseModel>> GetAllProfilesAsync()
+        {
+            return await this.applicationUserRepository
+                .AllAsNoTracking()
+                .To<ProfilesInListResponseModel>()
+                .ToListAsync();
+        }
     }
 }

@@ -21,5 +21,7 @@ namespace KnowledgeBarter.Server.Services.Contracts
         Task<bool> IsUserInRoleAsync(string userId, string role);
 
         Task<string> GetIdByUsernameAsync(string username);
+
+        Task<IEnumerable<ProfilesInListResponseModel>> GetAllProfilesAsync();
     }
 }

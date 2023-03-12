@@ -149,6 +149,19 @@ namespace KnowledgeBarter.Server.Controllers
             return user;
         }
 
+        /// <summary>
+        /// Get all profiles
+        /// </summary>
+        /// <returns>All profiles</returns>
+        [HttpGet]
+        [Route(AllProfilesRoute)]
+        public async Task<IEnumerable<ProfilesInListResponseModel>> AllProfiles()
+        {
+            var profiles = await this.identityService.GetAllProfilesAsync();
+
+            return profiles;
+        }
+
         private async Task<string> GetCurrentRole(ApplicationUser user)
         {
             var roles = (List<string>)await this.userManager.GetRolesAsync(user);
