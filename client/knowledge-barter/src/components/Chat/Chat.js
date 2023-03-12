@@ -1,6 +1,7 @@
 import "./Chat.css"
 import { HubConnectionBuilder } from '@microsoft/signalr';
 import { MesssageBubble } from "./MessageBubble/MessageBubble";
+import { BookSpinner } from "../common/Spinners/BookSpinner";
 import { useSearchParams } from "react-router-dom";
 import { useContext, useState } from "react";
 import { useEffect } from "react";
@@ -15,12 +16,14 @@ export const Chat = () => {
     const [messages, setMessages] = useState([]);
 
     const [messageText, setMessageText] = useState('');
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         messagesService
             .getAll(searchParams.get('receiver'))
             .then(res => {
                 setMessages(res);
+                setIsLoading(false);
             })
             .catch(err => {
                 alert(err);
@@ -108,11 +111,9 @@ export const Chat = () => {
                     </div>
                 </header>
                 <div className="msger-chat">
-                    {/* {messages.map(x => <MesssageBubble key = {x.Id} {...x} position = {x.receiverUsername == }/>)} */}
-                    {messages.map(x => <MesssageBubble key={x.id} position={x.senderUsername === searchParams.get('receiver') ? 'left' : 'right'} {...x} />)}
-                    {/* @foreach (var message in Model.Messages) */}
-                    {/* {message.ReceiverUsername == Model.Receiver} */}
-                    {/* <MesssageBubble/> */}
+                    {isLoading ? 
+                    <BookSpinner/> :
+                    messages.map(x => <MesssageBubble key={x.id} position={x.senderUsername === searchParams.get('receiver') ? 'left' : 'right'} {...x} />)}
                 </div>
                 <form className="msger-inputarea" onSubmit={onSubmit}>
                     <input
