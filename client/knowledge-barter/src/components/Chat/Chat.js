@@ -49,7 +49,7 @@ export const Chat = () => {
             });
 
         const newConnection = new HubConnectionBuilder()
-            .withUrl("https://localhost:3030/chatHub")
+            .withUrl("https://knowledgebarterserver.azurewebsites.net/chatHub")
             .withAutomaticReconnect()
             .build();
 

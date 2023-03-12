@@ -5,6 +5,7 @@ import { ProfileContext } from '../../contexts/ProfileContext';
 import { ProfileCard } from './ProfileCard/ProfileCard';
 import { useEffect } from "react";
 import * as authService from "../../dataServices/authService"
+import { BookSpinner } from "../common/Spinners/BookSpinner";
 
 export const ChatHub = () => {
 
@@ -35,7 +36,9 @@ export const ChatHub = () => {
             <div className="hub-component col-md-6 col-6 pt-5">
                 <h1>Contacts</h1>
                 <div className="card card-display w-100 py-2 chat-scroll" style={{ height: "70vh" }}>
-                    {profiles.filter(p => contactsIds.includes(p.id)).map(x => <ProfileCard key = {x.id} {...x}/>)}
+                    {areLoadingContacts ?
+                    <BookSpinner/> :
+                    profiles.filter(p => contactsIds.includes(p.id)).map(x => <ProfileCard key = {x.id} {...x}/>)}
                 </div>
             </div>
 

@@ -158,7 +158,6 @@ namespace KnowledgeBarter.Server.Controllers
         /// </summary>
         /// <returns>All profiles</returns>
         [HttpGet]
-        [Authorize]
         [Route(AllProfilesRoute)]
         public async Task<IEnumerable<ProfilesInListResponseModel>> AllProfiles()
         {
