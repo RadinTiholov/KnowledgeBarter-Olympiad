@@ -1,16 +1,34 @@
+import { useEffect } from 'react';
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import * as authService from '../../dataServices/authService';
+import { BookSpinner } from '../common/Spinners/BookSpinner';
+import { ProfileCard } from './ProfileCard/ProfileCard';
 
 export const ChatHub = () => {
-    const [search, setSearch] = useState();
-    const navigate = useNavigate();
-    
-    const onChange = (e) => {
-        setSearch(e.target.value)
-    }
+
+    const [search, setSearch] = useState('');
+    const [allPofiles, setAllProfiles] = useState([]);
+    const [searchResult, setSearchResult] = useState([]);
+    const [areLoadingProfiles, setAreLoadingProfiles] = useState(true);
+    const [areLoadingContacts, setAreLoadingContacts] = useState(true);
+
+    useEffect(() => {
+        authService.getAllProfiles()
+            .then(res => {
+                setAllProfiles(res);
+                setSearchResult(res);
+
+                setAreLoadingProfiles(false);
+            })
+            .catch(err => {
+                alert(err)
+            })
+    }, [])
+
     const onSearch = (e) => {
         e.preventDefault();
-        navigate(`/lesson/all/${search}`)
+
+        setSearchResult(allPofiles.filter(x => x.userName.toLowerCase().includes(search.toLowerCase())))
     } 
 
     return (
@@ -87,7 +105,7 @@ export const ChatHub = () => {
                                 id="home-search"
                                 placeholder="Search"
                                 value={search}
-                                onChange={onChange}
+                                onChange={(e) => {setSearch(e.target.value)}}
                             />
                             <button
                                 className="btn btn-outline-warning"
@@ -98,63 +116,11 @@ export const ChatHub = () => {
                             </button>
                         </form>
                     </div>
-                    <div className="card comment-card card-display-details mx-5 my-2">
-                        <div className="row">
-                            <div className="col-1">
-                                <img
-                                    className="img-fluid rounded-circle profile-comment m-3"
-                                    src='https://avatars.githubusercontent.com/u/74610360?v=4'
-                                    alt="Lesson Pic"
-                                    style={{ objectFit: 'contain' }}
-                                />
-                            </div>
-                            <div className="col-11">
-                                <p className="mt-4">GOSHO</p>
-                            </div>
-                        </div>
-                        <div className="row mx-3">
-                        </div>
-                    </div>
-
-                    <div className="card comment-card card-display-details mx-5 my-2">
-                        <div className="row">
-                            <div className="col-1">
-                                <img
-                                    className="img-fluid rounded-circle profile-comment m-3"
-                                    src='https://avatars.githubusercontent.com/u/74610360?v=4'
-                                    alt="Lesson Pic"
-                                    style={{ objectFit: 'contain' }}
-                                />
-                            </div>
-                            <div className="col-11">
-                                <p className="mt-4">GOSHO</p>
-                            </div>
-                        </div>
-                        <div className="row mx-3">
-                        </div>
-                    </div>
-
-                    <div className="card comment-card card-display-details mx-5 my-2">
-                        <div className="row">
-                            <div className="col-1">
-                                <img
-                                    className="img-fluid rounded-circle profile-comment m-3"
-                                    src='https://avatars.githubusercontent.com/u/74610360?v=4'
-                                    alt="Lesson Pic"
-                                    style={{ objectFit: 'contain' }}
-                                />
-                            </div>
-                            <div className="col-11">
-                                <p className="mt-4">GOSHO</p>
-                            </div>
-                        </div>
-                        <div className="row mx-3">
-                        </div>
-                    </div>
+                    {areLoadingProfiles ?
+                    <BookSpinner/> : 
+                    searchResult.map(x => <ProfileCard key = {x.id} {...x}/>)}
                 </div>
             </div>
-
-
         </div>
     )
 }
