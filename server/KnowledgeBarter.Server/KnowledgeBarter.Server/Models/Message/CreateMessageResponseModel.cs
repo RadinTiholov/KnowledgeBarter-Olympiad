@@ -5,11 +5,11 @@
     using KnowledgeBarter.Server.Data.Models;
     using KnowledgeBarter.Server.Models.Message.Base;
 
-    public class MessageInListViewModel : BaseMessageModel, IMapFrom<Message>, IHaveCustomMappings
+    public class CreateMessageResponseModel : BaseMessageModel, IMapFrom<Message>, IHaveCustomMappings
     {
         public void CreateMappings(IProfileExpression configuration)
         {
-            configuration.CreateMap<Message, MessageInListViewModel>()
+            configuration.CreateMap<Message, CreateMessageResponseModel>()
                 .ForMember(x => x.SenderUsername, opt =>
                     opt.MapFrom(s => s.Sender.UserName))
                 .ForMember(x => x.SenderImage, opt =>

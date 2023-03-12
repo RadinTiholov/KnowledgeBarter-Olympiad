@@ -45,7 +45,6 @@ export const Chat = () => {
                     });
 
                     connection.on("ReceiveMessage", function (message) {
-                        console.log('received');
                         const msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
                         //const imageUrlRaw = get("#receiver-img").style.backgroundImage;
@@ -71,27 +70,29 @@ export const Chat = () => {
 
     const onSubmit = async (e) => {
         e.preventDefault();
-        console.log('sent');
-        //TODO Make api call
-        try {
-            await connection.invoke(
-                "SendMessageToGroup",
-                searchParams.get('receiver'),
-                messageText);
-        }
-        catch (e) {
-            console.log(e);
-        }
 
-        const messageTemp = {
-            id: 2,
-            text: messageText,
-            senderUsername: auth.username,
-            senderImage: "http://res.cloudinary.com/dubpxleer/image/upload/v1676215991/Admin-Profile-Vector-PNG-Clipart.png.png",
-            receiverUsername: searchParams.get('receiver'),
-            receiverImage: "http://res.cloudinary.com/dubpxleer/image/upload/v1676224024/285244545_722302912316845_1878014851432114413_n.jpg.jpg"
-        }
-        createMessage(messageTemp);
+        // Make API Call to create message
+        messagesService
+            .create({ 
+                text: messageText,
+                receiverUsername: searchParams.get('receiver')
+            })
+            .then(async (res) => {
+                try {
+                    await connection.invoke(
+                        "SendMessageToGroup",
+                        searchParams.get('receiver'),
+                        messageText);
+                }
+                catch (e) {
+                    console.log(e);
+                }
+
+                createMessage(res);
+            })
+            .catch(err => {
+                alert(err);
+            });
     }
 
     const createMessage = (message) => {

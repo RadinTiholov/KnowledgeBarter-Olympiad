@@ -22,16 +22,21 @@ namespace KnowledgeBarter.Server.Controllers
 
         [HttpPost]
         [Route(MessageCreateRoute)]
-        public async Task<ActionResult> Create(CreateMessageRequestModel model)
+        public async Task<ActionResult<CreateMessageResponseModel>> Create(CreateMessageRequestModel model)
         {
             if (!this.ModelState.IsValid)
             {
                 return this.BadRequest();
             }
 
-            await this.messageService.CreateAsync(model, this.User.Id());
-
-            return this.Ok();
+            try
+            {
+                return await this.messageService.CreateAsync(model, this.User.Id());
+            }
+            catch (ArgumentException ae)
+            {
+                return this.BadRequest(ae.Message);
+            }
         }
 
         [HttpGet]

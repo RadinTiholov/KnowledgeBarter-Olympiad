@@ -45,7 +45,7 @@
         public class Message
         {
             public const int TextMaxLength = 200;
-            public const int TextMinLength = 10;
+            public const int TextMinLength = 2;
         }
 
         public class User

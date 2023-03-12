@@ -5,6 +5,8 @@ using KnowledgeBarter.Server.Services.Contracts;
 using KnowledgeBarter.Server.Services.Mapping;
 using Microsoft.EntityFrameworkCore;
 
+using static KnowledgeBarter.Server.Services.ServiceConstants;
+
 namespace KnowledgeBarter.Server.Services
 {
     public class MessageService : IMessageService
@@ -18,9 +20,14 @@ namespace KnowledgeBarter.Server.Services
             this.messageRepository = messageRepository;
         }
 
-        public async Task CreateAsync(CreateMessageRequestModel model, string senderId)
+        public async Task<CreateMessageResponseModel> CreateAsync(CreateMessageRequestModel model, string senderId)
         {
             var receiverId = await this.identityService.GetIdByUsernameAsync(model.ReceiverUsername);
+
+            if (receiverId == null)
+            {
+                throw new ArgumentException(MessageReceiverNotFound);
+            }
 
             var message = new Message()
             {
@@ -31,6 +38,12 @@ namespace KnowledgeBarter.Server.Services
 
             await this.messageRepository.AddAsync(message);
             await this.messageRepository.SaveChangesAsync();
+
+            return await this.messageRepository
+                .AllAsNoTracking()
+                .Where(x => x.Id == message.Id)
+                .To<CreateMessageResponseModel>()
+                .FirstAsync();
         }
 
         public async Task<List<MessageInListViewModel>> GetAllForUsersAsync(string senderUsername, string receiverUsername)

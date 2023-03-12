@@ -3,7 +3,7 @@ export const MesssageBubble = (props) => {
         <div className={`msg ${props.position}-msg`}>
             <div
                 className="msg-img"
-                style={{ backgroundImage: props.senderImage }}
+                style={{ backgroundImage: 'http://res.cloudinary.com/dubpxleer/image/upload/v1676224024/285244545_722302912316845_1878014851432114413_n.jpg.jpg' }}
             ></div>
             <div className="msg-bubble">
                 <div className="msg-info">
