@@ -1,16 +1,28 @@
 import "./ChatHub.css"
 import { useContext } from 'react';
-
 import { useState } from 'react'
 import { ProfileContext } from '../../contexts/ProfileContext';
 import { ProfileCard } from './ProfileCard/ProfileCard';
+import { useEffect } from "react";
+import * as authService from "../../dataServices/authService"
 
 export const ChatHub = () => {
 
     const [search, setSearch] = useState('');
     const { profiles } = useContext(ProfileContext);
     const [searchResult, setSearchResult] = useState([]);
+
+    const [ contactsIds, setContactsIds] = useState([]);
     const [areLoadingContacts, setAreLoadingContacts] = useState(true);
+
+    useEffect(() => {
+        authService.getAllContacts()
+            .then(res => {
+                setContactsIds(res);
+
+                setAreLoadingContacts(false);
+            })
+    }, []);
 
     const onSearch = (e) => {
         e.preventDefault();
@@ -21,61 +33,9 @@ export const ChatHub = () => {
     return (
         <div className="chat-hub row mx-3 flex-wrap">
             <div className="hub-component col-md-6 col-6 pt-5">
-                <h1>Recent Messages</h1>
+                <h1>Contacts</h1>
                 <div className="card card-display w-100 py-2 chat-scroll" style={{ height: "70vh" }}>
-                    <div className="card comment-card card-display-details mx-5 my-2">
-                        <div className="row">
-                            <div className="col-1">
-                                <img
-                                    className="img-fluid rounded-circle profile-comment m-3"
-                                    src='https://avatars.githubusercontent.com/u/74610360?v=4'
-                                    alt="Lesson Pic"
-                                    style={{ objectFit: 'contain' }}
-                                />
-                            </div>
-                            <div className="col-11">
-                                <p className="mt-4">GOSHO</p>
-                            </div>
-                        </div>
-                        <div className="row mx-3">
-                        </div>
-                    </div>
-
-                    <div className="card comment-card card-display-details mx-5 my-2">
-                        <div className="row">
-                            <div className="col-1">
-                                <img
-                                    className="img-fluid rounded-circle profile-comment m-3"
-                                    src='https://avatars.githubusercontent.com/u/74610360?v=4'
-                                    alt="Lesson Pic"
-                                    style={{ objectFit: 'contain' }}
-                                />
-                            </div>
-                            <div className="col-11">
-                                <p className="mt-4">GOSHO</p>
-                            </div>
-                        </div>
-                        <div className="row mx-3">
-                        </div>
-                    </div>
-
-                    <div className="card comment-card card-display-details mx-5 my-2">
-                        <div className="row">
-                            <div className="col-1">
-                                <img
-                                    className="img-fluid rounded-circle profile-comment m-3"
-                                    src='https://avatars.githubusercontent.com/u/74610360?v=4'
-                                    alt="Lesson Pic"
-                                    style={{ objectFit: 'contain' }}
-                                />
-                            </div>
-                            <div className="col-11">
-                                <p className="mt-4">GOSHO</p>
-                            </div>
-                        </div>
-                        <div className="row mx-3">
-                        </div>
-                    </div>
+                    {profiles.filter(p => contactsIds.includes(p.id)).map(x => <ProfileCard key = {x.id} {...x}/>)}
                 </div>
             </div>
 

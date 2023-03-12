@@ -24,6 +24,8 @@ namespace KnowledgeBarter.Server.Infrastructure
 
         public const string AllProfilesRoute = "/Identity/AllProfiles";
 
+        public const string AllContactsRoute = "/Identity/AllContacts";
+
         public const string MessageCreateRoute = "/Message/Create";
 
         public const string MessageAllRoute = "/Message/All/{receiverUsername}";

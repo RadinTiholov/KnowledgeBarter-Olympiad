@@ -150,12 +150,12 @@ export const Chat = () => {
                         placeholder="Enter your message..."
                         value={messageText}
                         onChange={(e) => { setMessageText(e.target.value) }}
-                        onBlur={(e) => minMaxValidator(e, 3, 200)}
+                        onBlur={(e) => minMaxValidator(e, 1, 200)}
                     />
                     <input type="hidden" id="receiver" defaultValue="@Model.Receiver" />
                     {error &&
                         <div className="alert alert-danger m-2" role="alert">
-                            The message must be between 3 and 200 characters.
+                            The message must be between 1 and 200 characters.
                         </div>
                     }
                     <button type="submit" className="msger-send-btn" disabled={error}>

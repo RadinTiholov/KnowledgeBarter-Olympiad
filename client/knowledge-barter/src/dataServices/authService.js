@@ -23,10 +23,15 @@ const getAllProfiles = () => {
     return request.get(`${baseUrl}/identity/allProfiles/`)
 }
 
+const getAllContacts = () => {
+    return request.get(`${baseUrl}/identity/allContacts`);
+}
+
 export{
     login,
     register,
     getDetails,
+    getAllProfiles,
+    getAllContacts,
     getUserInformation,
-    getAllProfiles
 }

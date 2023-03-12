@@ -1,5 +1,6 @@
 ﻿using KnowledgeBarter.Server.Data.Models;
 using KnowledgeBarter.Server.Infrastructure;
+using KnowledgeBarter.Server.Infrastructure.Extensions;
 using KnowledgeBarter.Server.Models.Identity;
 using KnowledgeBarter.Server.Services.Contracts;
 using Microsoft.AspNetCore.Authorization;
@@ -17,16 +18,19 @@ namespace KnowledgeBarter.Server.Controllers
         private readonly ApplicationSettings appSettings;
         private readonly IIdentityService identityService;
         private readonly IImageService imageService;
+        private readonly IMessageService messageService;
 
         public IdentityController(UserManager<ApplicationUser> userManager,
             IOptions<ApplicationSettings> options,
             IIdentityService identityService,
-            IImageService imageService)
+            IImageService imageService,
+            IMessageService messageService)
         {
             this.userManager = userManager;
             this.appSettings = options.Value;
             this.identityService = identityService;
             this.imageService = imageService;
+            this.messageService = messageService;
         }
 
         /// <summary>
@@ -154,12 +158,27 @@ namespace KnowledgeBarter.Server.Controllers
         /// </summary>
         /// <returns>All profiles</returns>
         [HttpGet]
+        [Authorize]
         [Route(AllProfilesRoute)]
         public async Task<IEnumerable<ProfilesInListResponseModel>> AllProfiles()
         {
             var profiles = await this.identityService.GetAllProfilesAsync();
 
             return profiles;
+        }
+
+        /// <summary>
+        /// Get all contacts
+        /// </summary>
+        /// <returns>All contacts</returns>
+        [HttpGet]
+        [Authorize]
+        [Route(AllContactsRoute)]
+        public async Task<IEnumerable<string>> AllContacts()
+        {
+            var user = await this.identityService.GetUserAsync(this.User.Id());
+
+            return await this.messageService.GetDistinctContactsAsync(user.UserName);
         }
 
         private async Task<string> GetCurrentRole(ApplicationUser user)
