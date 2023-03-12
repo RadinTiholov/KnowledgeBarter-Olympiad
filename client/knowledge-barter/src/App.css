@@ -89,6 +89,10 @@ table td {
     vertical-align: middle;
 }
 
+a, a:hover {
+    color: inherit;
+}
+
 @media screen and (max-width: 600px) {
     .table-responsive {
         overflow-x: auto;
@@ -105,8 +109,4 @@ table td {
     table {
         padding: 0;
     } 
-}
-
-a, a:hover {
-    color: inherit;
 }
