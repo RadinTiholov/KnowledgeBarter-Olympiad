@@ -60,8 +60,7 @@ export const Chat = () => {
                             text: msg,
                             senderUsername: searchParams.get('receiver'),
                             senderImage: "http://res.cloudinary.com/dubpxleer/image/upload/v1676215991/Admin-Profile-Vector-PNG-Clipart.png.png",
-                            receiverUsername: auth.username,
-                            receiverImage: "http://res.cloudinary.com/dubpxleer/image/upload/v1676224024/285244545_722302912316845_1878014851432114413_n.jpg.jpg"
+                            receiverUsername: auth.username
                         }
                         createMessage(messageTemp);
                     });

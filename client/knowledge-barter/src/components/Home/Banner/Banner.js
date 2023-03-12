@@ -11,7 +11,7 @@ export const Banner = () => {
     }
     const onSearch = (e) => {
         e.preventDefault();
-        navigate(`/lesson/all/${search}`)
+        navigate(`/lesson/all?search=${search}`)
     }
 
     return (
