@@ -112,7 +112,8 @@ export const Chat = () => {
                 <div className="msger-chat">
                     {isLoading ? 
                     <BookSpinner/> :
-                    messages.map(x => <MesssageBubble key={x.id} position={x.senderUsername === searchParams.get('receiver') ? 'left' : 'right'} {...x} />)}
+                        messages.length > 0 ? messages.map(x => <MesssageBubble key={x.id} position={x.senderUsername === searchParams.get('receiver') ? 'left' : 'right'} {...x} />)
+                                            : <h2>No messages yet.</h2>}
                 </div>
                 <form className="msger-inputarea" onSubmit={onSubmit}>
                     <input
