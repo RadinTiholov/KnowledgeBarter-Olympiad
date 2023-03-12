@@ -106,24 +106,6 @@ export const Chat = () => {
                     <div className="msger-header-title">
                         <i className="fas fa-comment-alt" /> Chat with {searchParams.get('receiver')}
                     </div>
-                    <div className="msger-header-options">
-                        <div className="row">
-                            <div className="col">
-                                <div
-                                    id="your-img"
-                                    className="msg-img"
-                                    style={{ backgroundImage: "url(@Model.YourImage)" }}
-                                />
-                            </div>
-                            <div className="col">
-                                <div
-                                    id="receiver-img"
-                                    className="msg-img"
-                                    style={{ backgroundImage: "url(@Model.ReceiverImage)" }}
-                                />
-                            </div>
-                        </div>
-                    </div>
                 </header>
                 <div className="msger-chat">
                     {/* {messages.map(x => <MesssageBubble key = {x.Id} {...x} position = {x.receiverUsername == }/>)} */}
