@@ -1,6 +1,8 @@
 import "./ChatHub.css"
 import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { useState } from 'react'
+import { ProfileContext } from '../../contexts/ProfileContext';
 import * as authService from '../../dataServices/authService';
 import { BookSpinner } from '../common/Spinners/BookSpinner';
 import { ProfileCard } from './ProfileCard/ProfileCard';
@@ -8,28 +10,14 @@ import { ProfileCard } from './ProfileCard/ProfileCard';
 export const ChatHub = () => {
 
     const [search, setSearch] = useState('');
-    const [allPofiles, setAllProfiles] = useState([]);
+    const { profiles } = useContext(ProfileContext);
     const [searchResult, setSearchResult] = useState([]);
-    const [areLoadingProfiles, setAreLoadingProfiles] = useState(true);
     const [areLoadingContacts, setAreLoadingContacts] = useState(true);
-
-    useEffect(() => {
-        authService.getAllProfiles()
-            .then(res => {
-                setAllProfiles(res);
-                setSearchResult(res);
-
-                setAreLoadingProfiles(false);
-            })
-            .catch(err => {
-                alert(err)
-            })
-    }, [])
 
     const onSearch = (e) => {
         e.preventDefault();
 
-        setSearchResult(allPofiles.filter(x => x.userName.toLowerCase().includes(search.toLowerCase())))
+        setSearchResult(profiles.filter(x => x.userName.toLowerCase().includes(search.toLowerCase())))
     } 
 
     return (
@@ -117,9 +105,7 @@ export const ChatHub = () => {
                             </button>
                         </form>
                     </div>
-                    {areLoadingProfiles ?
-                    <BookSpinner/> : 
-                    searchResult.map(x => <ProfileCard key = {x.id} {...x}/>)}
+                    { searchResult.map(x => <ProfileCard key = {x.id} {...x}/>) }
                 </div>
             </div>
         </div>

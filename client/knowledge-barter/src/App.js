@@ -38,6 +38,7 @@ import AdminGuard from './components/common/AdminGuard';
 import { About } from './components/About/About';
 import { Chat } from './components/Chat/Chat';
 import { ChatHub } from './components/ChatHub/ChatHub';
+import { ProfileProvider } from './contexts/ProfileContext';
 
 function App() {
     return (
@@ -46,44 +47,46 @@ function App() {
                 <Header />
                 <CourseProvider>
                     <LessonProvider>
-                        <section id='main'>
-                            <Routes>
-                                <Route path='/' element={<Home />} />
-                                <Route path='/about' element={<About />} />
-                                <Route path='/course/all' element={<Courses />} />
-                                <Route path='/lesson/all' element={<Lessons />} />
-                                <Route path='/lesson/details/:id' element={<DetailsLesson />} />
-                                <Route path='/course/details/:courseId/:lessonId' element={<DetailsCourse />} />
-                                <Route element={<GuestGuard />}>
-                                    <Route path='/logout' element={<Logout />} />
-                                    <Route path='/profile/:id' element={<Profile />} />
-                                    <Route path='/lesson/create' element={<CreateLesson />} />
-                                    <Route path='/lesson/bought' element={<BoughtLessons />} />
-                                    <Route path='/lesson/yours' element={<YourLessons />} />
-                                    <Route path='/course/create' element={<CreateCourse />} />
-                                    <Route path='/course/bought' element={<BoughtCourses />} />
-                                    <Route path='/course/yours' element={<YourCourses />} />
-                                    <Route path='/liked' element={<Liked />} />
-                                    <Route path='/lesson/contact/:id' element={<SendEmail />} />
-                                    <Route path='/chat' element={<Chat/>}/>
-                                    <Route path='/chat-hub' element={<ChatHub/>}/>
-                                </Route>
-                                <Route element={<LessonOwner />}>
-                                    <Route path='/lesson/edit/:id' element={<EditLesson />} />
-                                </Route>
-                                <Route element={<CourseOwner />}>
-                                    <Route path='/course/edit/:id' element={<EditCourse />} />
-                                </Route>
-                                <Route element={<AdminGuard />}>
-                                    <Route path='/comment/all' element={<Comments />} />
-                                </Route>
-                                <Route element={<UserGuard />}>
-                                    <Route path='/login' element={<Login />} />
-                                    <Route path='/register' element={<Register />} />
-                                </Route>
-                                <Route path='*' element={<NotFound />} />
-                            </Routes>
-                        </section>
+                        <ProfileProvider>
+                            <section id='main'>
+                                <Routes>
+                                    <Route path='/' element={<Home />} />
+                                    <Route path='/about' element={<About />} />
+                                    <Route path='/course/all' element={<Courses />} />
+                                    <Route path='/lesson/all' element={<Lessons />} />
+                                    <Route path='/lesson/details/:id' element={<DetailsLesson />} />
+                                    <Route path='/course/details/:courseId/:lessonId' element={<DetailsCourse />} />
+                                    <Route element={<GuestGuard />}>
+                                        <Route path='/logout' element={<Logout />} />
+                                        <Route path='/profile/:id' element={<Profile />} />
+                                        <Route path='/lesson/create' element={<CreateLesson />} />
+                                        <Route path='/lesson/bought' element={<BoughtLessons />} />
+                                        <Route path='/lesson/yours' element={<YourLessons />} />
+                                        <Route path='/course/create' element={<CreateCourse />} />
+                                        <Route path='/course/bought' element={<BoughtCourses />} />
+                                        <Route path='/course/yours' element={<YourCourses />} />
+                                        <Route path='/liked' element={<Liked />} />
+                                        <Route path='/lesson/contact/:id' element={<SendEmail />} />
+                                        <Route path='/chat' element={<Chat />} />
+                                        <Route path='/chat-hub' element={<ChatHub />} />
+                                    </Route>
+                                    <Route element={<LessonOwner />}>
+                                        <Route path='/lesson/edit/:id' element={<EditLesson />} />
+                                    </Route>
+                                    <Route element={<CourseOwner />}>
+                                        <Route path='/course/edit/:id' element={<EditCourse />} />
+                                    </Route>
+                                    <Route element={<AdminGuard />}>
+                                        <Route path='/comment/all' element={<Comments />} />
+                                    </Route>
+                                    <Route element={<UserGuard />}>
+                                        <Route path='/login' element={<Login />} />
+                                        <Route path='/register' element={<Register />} />
+                                    </Route>
+                                    <Route path='*' element={<NotFound />} />
+                                </Routes>
+                            </section>
+                        </ProfileProvider>
                     </LessonProvider>
                 </CourseProvider>
             </AuthProvider>

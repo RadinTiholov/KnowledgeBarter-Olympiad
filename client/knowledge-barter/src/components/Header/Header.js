@@ -183,6 +183,11 @@ export const Header = () => {
                                                 </Link>
                                             </li>
                                             <li>
+                                                <Link className="dropdown-item" to={`/chat-hub`}>
+                                                    Chat Hub
+                                                </Link>
+                                            </li>
+                                            <li>
                                                 <Link className="dropdown-item" to="/lesson/yours">
                                                     Your Lessons
                                                 </Link>
