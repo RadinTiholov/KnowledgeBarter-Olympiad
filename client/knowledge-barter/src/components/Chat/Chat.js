@@ -140,6 +140,7 @@ export const Chat = () => {
                         <BookSpinner /> :
                         messages.length > 0 ? messages.map(x => <MesssageBubble key={x.id} position={x.senderUsername === searchParams.get('receiver') ? 'left' : 'right'} {...x} />)
                             : <h2>No messages yet.</h2>}
+                    <div ref={bottomRef} />
                 </div>
                 <form className="msger-inputarea" onSubmit={onSubmit}>
                     <input
@@ -160,7 +161,6 @@ export const Chat = () => {
                     <button type="submit" className="msger-send-btn" disabled={error}>
                         Send
                     </button>
-                    <div ref={bottomRef} />
                 </form>
             </section>
         </div>
