@@ -2,11 +2,13 @@ import "./Chat.css"
 import { HubConnectionBuilder } from '@microsoft/signalr';
 import { MesssageBubble } from "./MessageBubble/MessageBubble";
 import { BookSpinner } from "../common/Spinners/BookSpinner";
-import { useSearchParams } from "react-router-dom";
 import { useContext, useState } from "react";
 import { useEffect } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 import * as messagesService from "../../dataServices/messagesService";
+import * as authService from "../../dataServices/authService";
+import { useRef } from "react";
+import { useSearchParams } from "react-router-dom";
 
 export const Chat = () => {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -14,9 +16,26 @@ export const Chat = () => {
 
     const [connection, setConnection] = useState(null);
     const [messages, setMessages] = useState([]);
+    const [yourImage, setYourImage] = useState("");
 
     const [messageText, setMessageText] = useState('');
+    const [error, setError] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
+
+    const bottomRef = useRef(null);
+
+    useEffect(() => {
+        bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, [messages])
+
+    useEffect(() => {
+        authService.getAllProfiles()
+            .then(res => {
+                const profile = res.filter(x => x.userName === auth.username);
+
+                setYourImage(profile[0].imageUrl);
+            })
+    }, [])
 
     useEffect(() => {
         messagesService
@@ -38,44 +57,41 @@ export const Chat = () => {
     }, []);
 
     useEffect(() => {
+
         if (connection) {
             connection.start()
                 .then(result => {
-                    //Subscribe to the group
 
                     connection.invoke("Subscribe", auth.username).catch(function (err) {
                         return console.error(err.toString());
                     });
 
-                    connection.on("ReceiveMessage", function (message) {
+                    connection.on("ReceiveMessage", function (message, imageUrl) {
                         const msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
-                        //const imageUrlRaw = get("#receiver-img").style.backgroundImage;
-                        //const imageUrl = imageUrlRaw.substring(5, imageUrlRaw.length - 2);\
-
-                        //name, img, side, text
-                        //appendMessage(user, imageUrl, "left", msg);
                         const messageTemp = {
-                            id: Math.floor(Math.random() * 3000),
+                            id: Math.floor(Math.random() * 100000),
                             text: msg,
                             senderUsername: searchParams.get('receiver'),
-                            senderImage: "http://res.cloudinary.com/dubpxleer/image/upload/v1676215991/Admin-Profile-Vector-PNG-Clipart.png.png",
-                            receiverUsername: auth.username
+                            senderImage: imageUrl,
+                            receiverUsername: auth.username,
+                            receiverImage: ""
                         }
+
                         createMessage(messageTemp);
                     });
 
                 })
                 .catch(e => console.log('Connection failed: ', e));
         }
-    }, [connection, searchParams]);
+    }, [connection]);
 
     const onSubmit = async (e) => {
         e.preventDefault();
 
         // Make API Call to create message
         messagesService
-            .create({ 
+            .create({
                 text: messageText,
                 receiverUsername: searchParams.get('receiver')
             })
@@ -84,12 +100,14 @@ export const Chat = () => {
                     await connection.invoke(
                         "SendMessageToGroup",
                         searchParams.get('receiver'),
-                        messageText);
+                        messageText,
+                        yourImage);
                 }
                 catch (e) {
                     console.log(e);
                 }
 
+                setMessageText('');
                 createMessage(res);
             })
             .catch(err => {
@@ -101,6 +119,14 @@ export const Chat = () => {
         setMessages(state => [...state, message]);
     }
 
+    const minMaxValidator = (e, min, max) => {
+        if (messageText.length < min || messageText.length > max) {
+            setError(true);
+        } else {
+            setError(false);
+        }
+    }
+
     return (
         <div className="container d-flex justify-content-center">
             <section className="msger">
@@ -110,10 +136,10 @@ export const Chat = () => {
                     </div>
                 </header>
                 <div className="msger-chat">
-                    {isLoading ? 
-                    <BookSpinner/> :
+                    {isLoading ?
+                        <BookSpinner /> :
                         messages.length > 0 ? messages.map(x => <MesssageBubble key={x.id} position={x.senderUsername === searchParams.get('receiver') ? 'left' : 'right'} {...x} />)
-                                            : <h2>No messages yet.</h2>}
+                            : <h2>No messages yet.</h2>}
                 </div>
                 <form className="msger-inputarea" onSubmit={onSubmit}>
                     <input
@@ -123,11 +149,18 @@ export const Chat = () => {
                         placeholder="Enter your message..."
                         value={messageText}
                         onChange={(e) => { setMessageText(e.target.value) }}
+                        onBlur={(e) => minMaxValidator(e, 3, 200)}
                     />
                     <input type="hidden" id="receiver" defaultValue="@Model.Receiver" />
-                    <button type="submit" className="msger-send-btn">
+                    {error &&
+                        <div className="alert alert-danger m-2" role="alert">
+                            The message must be between 3 and 200 characters.
+                        </div>
+                    }
+                    <button type="submit" className="msger-send-btn" disabled={error}>
                         Send
                     </button>
+                    <div ref={bottomRef} />
                 </form>
             </section>
         </div>

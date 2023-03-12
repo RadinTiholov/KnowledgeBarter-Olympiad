@@ -1,3 +1,19 @@
+.chat-scroll {
+    overflow-y: scroll;
+}
+
+.chat-scroll::-webkit-scrollbar {
+    width: 6px;
+}
+
+.chat-scroll::-webkit-scrollbar-track {
+    background: #ddd;
+}
+
+.chat-scroll::-webkit-scrollbar-thumb {
+    background: #bdbdbd;
+}
+
 @media screen and (max-width: 650px) {
     .chat-hub {
         flex-direction: column;

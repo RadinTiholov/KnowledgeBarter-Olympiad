@@ -10,10 +10,10 @@ namespace KnowledgeBarter.Server.Hubs
             this.Groups.AddToGroupAsync(this.Context.ConnectionId, connectionUsername);
         }
 
-        public Task SendMessageToGroup(string receiver, string message)
+        public Task SendMessageToGroup(string receiver, string message, string imageUrl)
         {
             //var sender = this.Context.User.Identity.Name;
-            return this.Clients.Group(receiver).SendAsync("ReceiveMessage", message);
+            return this.Clients.Group(receiver).SendAsync("ReceiveMessage", message, imageUrl);
         }
     }
 }

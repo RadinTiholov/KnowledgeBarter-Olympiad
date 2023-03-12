@@ -1,10 +1,8 @@
 import "./ChatHub.css"
-import { useEffect } from 'react';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
+
 import { useState } from 'react'
 import { ProfileContext } from '../../contexts/ProfileContext';
-import * as authService from '../../dataServices/authService';
-import { BookSpinner } from '../common/Spinners/BookSpinner';
 import { ProfileCard } from './ProfileCard/ProfileCard';
 
 export const ChatHub = () => {
@@ -24,7 +22,7 @@ export const ChatHub = () => {
         <div className="chat-hub row mx-3 flex-wrap">
             <div className="hub-component col-md-6 col-6 pt-5">
                 <h1>Recent Messages</h1>
-                <div className="card card-display w-100 py-2" style={{ height: "70vh" }}>
+                <div className="card card-display w-100 py-2 chat-scroll" style={{ height: "70vh" }}>
                     <div className="card comment-card card-display-details mx-5 my-2">
                         <div className="row">
                             <div className="col-1">
@@ -84,7 +82,7 @@ export const ChatHub = () => {
             {/* Search */}
             <div className="hub-component col-md-6 col-6 pt-5 pb-2 ">
                 <h1>Search for a user</h1>
-                <div className="card py-2 card-display w-100" style={{ height: "70vh" }}>
+                <div className="card py-2 card-display w-100 chat-scroll" style={{ height: "70vh" }}>
                     <div className="p-3 mx-5">
                         <form className="d-flex justify-content-center" role="search" onSubmit={onSearch}>
                             <input
@@ -105,7 +103,9 @@ export const ChatHub = () => {
                             </button>
                         </form>
                     </div>
-                    { searchResult.map(x => <ProfileCard key = {x.id} {...x}/>) }
+                    { searchResult.length === 0 ?
+                    profiles.map(x => <ProfileCard key = {x.id} {...x}/>) :
+                    searchResult.map(x => <ProfileCard key = {x.id} {...x}/>) }
                 </div>
             </div>
         </div>
