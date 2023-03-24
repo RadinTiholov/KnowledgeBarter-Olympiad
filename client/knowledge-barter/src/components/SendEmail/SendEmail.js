@@ -1,19 +1,24 @@
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useLessonsWithUser } from '../../hooks/useLessonsWithUser';
-import background from '../../images/waves-login.svg';
 import * as emailService from '../../dataServices/emailService';
+import * as authService from '../../dataServices/authService';
+import { AuthContext } from "../../contexts/AuthContext";
+import { ProfileContext } from "../../contexts/ProfileContext";
 import { emailValidator, isValidForm, minMaxValidator } from '../../infrastructureUtils/validationUtils';
 
 export const SendEmail = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const { lesson, setLesson, owner } = useLessonsWithUser(id);
+    const { lesson, owner } = useLessonsWithUser(id);
+    const { auth } = useContext(AuthContext);
+    const { profiles } = useContext(ProfileContext);
 
     const [inputData, setInputData] = useState({
         senderEmail: '',
         topic: '',
-        emailText: ''
+        emailText: '',
+        ownerEmail: '',
     });
 
     const [error, setError] = useState({ active: false, message: "" });
@@ -23,6 +28,27 @@ export const SendEmail = () => {
         emailText: false
     });
 
+    useEffect(() => {
+        if (auth?._id && profiles.length > 0 && owner?.userName) {
+
+            authService.getDetails(auth._id)
+                .then(res => {
+                    setInputData(state => (
+                        { ...state, senderEmail: res.email }))
+                })
+                .catch(err => alert(err))
+
+            const ownerInfo = profiles?.find(x => x.userName === owner.userName);
+
+            authService.getDetails(ownerInfo.id)
+                .then(res => {
+                    setInputData(state => (
+                        { ...state, ownerEmail: res.email }))
+                })
+                .catch(err => alert(err))
+        }
+    }, [auth._id, profiles, owner])
+
     const onChange = (e) => {
         setInputData(state => (
             { ...state, [e.target.name]: e.target.value }))
@@ -31,7 +57,7 @@ export const SendEmail = () => {
     const onSubmit = (e) => {
         e.preventDefault();
 
-        emailService.sendEmail({ ...inputData, ownerEmail: owner.email })
+        emailService.sendEmail({ ...inputData })
             .then(res => {
                 navigate('/lesson/details/' + id)
             })
