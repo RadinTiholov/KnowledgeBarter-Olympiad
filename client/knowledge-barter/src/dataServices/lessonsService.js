@@ -1,7 +1,7 @@
 import * as request from "./requester"
 import * as multipartRequester from "./multipartFormDataRequester"
 
-const baseUrl = 'https://knowledgebarterserver.azurewebsites.net'
+const baseUrl = 'https://localhost:3030'
 
 const getAll = () => {
     return request.get(`${baseUrl}/lesson/all`)
