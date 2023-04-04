@@ -48,10 +48,28 @@ export const CreateLesson = () => {
                 newValue.tags = e.target.value.split(',');
                 return newValue;
             }
+            else if (e.target.name === 'video')
+            {
+                const videoId = getId(e.target.value);
+                if (videoId) {
+                    return { ...state, [e.target.name]: 'https://www.youtube.com/embed/' + videoId }
+                } else {
+                    return { ...state, [e.target.name]: e.target.value }
+                }
+            }
             else {
                 return { ...state, [e.target.name]: e.target.value }
             }
         })
+    }
+
+    const getId = (url) => {
+        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+        const match = url.match(regExp);
+    
+        return (match && match[2].length === 11)
+          ? match[2]
+          : null;
     }
 
     const onSubmit = (e) => {
@@ -180,7 +198,7 @@ export const CreateLesson = () => {
                                         >
                                             <i className="fa-solid fa-triangle-exclamation me-2" />
                                             <div className="text-center">
-                                                Please provide embedded youtube video.
+                                                Please provide youtube video.
                                             </div>
                                         </div>}
                                     {/* Image */}

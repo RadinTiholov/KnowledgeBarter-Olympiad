@@ -27,13 +27,13 @@ export const CourseDetailsPreview = (props) => {
                                             <div className="row">
                                                 <div className="col">
                                                     <i className="fa-solid fa-thumbs-up fa-2xl  mt-5" />
-                                                    <span className="fw-bold">: {props.course.likes}</span>
+                                                    <span className="fw-bold"> : {props.course.likes}</span>
                                                 </div>
                                             </div>
                                             <div className="row">
                                                 <div className="col">
                                                     <i className="fa-solid fa-lightbulb fa-2xl  mt-5" />
-                                                    <span className="fw-bold">: {props.course.price}$</span>
+                                                    <span className="fw-bold"> : {props.course.price}$</span>
                                                 </div>
                                             </div>
                                         </div>
