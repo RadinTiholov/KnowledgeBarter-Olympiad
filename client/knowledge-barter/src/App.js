@@ -39,6 +39,7 @@ import { About } from './components/About/About';
 import { Chat } from './components/Chat/Chat';
 import { ChatHub } from './components/ChatHub/ChatHub';
 import { ProfileProvider } from './contexts/ProfileContext';
+import { UpdateProfile } from './components/UpdateProfile/UpdateProfile';
 
 function App() {
     return (
@@ -59,6 +60,7 @@ function App() {
                                     <Route element={<GuestGuard />}>
                                         <Route path='/logout' element={<Logout />} />
                                         <Route path='/profile/:id' element={<Profile />} />
+                                        <Route path='/profile/update' element={<UpdateProfile />} />
                                         <Route path='/lesson/create' element={<CreateLesson />} />
                                         <Route path='/lesson/bought' element={<BoughtLessons />} />
                                         <Route path='/lesson/yours' element={<YourLessons />} />

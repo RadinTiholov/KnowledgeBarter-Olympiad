@@ -2,16 +2,16 @@ import './Profile.css'
 import background from '../../images/waves-profile.svg'
 import { useContext } from 'react'
 import { AuthContext } from '../../contexts/AuthContext'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { useSelectedUserInfor } from '../../hooks/useSelectedUserInfo'
 
 export const Profile = () => {
     const { id } = useParams();
 
     const [fullUserInfo, setfullUserInfo] = useSelectedUserInfor(id)
-    const {auth} = useContext(AuthContext);
+    const { auth } = useContext(AuthContext);
     return (
-        <div style = {{backgroundImage: `url(${background})`}}  className="backgound-layer-profile">
+        <div style={{ backgroundImage: `url(${background})` }} className="backgound-layer-profile">
             {/* Profile page */}
             <div className="container">
                 <div className="row">
@@ -35,6 +35,9 @@ export const Profile = () => {
                                     Email: {fullUserInfo.email}
                                 </h3>
                                 <h3 className="card-title text-center ">KBPoints: {auth.kbPoints}</h3>
+                                <Link className="dropdown-item" to={`/profile/update`}>
+                                    <button className='btn btn-primary'>Edit</button>
+                                </Link>
                             </div>
                         </div>
                     </div>
