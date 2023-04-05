@@ -64,17 +64,17 @@ export const Header = () => {
                                 :
                                 <li className="nav-item">
                                     <Link className="nav-link active text-light" to="/">
-                                        Home
+                                        <i className="fa-solid fa-house"></i> Home
                                     </Link>
                                 </li>}
                             <li className="nav-item">
                                 <Link className="nav-link text-light" to="/lesson/all">
-                                    Lessons
+                                    <i className="fa-solid fa-lightbulb"></i> Lessons
                                 </Link>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link text-light" to="/course/all">
-                                    Courses
+                                    <i className="fa-solid fa-book"></i> Courses
                                 </Link>
                             </li>
                             <li className="nav-item">
@@ -138,7 +138,7 @@ export const Header = () => {
                                             data-bs-toggle="dropdown"
                                             aria-expanded="false"
                                         >
-                                            Create
+                                            <i className="fa-solid fa-circle-plus"></i> Create
                                         </a>
                                         <ul
                                             className="dropdown-menu text-light"
@@ -158,7 +158,7 @@ export const Header = () => {
                                     </li>
                                     <li className="nav-item">
                                         <Link className="nav-link text-light" to={`/profile/${auth._id}`}>
-                                            KBPoints: {auth.kbPoints}
+                                            <i className="fa-sharp fa-solid fa-coins"></i> KBPoints: {auth.kbPoints}
                                         </Link>
                                     </li>
                                     <li className="nav-item dropdown">
@@ -171,7 +171,7 @@ export const Header = () => {
                                             data-bs-toggle="dropdown"
                                             aria-expanded="false"
                                         >
-                                            Profile
+                                            <i className="fa-solid fa-user"></i> Profile
                                         </a>
                                         <ul
                                             className="dropdown-menu text-light"
@@ -179,42 +179,44 @@ export const Header = () => {
                                         >
                                             <li>
                                                 <Link className="dropdown-item" to={`/profile/${auth._id}`}>
-                                                    Information
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link className="dropdown-item" to={`/chat-hub`}>
-                                                    Chat Hub
+                                                    <i className="fa-solid fa-circle-info"></i> Information
                                                 </Link>
                                             </li>
                                             <li>
                                                 <Link className="dropdown-item" to="/lesson/yours">
-                                                    Your Lessons
+                                                    <i className="fa-solid fa-circle-dot fa-2xs"></i> Your Lessons
                                                 </Link>
                                             </li>
                                             <li>
                                                 <Link className="dropdown-item" to="/course/yours">
-                                                    Your Courses
+                                                    <i className="fa-solid fa-circle-dot fa-2xs"></i> Your Courses
                                                 </Link>
                                             </li>
                                             <li>
                                                 <Link className="dropdown-item" to="/lesson/bought">
-                                                    Bought Lessons
+                                                    <i className="fa-solid fa-circle-dot fa-2xs"></i> Bought Lessons
                                                 </Link>
                                             </li>
                                             <li>
                                                 <Link className="dropdown-item" to="/course/bought">
-                                                    Bought Courses
+                                                    <i className="fa-solid fa-circle-dot fa-2xs"></i> Bought Courses
                                                 </Link>
                                             </li>
                                             <li>
                                                 <Link className="dropdown-item" to="/liked">
-                                                    Liked
+                                                    <i className="fa-solid fa-thumbs-up"></i> Liked
                                                 </Link>
                                             </li>
+                                            <hr className='text-dark mx-3' style={{ borderTop: "2px solid" }} />
+                                            <li>
+                                                <Link className="dropdown-item" to={`/chat-hub`}>
+                                                    <i className="fa-solid fa-comment"></i> Chat Hub
+                                                </Link>
+                                            </li>
+                                            <hr className='text-dark mx-3' style={{ borderTop: "2px solid" }} />
                                             <li>
                                                 <Link className="dropdown-item" to="/logout">
-                                                    Logout
+                                                    <i className="fa-solid fa-door-open"></i> Logout
                                                 </Link>
                                             </li>
                                         </ul>
