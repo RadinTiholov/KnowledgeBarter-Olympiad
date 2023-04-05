@@ -11,6 +11,10 @@ const register = (data) => {
     return multipartRequester.post(`${baseUrl}/identity/register`, data)
 }
 
+const update = (data) => {
+    return multipartRequester.put(`${baseUrl}/identity/update`, data)
+}
+
 const getDetails = (id) => {
     return request.get(`${baseUrl}/identity/profile/` + id)
 }
@@ -29,6 +33,7 @@ const getAllContacts = () => {
 
 export{
     login,
+    update,
     register,
     getDetails,
     getAllProfiles,

@@ -1,17 +1,32 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom"
+import { useContext, useEffect, useState } from "react";
 import { emailValidator, isValidForm, usernameValidator } from "../../infrastructureUtils/validationUtils";
 import { onSelectFile } from "../../infrastructureUtils/fileSelectionUtils";
+import { AuthContext } from "../../contexts/AuthContext";
+import * as authService from "../../dataServices/authService";
+import { useNavigate } from "react-router-dom";
 
 export const UpdateProfile = () => {
 
+    const { auth } = useContext(AuthContext);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        authService.getDetails(auth._id)
+            .then(res => {
+                setInputData({email: res.email, username: res.username})
+                setVisualizationImageUrl(res.imageUrl)
+            })
+            .catch(err => console.log(err))
+    }, [auth])
+
     const [errors, setErrors] = useState({
         email: false,
         username: false,
         image: false,
     })
+
     const [error, setError] = useState({ active: false, message: "" });
+
     const [inputData, setInputData] = useState({
         email: "",
         username: ""
@@ -33,7 +48,23 @@ export const UpdateProfile = () => {
     const onSubmit = (e) => {
         e.preventDefault();
 
+        // Start spinner
+        setIsLoading(true);
+
+        let formData = new FormData(e.target);
         
+        authService.update(formData)
+            .then(res => {
+                // Stop spinner
+                setIsLoading(false);
+                navigate('/profile/' + auth._id)
+            })
+            .catch(err => {
+                setError({ active: true, message: err.message })
+                
+                // Stop spinner
+                setIsLoading(false);
+            })
     }
 
     return (
@@ -116,10 +147,10 @@ export const UpdateProfile = () => {
                                             className="btn btn-outline-warning"
                                             style={{ backgroundColor: "#636EA7" }}
                                             type="submit"
-                                            disabled={isLoading || !isValidForm(errors) || !(inputData.email && inputData.password && inputData.rePassword && imageData.imageFile && inputData.username)}
+                                            disabled={isLoading || !isValidForm(errors) || !(inputData.email && inputData.username)}
                                         >
-                                            {isLoading 
-                                                ? <span className="spinner-border spinner-border-sm mx-2" role="status" aria-hidden="true" /> 
+                                            {isLoading
+                                                ? <span className="spinner-border spinner-border-sm mx-2" role="status" aria-hidden="true" />
                                                 : <></>}
                                             Update
                                         </button>
