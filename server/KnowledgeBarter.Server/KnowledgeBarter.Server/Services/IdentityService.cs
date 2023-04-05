@@ -9,7 +9,6 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using static KnowledgeBarter.Server.Data.Common.DataValidation;
 
 namespace KnowledgeBarter.Server.Services
 {
@@ -17,12 +16,15 @@ namespace KnowledgeBarter.Server.Services
     {
         private readonly IRepository<ApplicationUser> applicationUserRepository;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly IImageService imageService;
 
         public IdentityService(IRepository<ApplicationUser> applicationUserRepository,
-            UserManager<ApplicationUser> userManager)
+            UserManager<ApplicationUser> userManager,
+            IImageService imageService)
         {
             this.applicationUserRepository = applicationUserRepository;
             this.userManager = userManager;
+            this.imageService = imageService;
         }
 
         public string GenerateJwtToken(string userId, string username, string role, string secret)
@@ -142,6 +144,28 @@ namespace KnowledgeBarter.Server.Services
                 .AllAsNoTracking()
                 .To<ProfilesInListResponseModel>()
                 .ToListAsync();
+        }
+
+        public async Task Update(string userId, EditIdentityRequestModel model)
+        {
+            var user = await this.GetUserAsync(userId);
+
+            Image image;
+            if (model.Image != null)
+            {
+                image = await this.imageService.CreateAsync(model.Image);
+            }
+            else
+            {
+                image = user.Image;
+            }
+
+            user.UserName = model.Username;
+            user.Email = model.Email;
+            user.Image = image;
+
+            this.applicationUserRepository.Update(user);
+            await this.applicationUserRepository.SaveChangesAsync();
         }
     }
 }

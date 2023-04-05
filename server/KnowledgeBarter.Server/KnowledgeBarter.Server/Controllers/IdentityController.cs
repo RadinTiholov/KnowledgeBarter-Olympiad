@@ -2,6 +2,7 @@
 using KnowledgeBarter.Server.Infrastructure;
 using KnowledgeBarter.Server.Infrastructure.Extensions;
 using KnowledgeBarter.Server.Models.Identity;
+using KnowledgeBarter.Server.Models.Lesson;
 using KnowledgeBarter.Server.Services.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -117,6 +118,33 @@ namespace KnowledgeBarter.Server.Controllers
                 Role = role,
                 _id = user.Id,
             };
+        }
+
+        /// <summary>
+        /// Update the profile of a user
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns>Bad request error if the request is invalid or the user profile information</returns>
+        [HttpPut]
+        [Authorize]
+        [Route(nameof(Update))]
+        public async Task<ActionResult<IdentityProfileResponseModel>> Update([FromForm] EditIdentityRequestModel model)
+        {
+            var userId = this.User.Id();
+
+            try
+            {
+                await this.identityService.Update(userId, model);
+
+                var response = await this.identityService.GetIdentityProfileAsync(userId);
+
+                return response;
+            }
+            catch (ArgumentException ae)
+            {
+                return BadRequest(ae.Message);
+            }
+
         }
 
         /// <summary>

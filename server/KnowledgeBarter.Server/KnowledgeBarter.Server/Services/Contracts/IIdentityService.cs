@@ -1,6 +1,5 @@
 ﻿using KnowledgeBarter.Server.Data.Models;
 using KnowledgeBarter.Server.Models.Identity;
-using System.Security.Claims;
 
 namespace KnowledgeBarter.Server.Services.Contracts
 {
@@ -23,5 +22,7 @@ namespace KnowledgeBarter.Server.Services.Contracts
         Task<string> GetIdByUsernameAsync(string username);
 
         Task<IEnumerable<ProfilesInListResponseModel>> GetAllProfilesAsync();
+
+        Task Update(string userId, EditIdentityRequestModel model);
     }
 }
