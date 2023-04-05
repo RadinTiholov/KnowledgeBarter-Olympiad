@@ -8,7 +8,7 @@ using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionString = builder.Configuration.GetConnectionString("AzureConnection");
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 var appSettings = builder.Services.GetApplicationSettings(builder.Configuration);
 

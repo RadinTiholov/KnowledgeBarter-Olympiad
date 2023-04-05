@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 export const Card = (props) => {
     return (
         <div className="col">
-            <div className="card card-display border-0 zoom" style={{ margin: "auto", width: "15rem" }}>
+            <div className="card card-display border-0" style={{ margin: "auto", width: "15rem" }}>
                 <img
                     src={props.thumbnail}
                     className="card-img"

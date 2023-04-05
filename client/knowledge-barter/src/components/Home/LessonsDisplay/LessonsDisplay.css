@@ -10,8 +10,27 @@
     background-color: #f0ad4e;
 }
 
+.small-screen {
+    display: none;
+}
+
+.big-screen {
+    display: block;
+}
+
 @media screen and (max-width: 1200px) {
     #lessons-display h1 {
         text-align: center;
+    }
+}
+
+
+@media screen and (max-width: 1200px) {
+    .small-screen {
+        display: flex;
+    }
+
+    .big-screen {
+        display: none;
     }
 }
