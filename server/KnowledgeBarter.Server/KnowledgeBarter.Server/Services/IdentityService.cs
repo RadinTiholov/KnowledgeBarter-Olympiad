@@ -10,6 +10,8 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
+using static KnowledgeBarter.Server.Services.ServiceConstants;
+
 namespace KnowledgeBarter.Server.Services
 {
     public class IdentityService : IIdentityService
@@ -149,6 +151,24 @@ namespace KnowledgeBarter.Server.Services
         public async Task Update(string userId, EditIdentityRequestModel model)
         {
             var user = await this.GetUserAsync(userId);
+
+            var validationUserWithUsername = await this.userManager.FindByNameAsync(model.Username);
+            if (validationUserWithUsername != null)
+            {
+                if (validationUserWithUsername.Id != userId)
+                {
+                    throw new ArgumentException(UsernameTaken);
+                }
+            }
+
+            var validationUserWithEmail = await this.userManager.FindByEmailAsync(model.Email);
+            if (validationUserWithEmail != null)
+            {
+                if (validationUserWithEmail.Id != userId)
+                {
+                    throw new ArgumentException(EmailTaken);
+                }
+            }
 
             Image image;
             if (model.Image != null)

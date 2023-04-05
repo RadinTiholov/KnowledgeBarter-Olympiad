@@ -13,5 +13,9 @@
         public const string LessonForCommentShouldExist = "Cannot create comment for a lesson that does not exist";
 
         public const string MessageReceiverNotFound = "Receiver not found!";
+
+        public const string UsernameTaken = "Username is already taken!";
+
+        public const string EmailTaken = "Email is already taken!";
     }
 }
