@@ -35,11 +35,43 @@ export const Lessons = () => {
 
     return (
         <div className="backgound-layer-lessons">
-            <div className="container">
+            <div className="container d-flex">
                 <div className="col text-xl-start">
-                    <h1 className="fw-bold mb-3 px-4 pt-5">All Lessons{ searchParams.get('search') ? ` / ${searchParams.get('search')}` : ''}</h1>
+                    <h1 className="fw-bold mb-3 px-4 pt-5">All Lessons{searchParams.get('search') ? ` / ${searchParams.get('search')}` : ''}</h1>
                 </div>
             </div>
+
+            {/* Space */}
+            <div class="btn-group">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Filter
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Option 1</a></li>
+                    <li><a class="dropdown-item" href="#">Option 2</a></li>
+                    <li><a class="dropdown-item" href="#">Option 3</a></li>
+                </ul>
+            </div>
+            {/* Space */}
+
+            <button id="confetti-btn">Click me!</button>
+            <div id="confetti"></div>
+
+
+            <div class="btn-group">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Sort
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Option 1</a></li>
+                    <li><a class="dropdown-item" href="#">Option 2</a></li>
+                    <li><a class="dropdown-item" href="#">Option 3</a></li>
+                </ul>
+            </div>
+            {/* Space */}
+
+
+
             <div className="container">
                 <div className="text-center">
                     <div className="row row-cols-5 gy-3 pb-5 pt-3">
