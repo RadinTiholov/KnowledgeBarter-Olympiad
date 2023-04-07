@@ -20,7 +20,9 @@ export const LessonsDisplay = (props) => {
                                 {props.lessons ?
                                     props.lessons?.map(x => <Card key={x.id} route={props.route} {...x} />)
                                     : props.courses ? null : <p className='text-center'>No lessons yet!</p>}
-                                {props.courses ? props.courses?.map(x => <Card key={x.id} route={props.route} {...x} />) : props.lessons ? null : <p className='text-center'>No courses yet!</p>}
+                                {props.courses ? 
+                                    props.courses?.map(x => <Card key={x.id} route={props.route} {...x} />) 
+                                    : props.lessons ? null : <p className='text-center'>No courses yet!</p>}
                             </div>
                         </div>
                     }
@@ -35,29 +37,30 @@ export const LessonsDisplay = (props) => {
                                     {props.lessons
                                         ?
                                         <div
-                                            id="carouselExampleControls"
+                                            id="carouselLessons"
                                             className="carousel slide"
                                             data-bs-ride="carousel"
                                         >
                                             <div className="carousel-inner">
                                                 <div className="carousel-item active" >
                                                     <div style={{ display: 'flex' }}>
-                                                        <Card key={props.lessons[0].id} route={props.route} {...props.lessons[0]} />
-
-                                                        <Card key={props.lessons[0].id} route={props.route} {...props.lessons[0]} />
+                                                        {props.lessons?.filter(function (value, index, arr) {
+                                                            return index < 4;
+                                                        }).map(x => <Card key={x.id} route={props.route} {...x} />)}
                                                     </div>
                                                 </div>
                                                 <div className="carousel-item">
                                                     <div style={{ display: 'flex' }}>
-
-                                                        {props.lessons?.map(x => <Card key={x.id} route={props.route} {...x} />)}
+                                                        {props.lessons?.filter(function (value, index, arr) {
+                                                            return index >= 4;
+                                                        }).map(x => <Card key={x.id} route={props.route} {...x} />)}
                                                     </div>
                                                 </div>
                                             </div>
                                             <button
                                                 className="carousel-control-prev"
                                                 type="button"
-                                                data-bs-target="#carouselExampleControls"
+                                                data-bs-target="#carouselLessons"
                                                 data-bs-slide="prev"
                                             >
                                                 <span className="carousel-control-prev-icon" aria-hidden="true" />
@@ -66,7 +69,7 @@ export const LessonsDisplay = (props) => {
                                             <button
                                                 className="carousel-control-next"
                                                 type="button"
-                                                data-bs-target="#carouselExampleControls"
+                                                data-bs-target="#carouselLessons"
                                                 data-bs-slide="next"
                                             >
                                                 <span className="carousel-control-next-icon" aria-hidden="true" />
@@ -76,7 +79,51 @@ export const LessonsDisplay = (props) => {
                                         //props.lessons?.map(x => <Card key={x.id} route={props.route} {...x} />)
                                         : props.courses ? null : <p className='text-center'>No lessons yet!</p>}
                                 </div>
-                                {props.courses ? props.courses?.map(x => <Card key={x.id} route={props.route} {...x} />) : props.lessons ? null : <p className='text-center'>No courses yet!</p>}
+                                <div className='big-screen'>
+                                    {props.courses
+                                        ?
+                                        <div
+                                            id="carouselCourses"
+                                            className="carousel slide"
+                                            data-bs-ride="carousel"
+                                        >
+                                            <div className="carousel-inner">
+                                                <div className="carousel-item active" >
+                                                    <div style={{ display: 'flex' }}>
+                                                        {props.courses?.filter(function (value, index, arr) {
+                                                            return index < 4;
+                                                        }).map(x => <Card key={x.id} route={props.route} {...x} />)}
+                                                    </div>
+                                                </div>
+                                                <div className="carousel-item">
+                                                    <div style={{ display: 'flex' }}>
+                                                        {props.courses?.filter(function (value, index, arr) {
+                                                            return index >= 4;
+                                                        }).map(x => <Card key={x.id} route={props.route} {...x} />)}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button
+                                                className="carousel-control-prev"
+                                                type="button"
+                                                data-bs-target="#carouselCourses"
+                                                data-bs-slide="prev"
+                                            >
+                                                <span className="carousel-control-prev-icon" aria-hidden="true" />
+                                                <span className="visually-hidden">Previous</span>
+                                            </button>
+                                            <button
+                                                className="carousel-control-next"
+                                                type="button"
+                                                data-bs-target="#carouselCourses"
+                                                data-bs-slide="next"
+                                            >
+                                                <span className="carousel-control-next-icon" aria-hidden="true" />
+                                                <span className="visually-hidden">Next</span>
+                                            </button>
+                                        </div>
+                                        : props.lessons ? null : <p className='text-center'>No courses yet!</p>}
+                                </div>
                             </div>
                         </div>
                     }

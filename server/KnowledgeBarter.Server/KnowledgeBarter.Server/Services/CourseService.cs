@@ -154,7 +154,7 @@ namespace KnowledgeBarter.Server.Services
                .AllAsNoTracking()
                .Include(x => x.Likes)
                .OrderByDescending(x => x.Likes.ToList().Count)
-               .Take(4)
+               .Take(8)
                .To<CourseInListResponseModel>()
                .ToListAsync();
         }

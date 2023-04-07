@@ -161,7 +161,7 @@ namespace KnowledgeBarter.Server.Services
             return await this.lessonRepository
                 .AllAsNoTracking()
                 .OrderByDescending(x => x.Views)
-                .Take(4)
+                .Take(8)
                 .To<LessonInListResponseModel>()
                 .ToListAsync();
         }
