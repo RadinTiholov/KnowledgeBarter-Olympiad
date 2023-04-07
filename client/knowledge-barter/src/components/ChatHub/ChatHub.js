@@ -36,7 +36,7 @@ export const ChatHub = () => {
                 <div className="row gy-2">
                     <div className="col-lg-6">
                         <div className="articles card chat-scroll" style={{ backgroundColor: "#f0ad4e", height: "80vh" }}>
-                            <div className="card-header d-flex align-items-center">
+                            <div className="card-header d-flex align-items-center" style={{marginBottom: "20px"}}>
                                 <h2 className="h3">Contacts</h2>
                             </div>
                             {areLoadingContacts ?

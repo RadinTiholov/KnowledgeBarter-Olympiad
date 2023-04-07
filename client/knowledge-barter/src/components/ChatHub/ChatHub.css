@@ -26,8 +26,6 @@
     }
 }
 
-/* kur */
-
 .articles a {
     text-decoration: none !important;
     display: block;
@@ -46,11 +44,11 @@
     padding: 20px
 }
 
-.articles .item:nth-of-type(odd) {
+.item-color:nth-of-type(odd) {
     background: #636EA7
 }
 
-.articles .item:nth-of-type(even) {
+.item-color:nth-of-type(even) {
     background: #838fca
 }
 
