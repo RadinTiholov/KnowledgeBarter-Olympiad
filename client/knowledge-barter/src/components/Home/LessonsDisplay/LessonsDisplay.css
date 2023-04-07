@@ -27,7 +27,7 @@
 
 @media screen and (max-width: 1200px) {
     .small-screen {
-        display: flex;
+        display: block;
     }
 
     .big-screen {
