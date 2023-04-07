@@ -16,13 +16,25 @@
 
         public string Owner { get; set; } = null!;
 
+        public string OwnerName { get; set; } = null!;
+
+        public int Likes { get; set; }
+
+        public int Comments { get; set; }
+
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<Lesson, LessonInListResponseModel>()
                 .ForMember(x => x.Thumbnail, opt =>
                     opt.MapFrom(i => i.Image.Url))
                 .ForMember(x => x.Owner, opt =>
-                    opt.MapFrom(i => i.OwnerId));
+                    opt.MapFrom(i => i.OwnerId))
+                .ForMember(x => x.OwnerName, opt =>
+                    opt.MapFrom(i => i.Owner.UserName))
+                .ForMember(x => x.Likes, opt =>
+                    opt.MapFrom(i => i.Likes.Count))
+                .ForMember(x => x.Comments, opt =>
+                    opt.MapFrom(i => i.Comments.Count));
         }
     }
 }

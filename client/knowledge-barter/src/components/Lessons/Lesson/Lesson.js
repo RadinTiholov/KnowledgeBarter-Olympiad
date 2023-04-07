@@ -12,7 +12,7 @@ export const Lesson = (props) => {
                 <div className="card-body">
                     <div className='row'>
                         <h5 className="fw-bold text-start">{props.title}</h5>
-                        <p className="fs-6 fw-light text-start">Author name here</p>
+                        <p className="fs-6 fw-light text-start">{props.ownerName}</p>
                     </div>
                     <div className='row'>
                         <div className='col-4'>
@@ -25,8 +25,8 @@ export const Lesson = (props) => {
                             </Link>
                         </div>
                         <div className='col-8 mt-1 d-flex justify-content-evenly align-items-center'>
-                            <i className="fa-solid fa-thumbs-up fa-xl"/><span className="fw-bold"> {23} </span>
-                            <i className="fa-solid fa-comment fa-xl"/><span className="fw-bold"> {232}</span>
+                            <i className="fa-solid fa-thumbs-up fa-xl"/><span className="fw-bold"> {props.likes} </span>
+                            <i className="fa-solid fa-comment fa-xl"/><span className="fw-bold"> {props.comments}</span>
                         </div>
                     </div>
                 </div>
