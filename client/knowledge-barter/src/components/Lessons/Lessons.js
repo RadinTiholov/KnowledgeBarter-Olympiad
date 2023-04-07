@@ -35,8 +35,10 @@ export const Lessons = () => {
 
     return (
         <div className="backgound-layer-lessons">
-            <div className="col text-xl-center">
-                <h1 className="fw-bold mb-3 px-4 pt-5">All Lessons</h1>
+            <div className="container">
+                <div className="col text-xl-start">
+                    <h1 className="fw-bold mb-3 px-4 pt-5">All Lessons{ searchParams.get('search') ? ` / ${searchParams.get('search')}` : ''}</h1>
+                </div>
             </div>
             <div className="container">
                 <div className="text-center">
