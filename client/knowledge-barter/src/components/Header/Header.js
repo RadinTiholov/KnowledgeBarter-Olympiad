@@ -31,8 +31,8 @@ export const Header = () => {
         <section id="nav-bar">
             <nav className="navbar navbar-expand-xl">
                 <div className="container-fluid">
-                    <Link className="navbar-brand" to="/">
-                        <img src={logo} alt="" width={60} height={35} />
+                    <Link className="navbar-brand logo-container" to="/">
+                        <img className='logo' src={logo} alt="" width={60} height={45} />
                     </Link>
                     <button
                         className="navbar-toggler"

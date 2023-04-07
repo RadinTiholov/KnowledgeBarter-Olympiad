@@ -12,3 +12,12 @@
     columns: #fff;
     font-size: 30px !important;
 }
+
+.logo {
+    object-fit: contain;
+}
+
+.logo-container {
+    margin: 0;
+    padding: 0;
+}
