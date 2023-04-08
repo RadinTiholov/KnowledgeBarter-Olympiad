@@ -22,6 +22,8 @@
 
         public int Comments { get; set; }
 
+        public int Views { get; set; }
+
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<Lesson, LessonInListResponseModel>()
