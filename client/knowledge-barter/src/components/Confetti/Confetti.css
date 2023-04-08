@@ -1,29 +1,31 @@
-@keyframes confetti {
-    0% {
-      transform: translateY(0) rotate(0deg);
-    }
-    100% {
-      transform: translateY(-500px) rotate(360deg);
-    }
+@keyframes bang {
+  from {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
   }
-  
-  #confetti {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-  }
-  
-  .confetti {
-    position: absolute;
-    display: block;
-    width: 10px;
-    height: 10px;
-    background-color: #f44336;
-    border-radius: 50%;
-    z-index: 9999;
-    animation: confetti 3s ease-out;
-    transform-origin: center center;
-  }
+}
+
+.hoverme {
+  width: 240px;
+  margin: 0 auto 0;
+  text-align: center;
+  padding: 10px 0;
+  cursor: pointer;
+  position: relative;
+}
+
+.hoverme span {
+  color: #333;
+  font-size: 0.9em;
+}
+
+.hoverme i {
+  position: absolute;
+  display: block;
+  left: 50%;
+  top: 0;
+  width: 3px;
+  height: 8px;
+  background: red;
+  opacity: 0;
+}

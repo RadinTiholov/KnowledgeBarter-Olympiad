@@ -4,6 +4,8 @@ import { LessonsDisplay } from "./LessonsDisplay/LessonsDisplay"
 import { PointsBanner } from "./PointsBanner/PointsBanner"
 import * as lessonsService from '../../dataServices/lessonsService'
 import * as coursesService from '../../dataServices/coursesService'
+import ConfettiButton from "../Confetti/Confetti"
+import Confetti from "../Confetti/Confetti"
 
 export const Home = () => {
     const [lessons, setLessons] = useState([]);

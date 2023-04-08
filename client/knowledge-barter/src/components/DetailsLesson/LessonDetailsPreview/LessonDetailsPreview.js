@@ -1,5 +1,6 @@
 import './LessonDetailsPreview.css'
 import background from '../../../images/waves-details.svg'
+import Confetti from '../../Confetti/Confetti'
 
 export const LessonDetailsPreview = (props) => {
     return (
@@ -43,7 +44,7 @@ export const LessonDetailsPreview = (props) => {
                                         </div>
                                         <div className="col-5">
                                             {props.isAuth ? <>
-                                            
+                                                <Confetti/>
                                                 <div className="row">
                                                 {props.isLiked ?
                                                     <button
