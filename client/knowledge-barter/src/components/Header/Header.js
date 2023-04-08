@@ -52,12 +52,12 @@ export const Header = () => {
                                 <>
                                     <li className="nav-item">
                                         <Link className="nav-link active text-light" to="/">
-                                            Admin
+                                            <i className="fa-solid fa-user"></i> Admin
                                         </Link>
                                     </li>
                                     <li className="nav-item">
                                         <Link className="nav-link active text-light" to="/comment/all">
-                                            Comments
+                                            <i className="fa-solid fa-comment"></i> Comments
                                         </Link>
                                     </li>
                                 </>
