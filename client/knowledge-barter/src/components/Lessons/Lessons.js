@@ -4,7 +4,6 @@ import { useContext, useEffect, useMemo, useState } from 'react'
 import { LessonContext } from '../../contexts/LessonContext'
 import { useSearchParams } from 'react-router-dom'
 import Pagination from '../common/Pagination/Pagination'
-import { Confetti } from '../Confetti/Confetti'
 
 let pageSize = 10;
 
@@ -13,6 +12,13 @@ export const Lessons = () => {
     const [searchParams, setSearchParams] = useSearchParams();
 
     const [collectionLength, setCollectionLength] = useState(0);
+
+    const [sortBy, setSortBy] = useState('');
+
+    const changeSortBy = (e) => {
+        setSortBy(e.target.innerText)
+    }
+
     useEffect(() => {
         if (searchParams.get('search')) {
             setCollectionLength(lessons.filter(x => x.title.toLowerCase().includes(searchParams.get('search')?.toLowerCase())).length);
@@ -28,11 +34,16 @@ export const Lessons = () => {
         const lastPageIndex = firstPageIndex + pageSize;
 
         if (searchParams.get('search')) {
-            return lessons.filter(x => x.title.toLowerCase().includes(searchParams.get('search').toLowerCase())).slice(firstPageIndex, lastPageIndex);
+            return lessons
+                .sort((a, b) => b[sortBy.toLocaleLowerCase()] - a[sortBy.toLocaleLowerCase()])
+                .filter(x => x.title.toLowerCase().includes(searchParams.get('search').toLowerCase()))
+                .slice(firstPageIndex, lastPageIndex);
         }
 
-        return lessons.slice(firstPageIndex, lastPageIndex);
-    }, [currentPage, lessons, searchParams]);
+        return lessons
+            .sort((a, b) => b[sortBy.toLocaleLowerCase()] - a[sortBy.toLocaleLowerCase()])
+            .slice(firstPageIndex, lastPageIndex);
+    }, [currentPage, lessons, searchParams, sortBy]);
 
     return (
         <div className="backgound-layer-lessons">
@@ -51,9 +62,9 @@ export const Lessons = () => {
                                         Sort by
                                     </button>
                                     <ul className="dropdown-menu">
-                                        <li><button className="dropdown-item" href="#">Likes</button></li>
-                                        <li><button className="dropdown-item" href="#">Views</button></li>
-                                        <li><button className="dropdown-item" href="#">Comments</button></li>
+                                        <li><button className="dropdown-item" onClick={changeSortBy}>Likes</button></li>
+                                        <li><button className="dropdown-item" onClick={changeSortBy}>Views</button></li>
+                                        <li><button className="dropdown-item" onClick={changeSortBy}>Comments</button></li>
                                     </ul>
                                 </div>
                             </div>
@@ -61,19 +72,19 @@ export const Lessons = () => {
                                 <p>Filter by views <i className="fa-solid fa-eye fa-sm" /></p>
                                 <div className="form-check">
                                     <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadio1000" />
-                                    <label className="form-check-label" for="flexRadio1000">
+                                    <label className="form-check-label" htmlFor="flexRadio1000">
                                         <p>1000 & up</p>
                                     </label>
                                 </div>
                                 <div className="form-check">
                                     <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadio100" />
-                                    <label className="form-check-label" for="flexRadio100">
+                                    <label className="form-check-label" htmlFor="flexRadio100">
                                         <p>100 - 999</p>
                                     </label>
                                 </div>
                                 <div className="form-check">
                                     <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadio1" />
-                                    <label className="form-check-label" for="flexRadio1">
+                                    <label className="form-check-label" htmlFor="flexRadio1">
                                         <p>1 - 99</p>
                                     </label>
                                 </div>
@@ -87,10 +98,15 @@ export const Lessons = () => {
                 <div className="text-center">
                     <div className="row row-cols-5 gy-3 pb-5 pt-3">
                         {searchParams.get('search')
-                            ? currentCollection.map(x => x.title.toLowerCase().includes(searchParams.get('search').toLowerCase())
+                            ? currentCollection
+                                .map(x => x.title
+                                    .toLowerCase()
+                                    .includes(searchParams.get('search')
+                                    .toLowerCase())
                                 ? <Lesson {...x} key={x.id} />
                                 : null)
-                            : currentCollection.map(x => <Lesson {...x} key={x.id} />)}
+                            : currentCollection
+                                .map(x => <Lesson {...x} key={x.id} />)}
                     </div>
                 </div>
                 <Pagination
