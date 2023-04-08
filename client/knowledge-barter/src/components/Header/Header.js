@@ -1,6 +1,6 @@
 import './Header.css'
 import logo from '../../images/logo.png'
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useContext, useState } from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
 export const Header = () => {

@@ -38,7 +38,7 @@ export const Courses = () => {
         <div style={{ backgroundImage: `url(${background})` }} className="backgound-layer-courses">
             <div className="container">
                 <div className="col text-xl-start">
-                    <h1 className="fw-bold mb-3 px-4 pt-5">All Courses{ searchParams.get('search') ? ` / ${searchParams.get('search')}` : ''}</h1>
+                    <h1 className="fw-bold mb-3 px-4 pt-5">All Courses{ searchParams.get('search') && searchParams.get('search') != 'undefined' ? ` / ${searchParams.get('search')}` : ''}</h1>
                 </div>
             </div>
             <div className="container">

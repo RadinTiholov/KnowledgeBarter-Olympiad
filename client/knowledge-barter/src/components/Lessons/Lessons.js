@@ -4,6 +4,7 @@ import { useContext, useEffect, useMemo, useState } from 'react'
 import { LessonContext } from '../../contexts/LessonContext'
 import { useSearchParams } from 'react-router-dom'
 import Pagination from '../common/Pagination/Pagination'
+import { FilterMenu } from '../common/FilterMenu/FilterMenu'
 
 let pageSize = 10;
 
@@ -14,19 +15,45 @@ export const Lessons = () => {
     const [collectionLength, setCollectionLength] = useState(0);
 
     const [sortBy, setSortBy] = useState('');
+    const [filterByViews, setFilterByViews] = useState(0);
+    const [filterByLikes, setFilterByLikes] = useState(0);
 
     const changeSortBy = (e) => {
         setSortBy(e.target.innerText)
     }
 
+    const changeFilterByViews = (e) => {
+        setFilterByViews(Number(e.target.value))
+    }
+
+    const changeFilterByLikes = (e) => {
+        setFilterByLikes(Number(e.target.value))
+    }
+
+    const viewsFilter = (x) => {
+        return filterByViews === 3
+        ? x.views >= 1000
+        : filterByViews === 2
+            ? x.views < 1000 && x.views >= 100
+            : filterByViews === 1
+                ? x.views < 100 && x.views >= 1
+                : true
+    }
+
     useEffect(() => {
+        // Set the collection lenght
         if (searchParams.get('search')) {
-            setCollectionLength(lessons.filter(x => x.title.toLowerCase().includes(searchParams.get('search')?.toLowerCase())).length);
+            setCollectionLength(lessons
+                .filter(viewsFilter)
+                .filter(x => x.title.toLowerCase()
+                    .includes(searchParams.get('search')?.toLowerCase())).length);
         }
         else {
-            setCollectionLength(lessons.length);
+            setCollectionLength(lessons
+                .filter(viewsFilter)
+                .length);
         }
-    }, [collectionLength, lessons, searchParams])
+    }, [collectionLength, lessons, searchParams, filterByViews, viewsFilter])
 
     const [currentPage, setCurrentPage] = useState(1);
     const currentCollection = useMemo(() => {
@@ -35,28 +62,30 @@ export const Lessons = () => {
 
         if (searchParams.get('search')) {
             return lessons
+                .filter(viewsFilter)
                 .sort((a, b) => b[sortBy.toLocaleLowerCase()] - a[sortBy.toLocaleLowerCase()])
                 .filter(x => x.title.toLowerCase().includes(searchParams.get('search').toLowerCase()))
                 .slice(firstPageIndex, lastPageIndex);
         }
 
         return lessons
+            .filter(viewsFilter)
             .sort((a, b) => b[sortBy.toLocaleLowerCase()] - a[sortBy.toLocaleLowerCase()])
             .slice(firstPageIndex, lastPageIndex);
-    }, [currentPage, lessons, searchParams, sortBy]);
+    }, [currentPage, lessons, searchParams, sortBy, viewsFilter]);
 
     return (
         <div className="backgound-layer-lessons">
             <div className="container d-flex">
                 <div className="col text-xl-start">
-                    <h1 className="fw-bold mb-3 px-4 pt-5">All Lessons{searchParams.get('search') ? ` / ${searchParams.get('search')}` : ''}</h1>
+                    <h1 className="fw-bold mb-3 px-4 pt-5">All Lessons{searchParams.get('search') && searchParams.get('search') != 'undefined' ? ` / ${searchParams.get('search')}` : ''}</h1>
                 </div>
             </div>
             <div className='container'>
                 <div className="card sort-menu">
                     <div className="card-body">
                         <div className='row'>
-                            <div className='col-sm-2'>
+                            <div className='col-md-2'>
                                 <div className="btn-group">
                                     <button className="btn sort-menu-button btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         Sort by
@@ -68,26 +97,11 @@ export const Lessons = () => {
                                     </ul>
                                 </div>
                             </div>
-                            <div className='col-sm-3'>
-                                <p>Filter by views <i className="fa-solid fa-eye fa-sm" /></p>
-                                <div className="form-check">
-                                    <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadio1000" />
-                                    <label className="form-check-label" htmlFor="flexRadio1000">
-                                        <p>1000 & up</p>
-                                    </label>
-                                </div>
-                                <div className="form-check">
-                                    <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadio100" />
-                                    <label className="form-check-label" htmlFor="flexRadio100">
-                                        <p>100 - 999</p>
-                                    </label>
-                                </div>
-                                <div className="form-check">
-                                    <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadio1" />
-                                    <label className="form-check-label" htmlFor="flexRadio1">
-                                        <p>1 - 99</p>
-                                    </label>
-                                </div>
+                            <div className='col-md-5'>
+                                <FilterMenu param={'views'} iconName={'eye'} option={filterByViews} changeOption={changeFilterByViews} />
+                            </div>
+                            <div className='col-md-5'>
+                                <FilterMenu param={'likes'} iconName={'thumbs-up'} option={filterByLikes} changeOption={changeFilterByLikes} />
                             </div>
                         </div>
                     </div>
@@ -102,9 +116,9 @@ export const Lessons = () => {
                                 .map(x => x.title
                                     .toLowerCase()
                                     .includes(searchParams.get('search')
-                                    .toLowerCase())
-                                ? <Lesson {...x} key={x.id} />
-                                : null)
+                                        .toLowerCase())
+                                    ? <Lesson {...x} key={x.id} />
+                                    : null)
                             : currentCollection
                                 .map(x => <Lesson {...x} key={x.id} />)}
                     </div>
