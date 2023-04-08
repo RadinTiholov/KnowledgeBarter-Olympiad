@@ -40,20 +40,32 @@ export const Lessons = () => {
                 : true
     }
 
+    const likesFilter = (x) => {
+        return filterByLikes === 3
+        ? x.likes >= 1000
+        : filterByLikes === 2
+            ? x.likes < 1000 && x.likes >= 100
+            : filterByLikes === 1
+                ? x.likes < 100 && x.likes >= 1
+                : true
+    }
+
     useEffect(() => {
         // Set the collection lenght
         if (searchParams.get('search')) {
             setCollectionLength(lessons
                 .filter(viewsFilter)
+                .filter(likesFilter)
                 .filter(x => x.title.toLowerCase()
                     .includes(searchParams.get('search')?.toLowerCase())).length);
         }
         else {
             setCollectionLength(lessons
                 .filter(viewsFilter)
+                .filter(likesFilter)
                 .length);
         }
-    }, [collectionLength, lessons, searchParams, filterByViews, viewsFilter])
+    }, [collectionLength, lessons, searchParams, filterByViews, filterByLikes])
 
     const [currentPage, setCurrentPage] = useState(1);
     const currentCollection = useMemo(() => {
@@ -63,6 +75,7 @@ export const Lessons = () => {
         if (searchParams.get('search')) {
             return lessons
                 .filter(viewsFilter)
+                .filter(likesFilter)
                 .sort((a, b) => b[sortBy.toLocaleLowerCase()] - a[sortBy.toLocaleLowerCase()])
                 .filter(x => x.title.toLowerCase().includes(searchParams.get('search').toLowerCase()))
                 .slice(firstPageIndex, lastPageIndex);
@@ -70,9 +83,10 @@ export const Lessons = () => {
 
         return lessons
             .filter(viewsFilter)
+            .filter(likesFilter)
             .sort((a, b) => b[sortBy.toLocaleLowerCase()] - a[sortBy.toLocaleLowerCase()])
             .slice(firstPageIndex, lastPageIndex);
-    }, [currentPage, lessons, searchParams, sortBy, viewsFilter]);
+    }, [currentPage, lessons, searchParams, sortBy, filterByViews, filterByLikes]);
 
     return (
         <div className="backgound-layer-lessons">
