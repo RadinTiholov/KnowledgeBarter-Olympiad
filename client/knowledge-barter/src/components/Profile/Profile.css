@@ -1,7 +1,88 @@
-.backgound-layer-profile{
+/* .backgound-layer-profile{
     aspect-ratio: 16/4;
     width: 100%;
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+} */
+
+.avatar-lg {
+    height: 4.5rem;
+    width: 4.5rem;
+}
+.img-thumbnail {
+    padding: .25rem;
+    background-color: #ecf2f5;
+    border: 1px solid #dee2e6;
+    border-radius: .25rem;
+    max-width: 100%;
+    height: auto;
+}
+.avatar-sm {
+    height: 2.25rem;
+    width: 2.25rem;
+}
+.me-2 {
+    margin-right: .75rem!important;
+}
+.avatar-md {
+    height: 3.5rem;
+    width: 3.5rem;
+}
+.bg-transparent {
+    --bs-bg-opacity: 1;
+    background-color: transparent!important;
+}
+.post-user-comment-box {
+    background-color: #f2f8fb;
+    margin: 0 -.75rem;
+    padding: 1rem;
+}
+.simplebar-wrapper {
+    overflow: hidden;
+    width: inherit;
+    height: inherit;
+    max-width: inherit;
+    max-height: inherit;
+}
+.simplebar-height-auto-observer-wrapper {
+    box-sizing: inherit!important;
+    height: 100%;
+    width: 100%;
+    max-width: 1px;
+    position: relative;
+    float: left;
+    max-height: 1px;
+    overflow: hidden;
+    z-index: -1;
+    padding: 0;
+    margin: 0;
+    pointer-events: none;
+    flex-grow: inherit;
+    flex-shrink: 0;
+    flex-basis: 0;
+}
+.font-13 {
+    font-size: 13px!important;
+}
+.btn-soft-info {
+    color: #45bbe0;
+    background-color: rgba(69,187,224,.18);
+    border-color: rgba(69,187,224,.12);
+}
+.social-list-item {
+    height: 2rem;
+    width: 2rem;
+    line-height: calc(2rem - 2px);
+    display: block;
+    border: 2px solid #adb5bd;
+    border-radius: 50%;
+    color: #adb5bd;
+}
+.comment-area-box .comment-area-btn {
+    background-color: #f2f8fb;
+    padding: 10px;
+    border: 1px solid #dee2e6;
+    border-top: none;
+    border-radius: 0 0 .2rem .2rem;
 }
