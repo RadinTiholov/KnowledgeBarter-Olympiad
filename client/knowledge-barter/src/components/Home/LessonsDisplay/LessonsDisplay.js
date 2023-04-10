@@ -20,8 +20,8 @@ export const LessonsDisplay = (props) => {
                                 {props.lessons ?
                                     props.lessons?.map(x => <Card key={x.id} route={props.route} {...x} />)
                                     : props.courses ? null : <p className='text-center'>No lessons yet!</p>}
-                                {props.courses ? 
-                                    props.courses?.map(x => <Card key={x.id} route={props.route} {...x} />) 
+                                {props.courses ?
+                                    props.courses?.map(x => <Card key={x.id} route={props.route} {...x} />)
                                     : props.lessons ? null : <p className='text-center'>No courses yet!</p>}
                             </div>
                         </div>
