@@ -30,24 +30,29 @@ export const Lessons = () => {
         setFilterByLikes(Number(e.target.value))
     }
 
+    const clearSelection = () => {
+        setFilterByViews(0);
+        setFilterByLikes(0);
+    }
+
     const viewsFilter = (x) => {
         return filterByViews === 3
-        ? x.views >= 1000
-        : filterByViews === 2
-            ? x.views < 1000 && x.views >= 100
-            : filterByViews === 1
-                ? x.views < 100 && x.views >= 1
-                : true
+            ? x.views >= 1000
+            : filterByViews === 2
+                ? x.views < 1000 && x.views >= 100
+                : filterByViews === 1
+                    ? x.views < 100 && x.views >= 1
+                    : true
     }
 
     const likesFilter = (x) => {
         return filterByLikes === 3
-        ? x.likes >= 1000
-        : filterByLikes === 2
-            ? x.likes < 1000 && x.likes >= 100
-            : filterByLikes === 1
-                ? x.likes < 100 && x.likes >= 1
-                : true
+            ? x.likes >= 1000
+            : filterByLikes === 2
+                ? x.likes < 1000 && x.likes >= 100
+                : filterByLikes === 1
+                    ? x.likes < 100 && x.likes >= 1
+                    : true
     }
 
     useEffect(() => {
@@ -109,6 +114,11 @@ export const Lessons = () => {
                                         <li><button className="dropdown-item" onClick={changeSortBy}>Views</button></li>
                                         <li><button className="dropdown-item" onClick={changeSortBy}>Comments</button></li>
                                     </ul>
+                                </div>
+                                <div className='mt-1'>
+                                    <button onClick={clearSelection} className="btn btn-lg" type="button" style={{ backgroundColor: "#636EA7", color: "#fff" }}>
+                                        Clear
+                                    </button>
                                 </div>
                             </div>
                             <div className='col-md-5'>
