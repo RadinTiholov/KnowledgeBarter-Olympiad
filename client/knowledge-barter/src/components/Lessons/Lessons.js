@@ -113,6 +113,7 @@ export const Lessons = () => {
                                         <li><button className="dropdown-item" onClick={changeSortBy}>Likes</button></li>
                                         <li><button className="dropdown-item" onClick={changeSortBy}>Views</button></li>
                                         <li><button className="dropdown-item" onClick={changeSortBy}>Comments</button></li>
+                                        <li><button className="dropdown-item" onClick={changeSortBy}>None</button></li>
                                     </ul>
                                 </div>
                                 <div className='mt-1'>
