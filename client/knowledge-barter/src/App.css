@@ -109,3 +109,15 @@ a, a:hover {
         padding: 0;
     } 
 }
+
+/* Sort menu */
+
+.sort-menu{
+    margin-bottom: 30px;
+    background-color: #ff000000;
+}
+
+.sort-menu-button{
+  background-color: #636EA7;
+  color: #fff
+}

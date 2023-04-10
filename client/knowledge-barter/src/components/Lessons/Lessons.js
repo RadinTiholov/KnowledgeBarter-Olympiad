@@ -56,7 +56,7 @@ export const Lessons = () => {
     }
 
     useEffect(() => {
-        // Set the collection lenght
+        // Set the collection length
         if (searchParams.get('search')) {
             setCollectionLength(lessons
                 .filter(viewsFilter)
