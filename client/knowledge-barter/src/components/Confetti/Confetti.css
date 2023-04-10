@@ -6,12 +6,12 @@
 }
 
 .hoverme {
-  width: 240px;
-  margin: 0 auto 0;
+  width: 130px;
+  height: 50px;
   text-align: center;
-  padding: 10px 0;
   cursor: pointer;
   position: relative;
+  background-color: rgb(99, 110, 167);
 }
 
 .hoverme span {
@@ -28,4 +28,13 @@
   height: 8px;
   background: red;
   opacity: 0;
+}
+
+.hoverme:hover {
+  background-color: rgb(99, 110, 167);
+}
+
+
+.hoverme:disabled {
+  background-color: rgb(99, 110, 167);
 }

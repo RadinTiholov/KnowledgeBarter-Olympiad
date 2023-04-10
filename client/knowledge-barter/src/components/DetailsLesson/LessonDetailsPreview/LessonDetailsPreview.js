@@ -44,46 +44,22 @@ export const LessonDetailsPreview = (props) => {
                                         </div>
                                         <div className="col-5">
                                             {props.isAuth ? <>
-                                                <Confetti/>
                                                 <div className="row">
-                                                {props.isLiked ?
+                                                    <Confetti isLiked={props.isLiked} onClick={props.likeLessonOnClick} />
+                                                </div>
+                                                <div className="row">
                                                     <button
-                                                        className="btn btn-outline-warning btn-lg mt-4 fw-bold"
+                                                        className="btn btn-outline-warning btn-lg mt-2 fw-bold"
                                                         style={{
                                                             backgroundColor: "#636EA7",
                                                             width: 130,
                                                             height: 50
                                                         }}
-                                                        disabled = {true}
+                                                        onClick={props.buyLessonOnClick}
                                                     >
-                                                        Liked
-                                                    </button> :
-                                                    <button
-                                                        className="btn btn-outline-warning btn-lg mt-4 fw-bold"
-                                                        style={{
-                                                            backgroundColor: "#636EA7",
-                                                            width: 130,
-                                                            height: 50
-                                                        }}
-                                                        onClick = {props.likeLessonOnClick}
-                                                    >
-                                                        Like
-                                                    </button>}
-
-                                            </div>
-                                            <div className="row">
-                                                <button
-                                                    className="btn btn-outline-warning btn-lg mt-2 fw-bold"
-                                                    style={{
-                                                        backgroundColor: "#636EA7",
-                                                        width: 130,
-                                                        height: 50
-                                                    }}
-                                                    onClick={props.buyLessonOnClick}
-                                                >
-                                                    Buy ({props.lesson.price})
-                                                </button>
-                                            </div>
+                                                        Buy ({props.lesson.price})
+                                                    </button>
+                                                </div>
                                             </> : null}
                                         </div>
                                     </div>

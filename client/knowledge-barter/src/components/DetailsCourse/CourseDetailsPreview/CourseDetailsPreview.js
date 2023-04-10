@@ -1,5 +1,6 @@
 import './CourseDetailsPreview.css'
 import background from '../../../images/waves-details.svg'
+import Confetti from '../../Confetti/Confetti'
 
 export const CourseDetailsPreview = (props) => {
     return (
@@ -40,43 +41,24 @@ export const CourseDetailsPreview = (props) => {
                                         <div className="col-5">
                                             {props.isAuth ? <>
                                                 <div className="row">
-                                                {props.isLiked ? <button
-                                                    className="btn btn-outline-warning btn-lg mt-4 fw-bold"
-                                                    style={{
-                                                        backgroundColor: "#636EA7",
-                                                        width: 130,
-                                                        height: 50
-                                                    }}
-                                                    disabled = {true}
-                                                >
-                                                    Liked
-                                                </button> :
+                                                    <div className="row">
+                                                        <Confetti isLiked={props.isLiked} onClick={props.likeCourseOnClick} />
+                                                    </div>
+                                                </div>
+                                                <div className="row">
                                                     <button
-                                                        className="btn btn-outline-warning btn-lg mt-4 fw-bold"
+                                                        className="btn btn-outline-warning btn-lg mt-2 fw-bold"
                                                         style={{
                                                             backgroundColor: "#636EA7",
                                                             width: 130,
                                                             height: 50
                                                         }}
-                                                        onClick={props.likeCourseOnClick}
+                                                        onClick={props.buyCourseOnClick}
                                                     >
-                                                        Like
-                                                    </button>}
-                                            </div>
-                                            <div className="row">
-                                                <button
-                                                    className="btn btn-outline-warning btn-lg mt-2 fw-bold"
-                                                    style={{
-                                                        backgroundColor: "#636EA7",
-                                                        width: 130,
-                                                        height: 50
-                                                    }}
-                                                    onClick={props.buyCourseOnClick}
-                                                >
-                                                    Buy ({props.course.price})
-                                                </button>
-                                            </div></> : null}
-                                            
+                                                        Buy ({props.course.price})
+                                                    </button>
+                                                </div></> : null}
+
                                         </div>
                                     </div>
                                 </div>
