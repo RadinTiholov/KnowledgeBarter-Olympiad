@@ -27,7 +27,7 @@ namespace KnowledgeBarter.Server.Controllers
         [RoleAuthorize(AdministratorRoleName)]
         public async Task<IEnumerable<CommentWithPredictionInListResponseModel>> All()
         {
-            var all = await this.commentService.AllAsync();
+            var all = await this.commentService.AllWithPredictionAsync();
 
             return all;
         }

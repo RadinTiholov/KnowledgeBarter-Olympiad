@@ -20,18 +20,21 @@ namespace KnowledgeBarter.Server.Controllers
         private readonly IIdentityService identityService;
         private readonly IImageService imageService;
         private readonly IMessageService messageService;
+        private readonly ICommentService commentService;
 
         public IdentityController(UserManager<ApplicationUser> userManager,
             IOptions<ApplicationSettings> options,
             IIdentityService identityService,
             IImageService imageService,
-            IMessageService messageService)
+            IMessageService messageService,
+            ICommentService commentService)
         {
             this.userManager = userManager;
             this.appSettings = options.Value;
             this.identityService = identityService;
             this.imageService = imageService;
             this.messageService = messageService;
+            this.commentService = commentService;
         }
 
         /// <summary>
@@ -158,6 +161,8 @@ namespace KnowledgeBarter.Server.Controllers
         public async Task<IdentityProfileResponseModel> Profile(string userId)
         {
             var response = await this.identityService.GetIdentityProfileAsync(userId);
+
+            response.Comments = await this.commentService.AllForUserAsync(userId);
 
             return response;
         }

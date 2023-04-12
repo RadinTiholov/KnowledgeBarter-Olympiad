@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using KnowledgeBarter.Server.Data.Models;
+using KnowledgeBarter.Server.Models.Comments;
 using KnowledgeBarter.Server.Services.Mapping;
 
 namespace KnowledgeBarter.Server.Models.Identity
@@ -25,6 +26,8 @@ namespace KnowledgeBarter.Server.Models.Identity
         public IEnumerable<int> BoughtLessons { get; set; } = null!;
 
         public IEnumerable<int> OwnLessons { get; set; } = null!;
+
+        public IEnumerable<CommentInListResponseModel> Comments { get; set; } = null!;
 
         public void CreateMappings(IProfileExpression configuration)
         {

@@ -21,7 +21,16 @@ namespace KnowledgeBarter.Server.Services
             this.lessonService = lessonService;
         }
 
-        public async Task<IEnumerable<CommentWithPredictionInListResponseModel>> AllAsync()
+        public async Task<IEnumerable<CommentInListResponseModel>> AllForUserAsync(string userId)
+        {
+            return await this.commentRepository
+                .AllAsNoTracking()
+                .Where(x => x.OwnerId == userId)
+                .To<CommentInListResponseModel>()
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<CommentWithPredictionInListResponseModel>> AllWithPredictionAsync()
         {
             var comments = await this.commentRepository
                 .AllAsNoTracking()

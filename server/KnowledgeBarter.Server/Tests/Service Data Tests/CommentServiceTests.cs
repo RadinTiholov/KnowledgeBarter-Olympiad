@@ -56,7 +56,7 @@ namespace Tests.Service_Data_Tests
             AutoMapperConfig.RegisterMappings(typeof(CommentWithPredictionInListResponseModel).GetTypeInfo().Assembly);
             await this.SeedData();
 
-            var comments = await this.commentService.AllAsync();
+            var comments = await this.commentService.AllWithPredictionAsync();
 
             Assert.Single(comments);
         }
@@ -72,7 +72,7 @@ namespace Tests.Service_Data_Tests
                 Text = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
             };
             await this.commentService.CreateAsync(model, 1, "userId");
-            var comments = await this.commentService.AllAsync();
+            var comments = await this.commentService.AllWithPredictionAsync();
             Assert.Equal(2, comments.ToList().Count);
         }
 
@@ -97,7 +97,7 @@ namespace Tests.Service_Data_Tests
             await this.SeedData();
 
             await this.commentService.DeleteAsync(1);
-            var clubs = await this.commentService.AllAsync();
+            var clubs = await this.commentService.AllWithPredictionAsync();
             Assert.Empty(clubs);
         }
 
