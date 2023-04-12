@@ -46,7 +46,6 @@ section#main {
     flex-direction: column; */
 }
 
-.backgound-layer-login,
 .backgound-layer-not-found {
     min-height: 90vh;
 }

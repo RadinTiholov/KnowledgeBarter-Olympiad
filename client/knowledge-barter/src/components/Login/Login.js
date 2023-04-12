@@ -52,7 +52,7 @@ export const Login = () => {
     }
     
     return (
-        <div style={{ backgroundImage: `url(${background})` }} className="backgound-layer-login">
+        <div>
             {/* Login Form */}
             <div className="container">
                 <div className="row">

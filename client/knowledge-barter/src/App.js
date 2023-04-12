@@ -40,6 +40,7 @@ import { Chat } from './components/Chat/Chat';
 import { ChatHub } from './components/ChatHub/ChatHub';
 import { ProfileProvider } from './contexts/ProfileContext';
 import { UpdateProfile } from './components/UpdateProfile/UpdateProfile';
+import { Report } from './components/Report/Report';
 
 function App() {
     return (
@@ -57,6 +58,7 @@ function App() {
                                     <Route path='/lesson/all' element={<Lessons />} />
                                     <Route path='/lesson/details/:id' element={<DetailsLesson />} />
                                     <Route path='/course/details/:courseId/:lessonId' element={<DetailsCourse />} />
+                                    <Route path='/report' element={<Report />} />
                                     <Route element={<GuestGuard />}>
                                         <Route path='/logout' element={<Logout />} />
                                         <Route path='/profile/:id' element={<Profile />} />

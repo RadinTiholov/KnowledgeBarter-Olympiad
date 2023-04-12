@@ -215,6 +215,11 @@ export const Header = () => {
                                             </li>
                                             <hr className='text-dark mx-3' style={{ borderTop: "2px solid" }} />
                                             <li>
+                                                <Link className="dropdown-item" to="/report">
+                                                <i class="fa-solid fa-bug"></i> Report
+                                                </Link>
+                                            </li>
+                                            <li>
                                                 <Link className="dropdown-item" to="/logout">
                                                     <i className="fa-solid fa-door-open"></i> Logout
                                                 </Link>

@@ -1,16 +1,14 @@
 import { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useLessonsWithUser } from '../../hooks/useLessonsWithUser';
 import * as emailService from '../../dataServices/emailService';
 import * as authService from '../../dataServices/authService';
 import { AuthContext } from "../../contexts/AuthContext";
 import { ProfileContext } from "../../contexts/ProfileContext";
 import { emailValidator, isValidForm, minMaxValidator } from '../../infrastructureUtils/validationUtils';
 
-export const SendEmail = () => {
+export const Report = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const { lesson, owner } = useLessonsWithUser(id);
     const { auth } = useContext(AuthContext);
     const { profiles } = useContext(ProfileContext);
 
@@ -18,7 +16,7 @@ export const SendEmail = () => {
         senderEmail: '',
         topic: '',
         emailText: '',
-        ownerEmail: '',
+        ownerEmail: 'radi.tiholov@gmail.com',
     });
 
     const [error, setError] = useState({ active: false, message: "" });
@@ -29,7 +27,7 @@ export const SendEmail = () => {
     });
 
     useEffect(() => {
-        if (auth?._id && profiles.length > 0 && owner?.userName) {
+        if (auth?._id && profiles.length > 0) {
 
             authService.getDetails(auth._id)
                 .then(res => {
@@ -37,17 +35,8 @@ export const SendEmail = () => {
                         { ...state, senderEmail: res.email }))
                 })
                 .catch(err => alert(err))
-
-            const ownerInfo = profiles?.find(x => x.userName === owner.userName);
-
-            authService.getDetails(ownerInfo.id)
-                .then(res => {
-                    setInputData(state => (
-                        { ...state, ownerEmail: res.email }))
-                })
-                .catch(err => alert(err))
         }
-    }, [auth._id, profiles, owner])
+    }, [auth._id, profiles])
 
     const onChange = (e) => {
         setInputData(state => (
@@ -75,11 +64,8 @@ export const SendEmail = () => {
                         <div className="card border-0 shadow rounded-3 my-5">
                             <div className="card-body p-4 p-sm-5">
                                 <h5 className="card-title text-center fw-bold fs-5">
-                                    Contact Owner Form
+                                    Report a bug
                                 </h5>
-                                <h3 className="text-center mb-4 fs-5">
-                                    Lesson : {lesson.title}
-                                </h3>
                                 <form onSubmit={onSubmit}>
                                     <div className="form-floating mb-3">
                                         <input
@@ -119,7 +105,7 @@ export const SendEmail = () => {
                                             onChange={onChange}
                                             onBlur={(e) => minMaxValidator(e, 3, 20, setErrors, inputData)}
                                         />
-                                        <label htmlFor="topic">Topic</label>
+                                        <label htmlFor="topic">Problem type</label>
                                     </div>
 
                                     {/* Alert */}
@@ -146,7 +132,7 @@ export const SendEmail = () => {
                                             onChange={onChange}
                                             onBlur={(e) => minMaxValidator(e, 30, 1000, setErrors, inputData)}
                                         />
-                                        <label htmlFor="emailText">Content</label>
+                                        <label htmlFor="emailText">Problem description</label>
                                     </div>
 
                                     {/* Alert */}
