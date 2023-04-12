@@ -34,13 +34,15 @@ export const Profile = () => {
                                     <div className="w-100 ms-3">
                                         <h4 className="my-0">{fullUserInfo.username}</h4>
                                         <p className="text-muted">{fullUserInfo.email}</p>
-                                        <Link to={`/chat?receiver=${fullUserInfo.username}`}
-                                            type="button"
-                                            className='btn'
-                                            style={{ backgroundColor: "#636EA7", color: "#fff" }}
-                                        >
-                                            Message
-                                        </Link>
+                                        {fullUserInfo.id !== auth._id &&
+                                            <Link to={`/chat?receiver=${fullUserInfo.username}`}
+                                                type="button"
+                                                className='btn'
+                                                style={{ backgroundColor: "#636EA7", color: "#fff" }}
+                                            >
+                                                Message
+                                            </Link>}
+
                                     </div>
                                 </div>
                             </div>
@@ -91,14 +93,14 @@ export const Profile = () => {
                                     <h4>Lessons:</h4>
                                 </div>
                                 {/* Lesson Box*/}
-                                {lessons.filter(x => x.owner === auth._id).length > 0
+                                {lessons.filter(x => x.owner === fullUserInfo.id).length > 0
                                     ? lessons.filter(x => x.owner === auth._id)?.map(x => <ResourceCard {...x} key={x.id} link={`/lesson/details/${x.id}`} />)
                                     : <p className='text-center'>No lessons yet.</p>}
                                 <div>
                                     <h4>Courses:</h4>
                                 </div>
                                 {/* Course Box*/}
-                                {courses.filter(x => x.owner === auth._id).length > 0
+                                {courses.filter(x => x.owner === fullUserInfo.id).length > 0
                                     ? courses.filter(x => x.owner === auth._id)?.map(x => <ResourceCard {...x} key={x.id} link={`/course/details/${x.id}/1`} />)
                                     : <p className='text-center'>No courses yet.</p>}
                                 <div>
@@ -114,7 +116,7 @@ export const Profile = () => {
                     </div>
                     {/* end col */}
                 </div>
-            : <BookSpinner />}
+                : <BookSpinner />}
         </div>
     )
 }
