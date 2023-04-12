@@ -31,3 +31,7 @@
   opacity: 0.8;
   transition: all 0.3s ease-in-out;
 }
+
+.card-body {
+  background: rgb(255 255 255 / 15%);
+}
