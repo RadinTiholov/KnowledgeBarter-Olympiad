@@ -63,27 +63,21 @@ namespace KnowledgeBarter.Server.Services
 
         public async Task<List<string>> GetDistinctContactsAsync(string username)
         {
-            var receivers = await this.messageRepository
-                .AllAsNoTracking()
-                .Include(x => x.Sender)
-                .Include(x => x.Receiver)
-                .Where(x => x.Sender.UserName == username)
-                .OrderByDescending(x => x.CreatedOn)
-                .Select(x => x.ReceiverId)
+            var query = this.messageRepository
+    .AllAsNoTracking()
+    .Include(x => x.Sender)
+    .Include(x => x.Receiver)
+    .Where(x => x.Sender.UserName == username || x.Receiver.UserName == username)
+    .OrderByDescending(x => x.CreatedOn)
+    .Select(x => new { x.SenderId, x.ReceiverId })
+    .Distinct();
+
+            var userIds = await query.Select(x => x.SenderId)
+                .Concat(query.Select(x => x.ReceiverId))
                 .Distinct()
                 .ToListAsync();
 
-            var senders = await this.messageRepository
-                .AllAsNoTracking()
-                .Include(x => x.Sender)
-                .Include(x => x.Receiver)
-                .Where(x => x.Receiver.UserName == username)
-                .OrderByDescending(x => x.CreatedOn)
-                .Select(x => x.SenderId)
-                .Distinct()
-                .ToListAsync();
-
-            return receivers.Concat(senders).Distinct().ToList();
+            return userIds;
         }
     }
 }

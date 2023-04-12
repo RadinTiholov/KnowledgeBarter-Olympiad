@@ -170,8 +170,8 @@ namespace KnowledgeBarter.Server.Services
         {
             return await this.lessonRepository
                 .All()
-                .Include(x => x.Image)
                 .Where(x => x.Id == lessonId)
+                .Include(x => x.Image)
                 .FirstOrDefaultAsync();
         }
 
@@ -240,9 +240,9 @@ namespace KnowledgeBarter.Server.Services
         {
             var lessons = await this.lessonRepository
                 .All()
+                .Where(x => x.UsersWhoBought.Any(x => x.Id == userId))
                 .Include(x => x.UsersWhoBought)
                 .Include(x => x.Tags)
-                .Where(x => x.UsersWhoBought.Any(x => x.Id == userId))
                 .ToListAsync();
 
             Dictionary<string, int> tagsDictionary = new Dictionary<string, int>();
@@ -271,10 +271,10 @@ namespace KnowledgeBarter.Server.Services
 
                 var recommended = await this.lessonRepository
                     .All()
-                    .Include(x => x.UsersWhoBought)
-                    .Include(x => x.Tags)
                     .Where(x => !x.UsersWhoBought.Any(x => x.Id == userId))
                     .Where(x => x.Tags.Any(t => t.Text == theMostCommonTag.Key))
+                    .Include(x => x.UsersWhoBought)
+                    .Include(x => x.Tags)
                     .Take(5)
                     .To<LessonInListResponseModel>()
                     .ToListAsync();
