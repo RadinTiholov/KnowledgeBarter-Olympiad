@@ -21,6 +21,7 @@
 .frost:hover {
     z-index: 2;
 }
+
 /* 
 #carouselLessons {
     position: absolute;
@@ -30,6 +31,13 @@
     position: relative;
     left: 3rem;
 } */
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 2rem;
+    height: 2rem;
+    margin: auto;
+}
 
 @media screen and (max-width: 1200px) {
     #lessons-display h1 {
