@@ -48,7 +48,7 @@ export const Report = () => {
 
         emailService.sendEmail({ ...inputData })
             .then(res => {
-                navigate('/lesson/details/' + id)
+                navigate('/')
             })
             .catch(res => {
                 setError({ active: true, message: res.message })
