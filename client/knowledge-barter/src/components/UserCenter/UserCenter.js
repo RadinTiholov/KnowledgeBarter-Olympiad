@@ -1,4 +1,4 @@
-import "./ChatHub.css"
+import "./UserCenter.css"
 import { useContext } from 'react';
 import { useState } from 'react'
 import { ProfileContext } from '../../contexts/ProfileContext';
@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import * as authService from "../../dataServices/authService"
 import { BookSpinner } from "../common/Spinners/BookSpinner";
 
-export const ChatHub = () => {
+export const UserCenter = () => {
 
     const [search, setSearch] = useState('');
     const { profiles } = useContext(ProfileContext);

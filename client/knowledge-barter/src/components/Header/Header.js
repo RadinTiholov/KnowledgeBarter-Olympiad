@@ -209,8 +209,8 @@ export const Header = () => {
                                             </li>
                                             <hr className='text-dark mx-3' style={{ borderTop: "2px solid" }} />
                                             <li>
-                                                <Link className="dropdown-item" to={`/chat-hub`}>
-                                                    <i className="fa-solid fa-comment"></i> Chat Hub
+                                                <Link className="dropdown-item" to={`/user-center`}>
+                                                    <i className="fa-solid fa-people-group"></i> User Center
                                                 </Link>
                                             </li>
                                             <hr className='text-dark mx-3' style={{ borderTop: "2px solid" }} />

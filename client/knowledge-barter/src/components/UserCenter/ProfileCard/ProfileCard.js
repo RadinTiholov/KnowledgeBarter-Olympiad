@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom"
-import "../ChatHub.css"
+import "../UserCenter.css"
 
 export const ProfileCard = (props) => {
     return (
         <div className="item-color no-padding mx-3">
-            <Link to={`/chat?receiver=${props.userName}`}>
+            <Link to={`/profile/${props.id}`}>
                 <div className="item d-flex align-items-center">
                     <div className="image">
                         <img
