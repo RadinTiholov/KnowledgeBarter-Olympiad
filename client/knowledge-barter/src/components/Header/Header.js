@@ -230,12 +230,12 @@ export const Header = () => {
                                 <>
                                     <li className="nav-item">
                                         <Link className="nav-link active text-light" to="/register">
-                                            Register
+                                            <i class="fa-solid fa-id-card"></i> Register
                                         </Link>
                                     </li>
                                     <li className="nav-item">
                                         <Link className="nav-link text-light" to="/login">
-                                            Login
+                                            <i className="fa-solid fa-right-to-bracket"></i> Login
                                         </Link>
                                     </li>
                                 </>
