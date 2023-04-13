@@ -330,7 +330,7 @@ export const CreateLesson = () => {
                                             className="btn btn-outline-warning"
                                             style={{ backgroundColor: "#636EA7" }}
                                             type="submit"
-                                            disabled={isLoading || !isValidForm(errors) || (!inputData.title || !inputData.description || !inputData.video || !inputData.article || !imageData.imageFile || !inputData.tags.length > 0)}
+                                            disabled={isLoading || !isValidForm(errors) || (!inputData.title || !inputData.description || !inputData.video || !(editorState.getCurrentContent().getPlainText('\u0001').length > 50 && !editorState.getCurrentContent().getPlainText('\u0001').length < 1000) || !imageData.imageFile || !inputData.tags.length > 0)}
                                         >
                                             {isLoading
                                                 ? <span className="spinner-border spinner-border-sm mx-2" role="status" aria-hidden="true" />
