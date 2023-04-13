@@ -32,6 +32,6 @@
   transition: all 0.3s ease-in-out;
 }
 
-.lesson-card .card-body {
+.sort-menu .card-body {
   background: rgb(255 255 255 / 15%);
 }
