@@ -83,14 +83,13 @@ namespace Tests.Service_Data_Tests
                    return await this.knowledgeBarterDbContext.Users.Where(x => x.Id == "userId1").FirstAsync();
                });
 
-
             this.userManager = userManagerMock.Object;
 
             this.cloudinaryService = mockCloudinaryService.Object;
 
             this.imageService = new ImageService(this.imageRepository, this.cloudinaryService, this.lessonRepository);
             this.likeService = new LikeService(this.likeRepository);
-            this.identityService = new IdentityService(this.applicationUserRepository, this.userManager);
+            this.identityService = new IdentityService(this.applicationUserRepository, this.userManager, this.imageService);
 
             this.courseService = new CourseService(
                 this.courseRepository,

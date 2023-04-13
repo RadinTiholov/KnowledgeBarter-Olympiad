@@ -6,6 +6,7 @@ using KnowledgeBarter.Server.Models.Identity;
 using KnowledgeBarter.Server.Services;
 using KnowledgeBarter.Server.Services.Contracts;
 using KnowledgeBarter.Server.Services.Mapping;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Moq;
@@ -17,8 +18,12 @@ namespace Tests.Service_Data_Tests
     public class IdentityServiceTests
     {
         private IRepository<ApplicationUser> applicationUserRepository;
+        private IRepository<Image> imageRepository;
+        private IRepository<Lesson> lessonRepository;
+        private ICloudinaryService cloudinaryService;
         private UserManager<ApplicationUser> userManager;
         private IIdentityService identityService;
+        private IImageService imageService;
 
         private KnowledgeBarterDbContext knowledgeBarterDbContext;
 
@@ -34,6 +39,8 @@ namespace Tests.Service_Data_Tests
             this.knowledgeBarterDbContext.Database.EnsureCreated();
 
             this.applicationUserRepository = new EfRepository<ApplicationUser>(this.knowledgeBarterDbContext);
+            this.imageRepository = new EfRepository<Image>(this.knowledgeBarterDbContext);
+            this.lessonRepository = new EfRepository<Lesson>(this.knowledgeBarterDbContext);
 
             var userManagerMock = new Mock<UserManager<ApplicationUser>>(Mock.Of<IUserStore<ApplicationUser>>(), null, null, null, null, null, null, null, null);
 
@@ -48,7 +55,6 @@ namespace Tests.Service_Data_Tests
                     return false;
                 });
 
-
             userManagerMock.Setup(x => x.FindByIdAsync("userId1"))
                .Returns(async (string role) =>
                {
@@ -57,10 +63,19 @@ namespace Tests.Service_Data_Tests
                    return await this.knowledgeBarterDbContext.Users.Where(x => x.Id == "userId1").FirstAsync();
                });
 
+            var mockCloudinaryService = new Mock<ICloudinaryService>();
 
+            mockCloudinaryService.Setup(x => x.UploadAsync(It.IsAny<IFormFile>(), It.IsAny<string>()))
+                .ReturnsAsync(() =>
+                {
+                    return "testUrl";
+                });
+
+            this.cloudinaryService = mockCloudinaryService.Object;
             this.userManager = userManagerMock.Object;
 
-            this.identityService = new IdentityService(this.applicationUserRepository, this.userManager);
+            this.imageService = new ImageService(this.imageRepository, this.cloudinaryService, this.lessonRepository);
+            this.identityService = new IdentityService(this.applicationUserRepository, this.userManager, this.imageService);
         }
 
         [Fact]
