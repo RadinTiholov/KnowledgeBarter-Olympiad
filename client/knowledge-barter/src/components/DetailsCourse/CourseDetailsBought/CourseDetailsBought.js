@@ -8,6 +8,7 @@ import * as commentsService from '../../../dataServices/commentsService'
 import { commentValidator } from '../../../infrastructureUtils/validationUtils'
 import { speechHandler } from '../../../infrastructureUtils/commonUtils'
 import QRCode from 'react-qr-code'
+import DOMPurify from 'dompurify'
 
 export const CourseDetailsBought = (props) => {
     const [comment, setComment] = useState('');
@@ -151,7 +152,7 @@ export const CourseDetailsBought = (props) => {
                             <div className="text-center px-3">
                                 <h2>Information</h2>
                                 <h5>
-                                    {props.lesson.article}
+                                    <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(props.lesson.article) }}></div>
                                 </h5>
                                 <div className='w-100 d-inline-flex justify-content-end'>
                                     <button
