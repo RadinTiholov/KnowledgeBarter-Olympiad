@@ -10,7 +10,7 @@
             public const int DescriptionMaxLength = 60;
             public const int DescriptionMinLength = 10;
 
-            public const int ArticleMaxLength = 1000;
+            public const int ArticleMaxLength = 4000;
             public const int ArticleMinLength = 50;
         }
         public class Course

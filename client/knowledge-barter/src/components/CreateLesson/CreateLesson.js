@@ -12,6 +12,8 @@ import { onSelectFile } from '../../infrastructureUtils/fileSelectionUtils';
 import { isPositiveLength, isValidForm, minMaxValidator, urlYoutubeValidator } from '../../infrastructureUtils/validationUtils';
 import RichStylingEditor from '../RichStylingEditor/RichStylingEditor';
 import { stateToHTML } from 'draft-js-export-html';
+import DOMPurify from 'dompurify'
+
 
 export const CreateLesson = () => {
     const [inputData, setInputData] = useState({
@@ -99,7 +101,7 @@ export const CreateLesson = () => {
         const articleStateAsHtml = getHtmlEditorRaw(articleStateAsJson);
         const articleLength = editorState.getCurrentContent().getPlainText('\u0001').length;
 
-        if (articleLength < 50 || articleLength > 3000 ) {
+        if (articleLength < 50 || articleLength > 1000 ) {
             setError({message: "The length of the article must be a minimum of 50 and a maximum of 1000 characters.", active: true});
             return;
         }
@@ -110,7 +112,7 @@ export const CreateLesson = () => {
         const formData = new FormData(e.target);
 
         formData.append('resources', inputData.resources);
-        formData.append('article', articleStateAsHtml);
+        formData.append('article', DOMPurify.sanitize(articleStateAsHtml));
 
         const tagString = formData.get('tags').replace(/\s/g, '');
         let tags = tagString.split(',');
