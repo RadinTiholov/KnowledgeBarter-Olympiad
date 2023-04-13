@@ -24,6 +24,15 @@
     width: 100%;
 }
 
+.modal-body {
+    margin: auto;
+}
+
+
+.modal-footer {
+    justify-content: center;
+}
+
 
 @media screen and (max-width: 1000px) {
     div.row.pt-5 div.col-10 {

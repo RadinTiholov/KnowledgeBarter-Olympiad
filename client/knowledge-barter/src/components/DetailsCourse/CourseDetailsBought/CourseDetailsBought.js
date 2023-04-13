@@ -7,6 +7,7 @@ import { useState } from 'react'
 import * as commentsService from '../../../dataServices/commentsService'
 import { commentValidator } from '../../../infrastructureUtils/validationUtils'
 import { speechHandler } from '../../../infrastructureUtils/commonUtils'
+import QRCode from 'react-qr-code'
 
 export const CourseDetailsBought = (props) => {
     const [comment, setComment] = useState('');
@@ -123,6 +124,27 @@ export const CourseDetailsBought = (props) => {
                                                 </button>}
 
                                         </>}
+                                        <button type="button" class="btn btn-outline-warning btn fw-bold" data-bs-toggle="modal" data-bs-target="#exampleModal"  style={{ backgroundColor: "#636EA7" }}>
+                                                <i class="fa-solid fa-qrcode"></i>
+                                            </button>
+
+                                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Share</h1>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <QRCode fgColor='#636EA7' value={`https://knowledge-barter.web.app/course/details/${props.course.id}/${props.lesson.id}`}/>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <span>{`https://knowledge-barter.web.app/course/details/${props.course.id}/${props.lesson.id}`}</span>
+                                                            <button type="button" class="btn btn-primary" onClick={() => {navigator.clipboard.writeText(`https://knowledge-barter.web.app/course/details/${props.course.id}/${props.lesson.id}`)}}>Copy</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                 </div>
                                 <h5 className='px-2'>{props.lesson.description}</h5>
                             </div>
