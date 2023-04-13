@@ -216,7 +216,7 @@ export const Header = () => {
                                             <hr className='text-dark mx-3' style={{ borderTop: "2px solid" }} />
                                             <li>
                                                 <Link className="dropdown-item" to="/report">
-                                                <i class="fa-solid fa-bug"></i> Report
+                                                <i className="fa-solid fa-bug"></i> Report
                                                 </Link>
                                             </li>
                                             <li>
@@ -230,7 +230,7 @@ export const Header = () => {
                                 <>
                                     <li className="nav-item">
                                         <Link className="nav-link active text-light" to="/register">
-                                            <i class="fa-solid fa-id-card"></i> Register
+                                            <i className="fa-solid fa-id-card"></i> Register
                                         </Link>
                                     </li>
                                     <li className="nav-item">

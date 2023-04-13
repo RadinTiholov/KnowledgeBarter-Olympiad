@@ -1,4 +1,6 @@
 import './CreateLesson.css'
+import 'draft-js/dist/Draft.css';
+import { EditorState, convertToRaw, convertFromRaw } from 'draft-js';
 import background from '../../images/waves-login.svg'
 import { useContext, useState } from 'react';
 import * as lessonsService from '../../dataServices/lessonsService'
@@ -8,6 +10,8 @@ import { AuthContext } from '../../contexts/AuthContext';
 import DropboxChooser from 'react-dropbox-chooser';
 import { onSelectFile } from '../../infrastructureUtils/fileSelectionUtils';
 import { isPositiveLength, isValidForm, minMaxValidator, urlYoutubeValidator } from '../../infrastructureUtils/validationUtils';
+import RichStylingEditor from '../RichStylingEditor/RichStylingEditor';
+import { stateToHTML } from 'draft-js-export-html';
 
 export const CreateLesson = () => {
     const [inputData, setInputData] = useState({
@@ -48,8 +52,7 @@ export const CreateLesson = () => {
                 newValue.tags = e.target.value.split(',');
                 return newValue;
             }
-            else if (e.target.name === 'video')
-            {
+            else if (e.target.name === 'video') {
                 const videoId = getId(e.target.value);
                 if (videoId) {
                     return { ...state, [e.target.name]: 'https://www.youtube.com/embed/' + videoId }
@@ -66,14 +69,40 @@ export const CreateLesson = () => {
     const getId = (url) => {
         const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
         const match = url.match(regExp);
-    
+
         return (match && match[2].length === 11)
-          ? match[2]
-          : null;
+            ? match[2]
+            : null;
+    }
+
+    const [editorState, setEditorState] = useState(() =>
+        EditorState.createEmpty(),
+    );
+
+    const getRawEditorState = () => {
+        const contentState = editorState.getCurrentContent();
+        const rawState = convertToRaw(contentState);
+
+        return JSON.stringify(rawState);
+    }
+
+    const getHtmlEditorRaw = (json) => {
+        return stateToHTML(
+            convertFromRaw(json)
+        );
     }
 
     const onSubmit = (e) => {
         e.preventDefault();
+
+        const articleStateAsJson = JSON.parse(getRawEditorState());
+        const articleStateAsHtml = getHtmlEditorRaw(articleStateAsJson);
+        const articleLength = editorState.getCurrentContent().getPlainText('\u0001').length;
+
+        if (articleLength < 50 || articleLength > 3000 ) {
+            setError({message: "The length of the article must be a minimum of 50 and a maximum of 1000 characters.", active: true});
+            return;
+        }
 
         // Start spinner
         setIsLoading(true);
@@ -81,6 +110,7 @@ export const CreateLesson = () => {
         const formData = new FormData(e.target);
 
         formData.append('resources', inputData.resources);
+        formData.append('article', articleStateAsHtml);
 
         const tagString = formData.get('tags').replace(/\s/g, '');
         let tags = tagString.split(',');
@@ -103,7 +133,7 @@ export const CreateLesson = () => {
                 navigate('/lesson/details/' + res.id)
             })
             .catch(err => {
-                setError({active: true, message: err.message})
+                setError({ active: true, message: err.message })
 
                 // Stop spinner
                 setIsLoading(false);
@@ -264,7 +294,7 @@ export const CreateLesson = () => {
                                             </DropboxChooser>
                                         </div>
                                     </div>
-                                    <div className="form-control mb-3">
+                                    {/* <div className="form-control mb-3">
                                         <textarea
                                             type="text"
                                             className="form-control"
@@ -276,7 +306,8 @@ export const CreateLesson = () => {
                                             onBlur={(e) => minMaxValidator(e, 50, 1000, setErrors, inputData)}
                                         />
                                         <label htmlFor="article">Article</label>
-                                    </div>
+                                    </div> */}
+                                    <RichStylingEditor editorState={editorState} setEditorState={setEditorState} />
                                     {/* Alert */}
                                     {errors.article &&
                                         <div
@@ -292,7 +323,7 @@ export const CreateLesson = () => {
                                     {error.active === true ? <div className="alert alert-danger fade show mt-3">
                                         <strong>Error!</strong> {error.message}
                                     </div> : null}
-                                    <div className="d-grid">
+                                    <div className="d-grid mt-3">
                                         <button
                                             className="btn btn-outline-warning"
                                             style={{ backgroundColor: "#636EA7" }}

@@ -20,7 +20,7 @@ export const DetailsLesson = () => {
     const [isBought, isLoadingBoughtLeson] = useBoughtLesson(id);
     const [fullUserInfo, setfullUserInfo] = useCurrentUserInfo({});
     const [isLiked, setIsLiked] = useIsLiked(id, true);
-    const { delLesson, like} = useContext(LessonContext);
+    const { delLesson, like } = useContext(LessonContext);
     const { auth, updatePoints } = useContext(AuthContext);
     const [recommendedLessons, setRecommendedLessons] = useState([]);
 
