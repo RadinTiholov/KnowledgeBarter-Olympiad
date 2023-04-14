@@ -1137,3 +1137,14 @@ __pycache__/
 # End of https://www.toptal.com/developers/gitignore/api/aspnetcore
 appsettings.Development.json
 appsettings.json
+client/knowledge-barter/.firebaserc
+client/knowledge-barter/firebase.json
+server/KnowledgeBarter.Server/KnowledgeBarter.Server/.config/dotnet-tools.json
+server/KnowledgeBarter.Server/KnowledgeBarter.Server/MLModel.zip
+server/KnowledgeBarter.Server/KnowledgeBarter.Server/Properties/serviceDependencies.json
+server/KnowledgeBarter.Server/KnowledgeBarter.Server/Properties/serviceDependencies.KnowledgeBarterServer - Web Deploy.json
+server/KnowledgeBarter.Server/KnowledgeBarter.Server/Properties/ServiceDependencies/KnowledgeBarterServer - Web Deploy/apis1.arm.json
+server/KnowledgeBarter.Server/KnowledgeBarter.Server/Properties/ServiceDependencies/KnowledgeBarterServer - Web Deploy/mssql2.arm.json
+server/KnowledgeBarter.Server/KnowledgeBarter.Server/Properties/ServiceDependencies/KnowledgeBarterServer - Web Deploy/profile.arm.json
+server/KnowledgeBarter.Server/KnowledgeBarter.Server/Properties/serviceDependencies.json
+server/KnowledgeBarter.Server/KnowledgeBarter.Server/Properties/serviceDependencies.json
