@@ -25,9 +25,8 @@ export const About = () => {
                             <h4><li>DropBox</li></h4>
                             <h4><li>SendGrid</li></h4>
                             <h4><li>ML.NET</li></h4>
-                            <h4><li>Entity</li></h4>
-                            <h4><li>Framework</li></h4>
-                            <h4><li>Core</li></h4>
+                            <h4><li>Entity Framework Core</li></h4>
+                            <h4><li>SignalR</li></h4>
                             <h4><li>AutoMapper</li></h4>
                             <h4><li>ML.Net</li></h4>
                             <h4><li>XUnit</li></h4>
