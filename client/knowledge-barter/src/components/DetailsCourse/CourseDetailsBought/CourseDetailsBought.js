@@ -149,17 +149,21 @@ export const CourseDetailsBought = (props) => {
                                 </div>
                                 <h5 className='px-2'>{props.lesson.description}</h5>
                             </div>
-                            <div className="text-center px-3">
-                                <h2>Information</h2>
-                                <h5>
-                                    <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(props.lesson.article) }}></div>
-                                </h5>
-                                <div className='w-100 d-inline-flex justify-content-end'>
-                                    <button
-                                        className='btn btn-primary me-5'
-                                        onClick={() => speechHandler(speech, props.lesson.article, synth)}>
-                                        <i className="fa-solid fa-volume-high"></i>
-                                    </button>
+                            <div className="px-3">
+                            <div className='article'>
+                                    <h2 className='text-center text-light pt-1'>Information</h2>
+                                    <div className='article-text'>
+                                        <h5>
+                                            <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(props.lesson.article) }}></div>
+                                        </h5>
+                                        <div className='w-100 d-inline-flex justify-content-end'>
+                                            <button
+                                                className='btn speech-button'
+                                                onClick={() => speechHandler(speech, props.lesson.article, synth)}>
+                                                <i className="fa-solid fa-volume-high"></i>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
