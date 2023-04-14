@@ -116,7 +116,7 @@ export const LessonDetailsBought = (props) => {
                                                 Contact with owner
                                             </Link>
 
-                                            <button type="button" class="btn btn-outline-warning btn fw-bold" data-bs-toggle="modal" data-bs-target="#exampleModal"  style={{ backgroundColor: "#636EA7" }}>
+                                            <button type="button" class="btn btn-outline-warning btn fw-bold" data-bs-toggle="modal" data-bs-target="#exampleModal" style={{ backgroundColor: "#636EA7" }}>
                                                 <i class="fa-solid fa-qrcode"></i>
                                             </button>
 
@@ -128,16 +128,16 @@ export const LessonDetailsBought = (props) => {
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <QRCode fgColor='#636EA7' value={"https://knowledge-barter.web.app/lesson/details/" + props.lesson.id}/>
+                                                            <QRCode fgColor='#636EA7' value={"https://knowledge-barter.web.app/lesson/details/" + props.lesson.id} />
                                                         </div>
                                                         <div class="modal-footer">
                                                             <span>{"https://knowledge-barter.web.app/lesson/details/" + props.lesson.id}</span>
-                                                            <button type="button" class="btn btn-primary" onClick={() => {navigator.clipboard.writeText("https://knowledge-barter.web.app/lesson/details/" + props.lesson.id)}}>Copy</button>
+                                                            <button type="button" class="btn btn-primary" onClick={() => { navigator.clipboard.writeText("https://knowledge-barter.web.app/lesson/details/" + props.lesson.id) }}>Copy</button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            
+
                                             <div class="modal-dialog modal-dialog-centered">
 
                                             </div>
@@ -147,17 +147,21 @@ export const LessonDetailsBought = (props) => {
                                 </div>
                                 <h5 className='px-2'>{props.lesson.description}</h5>
                             </div>
-                            <div className="text-center px-3">
-                                <h2>Information</h2>
-                                <h5>
-                                    <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(props.lesson.article) }}></div>
-                                </h5>
-                                <div className='w-100 d-inline-flex justify-content-end'>
-                                    <button
-                                        className='btn btn-primary me-5'
-                                        onClick={() => speechHandler(speech, props.lesson.article, synth)}>
-                                        <i className="fa-solid fa-volume-high"></i>
-                                    </button>
+                            <div className="px-3">
+                                <div className='article'>
+                                    <h2 className='text-center text-light pt-1'>Information</h2>
+                                    <div className='article-text'>
+                                        <h5>
+                                            <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(props.lesson.article) }}></div>
+                                        </h5>
+                                        <div className='w-100 d-inline-flex justify-content-end'>
+                                            <button
+                                                className='btn speech-button'
+                                                onClick={() => speechHandler(speech, props.lesson.article, synth)}>
+                                                <i className="fa-solid fa-volume-high"></i>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <h2 className="text-center">Comment</h2>
