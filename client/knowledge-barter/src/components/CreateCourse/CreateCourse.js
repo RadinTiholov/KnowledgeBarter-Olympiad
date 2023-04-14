@@ -9,6 +9,7 @@ import * as courseService from '../../dataServices/coursesService'
 import { onSelectFile } from '../../infrastructureUtils/fileSelectionUtils';
 import { isValidForm, minMaxValidator } from '../../infrastructureUtils/validationUtils';
 import { LessonContext } from '../../contexts/LessonContext';
+import { toast } from 'react-toastify';
 
 export const CreateCourse = () => {
     const navigate = useNavigate();
@@ -67,6 +68,18 @@ export const CreateCourse = () => {
 
                 // Stop spinner
                 setIsLoadingSubmit(false);
+
+                // toast.success('Successfully created lesson!', {
+                //     position: "top-right",
+                //     autoClose: 2500,
+                //     hideProgressBar: false,
+                //     closeOnClick: true,
+                //     pauseOnHover: true,
+                //     draggable: true,
+                //     progress: undefined,
+                //     theme: "light",
+                // });
+                 
                 navigate('/course/details/' + res.id + '/' + res.lessons[0].id)
             })
             .catch(err => {

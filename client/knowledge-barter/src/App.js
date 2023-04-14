@@ -41,10 +41,16 @@ import { UserCenter } from './components/UserCenter/UserCenter';
 import { ProfileProvider } from './contexts/ProfileContext';
 import { UpdateProfile } from './components/UpdateProfile/UpdateProfile';
 import { Report } from './components/Report/Report';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function App() {
+    const notify = () => toast("Wow so easy!");
+
     return (
         <>
+            <ToastContainer/>
             <AuthProvider>
                 <Header />
                 <CourseProvider>

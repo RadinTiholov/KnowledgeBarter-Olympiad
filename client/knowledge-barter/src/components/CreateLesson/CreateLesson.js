@@ -14,6 +14,7 @@ import RichStylingEditor from '../RichStylingEditor/RichStylingEditor';
 import { stateToHTML } from 'draft-js-export-html';
 import DOMPurify from 'dompurify'
 
+import { toast } from 'react-toastify';
 
 export const CreateLesson = () => {
     const [inputData, setInputData] = useState({
@@ -132,6 +133,18 @@ export const CreateLesson = () => {
 
                 // Stop spinner
                 setIsLoading(false);
+
+                toast.success('Successfully created lesson!', {
+                    position: "top-right",
+                    autoClose: 2500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+
                 navigate('/lesson/details/' + res.id)
             })
             .catch(err => {

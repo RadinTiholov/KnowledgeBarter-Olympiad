@@ -4,8 +4,7 @@ import { LessonsDisplay } from "./LessonsDisplay/LessonsDisplay"
 import { PointsBanner } from "./PointsBanner/PointsBanner"
 import * as lessonsService from '../../dataServices/lessonsService'
 import * as coursesService from '../../dataServices/coursesService'
-import ConfettiButton from "../Confetti/Confetti"
-import Confetti from "../Confetti/Confetti"
+import { ToastContainer, toast } from "react-toastify"
 
 export const Home = () => {
     const [lessons, setLessons] = useState([]);
@@ -31,10 +30,10 @@ export const Home = () => {
 
     return (
         <>
-            <Banner/>
-            <LessonsDisplay title = {'Most popular lessons'} route = {'/lesson/details/'} lessons = {!Array.isArray(lessons) ? [] : lessons} isLoadingLessons = {isLoadingLessons} />
-            <LessonsDisplay title = {'Highest rated courses'} route = {'/course/details/'} courses = {!Array.isArray(courses) ? [] : courses} isLoadingCourses = {isLoadingCourses} />
-            <PointsBanner/>
+            <Banner />
+            <LessonsDisplay title={'Most popular lessons'} route={'/lesson/details/'} lessons={!Array.isArray(lessons) ? [] : lessons} isLoadingLessons={isLoadingLessons} />
+            <LessonsDisplay title={'Highest rated courses'} route={'/course/details/'} courses={!Array.isArray(courses) ? [] : courses} isLoadingCourses={isLoadingCourses} />
+            <PointsBanner />
         </>
     )
 }
