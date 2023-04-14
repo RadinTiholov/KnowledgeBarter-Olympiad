@@ -15,7 +15,7 @@ namespace KnowledgeBarter.Server.Models.Lesson
         public string Description { get; set; } = null!;
 
         [Required]
-        [StringLength(ArticleMaxLength, MinimumLength = ArticleMinLength)]
+        [HtmlTextLength(50, 1000)]
         public string Article { get; set; } = null!;
 
         [Required]
