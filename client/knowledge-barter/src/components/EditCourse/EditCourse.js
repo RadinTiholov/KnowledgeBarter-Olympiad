@@ -8,6 +8,7 @@ import * as courseService from '../../dataServices/coursesService'
 import { onSelectFile } from '../../infrastructureUtils/fileSelectionUtils';
 import { isValidForm, minMaxValidator } from '../../infrastructureUtils/validationUtils';
 import { LessonContext } from '../../contexts/LessonContext';
+import { toast } from 'react-toastify';
 
 export const EditCourse = () => {
     const navigate = useNavigate();
@@ -78,6 +79,17 @@ export const EditCourse = () => {
                     // Stop spinner
                     setIsLoadingSubmit(false);
                     navigate('/course/details/' + id + '/' + res.lessons[0].id)
+
+                    toast.success('Successfully edited course!', {
+                        position: "top-right",
+                        autoClose: 2500,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    });
                 })
                 .catch(err => {
                     setError({ active: true, message: err.message })

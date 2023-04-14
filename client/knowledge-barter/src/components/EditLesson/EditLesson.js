@@ -7,6 +7,7 @@ import { LessonContext } from '../../contexts/LessonContext';
 import DropboxChooser from 'react-dropbox-chooser';
 import { onSelectFile } from '../../infrastructureUtils/fileSelectionUtils';
 import { isPositiveLength, isValidForm, minMaxValidator, urlYoutubeValidator } from '../../infrastructureUtils/validationUtils';
+import { toast } from 'react-toastify';
 
 export const EditLesson = () => {
     const { id } = useParams();
@@ -81,6 +82,17 @@ export const EditLesson = () => {
                 // Stop spinner
                 setIsLoading(false);
                 navigate('/lesson/details/' + id)
+
+                toast.success('Successfully edited lesson!', {
+                    position: "top-right",
+                    autoClose: 2500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
             })
             .catch(err => {
                 setError({ active: true, message: err.message })

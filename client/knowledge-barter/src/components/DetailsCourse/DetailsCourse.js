@@ -14,6 +14,7 @@ import { AuthContext } from "../../contexts/AuthContext";
 import { useIsLiked } from "../../hooks/useIsLiked";
 import { useCurrentUserInfo } from "../../hooks/useCurrentUserInfo";
 import { BookSpinner } from "../common/Spinners/BookSpinner";
+import { toast } from "react-toastify";
 
 export const DetailsCourse = () => {
     const { courseId, lessonId } = useParams();
@@ -31,20 +32,42 @@ export const DetailsCourse = () => {
     const onClickDeleteLesson = () => {
         lessonService.del(lessonId)
             .then(res => {
-                delLesson(lessonId)
-                navigate('/lesson/all')
+                delLesson(lessonId);
+                navigate('/lesson/all');
+
+                toast.success('Successfully deleted lesson!', {
+                    position: "top-right",
+                    autoClose: 2500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
             }).catch(err => {
-                alert(err)
+                alert(err);
             })
     }
 
     const onClickDeleteCourse = () => {
         courseService.del(courseId)
             .then(res => {
-                delCourse(courseId)
-                navigate('/course/all')
+                delCourse(courseId);
+                navigate('/course/all');
+
+                toast.success('Successfully deleted course!', {
+                    position: "top-right",
+                    autoClose: 2500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
             }).catch(err => {
-                alert(err)
+                alert(err);
             })
     }
 
@@ -52,10 +75,21 @@ export const DetailsCourse = () => {
         if (auth.kbPoints >= course.price) {
             courseService.buy(courseId)
                 .then(res => {
-                    navigate('/course/bought')
-                    updatePoints(-500)
+                    navigate('/course/bought');
+                    updatePoints(-500);
+
+                    toast.success('Successfully bought!', {
+                        position: "top-right",
+                        autoClose: 2500,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    });
                 }).catch(err => {
-                    alert(err)
+                    alert(err);
                 })
         } else {
             alert("You don't have enough KBPoints")

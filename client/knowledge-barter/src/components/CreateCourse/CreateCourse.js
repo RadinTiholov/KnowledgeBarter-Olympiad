@@ -69,16 +69,16 @@ export const CreateCourse = () => {
                 // Stop spinner
                 setIsLoadingSubmit(false);
 
-                // toast.success('Successfully created lesson!', {
-                //     position: "top-right",
-                //     autoClose: 2500,
-                //     hideProgressBar: false,
-                //     closeOnClick: true,
-                //     pauseOnHover: true,
-                //     draggable: true,
-                //     progress: undefined,
-                //     theme: "light",
-                // });
+                toast.success('Successfully created course!', {
+                    position: "top-right",
+                    autoClose: 2500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
                  
                 navigate('/course/details/' + res.id + '/' + res.lessons[0].id)
             })
