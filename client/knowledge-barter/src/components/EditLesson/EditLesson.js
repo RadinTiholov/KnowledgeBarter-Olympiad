@@ -8,6 +8,7 @@ import DropboxChooser from 'react-dropbox-chooser';
 import { onSelectFile } from '../../infrastructureUtils/fileSelectionUtils';
 import { isPositiveLength, isValidForm, minMaxValidator, urlYoutubeValidator } from '../../infrastructureUtils/validationUtils';
 import { toast } from 'react-toastify';
+import DOMPurify from 'dompurify';
 
 export const EditLesson = () => {
     const { id } = useParams();
@@ -74,6 +75,8 @@ export const EditLesson = () => {
         let formData = new FormData(e.target);
 
         formData.append('resources', inputData.resources ? inputData.resources : '');
+        formData.delete('article');
+        formData.append('article', DOMPurify.sanitize(inputData.article));
 
         lessonsService.update(formData, id)
             .then(res => {
@@ -305,6 +308,5 @@ export const EditLesson = () => {
                 </div>
             </div>
         </div>
-
     )
 }

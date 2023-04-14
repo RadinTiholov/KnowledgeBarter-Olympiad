@@ -1,6 +1,6 @@
 import './CreateLesson.css'
 import 'draft-js/dist/Draft.css';
-import { EditorState, convertToRaw, convertFromRaw } from 'draft-js';
+import { EditorState} from 'draft-js';
 import background from '../../images/waves-login.svg'
 import { useContext, useState } from 'react';
 import * as lessonsService from '../../dataServices/lessonsService'
@@ -9,9 +9,9 @@ import { LessonContext } from '../../contexts/LessonContext';
 import { AuthContext } from '../../contexts/AuthContext';
 import DropboxChooser from 'react-dropbox-chooser';
 import { onSelectFile } from '../../infrastructureUtils/fileSelectionUtils';
+import { getVideoId, getRawEditorState, getHtmlEditorRaw} from '../../infrastructureUtils/commonUtils';
 import { isPositiveLength, isValidForm, minMaxValidator, urlYoutubeValidator } from '../../infrastructureUtils/validationUtils';
 import RichStylingEditor from '../RichStylingEditor/RichStylingEditor';
-import { stateToHTML } from 'draft-js-export-html';
 import DOMPurify from 'dompurify'
 
 import { toast } from 'react-toastify';
@@ -56,7 +56,7 @@ export const CreateLesson = () => {
                 return newValue;
             }
             else if (e.target.name === 'video') {
-                const videoId = getId(e.target.value);
+                const videoId = getVideoId(e.target.value);
                 if (videoId) {
                     return { ...state, [e.target.name]: 'https://www.youtube.com/embed/' + videoId }
                 } else {
@@ -69,36 +69,14 @@ export const CreateLesson = () => {
         })
     }
 
-    const getId = (url) => {
-        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
-        const match = url.match(regExp);
-
-        return (match && match[2].length === 11)
-            ? match[2]
-            : null;
-    }
-
     const [editorState, setEditorState] = useState(() =>
         EditorState.createEmpty(),
     );
 
-    const getRawEditorState = () => {
-        const contentState = editorState.getCurrentContent();
-        const rawState = convertToRaw(contentState);
-
-        return JSON.stringify(rawState);
-    }
-
-    const getHtmlEditorRaw = (json) => {
-        return stateToHTML(
-            convertFromRaw(json)
-        );
-    }
-
     const onSubmit = (e) => {
         e.preventDefault();
 
-        const articleStateAsJson = JSON.parse(getRawEditorState());
+        const articleStateAsJson = JSON.parse(getRawEditorState(editorState));
         const articleStateAsHtml = getHtmlEditorRaw(articleStateAsJson);
         const articleLength = editorState.getCurrentContent().getPlainText('\u0001').length;
 
