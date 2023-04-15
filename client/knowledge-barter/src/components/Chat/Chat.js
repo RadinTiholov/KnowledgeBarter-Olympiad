@@ -1,4 +1,5 @@
 import "./Chat.css"
+import messageSound from '../../sound/bellSound.mp3';
 import { HubConnectionBuilder } from '@microsoft/signalr';
 import { MesssageBubble } from "./MessageBubble/MessageBubble";
 import { BookSpinner } from "../common/Spinners/BookSpinner";
@@ -23,6 +24,7 @@ export const Chat = () => {
     const [isLoading, setIsLoading] = useState(true);
 
     const bottomRef = useRef(null);
+    const messageAudio = new Audio(messageSound);
 
     useEffect(() => {
         bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -79,6 +81,7 @@ export const Chat = () => {
                         }
 
                         createMessage(messageTemp);
+                        messageAudio.play();
                     });
 
                 })
