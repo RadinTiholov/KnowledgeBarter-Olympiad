@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Moq;
+using System.Net.WebSockets;
 using System.Reflection;
 using Xunit;
 
@@ -27,6 +28,8 @@ namespace Tests.Service_Data_Tests
 
         private KnowledgeBarterDbContext knowledgeBarterDbContext;
 
+        private IFormFile formFile;
+
         public IdentityServiceTests()
         {
             var contextOptions = new DbContextOptionsBuilder<KnowledgeBarterDbContext>()
@@ -41,6 +44,8 @@ namespace Tests.Service_Data_Tests
             this.applicationUserRepository = new EfRepository<ApplicationUser>(this.knowledgeBarterDbContext);
             this.imageRepository = new EfRepository<Image>(this.knowledgeBarterDbContext);
             this.lessonRepository = new EfRepository<Lesson>(this.knowledgeBarterDbContext);
+
+            this.formFile = this.CreateFakeFormFile();
 
             var userManagerMock = new Mock<UserManager<ApplicationUser>>(Mock.Of<IUserStore<ApplicationUser>>(), null, null, null, null, null, null, null, null);
 
@@ -62,6 +67,18 @@ namespace Tests.Service_Data_Tests
 
                    return await this.knowledgeBarterDbContext.Users.Where(x => x.Id == "userId1").FirstAsync();
                });
+
+            userManagerMock.Setup(x => x.FindByNameAsync("Test"))
+                .ReturnsAsync(() => this.knowledgeBarterDbContext.Users.FirstOrDefault(x => x.Id == "userId1"));
+
+            userManagerMock.Setup(x => x.FindByNameAsync("Test2"))
+                .ReturnsAsync(() => this.knowledgeBarterDbContext.Users.FirstOrDefault(x => x.Id == "userId2"));
+
+            userManagerMock.Setup(x => x.FindByEmailAsync("TestEmail"))
+                .ReturnsAsync(() => this.knowledgeBarterDbContext.Users.FirstOrDefault(x => x.Id == "userId1"));
+
+            userManagerMock.Setup(x => x.FindByEmailAsync("TestEmail2"))
+                .ReturnsAsync(() => this.knowledgeBarterDbContext.Users.FirstOrDefault(x => x.Id == "userId2"));
 
             var mockCloudinaryService = new Mock<ICloudinaryService>();
 
@@ -166,6 +183,103 @@ namespace Tests.Service_Data_Tests
             Assert.False(result);
         }
 
+        [Fact]
+        public async Task GetIdByUsernameAsyncShouldWorkCorrectly()
+        {
+            await this.SeedData();
+
+            var id = await this.identityService.GetIdByUsernameAsync("Test");
+
+            Assert.Equal("userId1", id);
+        }
+
+        [Fact]
+        public async Task GetAllProfilesAsyncShouldWorkCorrectly()
+        {
+            await this.SeedData();
+            AutoMapperConfig.RegisterMappings(typeof(ProfilesInListResponseModel).GetTypeInfo().Assembly);
+
+            var profiles = await this.identityService.GetAllProfilesAsync();
+
+            Assert.Equal(2, profiles.Count());
+            Assert.Equal("userId1", profiles.First().Id);
+        }
+
+        [Fact]
+        public async Task UpdateWithoutImageShouldWorkCorrectly()
+        {
+            await this.SeedData();
+
+            var model = new EditIdentityRequestModel()
+            {
+                Username = "Test1.1",
+                Email = "test@gmail.bg"
+            };
+
+            await this.identityService.Update("userId1", model);
+
+            var user = await this.applicationUserRepository
+                .AllAsNoTracking()
+                .Where(x => x.Id == "userId1")
+                .FirstAsync();
+
+            Assert.Equal("Test1.1", user.UserName);
+            Assert.Equal("test@gmail.bg", user.Email);
+        }
+
+        [Fact]
+        public async Task UpdateWithImageShouldWorkCorrectly()
+        {
+            await this.SeedData();
+
+            var model = new EditIdentityRequestModel()
+            {
+                Username = "Test1.1",
+                Email = "test@gmail.bg",
+                Image = this.formFile,
+            };
+
+            await this.identityService.Update("userId1", model);
+
+            var user = await this.applicationUserRepository
+                .AllAsNoTracking()
+                .Where(x => x.Id == "userId1")
+                .FirstAsync();
+
+            Assert.Equal("Test1.1", user.UserName);
+            Assert.Equal("test@gmail.bg", user.Email);
+        }
+
+        [Fact]
+        public async Task UpdateWithWrongNameShouldThrowEx()
+        {
+            await this.SeedData();
+
+            var model = new EditIdentityRequestModel()
+            {
+                Username = "Test2",
+                Email = "test@gmail.bg",
+                Image = this.formFile,
+            };
+
+            await Assert.ThrowsAsync<ArgumentException>(async () => { await this.identityService.Update("userId1", model); });
+        }
+
+        [Fact]
+        public async Task UpdateWithWrongEmailShouldThrowEx()
+        {
+            await this.SeedData();
+
+            var model = new EditIdentityRequestModel()
+            {
+                Username = "hahahaha",
+                Email = "TestEmail2",
+                Image = this.formFile,
+            };
+
+            await Assert.ThrowsAsync<ArgumentException>(async () => { await this.identityService.Update("userId1", model); });
+        }
+
         public async Task SeedData()
         {
             var image = new Image()
@@ -196,6 +310,18 @@ namespace Tests.Service_Data_Tests
             await this.knowledgeBarterDbContext.Users.AddAsync(applicationUser2);
 
             await this.knowledgeBarterDbContext.SaveChangesAsync();
+        }
+        private IFormFile CreateFakeFormFile()
+        {
+            var content = "Hello World from a Fake File";
+            var fileName = "test";
+            var stream = new MemoryStream();
+            var writer = new StreamWriter(stream);
+            writer.Write(content);
+            writer.Flush();
+            stream.Position = 0;
+
+            return new FormFile(stream, 0, stream.Length, "id_from_form", fileName);
         }
     }
 }
