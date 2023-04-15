@@ -64,8 +64,8 @@ namespace Tests.Service_Data_Tests
         [Fact]
         public async Task CreateAsyncShouldWorkCorRectly()
         {
-            await this.SeedLessons();
             AutoMapperConfig.RegisterMappings(typeof(CreateMessageResponseModel).GetTypeInfo().Assembly);
+            await this.SeedLessons();
 
             var model = new CreateMessageRequestModel()
             {
@@ -85,8 +85,8 @@ namespace Tests.Service_Data_Tests
         [Fact]
         public async Task GetAllForUsersAsyncShouldWorkCorrectly()
         {
-            await this.SeedLessons();
             AutoMapperConfig.RegisterMappings(typeof(MessageInListViewModel).GetTypeInfo().Assembly);
+            await this.SeedLessons();
 
             var result = await this.messageService.GetAllForUsersAsync("Test", "Test2");
 
