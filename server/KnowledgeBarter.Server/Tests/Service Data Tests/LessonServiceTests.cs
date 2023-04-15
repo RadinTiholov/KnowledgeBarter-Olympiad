@@ -3,21 +3,14 @@ using KnowledgeBarter.Server.Data.Repositories;
 using KnowledgeBarter.Server.Data;
 using KnowledgeBarter.Server.Services;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 using KnowledgeBarter.Server.Data.Common.Repositories;
 using KnowledgeBarter.Server.Services.Contracts;
 using Moq;
 using Microsoft.AspNetCore.Http;
-using KnowledgeBarter.Server.Models.Comments;
 using KnowledgeBarter.Server.Services.Mapping;
 using KnowledgeBarter.Server.Models.Lesson;
 using System.Reflection;
-using KnowledgeBarter.Server.Models.Course.Base;
 using KnowledgeBarter.Server.Models.Lesson.Base;
 
 namespace Tests.Service_Data_Tests
@@ -157,7 +150,7 @@ namespace Tests.Service_Data_Tests
 
             var lessons = (await this.lessonService.PopularAsync()).ToList();
 
-            Assert.Equal(4, lessons.Count());
+            Assert.Equal(6, lessons.Count());
             Assert.Equal(6, lessons[0].Id);
         }
 
@@ -170,7 +163,7 @@ namespace Tests.Service_Data_Tests
 
             var lessons = (await this.lessonService.RecommendedAsync("userId")).ToList();
 
-            Assert.Equal(4, lessons.Count());
+            Assert.Equal(6, lessons.Count());
             Assert.Equal(6, lessons[0].Id);
         }
 
