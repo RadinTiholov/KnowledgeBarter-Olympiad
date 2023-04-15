@@ -13,5 +13,7 @@
         public string ReceiverUsername { get; set; } = null!;
 
         public string ReceiverImage { get; set; } = null!;
+
+        public string Date { get; set; } = null!;
     }
 }

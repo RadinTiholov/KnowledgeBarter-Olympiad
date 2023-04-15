@@ -7,6 +7,7 @@ export const MesssageBubble = (props) => {
             <div className="msg-bubble">
                 <div className="msg-info">
                     <div className="msg-info-name">{props.senderUsername}</div>
+                    <div className="msg-date">{props.date}</div>
                 </div>
                 <div className="msg-text">{props.text}</div>
             </div>

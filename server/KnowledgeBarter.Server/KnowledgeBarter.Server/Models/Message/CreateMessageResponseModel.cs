@@ -5,6 +5,8 @@
     using KnowledgeBarter.Server.Data.Models;
     using KnowledgeBarter.Server.Models.Message.Base;
 
+    using static KnowledgeBarter.Server.Infrastructure.WebConstants;
+
     public class CreateMessageResponseModel : BaseMessageModel, IMapFrom<Message>, IHaveCustomMappings
     {
         public void CreateMappings(IProfileExpression configuration)
@@ -17,7 +19,9 @@
                 .ForMember(x => x.ReceiverUsername, opt =>
                     opt.MapFrom(r => r.Receiver.UserName))
                 .ForMember(x => x.ReceiverImage, opt =>
-                    opt.MapFrom(r => r.Receiver.Image.Url));
+                    opt.MapFrom(r => r.Receiver.Image.Url))
+                .ForMember(x => x.Date, opt =>
+                    opt.MapFrom(r => r.CreatedOn.ToString(DateFormat)));
         }
     }
 }
