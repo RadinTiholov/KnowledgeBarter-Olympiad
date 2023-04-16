@@ -42,7 +42,7 @@ namespace KnowledgeBarter.Server.Infrastructure
 
         public const string AdministratorRoleName = "administrator";
 
-        public const string DateFormat = "MM/dd/yyyy HH:mm:ss";
+        public const string DateFormat = "MM/dd/yyyy HH:mm";
 
         public static readonly string[] AllowedImageExtensions = { ".jpg", ".jpeg", ".png" };
     }

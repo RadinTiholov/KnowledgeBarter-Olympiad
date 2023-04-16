@@ -88,6 +88,11 @@
     font-weight: bold;
 }
 
+.msg-date {
+    font-style: italic;
+    font-size: small;
+}
+
 .left-msg .msg-bubble {
     border-bottom-left-radius: 0;
 }
