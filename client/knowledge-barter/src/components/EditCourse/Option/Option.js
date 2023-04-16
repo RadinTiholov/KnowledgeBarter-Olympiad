@@ -4,12 +4,12 @@ export const Option = (props) => {
             <input
                 className="form-check-input"
                 type="checkbox"
-                id="inlineCheckbox1"
+                id={`inlineCheckbox${props.id}`}
                 name={props.id}
                 defaultValue={props.id}
                 defaultChecked={props.isSelected}
             />
-            <label className="form-check-label" htmlFor="inlineCheckbox1">
+            <label className="form-check-label" htmlFor={`inlineCheckbox${props.id}`}>
                 {props.title}
             </label>
         </div>
