@@ -43,6 +43,7 @@ import { UpdateProfile } from './components/UpdateProfile/UpdateProfile';
 import { Report } from './components/Report/Report';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { PrivacyPolicy } from './components/PrivacyPolicy/PrivacyPolicy';
 
 
 function App() {
@@ -60,6 +61,7 @@ function App() {
                                 <Routes>
                                     <Route path='/' element={<Home />} />
                                     <Route path='/about' element={<About />} />
+                                    <Route path='/privacy-policy' element={<PrivacyPolicy />} />
                                     <Route path='/course/all' element={<Courses />} />
                                     <Route path='/lesson/all' element={<Lessons />} />
                                     <Route path='/lesson/details/:id' element={<DetailsLesson />} />

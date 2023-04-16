@@ -16,6 +16,9 @@ export const Footer = () => {
                 <Link className="nav-link text-light" to="/about">
                     About
                 </Link>
+                <Link className="nav-link text-light" to="/privacy-policy">
+                    Privacy Policy
+                </Link>
                 {/* {' © 2022 Copyright: '} */}
             </div>
             {/* Copyright */}
