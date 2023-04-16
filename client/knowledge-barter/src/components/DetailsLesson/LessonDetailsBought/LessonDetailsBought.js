@@ -82,13 +82,35 @@ export const LessonDetailsBought = (props) => {
                                             >
                                                 Edit
                                             </Link>
-                                            <button
-                                                className="btn btn-outline-warning btn fw-bold"
-                                                style={{ backgroundColor: "red" }}
-                                                onClick={props.onClickDelete}
-                                            >
+                                            <button type="button" class="btn btn-outline-warning btn fw-bold" data-bs-toggle="modal" data-bs-target="#exampleModal" style={{ backgroundColor: "red" }}>
                                                 Delete
-                                            </button></> : <>
+                                            </button>
+
+                                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Delete</h1>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p>Are you sure you want to delete this lesson?</p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                            <button
+                                                                data-bs-dismiss="modal"
+                                                                className="btn btn-outline-warning btn fw-bold"
+                                                                style={{ backgroundColor: "red" }}
+                                                                onClick={props.onClickDelete}
+                                                            >
+                                                                Delete Lesson
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </> : <>
                                             {props.isLiked ?
                                                 <button
                                                     className="btn btn-outline-warning btn fw-bold"
@@ -137,11 +159,6 @@ export const LessonDetailsBought = (props) => {
                                                     </div>
                                                 </div>
                                             </div>
-
-                                            <div class="modal-dialog modal-dialog-centered">
-
-                                            </div>
-
                                         </>
                                     }
                                 </div>

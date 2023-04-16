@@ -53,8 +53,8 @@ export const DetailsCourse = () => {
     const onClickDeleteCourse = () => {
         courseService.del(courseId)
             .then(res => {
-                delCourse(courseId);
-                navigate('/course/all');
+                delCourse(courseId)
+                navigate('/course/all')
 
                 toast.success('Successfully deleted course!', {
                     position: "top-right",
@@ -66,6 +66,7 @@ export const DetailsCourse = () => {
                     progress: undefined,
                     theme: "light",
                 });
+
             }).catch(err => {
                 alert(err);
             })
@@ -78,7 +79,7 @@ export const DetailsCourse = () => {
                     navigate('/course/bought');
                     updatePoints(-500);
 
-                    toast.success('Successfully bought!', {
+                    toast.success('Successfully bought course!', {
                         position: "top-right",
                         autoClose: 2500,
                         hideProgressBar: false,

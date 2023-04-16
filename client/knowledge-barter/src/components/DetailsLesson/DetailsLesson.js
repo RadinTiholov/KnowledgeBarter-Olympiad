@@ -60,7 +60,7 @@ export const DetailsLesson = () => {
                     navigate('/lesson/bought');
                     updatePoints(-100);
 
-                    toast.success('Successfully bought!', {
+                    toast.success('Successfully bought lesson!', {
                         position: "top-right",
                         autoClose: 2500,
                         hideProgressBar: false,

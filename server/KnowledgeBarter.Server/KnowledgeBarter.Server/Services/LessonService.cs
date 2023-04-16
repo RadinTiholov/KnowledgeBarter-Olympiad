@@ -147,6 +147,7 @@ namespace KnowledgeBarter.Server.Services
             }
 
             //Increase views
+
             var lessonForUpdate = await this.GetLessonAsync(id);
             lessonForUpdate.Views++;
 
