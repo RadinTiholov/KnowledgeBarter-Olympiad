@@ -56,7 +56,7 @@ export const CourseDetailsBought = (props) => {
 
                                 <div className='d-flex'>
                                     {
-                                        props.lesson.tags?.map(x => <h4><span class="badge rounded-pill bg-secondary">{x}</span></h4>)
+                                        props.lesson.tags?.map(x => <h4><span className="badge rounded-pill bg-secondary">{x}</span></h4>)
                                     }
                                 </div>
 
@@ -94,40 +94,40 @@ export const CourseDetailsBought = (props) => {
                                                 Edit Course
                                             </Link>
 
-                                            <div class="modal" tabindex="-1">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title">Modal title</h5>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            <div className="modal" tabIndex="-1">
+                                                <div className="modal-dialog">
+                                                    <div className="modal-content">
+                                                        <div className="modal-header">
+                                                            <h5 className="modal-title">Modal title</h5>
+                                                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
-                                                        <div class="modal-body">
+                                                        <div className="modal-body">
                                                             <p>Modal body text goes here.</p>
                                                         </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                                        <div className="modal-footer">
+                                                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                            <button type="button" className="btn btn-primary">Save changes</button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <button type="button" class="btn btn-outline-warning btn fw-bold" data-bs-toggle="modal" data-bs-target="#exampleModal" style={{ backgroundColor: "red" }}>
+                                            <button type="button" className="btn btn-outline-warning btn fw-bold" data-bs-toggle="modal" data-bs-target="#exampleModal" style={{ backgroundColor: "red" }}>
                                                 Delete
                                             </button>
 
-                                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-centered">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Delete</h1>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div className="modal-dialog modal-dialog-centered">
+                                                    <div className="modal-content">
+                                                        <div className="modal-header">
+                                                            <h1 className="modal-title fs-5" id="exampleModalLabel">Delete</h1>
+                                                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
-                                                        <div class="modal-body">
+                                                        <div className="modal-body">
                                                             <p>Are you sure you want to delete this lesson?</p>
                                                         </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <div className="modal-footer">
+                                                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                                             <button
                                                                 className="btn btn-outline-warning btn fw-bold"
                                                                 style={{ backgroundColor: "red" }}
@@ -149,22 +149,22 @@ export const CourseDetailsBought = (props) => {
                                                 Delete Course
                                             </button> */}
 
-                                            <button type="button" class="btn btn-outline-warning btn fw-bold" data-bs-toggle="modal" data-bs-target="#modal-2" style={{ backgroundColor: "red" }}>
+                                            <button type="button" className="btn btn-outline-warning btn fw-bold" data-bs-toggle="modal" data-bs-target="#modal-2" style={{ backgroundColor: "red" }}>
                                                 Delete Course
                                             </button>
 
-                                            <div class="modal fade" id="modal-2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-centered">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Delete</h1>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            <div className="modal fade" id="modal-2" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div className="modal-dialog modal-dialog-centered">
+                                                    <div className="modal-content">
+                                                        <div className="modal-header">
+                                                            <h1 className="modal-title fs-5" id="exampleModalLabel">Delete</h1>
+                                                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
-                                                        <div class="modal-body">
+                                                        <div className="modal-body">
                                                             <p>Are you sure you want to delete this course?</p>
                                                         </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <div className="modal-footer">
+                                                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                                             <button
                                                                 className="btn btn-outline-warning btn fw-bold"
                                                                 style={{ backgroundColor: "red" }}
@@ -195,23 +195,23 @@ export const CourseDetailsBought = (props) => {
                                                 </button>}
 
                                         </>}
-                                    <button type="button" class="btn btn-outline-warning btn fw-bold" data-bs-toggle="modal" data-bs-target="#exampleModal" style={{ backgroundColor: "#636EA7" }}>
-                                        <i class="fa-solid fa-qrcode"></i>
+                                    <button type="button" className="btn btn-outline-warning btn fw-bold" data-bs-toggle="modal" data-bs-target="#exampleModal" style={{ backgroundColor: "#636EA7" }}>
+                                        <i className="fa-solid fa-qrcode"></i>
                                     </button>
 
-                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Delete</h1>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div className="modal-dialog modal-dialog-centered">
+                                            <div className="modal-content">
+                                                <div className="modal-header">
+                                                    <h1 className="modal-title fs-5" id="exampleModalLabel">Delete</h1>
+                                                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
-                                                <div class="modal-body">
+                                                <div className="modal-body">
                                                     <QRCode fgColor='#636EA7' value={`https://knowledge-barter.web.app/course/details/${props.course.id}/${props.lesson.id}`} />
                                                 </div>
-                                                <div class="modal-footer">
+                                                <div className="modal-footer">
                                                     <span>{`https://knowledge-barter.web.app/course/details/${props.course.id}/${props.lesson.id}`}</span>
-                                                    <button type="button" class="btn btn-primary" onClick={() => { navigator.clipboard.writeText(`https://knowledge-barter.web.app/course/details/${props.course.id}/${props.lesson.id}`) }}>Copy</button>
+                                                    <button type="button" className="btn btn-primary" onClick={() => { navigator.clipboard.writeText(`https://knowledge-barter.web.app/course/details/${props.course.id}/${props.lesson.id}`) }}>Copy</button>
                                                 </div>
                                             </div>
                                         </div>
