@@ -2,8 +2,70 @@
     background-color: #f0ad4e;
 }
 
-section#points-banner div p:first-child {
-    margin-top: 150px;
+section#points-banner h1:first-of-type {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+.flip-container {
+    color: black;
+    max-width: 700px;
+    height: 400px;
+    perspective: 800px;
+}
+
+section#points-banner ul {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    height: 100%;
+}
+
+.flip-container li::marker {
+    font-size: 2rem;
+}
+
+.flip-container:hover>.flip-card {
+    cursor: pointer;
+    transform: rotateY(180deg);
+}
+
+.flip-card {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    transition: transform 1500ms;
+    transform-style: preserve-3d;
+}
+
+.front,
+.back {
+    padding: 2rem;
+    height: 100%;
+    width: 100%;
+    border-radius: 2rem;
+    box-shadow: 0 0 5px 2px rgba(50, 50, 50, 0.25);
+    position: absolute;
+    backface-visibility: hidden;
+}
+
+.front {
+    /* background-color: #636EA7; */
+    background-image: linear-gradient(45deg, #ffffff62, #f2f2f2);
+    /* background-image: url(https://source.unsplash.com/random/350x500); */
+    margin: auto;
+    vertical-align: middle;
+}
+
+.back {
+    background-color: #636EA7;
+    transform: rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 @media screen and (max-width: 870px) {
@@ -20,5 +82,18 @@ section#points-banner div p:first-child {
     section#points-banner div p:first-child {
         margin-top: 2rem;
         width: 100%;
+    }
+}
+
+
+@media screen and (max-width: 1200px) {
+    section#points-banner {
+        font-size: 75%;
+    }
+}
+
+@media screen and (max-width: 520px) {
+    section#points-banner {
+        font-size: 60%;
     }
 }
