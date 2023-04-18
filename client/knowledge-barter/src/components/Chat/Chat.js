@@ -71,13 +71,21 @@ export const Chat = () => {
                     connection.on("ReceiveMessage", function (message, imageUrl) {
                         const msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
+                        var currentdate = new Date(); 
+                        var datetime = currentdate.getDate() + "/"
+                                        + (currentdate.getMonth()+1)  + "/" 
+                                        + currentdate.getFullYear() + " "  
+                                        + currentdate.getHours() + ":"  
+                                        + currentdate.getMinutes();
+
                         const messageTemp = {
                             id: Math.floor(Math.random() * 100000),
                             text: msg,
                             senderUsername: searchParams.get('receiver'),
                             senderImage: imageUrl,
                             receiverUsername: auth.username,
-                            receiverImage: ""
+                            receiverImage: "",
+                            date: datetime
                         }
 
                         createMessage(messageTemp);
