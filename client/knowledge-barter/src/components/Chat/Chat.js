@@ -23,12 +23,7 @@ export const Chat = () => {
     const [error, setError] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
 
-    const bottomRef = useRef(null);
     const messageAudio = new Audio(messageSound);
-
-    useEffect(() => {
-        bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
-    }, [messages])
 
     useEffect(() => {
         authService.getAllProfiles()
@@ -71,12 +66,12 @@ export const Chat = () => {
                     connection.on("ReceiveMessage", function (message, imageUrl) {
                         const msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
-                        var currentdate = new Date(); 
+                        var currentdate = new Date();
                         var datetime = currentdate.getDate() + "/"
-                                        + (currentdate.getMonth()+1)  + "/" 
-                                        + currentdate.getFullYear() + " "  
-                                        + currentdate.getHours() + ":"  
-                                        + currentdate.getMinutes();
+                            + (currentdate.getMonth() + 1) + "/"
+                            + currentdate.getFullYear() + " "
+                            + currentdate.getHours() + ":"
+                            + currentdate.getMinutes();
 
                         const messageTemp = {
                             id: Math.floor(Math.random() * 100000),
@@ -151,7 +146,6 @@ export const Chat = () => {
                         <BookSpinner /> :
                         messages.length > 0 ? messages.map(x => <MesssageBubble key={x.id} position={x.senderUsername === searchParams.get('receiver') ? 'left' : 'right'} {...x} />)
                             : <h2>No messages yet.</h2>}
-                    <div ref={bottomRef} />
                 </div>
                 <form className="msger-inputarea" onSubmit={onSubmit}>
                     <input

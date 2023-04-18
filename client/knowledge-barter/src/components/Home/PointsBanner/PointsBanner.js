@@ -19,9 +19,9 @@ export const PointsBanner = () => {
                         />
                     </div>
                     <div className="col-6 ">
-                        <div class="flip-container">
-                            <div class="flip-card">
-                                <div class="front">
+                        <div className="flip-container">
+                            <div className="flip-card">
+                                <div className="front">
                                     <ul>
                                         <li><p style={{ fontSize: "200%" }}>
                                             With KBP you can unlock lessons and courses.
@@ -34,7 +34,7 @@ export const PointsBanner = () => {
                                         </p></li>
                                     </ul>
                                 </div>
-                                <div class="back">
+                                <div className="back">
                                     <p style={{ fontSize: "200%" }}>
                                         There are two ways to earn them:
                                     </p>
@@ -57,7 +57,6 @@ export const PointsBanner = () => {
                                 </div>
                             </div>
                         </div>
-
 
                         <p />
                     </div>

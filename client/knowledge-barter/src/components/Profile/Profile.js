@@ -34,13 +34,16 @@ export const Profile = () => {
                                     <div className="w-100 ms-3">
                                         <h4 className="my-0">{fullUserInfo.username}</h4>
                                         <p className="text-muted">{fullUserInfo.email}</p>
-                                        {fullUserInfo.id !== auth._id &&
+                                        {fullUserInfo.id !== auth._id ?
                                             <Link to={`/chat?receiver=${fullUserInfo.username}`}
                                                 type="button"
                                                 className='btn'
                                                 style={{ backgroundColor: "#636EA7", color: "#fff" }}
                                             >
                                                 Message
+                                            </Link> :
+                                            <Link to={"/profile/update"} className="btn btn-outline-warning" style={{ backgroundColor: "#636EA7" }}>
+                                                Edit
                                             </Link>}
 
                                     </div>
@@ -59,7 +62,7 @@ export const Profile = () => {
                                                     alt="icon"
                                                 />
                                             </div>
-                                            <div className='col text-start mt-2'>
+                                            <div className='col-6 text-start mt-2'>
                                                 <h3>KB Points: {auth.kbPoints}</h3>
                                             </div>
                                         </div>
