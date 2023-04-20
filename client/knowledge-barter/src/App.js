@@ -45,9 +45,25 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { PrivacyPolicy } from './components/PrivacyPolicy/PrivacyPolicy';
 
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
+
+const translationsEn = {welcome : 'Welcome'};
+const translationsBg = {welcome: 'Zдравейте'};
+
+i18n
+  .use(initReactI18next)
+  .init({
+    resources: {
+      en: { translation: translationsEn },
+      bg: { translation: translationsBg },
+    },
+    lng: "en",
+    fallbackLng: "en",
+    interpolation: { escapeValue: false },
+  });
 
 function App() {
-    const notify = () => toast("Wow so easy!");
 
     return (
         <>

@@ -3,6 +3,7 @@ import logo from '../../images/logo.png'
 import { Link, useNavigate } from 'react-router-dom';
 import { useContext, useState } from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
+import { LanguageSelector } from '../common/LanguageSelector/LanguageSelector';
 export const Header = () => {
     const { isAuthenticated, auth } = useContext(AuthContext);
     const [search, setSearch] = useState();
@@ -127,7 +128,9 @@ export const Header = () => {
                             {isAuthenticated
                                 ?
                                 <>
-
+                                    <li className='nav-item'>
+                                        <LanguageSelector/>
+                                    </li>
                                     <li className="nav-item dropdown">
                                         <a
                                             className="nav-link dropdown-toggle text-light"
