@@ -1,5 +1,8 @@
+import { useTranslation } from 'react-i18next';
 import {Link} from 'react-router-dom'
 export const Course = (props) => {
+    const { t } = useTranslation();
+
     return (
         <div className="col">
         <div className="card card-display border-0" style={{ width: "15rem", margin: 'auto' }}>

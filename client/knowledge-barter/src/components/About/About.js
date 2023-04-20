@@ -1,4 +1,8 @@
+import { useTranslation } from "react-i18next";
+
 export const About = () => {
+    const { t } = useTranslation();
+
     return (
         <>
             {/* Page Content */}
@@ -6,17 +10,13 @@ export const About = () => {
                 {/* Portfolio Item Row */}
                 <div className="row">
                     <div className="col-md-8 pt-3">
-                        <h3 style={ {fontWeight: "bold"}} className="my-3 display-5">Project Description</h3>
+                        <h3 style={ {fontWeight: "bold"}} className="my-3 display-5">{t("projectDescriptionName")}</h3>
                         <p className="display-6">
-                            Knowledge barter is a web application for exchanging lessons on different topics.
-                            You can unlock and watch any lesson you want with KBPoints.
-                            The KBPoints are our currency and they can be earned by contributing some content.
-                            There are also courses, if you want to create one, you need to own at least 6 lessons.
-                            The point of the application is to show that knowledge is free, but in order to possess it you have to prove yourself worthy.
+                            {t("projectDescription")}
                         </p>
                     </div>
                     <div className="col-md-4 pt-3">
-                        <h3 className="my-3">Used technologies:</h3>
+                        <h3 className="my-3">{t("usedTech")}</h3>
                         <ul>
                             <h4><li>React</li></h4>
                             <h4><li>.NET</li></h4>
@@ -36,7 +36,7 @@ export const About = () => {
                 </div>
                 {/* /.row */}
                 {/* Related Projects Row */}
-                <h3 className="my-4">Authors:</h3>
+                <h3 className="my-4">{t("authors")}</h3>
                 <div className="row">
                     <div className="col-md-3 col-sm-6 mb-4 ">
                         <a href="https://github.com/RadinTiholov">

@@ -1,3 +1,9 @@
 {
-    "welcome" : "Welcome"
+    "projectDescriptionName" : "Project Description",
+    "projectDescription" : "Knowledge barter is a web application for exchanging lessons on different topics. You can unlock and watch any lesson you want with KBPoints. The KBPoints are our currency and they can be earned by contributing some content. There are also courses, if you want to create one, you need to own at least 6 lessons. The point of the application is to show that knowledge is free, but in order to possess it you have to prove yourself worthy.",
+    "usedTech" : "Used technologies:",
+    "authors": "Authors:",
+    "details": "Details",
+    "noCoursesYet": "No courses yet."
+
 }
