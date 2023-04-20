@@ -1,7 +1,10 @@
 import React from "react";
 import "./Confetti.css";
+import { useTranslation } from "react-i18next";
 
 function Confetti(props) {
+    const { t } = useTranslation();
+
     const handleClick = () => {
         if (!props.isLiked) {
             function random(max) {
@@ -41,7 +44,7 @@ function Confetti(props) {
     return (
         <>
             <button disabled={props.isLiked} className="hoverme btn btn-outline-warning btn-lg mt-4 fw-bold" onClick={handleClick}>
-                {props.isLiked ? 'Liked' : 'Like'}
+                {props.isLiked ? `${t("liked")}` : `${t("like")}`}
             </button>
         </>
     );

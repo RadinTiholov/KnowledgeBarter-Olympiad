@@ -9,6 +9,7 @@ import { onSelectFile } from '../../infrastructureUtils/fileSelectionUtils';
 import { isValidForm, minMaxValidator } from '../../infrastructureUtils/validationUtils';
 import { LessonContext } from '../../contexts/LessonContext';
 import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 
 export const EditCourse = () => {
     const navigate = useNavigate();
@@ -31,6 +32,8 @@ export const EditCourse = () => {
     const [imageData, setImageData] = useState({
         imageFile: '',
     });
+
+    const { t } = useTranslation();
 
     useEffect(() => {
         courseService.getDetails(id)
@@ -107,7 +110,7 @@ export const EditCourse = () => {
                     <div className="card border-0 shadow rounded-3 my-5">
                         <div className="card-body p-4 p-sm-5">
                             <h5 className="card-title text-center mb-5 fw-bold fs-5">
-                                Edit Course
+                                {t("editCourse")}
                             </h5>
                             <form onSubmit={onSubmit}>
                                 <div className="form-floating mb-3">
@@ -121,7 +124,7 @@ export const EditCourse = () => {
                                         value={inputData.title}
                                         onBlur={(e) => minMaxValidator(e, 3, 20, setErrors, inputData)}
                                     />
-                                    <label htmlFor="title">Title</label>
+                                    <label htmlFor="title">{t("title")}</label>
                                 </div>
                                 {errors.title &&
                                     <div
@@ -130,7 +133,7 @@ export const EditCourse = () => {
                                     >
                                         <i className="fa-solid fa-triangle-exclamation me-2" />
                                         <div className="text-center">
-                                            The length of the title must be a minimum of 3 and a maximum of 20 characters.
+                                            {t("titleValMs")}
                                         </div>
                                     </div>}
                                 <div className="form-floating mb-3">
@@ -144,7 +147,7 @@ export const EditCourse = () => {
                                         value={inputData.description}
                                         onBlur={(e) => minMaxValidator(e, 10, 60, setErrors, inputData)}
                                     />
-                                    <label htmlFor="description">Description</label>
+                                    <label htmlFor="description">{t("description")}</label>
                                 </div>
                                 {/* Alert */}
                                 {errors.description &&
@@ -154,7 +157,7 @@ export const EditCourse = () => {
                                     >
                                         <i className="fa-solid fa-triangle-exclamation me-2" />
                                         <div className="text-center">
-                                            The length of the description must be a minimum of 10 and a maximum of 60 characters.
+                                            {t("descriptionValMs")}
                                         </div>
                                     </div>}
 
@@ -166,7 +169,7 @@ export const EditCourse = () => {
                                     onChange={e => onSelectFile(e, setImageData, setVisualizationImageUrl, setErrors)}
                                 />
                                 <label htmlFor='formFile' className='form-label'>
-                                    Choose lesson Image
+                                    {t("chooseAPicture")}
                                 </label>
                                 {/* Alert */}
                                 {errors.image &&
@@ -176,7 +179,7 @@ export const EditCourse = () => {
                                     >
                                         <i className="fa-solid fa-triangle-exclamation me-2" />
                                         <div className="text-center">
-                                            The allowed extenstions are jpeg, jpg and png.
+                                            {t("allowedExtensions")}
                                         </div>
                                     </div>}
                                 {visualizationImageUrl &&
@@ -185,20 +188,20 @@ export const EditCourse = () => {
                                     </>
                                 }
 
-                                <h5>Your lessons</h5>
+                                <h5>{t("yourLessons")}</h5>
                                 <div className="form-floating mb-3">
                                     {lessons.filter(x => x.owner === inputData.owner).length > 0
                                         ? lessons.filter(x => x.owner === inputData.owner)?.map(x => <Option {...x} key={x.id} onChange={onChange} isSelected={inputData.lessons.some(y => y.id === x.id)} />)
-                                        : <p className='text-center'>No lessons yet.</p>
+                                        : <p className='text-center'>{t("noLessonsYet")}</p>
                                     }
 
                                     {error.active === true ? <div className="alert alert-danger fade show mt-3">
-                                        <strong>Error!</strong> {error.message}
+                                        <strong>{t("error")}</strong> {error.message}
                                     </div> : null
                                     }
 
                                     {lessons.filter(x => x.owner === inputData.owner).length < 6 ? <div className="alert alert-danger fade show mt-3">
-                                        <strong>Error!</strong>You need at least 6 lessons to create a course.
+                                        <strong>{t("error")}</strong>{t("minLessonsMsg")}
                                     </div> : null
                                     }
                                 </div>
@@ -212,7 +215,7 @@ export const EditCourse = () => {
                                         {isLoadingSubmit
                                             ? <span className="spinner-border spinner-border-sm mx-2" role="status" aria-hidden="true" />
                                             : <></>}
-                                        Edit
+                                        {t("edit")}
                                     </button>
                                 </div>
                             </form>

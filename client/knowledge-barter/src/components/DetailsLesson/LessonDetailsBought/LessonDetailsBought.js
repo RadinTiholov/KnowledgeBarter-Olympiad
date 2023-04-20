@@ -10,6 +10,7 @@ import { speechHandler } from '../../../infrastructureUtils/commonUtils'
 import { Pill } from '../../common/Pill/Pill'
 import QRCode from "react-qr-code";
 import DOMPurify from 'dompurify';
+import { useTranslation } from 'react-i18next'
 
 export const LessonDetailsBought = (props) => {
     const [comment, setComment] = useState('');
@@ -18,6 +19,8 @@ export const LessonDetailsBought = (props) => {
 
     const synth = window.speechSynthesis;
     const speech = new SpeechSynthesisUtterance();
+
+    const { t } = useTranslation();
 
     const onChange = (e) => {
         setComment(e.target.value)
@@ -71,7 +74,7 @@ export const LessonDetailsBought = (props) => {
                                         style={{ backgroundColor: "#636EA7" }}
                                         href={props.lesson?.resources}
                                     >
-                                        Resources
+                                        {t("resourcesText")}
                                     </a>
                                     {props.isOwner ?
                                         <>
@@ -80,21 +83,21 @@ export const LessonDetailsBought = (props) => {
                                                 style={{ backgroundColor: "#636EA7" }}
                                                 to={'/lesson/edit/' + props.lesson.id}
                                             >
-                                                Edit
+                                                {t("edit")}
                                             </Link>
                                             <button type="button" className="btn btn-outline-warning btn fw-bold" data-bs-toggle="modal" data-bs-target="#exampleModal" style={{ backgroundColor: "red" }}>
-                                                Delete
+                                                {t("delete")}
                                             </button>
 
                                             <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div className="modal-dialog modal-dialog-centered">
                                                     <div className="modal-content">
                                                         <div className="modal-header">
-                                                            <h1 className="modal-title fs-5" id="exampleModalLabel">Delete</h1>
+                                                            <h1 className="modal-title fs-5" id="exampleModalLabel">{t("delete")}</h1>
                                                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <div className="modal-body">
-                                                            <p>Are you sure you want to delete this lesson?</p>
+                                                            <p>{t("deleteConfirm")}</p>
                                                         </div>
                                                         <div className="modal-footer">
                                                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -104,7 +107,7 @@ export const LessonDetailsBought = (props) => {
                                                                 style={{ backgroundColor: "red" }}
                                                                 onClick={props.onClickDelete}
                                                             >
-                                                                Delete Lesson
+                                                                {t("deleteLesson")}
                                                             </button>
                                                         </div>
                                                     </div>
@@ -119,7 +122,7 @@ export const LessonDetailsBought = (props) => {
                                                     }}
                                                     disabled={true}
                                                 >
-                                                    Liked
+                                                    {t("liked")}
                                                 </button> :
                                                 <button
                                                     className="btn btn-outline-warning btn fw-bold"
@@ -128,14 +131,14 @@ export const LessonDetailsBought = (props) => {
                                                     }}
                                                     onClick={props.likeLessonOnClick}
                                                 >
-                                                    Like
+                                                     {t("like")}
                                                 </button>}
                                             <Link
                                                 className="btn btn-outline-warning btn fw-bold"
                                                 style={{ backgroundColor: "#636EA7" }}
                                                 to={'/lesson/contact/' + props.lesson.id}
                                             >
-                                                Contact with owner
+                                                {t("contactWithOwner")}
                                             </Link>
 
                                             <button type="button" className="btn btn-outline-warning btn fw-bold" data-bs-toggle="modal" data-bs-target="#exampleModal" style={{ backgroundColor: "#636EA7" }}>
@@ -146,7 +149,7 @@ export const LessonDetailsBought = (props) => {
                                                 <div className="modal-dialog modal-dialog-centered">
                                                     <div className="modal-content">
                                                         <div className="modal-header">
-                                                            <h1 className="modal-title fs-5" id="exampleModalLabel">Share</h1>
+                                                            <h1 className="modal-title fs-5" id="exampleModalLabel">{t("share")}</h1>
                                                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <div className="modal-body">
@@ -154,7 +157,7 @@ export const LessonDetailsBought = (props) => {
                                                         </div>
                                                         <div className="modal-footer">
                                                             <span>{"https://knowledge-barter.web.app/lesson/details/" + props.lesson.id}</span>
-                                                            <button type="button" className="btn btn-primary" onClick={() => { navigator.clipboard.writeText("https://knowledge-barter.web.app/lesson/details/" + props.lesson.id) }}>Copy</button>
+                                                            <button type="button" className="btn btn-primary" onClick={() => { navigator.clipboard.writeText("https://knowledge-barter.web.app/lesson/details/" + props.lesson.id) }}>{t("copy")}</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -166,7 +169,7 @@ export const LessonDetailsBought = (props) => {
                             </div>
                             <div className="px-3">
                                 <div className='article'>
-                                    <h2 className='text-center text-light pt-1'>Information</h2>
+                                    <h2 className='text-center text-light pt-1'>{t("information")}</h2>
                                     <div className='article-text'>
                                         <h5>
                                             <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(props.lesson.article) }}></div>
@@ -181,7 +184,7 @@ export const LessonDetailsBought = (props) => {
                                     </div>
                                 </div>
                             </div>
-                            <h2 className="text-center">Comment</h2>
+                            <h2 className="text-center">{t("commentVerb")}</h2>
 
                             {/* Comment form */}
                             <form onSubmit={onComment}>
@@ -191,7 +194,7 @@ export const LessonDetailsBought = (props) => {
                                         id="textAreaExample"
                                         rows={4}
                                         style={{ background: "#fff" }}
-                                        placeholder="Comment"
+                                        placeholder={t("commentVerb")}
                                         value={comment}
                                         onChange={onChange}
                                         onBlur={() => commentValidator(10, 200, comment, setError, setErrorMessage)}
@@ -202,7 +205,7 @@ export const LessonDetailsBought = (props) => {
                                         type="submit"
                                         className="btn btn-primary btn-sm"
                                         disabled={error}>
-                                        Post comment
+                                        {t("commentVerb")}
                                     </button>
                                 </div>
                                 {error &&
@@ -216,12 +219,12 @@ export const LessonDetailsBought = (props) => {
                                         </div>
                                     </div>}
                             </form>
-                            {props.lesson.comments?.length > 0 ? props.lesson.comments?.map(x => <Comment key={x.id} {...x} />) : <p className='text-center'>No comments yet.</p>}
+                            {props.lesson.comments?.length > 0 ? props.lesson.comments?.map(x => <Comment key={x.id} {...x} />) : <p className='text-center'>{t("noCommentsYet")}</p>}
 
                         </div>
                     </div>
                     <div className="col-2">
-                        <p>Recommended lessons</p>
+                        <p>{t("recommendedLessons")}</p>
                         <div className='lessons-container'>
                             {props.recommendedLessons?.map(x => <Lesson key={x.id} {...x} />)}
                         </div>

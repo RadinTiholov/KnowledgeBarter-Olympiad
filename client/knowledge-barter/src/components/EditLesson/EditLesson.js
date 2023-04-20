@@ -9,6 +9,7 @@ import { onSelectFile } from '../../infrastructureUtils/fileSelectionUtils';
 import { isPositiveLength, isValidForm, minMaxValidator, urlYoutubeValidator } from '../../infrastructureUtils/validationUtils';
 import { toast } from 'react-toastify';
 import DOMPurify from 'dompurify';
+import { useTranslation } from 'react-i18next';
 
 export const EditLesson = () => {
     const { id } = useParams();
@@ -52,6 +53,8 @@ export const EditLesson = () => {
     const [error, setError] = useState({ active: false, message: "" });
 
     const [isLoading, setIsLoading] = useState(false);
+
+    const { t } = useTranslation();
 
     const onChange = (e) => {
         setInputData(state => {
@@ -122,7 +125,7 @@ export const EditLesson = () => {
                         <div className="card border-0 shadow rounded-3 my-5">
                             <div className="card-body p-4 p-sm-5">
                                 <h5 className="card-title text-center mb-5 fw-bold fs-5">
-                                    Edit Lesson
+                                    {t("editLesson")}
                                 </h5>
                                 <form onSubmit={onSubmit}>
                                     <div className="form-floating mb-3">
@@ -136,7 +139,7 @@ export const EditLesson = () => {
                                             onChange={onChange}
                                             onBlur={(e) => minMaxValidator(e, 3, 20, setErrors, inputData)}
                                         />
-                                        <label htmlFor="title">Title</label>
+                                        <label htmlFor="title">{t("title")}</label>
                                     </div>
                                     {/* Alert */}
                                     {errors.title &&
@@ -146,7 +149,7 @@ export const EditLesson = () => {
                                         >
                                             <i className="fa-solid fa-triangle-exclamation me-2" />
                                             <div className="text-center">
-                                                The length of the title must be a minimum of 3 and a maximum of 20 characters.
+                                                {t("titleValMs")}
                                             </div>
                                         </div>}
                                     <div className="form-floating mb-3">
@@ -160,7 +163,7 @@ export const EditLesson = () => {
                                             onChange={onChange}
                                             onBlur={(e) => minMaxValidator(e, 10, 60, setErrors, inputData)}
                                         />
-                                        <label htmlFor="description">Description</label>
+                                        <label htmlFor="description">{t("description")}</label>
                                     </div>
                                     {/* Alert */}
                                     {errors.description &&
@@ -170,7 +173,7 @@ export const EditLesson = () => {
                                         >
                                             <i className="fa-solid fa-triangle-exclamation me-2" />
                                             <div className="text-center">
-                                                The length of the description must be a minimum of 10 and a maximum of 60 characters.
+                                                {t("descriptionValMs")}
                                             </div>
                                         </div>}
                                     <div className="form-floating mb-3">
@@ -184,7 +187,7 @@ export const EditLesson = () => {
                                             onChange={onChange}
                                             onBlur={(e) => urlYoutubeValidator(e, setErrors, inputData)}
                                         />
-                                        <label htmlFor="video">Video Link</label>
+                                        <label htmlFor="video">{t("videoLink")}</label>
                                     </div>
                                     {/* Alert */}
                                     {errors.video &&
@@ -194,7 +197,7 @@ export const EditLesson = () => {
                                         >
                                             <i className="fa-solid fa-triangle-exclamation me-2" />
                                             <div className="text-center">
-                                                Please provide embedded youtube video.
+                                                {t("provideYoutube")}
                                             </div>
                                         </div>}
                                     {/* Image */}
@@ -206,7 +209,7 @@ export const EditLesson = () => {
                                             onChange={e => onSelectFile(e, setImageData, setVisualizationImageUrl, setErrors)}
                                         />
                                         <label htmlFor='formFile' className='form-label'>
-                                            Choose lesson Image
+                                            {t("chooseAPicture")}
                                         </label>
                                     </div>
                                     {/* Alert */}
@@ -217,7 +220,7 @@ export const EditLesson = () => {
                                         >
                                             <i className="fa-solid fa-triangle-exclamation me-2" />
                                             <div className="text-center">
-                                                The allowed extenstions are jpeg, jpg and png.
+                                                {t("allowedExtensions")}
                                             </div>
                                         </div>}
                                     {visualizationImageUrl &&
@@ -236,7 +239,7 @@ export const EditLesson = () => {
                                             onChange={onChange}
                                             onBlur={(e) => isPositiveLength(e, setErrors, inputData)}
                                         />
-                                        <label htmlFor="tags">Tags (split them by comma ",")</label>
+                                        <label htmlFor="tags">{t("tagsSplit")}</label>
                                     </div>
                                     {/* Alert */}
                                     {errors.tags &&
@@ -246,17 +249,17 @@ export const EditLesson = () => {
                                         >
                                             <i className="fa-solid fa-triangle-exclamation me-2" />
                                             <div className="text-center">
-                                                Please provide tags.
+                                                {t("provideTags")}
                                             </div>
                                         </div>}
                                     <div className="form-control mb-3">
-                                        <label htmlFor="resources">Resources (optional)</label>
+                                        <label htmlFor="resources">{t("resources")}</label>
                                         <div>
                                             <DropboxChooser
                                                 appKey={"fp536edus6mtntt"}
                                                 success={onSuccessfullyUploaded}
                                                 multiselect={false}>
-                                                <div className="dropbox-button btn btn-outline-warning" style={{ backgroundColor: "#636EA7" }}>Upload here</div>
+                                                <div className="dropbox-button btn btn-outline-warning" style={{ backgroundColor: "#636EA7" }}>{t("uploadHere")}</div>
                                             </DropboxChooser>
                                         </div>
                                     </div>
@@ -271,7 +274,7 @@ export const EditLesson = () => {
                                             onChange={onChange}
                                             onBlur={(e) => minMaxValidator(e, 50, 1000, setErrors, inputData)}
                                         />
-                                        <label htmlFor="article">Article</label>
+                                        <label htmlFor="article">{t("article")}</label>
                                     </div>
                                     {/* Alert */}
                                     {errors.article &&
@@ -281,7 +284,7 @@ export const EditLesson = () => {
                                         >
                                             <i className="fa-solid fa-triangle-exclamation me-2" />
                                             <div className="text-center">
-                                                The length of the description must be a minimum of 50 and a maximum of 1000 characters.
+                                                {t("minArticleMsg")}
                                             </div>
                                         </div>}
                                     {/* Error message */}
@@ -298,7 +301,7 @@ export const EditLesson = () => {
                                             {isLoading
                                                 ? <span className="spinner-border spinner-border-sm mx-2" role="status" aria-hidden="true" />
                                                 : <></>}
-                                            Update
+                                            {t("edit")}
                                         </button>
                                     </div>
                                 </form>

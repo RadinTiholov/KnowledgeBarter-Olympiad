@@ -33,7 +33,7 @@
     "comment" : "Comment",
     "aiOp" : "AI's Opinion ",
     "actions" : "Actions",
-    "filterBy" : "Filter by ",
+    "filterBy" : " Filter by ",
     "1000" : "1000 & up",
     "loading" : "Loading...",
     "sortBy" : "Sort by",
@@ -75,5 +75,13 @@
     "information" : "Information",
     "commentVerb" : "Comment",
     "noCommentsYet": "No comments yet.",
-    "lessons" : "Lessons"
+    "lessons" : "Lessons",
+    "edit" : "Edit",
+    "liked" : "Liked",
+    "like" : "Like",
+    "contactWithOwner" : "Contact with owner",
+    "share" : "Share",
+    "recommendedLessons" : "Recommended lessons",
+    "article" : "Article",
+    "uploadHere" : "Upload here"
 }

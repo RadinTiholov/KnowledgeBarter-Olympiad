@@ -1,9 +1,11 @@
 import './LessonDetailsPreview.css'
 import background from '../../../images/waves-details.svg'
 import Confetti from '../../Confetti/Confetti'
-import { t } from 'i18next'
+import { useTranslation } from 'react-i18next'
 
 export const LessonDetailsPreview = (props) => {
+    const { t } = useTranslation();
+
     return (
         <div style={{ backgroundImage: `url(${background})` }} className="backgound-layer-details">
             {/* Login Form */}

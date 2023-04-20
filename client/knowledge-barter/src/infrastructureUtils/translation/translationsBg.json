@@ -75,5 +75,13 @@
     "information" : "Информация",
     "commentVerb" : "Коментирай",
     "noCommentsYet": "Все още няма коментари.",
-    "lessons" : "Уроци"
+    "lessons" : "Уроци",
+    "edit" : "Редактирай",
+    "liked" : "Харесан",
+    "like" : "Харесай",
+    "contactWithOwner" : "Свържи се със собственик",
+    "share" : "Сподели",
+    "recommendedLessons" : "Предложени уроци",
+    "article" : "Статията",
+    "uploadHere" : "Качи тук"
 }

@@ -286,7 +286,7 @@ export const CreateLesson = () => {
                                                 appKey={"fp536edus6mtntt"}
                                                 success={onSuccessfullyUploaded}
                                                 multiselect={false}>
-                                                <div className="dropbox-button btn btn-outline-warning" style={{ backgroundColor: "#636EA7" }}>Upload here</div>
+                                                <div className="dropbox-button btn btn-outline-warning" style={{ backgroundColor: "#636EA7" }}>{t("uploadHere")}</div>
                                             </DropboxChooser>
                                         </div>
                                     </div>

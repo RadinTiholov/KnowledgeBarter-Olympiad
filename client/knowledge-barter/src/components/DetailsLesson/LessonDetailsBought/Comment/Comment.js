@@ -4,7 +4,6 @@ export const Comment = (props) => {
     return (
         <div
             className="card comment-card card-display-details mx-5 my-2"
-
         >
             <div className="row">
                 <div className="col-1">
