@@ -6,6 +6,22 @@
     "details": "Details",
     "boughtCourses": "Bought Courses",
     "noCoursesYet": "No courses yet.",
-    "boughtLessons": "Bought Lessons"
-
+    "boughtLessons": "Bought Lessons",
+    "yourLessons": "Your Lessons",
+    "yourCourses": "Your Courses",
+    "contacts": "Contacts",
+    "searchForAUser": "Search for a user",
+    "search": "Search",
+    "editProfile": "Edit Profile",
+    "username": "Username",
+    "usernameValMsg": "Your username must be more than 2 and less than 30 characters.",
+    "emailAddress": "Email address",
+    "provideEmail": "Please provide a valid email address.",
+    "chooseProfilePicture": "Choose Profile Picture",
+    "allowedExtensions": "The allowed extenstions are jpeg, jpg and png.",
+    "update": "Update",
+    "error": "Error!",
+    "contactOwnerForm": "Contact Owner Form",
+    "lesson": "Lesson"
+    
 }

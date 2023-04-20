@@ -4,11 +4,13 @@ import { onSelectFile } from "../../infrastructureUtils/fileSelectionUtils";
 import { AuthContext } from "../../contexts/AuthContext";
 import * as authService from "../../dataServices/authService";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export const UpdateProfile = () => {
 
     const { auth } = useContext(AuthContext);
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     useEffect(() => {
         authService.getDetails(auth._id)
@@ -75,7 +77,7 @@ export const UpdateProfile = () => {
                         <div className="card border-0 shadow rounded-3 my-5">
                             <div className="card-body p-4 p-sm-5">
                                 <h5 className="card-title text-center mb-5 fw-bold fs-5">
-                                    Edit Profile
+                                    {t("editProfile")}
                                 </h5>
                                 <form onSubmit={onSubmit}>
                                     <div className="form-floating mb-3">
@@ -89,12 +91,12 @@ export const UpdateProfile = () => {
                                             onChange={onChange}
                                             onBlur={(e) => usernameValidator(e, setErrors, inputData)}
                                         />
-                                        <label htmlFor="username">Username</label>
+                                        <label htmlFor="username">{t("username")}</label>
                                     </div>
                                     {errors.username && <div className="alert alert-danger d-flex align-items-center" role="alert">
                                         <i className="fa-solid fa-triangle-exclamation me-2"></i>
                                         <div className="text-center">
-                                            Your username must be more than 2 and less than 30 characters.
+                                            {t("usernameValMsg")}
                                         </div>
                                     </div>}
                                     <div className="form-floating mb-3">
@@ -108,13 +110,13 @@ export const UpdateProfile = () => {
                                             onChange={onChange}
                                             onBlur={(e) => emailValidator(e, setErrors, inputData, 'email')}
                                         />
-                                        <label htmlFor="email">Email address</label>
+                                        <label htmlFor="email">{t("emailAddress")}</label>
                                     </div>
                                     {/* Alert */}
                                     {errors.email && <div className="alert alert-danger d-flex align-items-center" role="alert">
                                         <i className="fa-solid fa-triangle-exclamation me-2"></i>
                                         <div className="text-center">
-                                            Please provide a valid email address.
+                                            {t("provideEmail")}
                                         </div>
                                     </div>}
                                     {/*Image input*/}
@@ -126,7 +128,7 @@ export const UpdateProfile = () => {
                                             onChange={e => onSelectFile(e, setImageData, setVisualizationImageUrl, setErrors)}
                                         />
                                         <label htmlFor='formFile' className='form-label'>
-                                            Choose Profile Picture
+                                            {t("chooseProfilePicture")}
                                         </label>
                                     </div>
                                     {/*Poster alert*/}
@@ -134,7 +136,7 @@ export const UpdateProfile = () => {
                                         <div className="alert alert-danger d-flex align-items-center" role="alert">
                                             <i className="fa-solid fa-triangle-exclamation me-2"></i>
                                             <div className="text-center">
-                                                The allowed extenstions are jpeg, jpg and png.
+                                                {t("allowedExtensions")}
                                             </div>
                                         </div>}
                                     {visualizationImageUrl &&
@@ -152,12 +154,12 @@ export const UpdateProfile = () => {
                                             {isLoading
                                                 ? <span className="spinner-border spinner-border-sm mx-2" role="status" aria-hidden="true" />
                                                 : <></>}
-                                            Update
+                                            {t("update")}
                                         </button>
                                     </div>
                                     {/* Error message */}
                                     {error.active === true ? <div className="alert alert-danger fade show mt-3">
-                                        <strong>Error!</strong> {error.message}
+                                        <strong>{t("error")}</strong> {error.message}
                                     </div> : null}
                                 </form>
                             </div>

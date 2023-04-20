@@ -6,8 +6,11 @@ import { ProfileCard } from './ProfileCard/ProfileCard';
 import { useEffect } from "react";
 import * as authService from "../../dataServices/authService"
 import { BookSpinner } from "../common/Spinners/BookSpinner";
+import { useTranslation } from "react-i18next";
 
 export const UserCenter = () => {
+
+    const { t } = useTranslation();
 
     const [search, setSearch] = useState('');
     const { profiles } = useContext(ProfileContext);
@@ -37,7 +40,7 @@ export const UserCenter = () => {
                     <div className="col-lg-6">
                         <div className="articles card chat-scroll" style={{ backgroundColor: "#f0ad4e", height: "80vh" }}>
                             <div className="card-header d-flex align-items-center" style={{marginBottom: "20px"}}>
-                                <h2 className="h3">Contacts</h2>
+                                <h2 className="h3">{t("contacts")}</h2>
                             </div>
                             {areLoadingContacts ?
                                 <BookSpinner /> :
@@ -47,7 +50,7 @@ export const UserCenter = () => {
                     <div className="col-lg-6">
                         <div className="articles card chat-scroll" style={{ backgroundColor: "#f0ad4e", height: "80vh" }}>
                             <div className="card-header d-flex align-items-center">
-                                <h2 className="h3">Search for a user</h2>
+                                <h2 className="h3">{t("searchForAUser")}</h2>
                             </div>
                             <div className="m-3">
                                 <form className="d-flex justify-content-center" role="search" onSubmit={onSearch}>
@@ -65,7 +68,7 @@ export const UserCenter = () => {
                                         style={{ backgroundColor: "#636EA7" }}
                                         type="submit"
                                     >
-                                        Search
+                                        {t("search")}
                                     </button>
                                 </form>
                             </div>

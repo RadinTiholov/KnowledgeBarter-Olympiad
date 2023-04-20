@@ -3,15 +3,17 @@ import { AuthContext } from '../../contexts/AuthContext';
 import { CourseContext } from '../../contexts/CourseContext';
 import { Course } from './Course/Course'
 import './YourCourses.css'
+import { useTranslation } from 'react-i18next';
 
 export const YourCourses = () => {
     const { courses } = useContext(CourseContext);
     const { auth } = useContext(AuthContext);
+    const { t } = useTranslation();
 
     return (
         <>
             <div className="col text-xl-center">
-                <h1 className="fw-bold mb-3 pt-5 text-center">Your Courses</h1>
+                <h1 className="fw-bold mb-3 pt-5 text-center">{t("yourCourses")}</h1>
             </div>
             <div className="container">
                 <div className="text-center">

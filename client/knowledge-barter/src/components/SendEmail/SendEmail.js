@@ -6,6 +6,7 @@ import * as authService from '../../dataServices/authService';
 import { AuthContext } from "../../contexts/AuthContext";
 import { ProfileContext } from "../../contexts/ProfileContext";
 import { emailValidator, isValidForm, minMaxValidator } from '../../infrastructureUtils/validationUtils';
+import { useTranslation } from "react-i18next";
 
 export const SendEmail = () => {
     const { id } = useParams();
@@ -13,6 +14,7 @@ export const SendEmail = () => {
     const { lesson, owner } = useLessonsWithUser(id);
     const { auth } = useContext(AuthContext);
     const { profiles } = useContext(ProfileContext);
+    const { t } = useTranslation();
 
     const [inputData, setInputData] = useState({
         senderEmail: '',
@@ -75,10 +77,10 @@ export const SendEmail = () => {
                         <div className="card border-0 shadow rounded-3 my-5">
                             <div className="card-body p-4 p-sm-5">
                                 <h5 className="card-title text-center fw-bold fs-5">
-                                    Contact Owner Form
+                                    {t("contactOwnerForm")}
                                 </h5>
                                 <h3 className="text-center mb-4 fs-5">
-                                    Lesson : {lesson.title}
+                                    {t("lesson")} : {lesson.title}
                                 </h3>
                                 <form onSubmit={onSubmit}>
                                     <div className="form-floating mb-3">

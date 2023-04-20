@@ -6,6 +6,22 @@
     "details": "Детайли",
     "boughtCourses": "Купени Kурсове",
     "noCoursesYet": "Все още няма курсове.",
-    "boughtLessons": "Купени Уроци"
-    
+    "boughtLessons": "Купени Уроци",
+    "yourLessons": "Твоите Уроци",
+    "yourCourses": "Твоите Курсове",
+    "contacts": "Контакти",
+    "searchForAUser": "Търси потребител",
+    "search": "Търси",
+    "editProfile": "Редактирай Профил",
+    "username": "Потребител",
+    "usernameValMsg": "Вашето потребителско име трябва да бъде повече от 2 символа и не повече от 30.",
+    "emailAddress": "Имейл адрес",
+    "provideEmail": "Моля предоставете валиден имейл адрес.",
+    "chooseProfilePicture": "Избери Профилна Снимка",
+    "allowedExtensions": "Позволените разрешения са jpeg, jpg и png.",
+    "update": "Обнови",
+    "error": "Грешка!",
+    "contactOwnerForm": "Свържи се със собственик",
+    "lesson": "Урок"
+
 }
