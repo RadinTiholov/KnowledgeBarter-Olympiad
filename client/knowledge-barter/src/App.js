@@ -47,9 +47,8 @@ import { PrivacyPolicy } from './components/PrivacyPolicy/PrivacyPolicy';
 
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-
-const translationsEn = {welcome : 'Welcome'};
-const translationsBg = {welcome: 'Zдравейте'};
+import translationsEn from './infrastructureUtils/translation/translationsEn.json'
+import translationsBg from './infrastructureUtils/translation/translationsBg.json'
 
 i18n
   .use(initReactI18next)
