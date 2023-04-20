@@ -4,11 +4,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useContext, useState } from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
 import { LanguageSelector } from '../common/LanguageSelector/LanguageSelector';
+import { useTranslation } from 'react-i18next';
 export const Header = () => {
     const { isAuthenticated, auth } = useContext(AuthContext);
     const [search, setSearch] = useState();
     const [selection, setSelection] = useState('Lesson');
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     const onChange = (e) => {
         setSearch(e.target.value)
@@ -53,29 +55,29 @@ export const Header = () => {
                                 <>
                                     <li className="nav-item">
                                         <Link className="nav-link active text-light" to="/">
-                                            <i className="fa-solid fa-user"></i> Admin
+                                            <i className="fa-solid fa-user"></i> {t("admin")}
                                         </Link>
                                     </li>
                                     <li className="nav-item">
                                         <Link className="nav-link active text-light" to="/comment/all">
-                                            <i className="fa-solid fa-comment"></i> Comments
+                                            <i className="fa-solid fa-comment"></i> {t("comments")}
                                         </Link>
                                     </li>
                                 </>
                                 :
                                 <li className="nav-item">
                                     <Link className="nav-link active text-light" to="/">
-                                        <i className="fa-solid fa-house"></i> Home
+                                        <i className="fa-solid fa-house"></i> {t("home")}
                                     </Link>
                                 </li>}
                             <li className="nav-item">
                                 <Link className="nav-link text-light" to="/lesson/all">
-                                    <i className="fa-solid fa-lightbulb"></i> Lessons
+                                    <i className="fa-solid fa-lightbulb"></i> {t("lessons")}
                                 </Link>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link text-light" to="/course/all">
-                                    <i className="fa-solid fa-book"></i> Courses
+                                    <i className="fa-solid fa-book"></i> {t("courses")}
                                 </Link>
                             </li>
                             <li className="nav-item">
@@ -119,7 +121,7 @@ export const Header = () => {
                                         </div>
                                     </div>
                                     <button className="btn btn-outline-warning" type="submit">
-                                        Search
+                                        {t("search")}
                                     </button>
                                 </form>
                             </li>
@@ -141,7 +143,7 @@ export const Header = () => {
                                             data-bs-toggle="dropdown"
                                             aria-expanded="false"
                                         >
-                                            <i className="fa-solid fa-circle-plus"></i> Create
+                                            <i className="fa-solid fa-circle-plus"></i> {t("create")}
                                         </a>
                                         <ul
                                             className="dropdown-menu text-light"
@@ -149,19 +151,19 @@ export const Header = () => {
                                         >
                                             <li>
                                                 <Link className="dropdown-item" to="/lesson/create">
-                                                    Lesson
+                                                    {t("lesson")}
                                                 </Link>
                                             </li>
                                             <li>
                                                 <Link className="dropdown-item" to="/course/create">
-                                                    Course
+                                                    {t("course")}
                                                 </Link>
                                             </li>
                                         </ul>
                                     </li>
                                     <li className="nav-item">
                                         <Link className="nav-link text-light" to={`/profile/${auth._id}`}>
-                                            <i className="fa-sharp fa-solid fa-coins"></i> KBPoints: {auth.kbPoints}
+                                            <i className="fa-sharp fa-solid fa-coins"></i> {t("kBPoints")}: {auth.kbPoints}
                                         </Link>
                                     </li>
                                     <li className="nav-item dropdown">
@@ -174,7 +176,7 @@ export const Header = () => {
                                             data-bs-toggle="dropdown"
                                             aria-expanded="false"
                                         >
-                                            <i className="fa-solid fa-user"></i> Profile
+                                            <i className="fa-solid fa-user"></i> {t("profile")}
                                         </a>
                                         <ul
                                             className="dropdown-menu text-light"
@@ -182,49 +184,49 @@ export const Header = () => {
                                         >
                                             <li>
                                                 <Link className="dropdown-item" to={`/profile/${auth._id}`}>
-                                                    <i className="fa-solid fa-circle-info"></i> Information
+                                                    <i className="fa-solid fa-circle-info"></i> {t("information")}
                                                 </Link>
                                             </li>
                                             <li>
                                                 <Link className="dropdown-item" to="/lesson/yours">
-                                                    <i className="fa-solid fa-circle-dot fa-2xs"></i> Your Lessons
+                                                    <i className="fa-solid fa-circle-dot fa-2xs"></i> {t("yourLessons")}
                                                 </Link>
                                             </li>
                                             <li>
                                                 <Link className="dropdown-item" to="/course/yours">
-                                                    <i className="fa-solid fa-circle-dot fa-2xs"></i> Your Courses
+                                                    <i className="fa-solid fa-circle-dot fa-2xs"></i> {t("yourCourses")}
                                                 </Link>
                                             </li>
                                             <li>
                                                 <Link className="dropdown-item" to="/lesson/bought">
-                                                    <i className="fa-solid fa-circle-dot fa-2xs"></i> Bought Lessons
+                                                    <i className="fa-solid fa-circle-dot fa-2xs"></i> {t("boughtLessons")}
                                                 </Link>
                                             </li>
                                             <li>
                                                 <Link className="dropdown-item" to="/course/bought">
-                                                    <i className="fa-solid fa-circle-dot fa-2xs"></i> Bought Courses
+                                                    <i className="fa-solid fa-circle-dot fa-2xs"></i> {t("boughtCourses")}
                                                 </Link>
                                             </li>
                                             <li>
                                                 <Link className="dropdown-item" to="/liked">
-                                                    <i className="fa-solid fa-thumbs-up"></i> Liked
+                                                    <i className="fa-solid fa-thumbs-up"></i> {t("liked")}
                                                 </Link>
                                             </li>
                                             <hr className='text-dark mx-3' style={{ borderTop: "2px solid" }} />
                                             <li>
                                                 <Link className="dropdown-item" to={`/user-center`}>
-                                                    <i className="fa-solid fa-people-group"></i> User Center
+                                                    <i className="fa-solid fa-people-group"></i> {t("userCenter")}
                                                 </Link>
                                             </li>
                                             <hr className='text-dark mx-3' style={{ borderTop: "2px solid" }} />
                                             <li>
                                                 <Link className="dropdown-item" to="/report">
-                                                    <i className="fa-solid fa-bug"></i> Report
+                                                    <i className="fa-solid fa-bug"></i> {t("report")}
                                                 </Link>
                                             </li>
                                             <li>
                                                 <Link className="dropdown-item" to="/logout">
-                                                    <i className="fa-solid fa-door-open"></i> Logout
+                                                    <i className="fa-solid fa-door-open"></i> {t("logout")}
                                                 </Link>
                                             </li>
                                         </ul>
@@ -233,12 +235,12 @@ export const Header = () => {
                                 <>
                                     <li className="nav-item">
                                         <Link className="nav-link active text-light" to="/register">
-                                            <i className="fa-solid fa-id-card"></i> Register
+                                            <i className="fa-solid fa-id-card"></i> {t("register")}
                                         </Link>
                                     </li>
                                     <li className="nav-item">
                                         <Link className="nav-link text-light" to="/login">
-                                            <i className="fa-solid fa-right-to-bracket"></i> Login
+                                            <i className="fa-solid fa-right-to-bracket"></i> {t("login")}
                                         </Link>
                                     </li>
                                 </>

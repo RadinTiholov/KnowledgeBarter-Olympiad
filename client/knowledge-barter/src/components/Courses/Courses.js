@@ -6,12 +6,15 @@ import { Course } from './Course/Course'
 import Pagination from '../common/Pagination/Pagination'
 import { useSearchParams } from 'react-router-dom'
 import { FilterMenu } from '../common/FilterMenu/FilterMenu'
+import { useTranslation } from 'react-i18next'
 
 let pageSize = 10;
 
 export const Courses = () => {
     const { courses } = useContext(CourseContext)
     const [searchParams, setSearchParams] = useSearchParams();
+
+    const { t } = useTranslation();
 
     const [collectionLength, setCollectionLength] = useState(0);
 
@@ -98,7 +101,7 @@ export const Courses = () => {
         <div style={{ backgroundImage: `url(${background})` }} className="backgound-layer-courses">
             <div className="container">
                 <div className="col text-xl-start">
-                    <h1 className="fw-bold mb-3 px-4 pt-5">All Courses{searchParams.get('search') && searchParams.get('search') != 'undefined' ? ` / ${searchParams.get('search')}` : ''}</h1>
+                    <h1 className="fw-bold mb-3 px-4 pt-5">{t("allCourses")}{searchParams.get('search') && searchParams.get('search') != 'undefined' ? ` / ${searchParams.get('search')}` : ''}</h1>
                 </div>
             </div>
 
@@ -109,7 +112,7 @@ export const Courses = () => {
                             <div className='col-md-2'>
                                 <div className="btn-group">
                                     <button className="btn sort-menu-button btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Sort by
+                                        {t("sortBy")}
                                     </button>
                                     <ul className="dropdown-menu">
                                         <li><button className="dropdown-item" onClick={changeSortBy}>Likes</button></li>
@@ -119,7 +122,7 @@ export const Courses = () => {
                                 </div>
                                 <div className='mt-1'>
                                     <button onClick={clearSelection} className="btn btn-lg" type="button" style={{ backgroundColor: "#636EA7", color: "#fff" }}>
-                                        Clear
+                                        {t("clear")}
                                     </button>
                                 </div>
                             </div>

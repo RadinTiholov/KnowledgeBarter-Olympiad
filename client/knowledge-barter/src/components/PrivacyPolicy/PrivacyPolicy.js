@@ -2,7 +2,7 @@ export const PrivacyPolicy = () => {
     return (
         <div className="container py-3">
             <h1>Privacy Policy</h1>
-            <div style={{fontSize: "20px", fontWeight: 500}}>
+            <div style={{ fontSize: "20px", fontWeight: 500 }}>
                 Privacy Policy for Knowledge Barter
 
                 At Knowledge Barter, accessible from https://knowledge-barter.web.app, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by Knowledge Barter and how we use it.

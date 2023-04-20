@@ -5,12 +5,15 @@ import * as authService from '../../dataServices/authService';
 import { AuthContext } from "../../contexts/AuthContext";
 import { ProfileContext } from "../../contexts/ProfileContext";
 import { emailValidator, isValidForm, minMaxValidator } from '../../infrastructureUtils/validationUtils';
+import { useTranslation } from "react-i18next";
 
 export const Report = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const { auth } = useContext(AuthContext);
     const { profiles } = useContext(ProfileContext);
+
+    const { t } = useTranslation();
 
     const [inputData, setInputData] = useState({
         senderEmail: '',
@@ -64,7 +67,7 @@ export const Report = () => {
                         <div className="card border-0 shadow rounded-3 my-5">
                             <div className="card-body p-4 p-sm-5">
                                 <h5 className="card-title text-center fw-bold fs-5">
-                                    Report a bug
+                                    {t("reportABug")}
                                 </h5>
                                 <form onSubmit={onSubmit}>
                                     <div className="form-floating mb-3">
@@ -78,7 +81,7 @@ export const Report = () => {
                                             onChange={onChange}
                                             onBlur={(e) => emailValidator(e, setErrors, inputData, 'senderEmail')}
                                         />
-                                        <label htmlFor="senderEmail">Your email</label>
+                                        <label htmlFor="senderEmail">{t("yourEmail")}</label>
                                     </div>
 
                                     {/* Alert */}
@@ -89,7 +92,7 @@ export const Report = () => {
                                         >
                                             <i className="fa-solid fa-triangle-exclamation me-2" />
                                             <div className="text-center">
-                                                Please provide a valid email!
+                                                {t("provideEmail")}
                                             </div>
                                         </div>
                                     }
@@ -105,7 +108,7 @@ export const Report = () => {
                                             onChange={onChange}
                                             onBlur={(e) => minMaxValidator(e, 3, 20, setErrors, inputData)}
                                         />
-                                        <label htmlFor="topic">Problem type</label>
+                                        <label htmlFor="topic">{t("problemType")}</label>
                                     </div>
 
                                     {/* Alert */}
@@ -116,7 +119,7 @@ export const Report = () => {
                                         >
                                             <i className="fa-solid fa-triangle-exclamation me-2" />
                                             <div className="text-center">
-                                                The length of the topic must be a minimum of 3 and a maximum of 20 characters.
+                                                {t("topicValMsg")}
                                             </div>
                                         </div>
                                     }
@@ -132,7 +135,7 @@ export const Report = () => {
                                             onChange={onChange}
                                             onBlur={(e) => minMaxValidator(e, 30, 1000, setErrors, inputData)}
                                         />
-                                        <label htmlFor="emailText">Problem description</label>
+                                        <label htmlFor="emailText">{t("problemDescription")}</label>
                                     </div>
 
                                     {/* Alert */}
@@ -143,7 +146,7 @@ export const Report = () => {
                                         >
                                             <i className="fa-solid fa-triangle-exclamation me-2" />
                                             <div className="text-center">
-                                                The length of the email must be a minimum of 20 and a maximum of 1000 characters.
+                                                {t("emailValMsg")}
                                             </div>
                                         </div>}
 
@@ -154,13 +157,13 @@ export const Report = () => {
                                             type="submit"
                                             disabled={!isValidForm(errors) || (!inputData.senderEmail && !inputData.topic && !inputData.emailText)}
                                         >
-                                            Send Email
+                                            {t("sendEmail")}
                                         </button>
                                     </div>
 
                                     {/* Error message */}
                                     {error.active === true ? <div className="alert alert-danger fade show mt-3">
-                                        <strong>Error!</strong> {error.message}
+                                        <strong>{t("error")}</strong> {error.message}
                                     </div> : null}
                                 </form>
                             </div>

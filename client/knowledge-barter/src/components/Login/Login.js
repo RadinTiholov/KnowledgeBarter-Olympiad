@@ -5,9 +5,11 @@ import * as authService from '../../dataServices/authService'
 import { AuthContext } from '../../contexts/AuthContext'
 import { useContext, useState } from 'react';
 import { isValidForm, passwordValidator, usernameValidator } from '../../infrastructureUtils/validationUtils';
+import { useTranslation } from 'react-i18next';
 
 export const Login = () => {
     const { userLogin } = useContext(AuthContext)
+    const { t } = useTranslation();
 
     const navigate = useNavigate();
 
@@ -60,7 +62,7 @@ export const Login = () => {
                         <div className="card border-0 shadow rounded-3 my-5">
                             <div className="card-body p-4 p-sm-5">
                                 <h5 className="card-title text-center mb-5 fw-bold fs-5">
-                                    Login Form
+                                    {t("loginForm")}
                                 </h5>
                                 <form onSubmit={onSubmit}>
                                     <div className="form-floating mb-3">
@@ -74,7 +76,7 @@ export const Login = () => {
                                             onChange={onChange}
                                             onBlur={(e) => usernameValidator(e, setErrors, inputData)}
                                         />
-                                        <label htmlFor="floatingInput">Username</label>
+                                        <label htmlFor="floatingInput">{t("username")}</label>
                                     </div>
 
                                     {/* Alert */}
@@ -85,7 +87,7 @@ export const Login = () => {
                                         >
                                             <i className="fa-solid fa-triangle-exclamation me-2" />
                                             <div className="text-center">
-                                                Username must be between 2 and 20 characters.
+                                                {t("usernameValMsg")}
                                             </div>
                                         </div>}
 
@@ -100,14 +102,14 @@ export const Login = () => {
                                             value={inputData.password}
                                             onBlur={(e) => passwordValidator(e, setErrors, inputData)}
                                         />
-                                        <label htmlFor="floatingPassword">Password</label>
+                                        <label htmlFor="floatingPassword">{t("password")}</label>
                                     </div>
                                     {/* Alert */}
                                     {errors.password &&
                                         <div className="alert alert-danger d-flex align-items-center" role="alert">
                                             <i className="fa-solid fa-triangle-exclamation me-2"></i>
                                             <div className="text-center">
-                                                Please enter a password.
+                                                {t("enterPassword")}
                                             </div>
                                         </div>}
 
@@ -121,23 +123,23 @@ export const Login = () => {
                                             {isLoading 
                                                 ? <span className="spinner-border spinner-border-sm mx-2" role="status" aria-hidden="true" /> 
                                                 : <></>}
-                                            Login
+                                            {t("login")}
                                         </button>
                                     </div>
 
                                     {/* Error message */}
                                     {error.active === true ? <div className="alert alert-danger fade show mt-3">
-                                        <strong>Error!</strong> {error.message}
+                                        <strong>{t("error")}!</strong> {error.message}
                                     </div>: null}
                                     <hr className="my-4" />
-                                    <h5 style={{ textAlign: "center" }}>or</h5>
+                                    <h5 style={{ textAlign: "center" }}>{t("or")}</h5>
                                     <div className="d-grid">
                                         <Link
                                             className="btn btn-outline-warning"
                                             style={{ backgroundColor: "#636EA7" }}
                                             to="/register"
                                         >
-                                            Register
+                                            {t("register")}
                                         </Link>
                                     </div>
                                 </form>

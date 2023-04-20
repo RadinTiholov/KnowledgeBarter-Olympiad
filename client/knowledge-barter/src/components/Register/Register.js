@@ -6,8 +6,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import * as authService from '../../dataServices/authService'
 import { onSelectFile } from '../../infrastructureUtils/fileSelectionUtils';
 import { emailValidator, isValidForm, passwordValidator, usernameValidator } from '../../infrastructureUtils/validationUtils';
+import { useTranslation } from 'react-i18next';
 
 export const Register = () => {
+    const { t } = useTranslation();
+
     const { userLogin } = useContext(AuthContext)
     const navigate = useNavigate();
     const [errors, setErrors] = useState({
@@ -78,6 +81,7 @@ export const Register = () => {
     }
 
     return (
+
         <div style={{ backgroundImage: `url(${background})` }} className="backgound-layer-register">
             {/* Login Form */}
             <div className="container">
@@ -86,7 +90,7 @@ export const Register = () => {
                         <div className="card border-0 shadow rounded-3 my-5">
                             <div className="card-body p-4 p-sm-5">
                                 <h5 className="card-title text-center mb-5 fw-bold fs-5">
-                                    Register Form
+                                    {t("registerForm")}
                                 </h5>
                                 <form onSubmit={onSubmit}>
                                     <div className="form-floating mb-3">
@@ -100,12 +104,12 @@ export const Register = () => {
                                             onChange={onChange}
                                             onBlur={(e) => usernameValidator(e, setErrors, inputData)}
                                         />
-                                        <label htmlFor="username">Username</label>
+                                        <label htmlFor="username">{t("username")}</label>
                                     </div>
                                     {errors.username && <div className="alert alert-danger d-flex align-items-center" role="alert">
                                         <i className="fa-solid fa-triangle-exclamation me-2"></i>
                                         <div className="text-center">
-                                            Your username must be more than 2 and less than 30 characters.
+                                            {t("usernameValMsg")}
                                         </div>
                                     </div>}
                                     <div className="form-floating mb-3">
@@ -119,13 +123,13 @@ export const Register = () => {
                                             onChange={onChange}
                                             onBlur={(e) => emailValidator(e, setErrors, inputData, 'email')}
                                         />
-                                        <label htmlFor="email">Email address</label>
+                                        <label htmlFor="email">{t("emailAddress")}</label>
                                     </div>
                                     {/* Alert */}
                                     {errors.email && <div className="alert alert-danger d-flex align-items-center" role="alert">
                                         <i className="fa-solid fa-triangle-exclamation me-2"></i>
                                         <div className="text-center">
-                                            Please provide a valid email address.
+                                            {t("provideEmail")}
                                         </div>
                                     </div>}
                                     <div className="form-floating mb-3">
@@ -139,14 +143,14 @@ export const Register = () => {
                                             onChange={onChange}
                                             onBlur={(e) => passwordValidator(e, setErrors, inputData)}
                                         />
-                                        <label htmlFor="password">Password</label>
+                                        <label htmlFor="password">{t("password")}</label>
                                     </div>
                                     {/* Alert */}
                                     {errors.password &&
                                         <div className="alert alert-danger d-flex align-items-center" role="alert">
                                             <i className="fa-solid fa-triangle-exclamation me-2"></i>
                                             <div className="text-center">
-                                                Please enter a password.
+                                                {t("enterPassword")}
                                             </div>
                                         </div>}
                                     <div className="form-floating mb-3">
@@ -160,14 +164,14 @@ export const Register = () => {
                                             onChange={onChange}
                                             onBlur={(e) => rePasswordValidator(e)}
                                         />
-                                        <label htmlFor="floatingRepeatPassword">Repeat Password</label>
+                                        <label htmlFor="floatingRepeatPassword">{t("repeatPassword")}</label>
                                     </div>
                                     {/* Alert */}
                                     {errors.rePassword &&
                                         <div className="alert alert-danger d-flex align-items-center" role="alert">
                                             <i className="fa-solid fa-triangle-exclamation me-2"></i>
                                             <div className="text-center">
-                                                Please enter a password.
+                                                {t("enterPassword")}
                                             </div>
                                         </div>}
                                     {/*Image input*/}
@@ -179,7 +183,7 @@ export const Register = () => {
                                             onChange={e => onSelectFile(e, setImageData, setVisualizationImageUrl, setErrors)}
                                         />
                                         <label htmlFor='formFile' className='form-label'>
-                                            Choose Profile Picture
+                                            {t("chooseProfilePicture")}
                                         </label>
                                     </div>
                                     {/*Poster alert*/}
@@ -187,7 +191,7 @@ export const Register = () => {
                                         <div className="alert alert-danger d-flex align-items-center" role="alert">
                                             <i className="fa-solid fa-triangle-exclamation me-2"></i>
                                             <div className="text-center">
-                                                The allowed extenstions are jpeg, jpg and png.
+                                                {t("allowedExtensions")}
                                             </div>
                                         </div>}
                                     {visualizationImageUrl &&
@@ -205,7 +209,7 @@ export const Register = () => {
                                             {isLoading 
                                                 ? <span className="spinner-border spinner-border-sm mx-2" role="status" aria-hidden="true" /> 
                                                 : <></>}
-                                            Register
+                                            {t("register")}
                                         </button>
                                     </div>
                                     {/* Error message */}
@@ -220,7 +224,7 @@ export const Register = () => {
                                             style={{ backgroundColor: "#636EA7" }}
                                             to='/login'
                                         >
-                                            Login
+                                            {t("login")}
                                         </Link>
                                     </div>
                                 </form>

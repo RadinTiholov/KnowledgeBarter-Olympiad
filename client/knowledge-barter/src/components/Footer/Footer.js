@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom"
 import logo from '../../images/logo.png'
+import { useTranslation } from "react-i18next";
 
 export const Footer = () => {
+    const { t } = useTranslation();
+
     return (
         // <footer
         //     className=" text-center text-white"
@@ -52,32 +55,32 @@ export const Footer = () => {
                                     </div>
                                 </div>
                                 <p>
-                                    Knowledge Barter is a web application for exchanging lessons and courses on different topics.
+                                    {t("exchanging")}
                                 </p>
                             </div>
                             {/* Grid column */}
                             {/* Grid column */}
                             <div className="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
                                 {/* Links */}
-                                <h5 className="text-uppercase fw-bold mb-4 mt-2 ">Useful links</h5>
+                                <h5 className="text-uppercase fw-bold mb-4 mt-2 ">{t("usefulLinks")}</h5>
                                 <p>
                                     <Link to={"/login"}>
-                                        Login
+                                        {t("login")}
                                     </Link>
                                 </p>
                                 <p>
                                     <Link to={"/register"}>
-                                        Register
+                                        {t("register")}
                                     </Link>
                                 </p>
                                 <p>
                                     <Link to={"/about"}>
-                                        About
+                                        {t("about")}
                                     </Link>
                                 </p>
                                 <p>
                                     <Link to={"/privacy-policy"}>
-                                        Privacy Policy
+                                        {t("privacyPolicy")}
                                     </Link>
                                 </p>
                             </div>
@@ -85,7 +88,7 @@ export const Footer = () => {
                             {/* Grid column */}
                             <div className="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
                                 {/* Links */}
-                                <h5 className="text-uppercase fw-bold mb-4 mt-2 ">Contact</h5>
+                                <h5 className="text-uppercase fw-bold mb-4 mt-2 ">{t("contact")}</h5>
                                 <p>
                                     <i className="fas fa-envelope me-3" />
                                     knowledge-barter@gmail.com

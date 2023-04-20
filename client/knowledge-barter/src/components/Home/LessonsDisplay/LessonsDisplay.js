@@ -1,8 +1,11 @@
 import { Card } from './Card/Card'
 import './LessonsDisplay.css'
 import { BookSpinner } from '../../common/Spinners/BookSpinner'
+import { useTranslation } from 'react-i18next';
 
 export const LessonsDisplay = (props) => {
+    const { t } = useTranslation();
+
     return (
         <section id="lessons-display">
             <div className="container">
@@ -19,10 +22,10 @@ export const LessonsDisplay = (props) => {
                             <div className="row gy-5">
                                 {props.lessons ?
                                     props.lessons?.map(x => <Card key={x.id} route={props.route} {...x} />)
-                                    : props.courses ? null : <p className='text-center'>No lessons yet!</p>}
+                                    : props.courses ? null : <p className='text-center'>{t("noLessonsYet")}</p>}
                                 {props.courses ?
                                     props.courses?.map(x => <Card key={x.id} route={props.route} {...x} />)
-                                    : props.lessons ? null : <p className='text-center'>No courses yet!</p>}
+                                    : props.lessons ? null : <p className='text-center'>{t("noCoursesYet")}</p>}
                             </div>
                         </div>
                     }
@@ -64,7 +67,7 @@ export const LessonsDisplay = (props) => {
                                                 data-bs-slide="prev"
                                             >
                                                 <span className="carousel-control-prev-icon" aria-hidden="true" />
-                                                <span className="visually-hidden">Previous</span>
+                                                <span className="visually-hidden">{t("previous")}</span>
                                             </button>
                                             <button
                                                 className="carousel-control-next"
@@ -73,11 +76,11 @@ export const LessonsDisplay = (props) => {
                                                 data-bs-slide="next"
                                             >
                                                 <span className="carousel-control-next-icon" aria-hidden="true" />
-                                                <span className="visually-hidden">Next</span>
+                                                <span className="visually-hidden">{t("next")}</span>
                                             </button>
                                         </div>
                                         //props.lessons?.map(x => <Card key={x.id} route={props.route} {...x} />)
-                                        : props.courses ? null : <p className='text-center'>No lessons yet!</p>}
+                                        : props.courses ? null : <p className='text-center'>{t("noLessonsYet")}</p>}
                                 </div>
                                 <div className='big-screen'>
                                     {props.courses
@@ -110,7 +113,7 @@ export const LessonsDisplay = (props) => {
                                                 data-bs-slide="prev"
                                             >
                                                 <span className="carousel-control-prev-icon" aria-hidden="true" />
-                                                <span className="visually-hidden">Previous</span>
+                                                <span className="visually-hidden">{t("previous")}</span>
                                             </button>
                                             <button
                                                 className="carousel-control-next"
@@ -119,10 +122,10 @@ export const LessonsDisplay = (props) => {
                                                 data-bs-slide="next"
                                             >
                                                 <span className="carousel-control-next-icon" aria-hidden="true" />
-                                                <span className="visually-hidden">Next</span>
+                                                <span className="visually-hidden">{t("next")}</span>
                                             </button>
                                         </div>
-                                        : props.lessons ? null : <p className='text-center'>No courses yet!</p>}
+                                        : props.lessons ? null : <p className='text-center'>{t("noCoursesYet")}</p>}
                                 </div>
                             </div>
                         </div>

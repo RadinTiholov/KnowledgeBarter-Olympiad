@@ -5,10 +5,13 @@ import { LessonContext } from '../../contexts/LessonContext'
 import { useSearchParams } from 'react-router-dom'
 import Pagination from '../common/Pagination/Pagination'
 import { FilterMenu } from '../common/FilterMenu/FilterMenu'
+import { useTranslation } from 'react-i18next'
 
 let pageSize = 10;
 
 export const Lessons = () => {
+    const { t } = useTranslation();
+
     const { lessons } = useContext(LessonContext);
     const [searchParams, setSearchParams] = useSearchParams();
 
@@ -97,7 +100,7 @@ export const Lessons = () => {
         <div className="backgound-layer-lessons">
             <div className="container d-flex">
                 <div className="col text-xl-start">
-                    <h1 className="fw-bold mb-3 px-4 pt-5">All Lessons{searchParams.get('search') && searchParams.get('search') != 'undefined' ? ` / ${searchParams.get('search')}` : ''}</h1>
+                    <h1 className="fw-bold mb-3 px-4 pt-5">{t("allLessons")}{searchParams.get('search') && searchParams.get('search') != 'undefined' ? ` / ${searchParams.get('search')}` : ''}</h1>
                 </div>
             </div>
             <div className='container'>
@@ -107,7 +110,7 @@ export const Lessons = () => {
                             <div className='col-md-2'>
                                 <div className="btn-group">
                                     <button className="btn sort-menu-button btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Sort by
+                                        {t("sortBy")}
                                     </button>
                                     <ul className="dropdown-menu">
                                         <li><button className="dropdown-item" onClick={changeSortBy}>Likes</button></li>
@@ -118,7 +121,7 @@ export const Lessons = () => {
                                 </div>
                                 <div className='mt-1'>
                                     <button onClick={clearSelection} className="btn btn-lg" type="button" style={{ backgroundColor: "#636EA7", color: "#fff" }}>
-                                        Clear
+                                        {t("clear")}
                                     </button>
                                 </div>
                             </div>

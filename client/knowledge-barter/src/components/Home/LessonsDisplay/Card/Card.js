@@ -1,6 +1,9 @@
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 export const Card = (props) => {
+    const { t } = useTranslation();
+
     return (
         <div className="col">
             <div className="card card-display frost border-0" style={{ margin: "auto", width: "15rem" }}>
@@ -17,14 +20,14 @@ export const Card = (props) => {
                         className="btn"
                         style={{ backgroundColor: "#636EA7", color: "#fff" }}
                     >
-                        Details
+                        {t("details")}
                     </Link> :
                         <Link
                             to={props.route + props.id}
                             className="btn"
                             style={{ backgroundColor: "#636EA7", color: "#fff" }}
                         >
-                            Details
+                            {t("details")}
                         </Link>}
                 </div>
             </div>

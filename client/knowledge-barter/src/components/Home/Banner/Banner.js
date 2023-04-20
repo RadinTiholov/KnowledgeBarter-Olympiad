@@ -3,7 +3,10 @@ import knowledgeIcon from '../../../images/knowledgeIcon.png'
 import wave from '../../../images/wave1.png'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 export const Banner = () => {
+    const { t } = useTranslation();
+
     const [search, setSearch] = useState();
     const navigate = useNavigate();
     const onChange = (e) => {
@@ -21,8 +24,8 @@ export const Banner = () => {
                     <div className="main-text col-md-6">
                         <h1 className="promo-title">Knowledge</h1>
                         <h1 className="promo-title-2">Barter</h1>
-                        <p>Learn new things by sharing knowledge you have.</p>
-                        <p>Barter your knowledge.</p>
+                        <p>{t("learnNewThings")}.</p>
+                        <p>{t("barterKnowledge")}.</p>
                         <form className="d-flex justify-content-center" role="search" onSubmit={onSearch}>
                             <input
                                 type="text"
@@ -38,7 +41,7 @@ export const Banner = () => {
                                 style={{ backgroundColor: "#636EA7" }}
                                 type="submit"
                             >
-                                Search
+                                {t("search")}
                             </button>
                         </form>
                     </div>

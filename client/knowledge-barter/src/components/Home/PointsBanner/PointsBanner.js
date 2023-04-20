@@ -2,13 +2,15 @@ import './PointsBanner.css'
 import wave from '../../../images/wave2.png'
 import coinImage from '../../../images/coin-image.webp'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 export const PointsBanner = () => {
+    const { t } = useTranslation();
+
     return (
         <>
-
             <section id="points-banner">
                 <img className="wave-image" src={wave} alt="wave" />
-                <h1 className="fw-bold text-xl-center">KBPoints</h1>
+                <h1 className="fw-bold text-xl-center">{t("kBPoints")}</h1>
                 <div className="row" style={{ margin: "auto" }}>
                     <div className="col-6 text-center">
                         <img
@@ -24,27 +26,27 @@ export const PointsBanner = () => {
                                 <div className="front">
                                     <ul>
                                         <li><p style={{ fontSize: "200%" }}>
-                                            With KBP you can unlock lessons and courses.
+                                            {t("kbUnlock")}
                                         </p></li>
                                         <li><p style={{ fontSize: "200%" }}>
-                                            They are your key to the unlimited knowledge.
+                                            {t("kbUnlimited")}
                                         </p></li>
                                         <li><p style={{ fontSize: "200%" }}>
-                                            You can earn some by creating content.
+                                            {t("kbCreating")}
                                         </p></li>
                                     </ul>
                                 </div>
                                 <div className="back">
                                     <p style={{ fontSize: "200%" }}>
-                                        There are two ways to earn them:
+                                        {t("twoWays")}:
                                     </p>
                                     <ul>
-                                        <li><p style={{ fontSize: "150%" }}>Creating a lesson which result in 100 credits given</p></li>
-                                        <li><p style={{ fontSize: "150%" }}>Creating a course which result in 500 credits given</p></li>
+                                        <li><p style={{ fontSize: "150%" }}>{t("firstWay")}</p></li>
+                                        <li><p style={{ fontSize: "150%" }}>{t("secondWay")}</p></li>
                                     </ul>
 
                                     <p style={{ fontSize: "200%" }}>
-                                        You only need to have a <Link to='/register'>registration</Link> on the platform to start!
+                                        {t("onlyNeed")} <Link to='/register'>{t("registration")}</Link> {t("onThePlatform")}!
                                     </p>
 
                                     {/* <Link

@@ -9,9 +9,12 @@ import { useSelectedUserInfor } from '../../hooks/useSelectedUserInfo'
 import { ResourceCard } from './ProfileCards/ResourceCard'
 import { CommentCard } from './ProfileCards/CommentCard'
 import { BookSpinner } from '../common/Spinners/BookSpinner'
+import { useTranslation } from 'react-i18next'
 
 export const Profile = () => {
     const { id } = useParams();
+
+    const { t } = useTranslation();
 
     const [fullUserInfo, setfullUserInfo, isLoading] = useSelectedUserInfor(id)
     const { auth } = useContext(AuthContext);
@@ -40,10 +43,10 @@ export const Profile = () => {
                                                 className='btn'
                                                 style={{ backgroundColor: "#636EA7", color: "#fff" }}
                                             >
-                                                Message
+                                                {t("message")}
                                             </Link> :
                                             <Link to={"/profile/update"} className="btn btn-outline-warning" style={{ backgroundColor: "#636EA7" }}>
-                                                Edit
+                                                {t("edit")}
                                             </Link>}
 
                                     </div>
@@ -63,7 +66,7 @@ export const Profile = () => {
                                                 />
                                             </div>
                                             <div className='col-6 text-start mt-2'>
-                                                <h3>KB Points: {auth.kbPoints}</h3>
+                                                <h3>{t("kBPoints")}: {auth.kbPoints}</h3>
                                             </div>
                                         </div>
                                     </div>
@@ -73,15 +76,15 @@ export const Profile = () => {
                             <div className="card-body text-center">
                                 <div className="row">
                                     <div className="col-4 border-end border-light">
-                                        <h5 className="text-muted mt-1 mb-2 fw-normal">Lessons</h5>
+                                        <h5 className="text-muted mt-1 mb-2 fw-normal">{t("lessons")}</h5>
                                         <h2 className="mb-0 fw-bold">{fullUserInfo?.ownLessons?.length}</h2>
                                     </div>
                                     <div className="col-4 border-end border-light">
-                                        <h5 className="text-muted mt-1 mb-2 fw-normal">Courses</h5>
+                                        <h5 className="text-muted mt-1 mb-2 fw-normal">{t("courses")}</h5>
                                         <h2 className="mb-0 fw-bold">{fullUserInfo?.ownCourses?.length}</h2>
                                     </div>
                                     <div className="col-4">
-                                        <h5 className="text-muted mt-1 mb-2 fw-normal">Comments</h5>
+                                        <h5 className="text-muted mt-1 mb-2 fw-normal">{t("comments")}</h5>
                                         <h2 className="mb-0 fw-bold">{fullUserInfo?.comments?.length}</h2>
                                     </div>
                                 </div>
@@ -93,26 +96,26 @@ export const Profile = () => {
                         <div className="card mb-3">
                             <div className="card-body">
                                 <div>
-                                    <h4>Lessons:</h4>
+                                    <h4>{t("lessons")}:</h4>
                                 </div>
                                 {/* Lesson Box*/}
                                 {lessons.filter(x => x.owner === fullUserInfo.id).length > 0
                                     ? lessons.filter(x => x.owner === auth._id)?.map(x => <ResourceCard {...x} key={x.id} link={`/lesson/details/${x.id}`} />)
-                                    : <p className='text-center'>No lessons yet.</p>}
+                                    : <p className='text-center'>{t("noLessonsYet")}</p>}
                                 <div>
-                                    <h4>Courses:</h4>
+                                    <h4>{t("courses")}:</h4>
                                 </div>
                                 {/* Course Box*/}
                                 {courses.filter(x => x.owner === fullUserInfo.id).length > 0
                                     ? courses.filter(x => x.owner === auth._id)?.map(x => <ResourceCard {...x} key={x.id} link={`/course/details/${x.id}/1`} />)
-                                    : <p className='text-center'>No courses yet.</p>}
+                                    : <p className='text-center'>{t("noCoursesYet")}</p>}
                                 <div>
-                                    <h4>Comments:</h4>
+                                    <h4>{t("comments")}:</h4>
                                 </div>
                                 {/* Comment Box*/}
                                 {fullUserInfo?.comments?.length > 0
                                     ? fullUserInfo?.comments?.map(x => <CommentCard {...x} key={x.id} />)
-                                    : <p className='text-center'>No comments yet.</p>}
+                                    : <p className='text-center'>{t("noCommentsYet")}</p>}
                             </div>
                         </div>
                         {/* end card*/}

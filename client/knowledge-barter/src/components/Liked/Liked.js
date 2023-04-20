@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useCollectionInfo } from '../../hooks/useCollectionInfo';
 import { BookSpinner } from '../common/Spinners/BookSpinner';
 import { Course } from './Course/Course';
@@ -7,10 +8,13 @@ import './Liked.css'
 export const Liked = () => {
     const [collectionLesson, isLoadingLessons] = useCollectionInfo('likedLessons');
     const [collectionCourses, isLoadingCourses] = useCollectionInfo('likedCourses');
+
+    const { t } = useTranslation();
+
     return (
         <>
             <div className="col text-xl-center">
-                <h1 className="fw-bold mb-3 pt-5 text-center">Liked</h1>
+                <h1 className="fw-bold mb-3 pt-5 text-center">{t("liked")}</h1>
             </div>
             {isLoadingLessons === true || isLoadingCourses === true ?
                 <BookSpinner />
