@@ -1,8 +1,11 @@
 import './CourseDetailsPreview.css'
 import background from '../../../images/waves-details.svg'
 import Confetti from '../../Confetti/Confetti'
+import { useTranslation } from 'react-i18next'
 
 export const CourseDetailsPreview = (props) => {
+    const { t } = useTranslation();
+
     return (
         <div style={{ backgroundImage: `url(${background})` }} className="backgound-layer-details">
             {/* Login Form */}
@@ -20,7 +23,7 @@ export const CourseDetailsPreview = (props) => {
                                 <hr className="my-4" />
                                 <p>{props.course.description}</p>
                                 <hr className="my-1" />
-                                <p>Creator: {props.owner.userName}</p>
+                                <p>{t("creator")} {props.owner.userName}</p>
                                 <hr className="my-1" />
                                 <div className="container">
                                     <div className="row">
@@ -55,10 +58,9 @@ export const CourseDetailsPreview = (props) => {
                                                         }}
                                                         onClick={props.buyCourseOnClick}
                                                     >
-                                                        Buy ({props.course.price})
+                                                        {t("buy")} ({props.course.price})
                                                     </button>
                                                 </div></> : null}
-
                                         </div>
                                     </div>
                                 </div>

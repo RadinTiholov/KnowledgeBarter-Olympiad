@@ -9,6 +9,7 @@ import { commentValidator } from '../../../infrastructureUtils/validationUtils'
 import { speechHandler } from '../../../infrastructureUtils/commonUtils'
 import QRCode from 'react-qr-code'
 import DOMPurify from 'dompurify'
+import { useTranslation } from 'react-i18next'
 
 export const CourseDetailsBought = (props) => {
     const [comment, setComment] = useState('');
@@ -17,6 +18,8 @@ export const CourseDetailsBought = (props) => {
 
     const synth = window.speechSynthesis;
     const speech = new SpeechSynthesisUtterance();
+
+    const { t } = useTranslation();
 
     const onChange = (e) => {
         setComment(e.target.value)
@@ -74,7 +77,7 @@ export const CourseDetailsBought = (props) => {
                                         style={{ backgroundColor: "#636EA7" }}
                                         href={props.lesson?.resources}
                                     >
-                                        Resources
+                                        {t("resourcesText")}
                                     </a>
                                     {props.isOwner ?
                                         <>
@@ -83,7 +86,7 @@ export const CourseDetailsBought = (props) => {
                                                 style={{ backgroundColor: "#636EA7" }}
                                                 to={'/lesson/edit/' + props.lesson.id}
                                             >
-                                                Edit Lesson
+                                                {t("editLesson")}
                                             </Link>
 
                                             <Link
@@ -91,7 +94,7 @@ export const CourseDetailsBought = (props) => {
                                                 style={{ backgroundColor: "#636EA7" }}
                                                 to={'/course/edit/' + props.course.id}
                                             >
-                                                Edit Course
+                                                {t("editCourse")}
                                             </Link>
 
                                             <div className="modal" tabIndex="-1">
@@ -105,36 +108,36 @@ export const CourseDetailsBought = (props) => {
                                                             <p>Modal body text goes here.</p>
                                                         </div>
                                                         <div className="modal-footer">
-                                                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                            <button type="button" className="btn btn-primary">Save changes</button>
+                                                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">{t("close")}</button>
+                                                            <button type="button" className="btn btn-primary">{t("saveChanges")}</button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
 
                                             <button type="button" className="btn btn-outline-warning btn fw-bold" data-bs-toggle="modal" data-bs-target="#exampleModal" style={{ backgroundColor: "red" }}>
-                                                Delete
+                                                {t("deleteLesson")}
                                             </button>
 
                                             <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div className="modal-dialog modal-dialog-centered">
                                                     <div className="modal-content">
                                                         <div className="modal-header">
-                                                            <h1 className="modal-title fs-5" id="exampleModalLabel">Delete</h1>
+                                                            <h1 className="modal-title fs-5" id="exampleModalLabel">{t("deleteLesson")}</h1>
                                                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <div className="modal-body">
-                                                            <p>Are you sure you want to delete this lesson?</p>
+                                                            <p>{t("deleteConfirm")}</p>
                                                         </div>
                                                         <div className="modal-footer">
-                                                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">{t("close")}</button>
                                                             <button
                                                                 className="btn btn-outline-warning btn fw-bold"
                                                                 style={{ backgroundColor: "red" }}
                                                                 onClick={props.onClickDeleteLesson}
                                                                 data-bs-dismiss="modal"
                                                             >
-                                                                Delete Lesson
+                                                                {t("deleteLesson")}
                                                             </button>
                                                         </div>
                                                     </div>
@@ -150,28 +153,28 @@ export const CourseDetailsBought = (props) => {
                                             </button> */}
 
                                             <button type="button" className="btn btn-outline-warning btn fw-bold" data-bs-toggle="modal" data-bs-target="#modal-2" style={{ backgroundColor: "red" }}>
-                                                Delete Course
+                                                {t("deleteCourse")}
                                             </button>
 
                                             <div className="modal fade" id="modal-2" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div className="modal-dialog modal-dialog-centered">
                                                     <div className="modal-content">
                                                         <div className="modal-header">
-                                                            <h1 className="modal-title fs-5" id="exampleModalLabel">Delete</h1>
+                                                            <h1 className="modal-title fs-5" id="exampleModalLabel">{t("delete")}</h1>
                                                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <div className="modal-body">
-                                                            <p>Are you sure you want to delete this course?</p>
+                                                            <p>{t("deleteCourseConfirm")}</p>
                                                         </div>
                                                         <div className="modal-footer">
-                                                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">{t("close")}</button>
                                                             <button
                                                                 className="btn btn-outline-warning btn fw-bold"
                                                                 style={{ backgroundColor: "red" }}
                                                                 onClick={props.onClickDeleteCourse}
                                                                 data-bs-dismiss="modal"
                                                             >
-                                                                Delete Course
+                                                                {t("deleteCourse")}
                                                             </button>
                                                         </div>
                                                     </div>
@@ -184,14 +187,14 @@ export const CourseDetailsBought = (props) => {
                                                 style={{ backgroundColor: "#636EA7" }}
                                                 disabled={true}
                                             >
-                                                Liked Course
+                                                {t("likedCourse")}
                                             </button> :
                                                 <button
                                                     className="btn btn-outline-warning btn fw-bold"
                                                     style={{ backgroundColor: "#636EA7" }}
                                                     onClick={props.likeCourseOnClick}
                                                 >
-                                                    Like Course
+                                                    {t("likeCourse")}
                                                 </button>}
 
                                         </>}
@@ -203,7 +206,7 @@ export const CourseDetailsBought = (props) => {
                                         <div className="modal-dialog modal-dialog-centered">
                                             <div className="modal-content">
                                                 <div className="modal-header">
-                                                    <h1 className="modal-title fs-5" id="exampleModalLabel">Delete</h1>
+                                                    <h1 className="modal-title fs-5" id="exampleModalLabel">{t("copy")}</h1>
                                                     <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div className="modal-body">
@@ -211,7 +214,7 @@ export const CourseDetailsBought = (props) => {
                                                 </div>
                                                 <div className="modal-footer">
                                                     <span>{`https://knowledge-barter.web.app/course/details/${props.course.id}/${props.lesson.id}`}</span>
-                                                    <button type="button" className="btn btn-primary" onClick={() => { navigator.clipboard.writeText(`https://knowledge-barter.web.app/course/details/${props.course.id}/${props.lesson.id}`) }}>Copy</button>
+                                                    <button type="button" className="btn btn-primary" onClick={() => { navigator.clipboard.writeText(`https://knowledge-barter.web.app/course/details/${props.course.id}/${props.lesson.id}`) }}>{t("copy")}</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -221,7 +224,7 @@ export const CourseDetailsBought = (props) => {
                             </div>
                             <div className="px-3">
                             <div className='article'>
-                                    <h2 className='text-center text-light pt-1'>Information</h2>
+                                    <h2 className='text-center text-light pt-1'>{t("information")}</h2>
                                     <div className='article-text'>
                                         <h5>
                                             <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(props.lesson.article) }}></div>
@@ -237,7 +240,7 @@ export const CourseDetailsBought = (props) => {
                                 </div>
                             </div>
 
-                            <h2 className="text-center">Comment</h2>
+                            <h2 className="text-center">{t('commentVerb')}</h2>
                             {/* Comment form */}
                             <form onSubmit={onComment}>
                                 <div className="form-outline mx-5">
@@ -246,7 +249,7 @@ export const CourseDetailsBought = (props) => {
                                         id="textAreaExample"
                                         rows={4}
                                         style={{ background: "#fff" }}
-                                        placeholder="Comment"
+                                        placeholder={t("comment")}
                                         value={comment}
                                         onChange={onChange}
                                         onBlur={() => commentValidator(10, 200, comment, setError, setErrorMessage)}
@@ -257,7 +260,7 @@ export const CourseDetailsBought = (props) => {
                                         type="submit"
                                         className="btn btn-primary btn-sm"
                                         disabled={error}>
-                                        Post comment
+                                        {t("commentVerb")}
                                     </button>
                                 </div>
                                 {error &&
@@ -271,11 +274,11 @@ export const CourseDetailsBought = (props) => {
                                         </div>
                                     </div>}
                             </form>
-                            {props.lesson.comments?.length > 0 ? props.lesson.comments?.map(x => <Comment key={x.id} {...x} />) : <p className='text-center'>No comments yet.</p>}
+                            {props.lesson.comments?.length > 0 ? props.lesson.comments?.map(x => <Comment key={x.id} {...x} />) : <p className='text-center'>{t("noCommentsYet")}</p>}
                         </div>
                     </div>
                     <div className="col-2">
-                        <p>Lessons</p>
+                        <p>{t("lessons")}</p>
                         <div className='lessons-container'>
                             {props.course?.lessons?.map(x => <Lesson key={x.id} {...x} courseId={props.course.id} />)}
                         </div>
