@@ -10,6 +10,7 @@ import { onSelectFile } from '../../infrastructureUtils/fileSelectionUtils';
 import { isValidForm, minMaxValidator } from '../../infrastructureUtils/validationUtils';
 import { LessonContext } from '../../contexts/LessonContext';
 import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 
 export const CreateCourse = () => {
     const navigate = useNavigate();
@@ -17,6 +18,8 @@ export const CreateCourse = () => {
     const { create } = useContext(CourseContext)
     const { auth, updatePoints } = useContext(AuthContext);
     const { lessons } = useContext(LessonContext);
+    
+    const { t } = useTranslation();
 
     const [inputData, setInputData] = useState({
         title: "",
@@ -98,7 +101,7 @@ export const CreateCourse = () => {
                     <div className="card border-0 shadow rounded-3 my-5">
                         <div className="card-body p-4 p-sm-5">
                             <h5 className="card-title text-center mb-5 fw-bold fs-5">
-                                Create Course
+                                {t("createCourse")}
                             </h5>
                             <form onSubmit={onSubmit}>
                                 <div className="form-floating mb-3">
@@ -112,7 +115,7 @@ export const CreateCourse = () => {
                                         value={inputData.title}
                                         onBlur={(e) => minMaxValidator(e, 3, 20, setErrors, inputData)}
                                     />
-                                    <label htmlFor="title">Title</label>
+                                    <label htmlFor="title">{t("title")}</label>
                                 </div>
                                 {errors.title &&
                                     <div
@@ -135,7 +138,7 @@ export const CreateCourse = () => {
                                         value={inputData.description}
                                         onBlur={(e) => minMaxValidator(e, 10, 60, setErrors, inputData)}
                                     />
-                                    <label htmlFor="description">Description</label>
+                                    <label htmlFor="description">{t("description")}</label>
                                 </div>
 
                                 {/* Alert */}
@@ -159,7 +162,7 @@ export const CreateCourse = () => {
                                         onChange={e => onSelectFile(e, setImageData, setVisualizationImageUrl, setErrors)}
                                     />
                                     <label htmlFor='formFile' className='form-label'>
-                                        Choose a course picture
+                                        {t("chooseAPicture")}
                                     </label>
                                 </div>
                                 {/* Alert */}
@@ -179,7 +182,7 @@ export const CreateCourse = () => {
                                     <img className='img-fluid mb-3' src={visualizationImageUrl} alt='img' style={{ height: 300 }} />
                                 }
 
-                                <h5>Your lessons</h5>
+                                <h5>{t("yourLessons")}</h5>
                                 <div className="form-floating mb-3">
                                     {lessons.filter(x => x.owner === auth._id).length > 0 ? lessons.filter(x => x.owner === auth._id)?.map(x => <Option {...x} key={x.id} onChange={onChange} value={inputData.lessons} />) : <p className='text-center'>No lessons yet.</p>}
                                     {error.active === true ? <div className="alert alert-danger fade show mt-3">
@@ -199,7 +202,7 @@ export const CreateCourse = () => {
                                         {isLoadingSubmit
                                             ? <span className="spinner-border spinner-border-sm mx-2" role="status" aria-hidden="true" />
                                             : <></>}
-                                        Create
+                                        {t("create")}
                                     </button>
                                 </div>
                             </form>

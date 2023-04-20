@@ -10,6 +10,7 @@ import * as messagesService from "../../dataServices/messagesService";
 import * as authService from "../../dataServices/authService";
 import { useRef } from "react";
 import { useSearchParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export const Chat = () => {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -24,6 +25,8 @@ export const Chat = () => {
     const [isLoading, setIsLoading] = useState(true);
 
     const messageAudio = new Audio(messageSound);
+
+    const { t } = useTranslation();
 
     useEffect(() => {
         authService.getAllProfiles()
@@ -138,21 +141,21 @@ export const Chat = () => {
             <section className="msger">
                 <header className="msger-header">
                     <div className="msger-header-title">
-                        <i className="fas fa-comment-alt" /> Chat with {searchParams.get('receiver')}
+                        <i className="fas fa-comment-alt" /> {t("chatWith")} {searchParams.get('receiver')}
                     </div>
                 </header>
                 <div className="msger-chat">
                     {isLoading ?
                         <BookSpinner /> :
                         messages.length > 0 ? messages.map(x => <MesssageBubble key={x.id} position={x.senderUsername === searchParams.get('receiver') ? 'left' : 'right'} {...x} />)
-                            : <h2>No messages yet.</h2>}
+                            : <h2>{t("noMessagesYet")}</h2>}
                 </div>
                 <form className="msger-inputarea" onSubmit={onSubmit}>
                     <input
                         type="text"
                         name="messageText"
                         className="msger-input"
-                        placeholder="Enter your message..."
+                        placeholder={t("enterMsPlaceholder")}
                         value={messageText}
                         onChange={(e) => { setMessageText(e.target.value) }}
                         onBlur={(e) => minMaxValidator(e, 1, 200)}
@@ -160,11 +163,11 @@ export const Chat = () => {
                     <input type="hidden" id="receiver" defaultValue="@Model.Receiver" />
                     {error &&
                         <div className="alert alert-danger m-2" role="alert">
-                            The message must be between 1 and 200 characters.
+                            {t("messageValidation")}
                         </div>
                     }
                     <button type="submit" className="msger-send-btn" disabled={error}>
-                        Send
+                        {t("send")}
                     </button>
                 </form>
             </section>

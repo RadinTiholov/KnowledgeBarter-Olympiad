@@ -11,7 +11,7 @@ export const BoughtLessons = () => {
         <>
             <img src="" className="" alt=""/>
             <div className="col text-xl-center">
-                <h1 className="fw-bold mb-3 pt-5 text-center">{t("Bought Lessons")}</h1>
+                <h1 className="fw-bold mb-3 pt-5 text-center">{t("boughtLessons")}</h1>
             </div>
             {isLoading ?
                 <BookSpinner /> :

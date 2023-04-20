@@ -1,7 +1,11 @@
+import { useTranslation } from "react-i18next"
+
 export const FilterMenu = (props) => {
+    const { t } = useTranslation();
+
     return (
         <>
-            <p><i className={`fa-solid fa-${props.iconName} fa-sm`} /> Filter by {props.param}: </p>
+            <p><i className={`fa-solid fa-${props.iconName} fa-sm`} />{t("filterBy")} {props.param}: </p>
             <div className="row">
                 <div className="col-4">
                     <div className="form-check">
@@ -15,7 +19,7 @@ export const FilterMenu = (props) => {
                             id={`flexRadio1000${props.param}`} 
                         />
                         <label className="form-check-label" htmlFor={`flexRadio1000${props.param}`}>
-                            <p>1000 & up</p>
+                            <p>{t("1000")}</p>
                         </label>
                     </div>
                 </div>

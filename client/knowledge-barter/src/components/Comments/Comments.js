@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react"
 import * as commentsService from "../../dataServices/commentsService";
 import { CommentRow } from "./CommentRow/CommentRow";
+import { useTranslation } from "react-i18next";
 
 export const Comments = () => {
 
     const [comments, setComments] = useState([]);
+
+    const { t } = useTranslation();
 
     useEffect(() => {
         commentsService.getAll()
@@ -26,11 +29,11 @@ export const Comments = () => {
             <table className="w-100 table-responsive rounded table table-dark table-striped table-hover my-0 pb-3">
                 <thead>
                     <tr className="">
-                        <th scope="col">User</th>
-                        <th scope="col">Lesson</th>
-                        <th scope="col">Comment</th>
-                        <th scope="col">AI's Opinion <i className="fa-solid fa-robot" /></th>
-                        <th scope="col">Actions</th>
+                        <th scope="col">{t("user")}</th>
+                        <th scope="col">{t("lesson")}</th>
+                        <th scope="col">{t("comment")}</th>
+                        <th scope="col">{t("aiOp")} <i className="fa-solid fa-robot" /></th>
+                        <th scope="col">{t("actions")}</th>
                     </tr>
                 </thead>
                 <tbody>
