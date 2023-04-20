@@ -125,12 +125,12 @@ export const Header = () => {
                             </li>
                         </ul>
                         <ul className="navbar-nav me-auto-reverse mb-2 mb-lg-0">
+                            <li className='nav-item'>
+                                <LanguageSelector />
+                            </li>
                             {isAuthenticated
                                 ?
                                 <>
-                                    <li className='nav-item'>
-                                        <LanguageSelector/>
-                                    </li>
                                     <li className="nav-item dropdown">
                                         <a
                                             className="nav-link dropdown-toggle text-light"

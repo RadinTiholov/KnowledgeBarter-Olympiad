@@ -19,7 +19,7 @@ export const Course = (props) => {
                     className="btn"
                     style={{ backgroundColor: "#636EA7", color: "#fff" }}
                 >
-                    Details
+                    {t("details")}
                 </Link>
             </div>
         </div>

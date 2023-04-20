@@ -4,6 +4,8 @@
     "usedTech" : "Used technologies:",
     "authors": "Authors:",
     "details": "Details",
-    "noCoursesYet": "No courses yet."
+    "boughtCourses": "Bought Courses",
+    "noCoursesYet": "No courses yet.",
+    "boughtLessons": "Bought Lessons"
 
 }

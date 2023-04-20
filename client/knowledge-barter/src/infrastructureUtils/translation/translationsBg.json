@@ -4,7 +4,8 @@
     "usedTech" : "Използвани технологии:",
     "authors": "Автори:",
     "details": "Детайли",
-    "boughtCourses": "Купени курсове",
-    "noCoursesYet": "Все още няма курсове."
+    "boughtCourses": "Купени Kурсове",
+    "noCoursesYet": "Все още няма курсове.",
+    "boughtLessons": "Купени Уроци"
     
 }
