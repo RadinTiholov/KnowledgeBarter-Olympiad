@@ -8,7 +8,7 @@ export const LanguageSelector = () => {
 
     return (
         <>
-            <select class="form-select" name="language" onChange={onChange}>
+            <select className="form-select" name="language" onChange={onChange}>
                 <option value="en">English</option>
                 <option value="bg">Български</option>
             </select>

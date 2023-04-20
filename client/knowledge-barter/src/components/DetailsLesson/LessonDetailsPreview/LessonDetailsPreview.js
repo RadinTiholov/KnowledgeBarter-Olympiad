@@ -1,6 +1,7 @@
 import './LessonDetailsPreview.css'
 import background from '../../../images/waves-details.svg'
 import Confetti from '../../Confetti/Confetti'
+import { t } from 'i18next'
 
 export const LessonDetailsPreview = (props) => {
     return (
@@ -20,7 +21,7 @@ export const LessonDetailsPreview = (props) => {
                                 <hr className="my-4" />
                                 <p>{props.lesson.description}</p>
                                 <hr className="my-1" />
-                                <p>Creator: {props.owner.userName}</p>
+                                <p>{t("creator")} {props.owner.userName}</p>
                                 <hr className="my-1" />
                                 <div className="container">
                                     <div className="row">
@@ -57,7 +58,7 @@ export const LessonDetailsPreview = (props) => {
                                                         }}
                                                         onClick={props.buyLessonOnClick}
                                                     >
-                                                        Buy ({props.lesson.price})
+                                                        {t("buy")} ({props.lesson.price})
                                                     </button>
                                                 </div>
                                             </> : null}
