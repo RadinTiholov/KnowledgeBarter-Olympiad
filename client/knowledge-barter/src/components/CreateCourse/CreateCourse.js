@@ -124,7 +124,7 @@ export const CreateCourse = () => {
                                     >
                                         <i className="fa-solid fa-triangle-exclamation me-2" />
                                         <div className="text-center">
-                                            The length of the title must be a minimum of 3 and a maximum of 20 characters.
+                                            {t("titleValMs")}
                                         </div>
                                     </div>}
                                 <div className="form-floating mb-3">
@@ -149,7 +149,7 @@ export const CreateCourse = () => {
                                     >
                                         <i className="fa-solid fa-triangle-exclamation me-2" />
                                         <div className="text-center">
-                                            The length of the description must be a minimum of 10 and a maximum of 60 characters.
+                                            {t("descriptionValMs")}
                                         </div>
                                     </div>}
 
@@ -173,7 +173,7 @@ export const CreateCourse = () => {
                                     >
                                         <i className="fa-solid fa-triangle-exclamation me-2" />
                                         <div className="text-center">
-                                            The allowed extenstions are jpeg, jpg and png.
+                                            {t("allowedExtensionsMs")}
                                         </div>
                                     </div>
                                 }
@@ -184,12 +184,12 @@ export const CreateCourse = () => {
 
                                 <h5>{t("yourLessons")}</h5>
                                 <div className="form-floating mb-3">
-                                    {lessons.filter(x => x.owner === auth._id).length > 0 ? lessons.filter(x => x.owner === auth._id)?.map(x => <Option {...x} key={x.id} onChange={onChange} value={inputData.lessons} />) : <p className='text-center'>No lessons yet.</p>}
+                                    {lessons.filter(x => x.owner === auth._id).length > 0 ? lessons.filter(x => x.owner === auth._id)?.map(x => <Option {...x} key={x.id} onChange={onChange} value={inputData.lessons} />) : <p className='text-center'>{t("noLessonsYet")}</p>}
                                     {error.active === true ? <div className="alert alert-danger fade show mt-3">
-                                        <strong>Error! </strong> {error.message}
+                                        <strong>{t("error")} </strong> {error.message}
                                     </div> : null}
                                     {lessons.filter(x => x.owner === auth._id)?.length < 6 ? <div className="alert alert-danger fade show mt-3">
-                                        <strong>Error! </strong>You need at least 6 lessons to create a course.
+                                        <strong>{t("error")} </strong>{t("minLessonsMsg")}
                                     </div> : null}
                                 </div>
                                 <div className="d-grid">

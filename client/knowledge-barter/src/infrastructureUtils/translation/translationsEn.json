@@ -6,6 +6,7 @@
     "details": "Details",
     "boughtCourses": "Bought Courses",
     "noCoursesYet": "No courses yet.",
+    "noLessonsYet": "No lessons yet.",
     "boughtLessons": "Bought Lessons",
     "yourLessons": "Your Lessons",
     "yourCourses": "Your Courses",
@@ -44,5 +45,12 @@
     "title" : "Title",
     "description" : "Description",
     "chooseAPicture" : "Choose a course picture",
-    "create" : "Create"
+    "create" : "Create",
+    "titleValMs" : "The length of the title must be a minimum of 3 and a maximum of 20 characters.",
+    "descriptionValMs" : "The length of the description must be a minimum of 10 and a maximum of 60 characters.",
+    "allowedExtensionsMs" : "The allowed extenstions are jpeg, jpg and png.",
+    "minLessonsMsg" : "You need at least 6 lessons to create a course.",
+    "minArticleMsg" : "The length of the article must be a minimum of 50 and a maximum of 1000 characters.",
+    "resources" : "Resources  (optional)",
+    "provideTags" : "Please provide tags."
 }

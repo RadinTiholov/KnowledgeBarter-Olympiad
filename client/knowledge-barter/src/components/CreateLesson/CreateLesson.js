@@ -15,6 +15,7 @@ import RichStylingEditor from '../RichStylingEditor/RichStylingEditor';
 import DOMPurify from 'dompurify'
 
 import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 
 export const CreateLesson = () => {
     const [inputData, setInputData] = useState({
@@ -47,6 +48,8 @@ export const CreateLesson = () => {
     const [error, setError] = useState({ active: false, message: "" });
 
     const [isLoading, setIsLoading] = useState(false);
+
+    const { t } = useTranslation();
 
     const onChange = (e) => {
         setInputData(state => {
@@ -273,11 +276,11 @@ export const CreateLesson = () => {
                                         >
                                             <i className="fa-solid fa-triangle-exclamation me-2" />
                                             <div className="text-center">
-                                                Please provide tags.
+                                                {t("provideTags")}
                                             </div>
                                         </div>}
                                     <div className="form-control mb-3">
-                                        <label htmlFor="resources">Resources (optional)</label>
+                                        <label htmlFor="resources">{t("resources")}</label>
                                         <div>
                                             <DropboxChooser
                                                 appKey={"fp536edus6mtntt"}
@@ -309,12 +312,12 @@ export const CreateLesson = () => {
                                         >
                                             <i className="fa-solid fa-triangle-exclamation me-2" />
                                             <div className="text-center">
-                                                The length of the article must be a minimum of 50 and a maximum of 1000 characters.
+                                                {t("minArticleMsg")}
                                             </div>
                                         </div>}
                                     {/* Error message */}
                                     {error.active === true ? <div className="alert alert-danger fade show mt-3">
-                                        <strong>Error!</strong> {error.message}
+                                        <strong>{t("error")}</strong> {error.message}
                                     </div> : null}
                                     <div className="d-grid mt-3">
                                         <button
@@ -326,7 +329,7 @@ export const CreateLesson = () => {
                                             {isLoading
                                                 ? <span className="spinner-border spinner-border-sm mx-2" role="status" aria-hidden="true" />
                                                 : <></>}
-                                            Create
+                                            {t("create")}
                                         </button>
                                     </div>
                                 </form>

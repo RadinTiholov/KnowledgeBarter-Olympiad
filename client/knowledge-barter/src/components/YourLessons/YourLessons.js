@@ -11,7 +11,6 @@ export const YourLessons = () => {
 
     const { t } = useTranslation();
 
-
     return (
         <>
             <div className="col text-xl-center">

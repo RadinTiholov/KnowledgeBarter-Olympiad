@@ -1,7 +1,8 @@
-import { useTransition } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom'
 export const Lesson = (props) => {
-    const { t } = useTransition();
+
+    const { t } = useTranslation();
 
     return (
         <div className="col">
