@@ -64,6 +64,12 @@
     justify-content: center;
 }
 
+h5 div pre {
+    overflow: hidden !important;
+    background-color: rgb(195, 190, 190) !important;
+    padding: 20px !important;
+}
+
 
 @media screen and (max-width: 1000px) {
     div.row.pt-5 div.col-10 {
