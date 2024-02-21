@@ -1,4 +1,5 @@
 ***Обмен на знания (Knowledge Barter)***
+***(Update: The application secured third place in the national Olympiad in which it participated)***
 
 1. **ТЕМА**: Knowledge Barter
 2. **АВТОРИ:** 
